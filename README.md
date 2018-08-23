@@ -1,4 +1,4 @@
-# agora-digital-web
+# Ágora Digital Web
 
 ## Project setup
 ```
