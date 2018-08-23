@@ -1,6 +1,8 @@
 <template>
-  <div class="hello">
-      
+  <div>
+      <el-autocomplete placeholder="Please input"></el-autocomplete>
+      <el-input placeholder="Please input"></el-input>
+      <Button @click="visible = true">Button</Button>
   </div>
 </template>
 
