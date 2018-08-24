@@ -2,15 +2,15 @@
   <div id="app">
     <el-container>
       <el-header>
-        
       </el-header>
       <el-main class="main-view">
         <search-bar/>
       </el-main>
     </el-container>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link :to="{name: 'home'}">Home</router-link> |
+      <router-link :to="{name: 'about'}">About</router-link> |
+      <router-link :to="{name: 'proposicoes'}">Proposições</router-link>
     </div>
     <router-view/>
   </div>
