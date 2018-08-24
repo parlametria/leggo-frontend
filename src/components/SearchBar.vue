@@ -1,20 +1,25 @@
 <template>
   <div>
-    <el-button>el-button</el-button>
+    <el-row>
+      <el-col :span="24">
+        <div>
+          <el-input placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SearchBar'
+  name: 'SearchBar',
+  data() {
+    return {
+      text_searched: ''
+    }
+  }
 }
 </script>
 
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-a {
-  color: #1f4735;
-}
 </style>
