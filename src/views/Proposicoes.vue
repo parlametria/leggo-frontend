@@ -7,14 +7,20 @@
         {{ prop.ano_materia }} -
         {{ prop.ementa }} -
         {{ prop.ementa_materia }}
+        <energy value="30"/>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Energy from '@/components/Energy.vue'
+
 export default {
   name: 'proposicoes',
+  components: {
+    Energy
+  },
   data () {
     return {
       props: []
