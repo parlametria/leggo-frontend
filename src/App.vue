@@ -1,17 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-container>
+      <el-header>
+        
+      </el-header>
+      <el-main class="main-view">
+        <search-bar/>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import SearchBar from './components/SearchBar'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
+    SearchBar
   }
 }
 </script>
@@ -25,4 +33,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.main-view {
+    margin: auto;
+    display: block;
+    max-width: 1000px;
+}
+
 </style>
