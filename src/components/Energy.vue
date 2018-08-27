@@ -2,7 +2,7 @@
   <div>
     <img v-if="value <= weak" src="@/assets/ice.png"/>
     <img v-else-if="value > weak && value < strong" src="@/assets/small_fire.png"/>
-    <img v-else src="@/assets/fire.png"/>  
+    <img v-else src="@/assets/fire.png"/>
   </div>
 </template>
 
@@ -18,4 +18,3 @@ export default {
   props: ['value']
 }
 </script>
-
