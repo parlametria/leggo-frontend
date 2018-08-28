@@ -4,7 +4,11 @@
     <ul>
       <li :key="i" v-for="(prop, i) in props">
         {{ prop.ano }}{{ prop.ano_materia }} -
-        {{ prop.id }} -
+        <router-link
+          :to="{ name: 'proposicaoDetails', params: { idProposicao: prop.id }}">
+          {{ prop.id }}
+        </router-link>
+         -
         <a :href="prop.page_url" target="_blank">link</a> -
         fases:
         <ul class="fases">
