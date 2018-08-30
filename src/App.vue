@@ -12,26 +12,20 @@
     </el-menu>
 
     <el-container>
-      <el-header>
-      </el-header>
       <el-main class="main-view">
-        <search-bar/>
+        <router-view/>
       </el-main>
     </el-container>
-
-    <router-view/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import SearchBar from './components/SearchBar'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
-    SearchBar
+    HelloWorld
   }
 }
 </script>
@@ -44,7 +38,6 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 .main-view {
   margin: auto;
   display: block;
