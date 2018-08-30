@@ -27,7 +27,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/proposicoes/:idProposicao',
+      path: '/proposicoes/:casa/:idExt',
       name: 'proposicaoDetails',
       component: ProposicaoDetails
     }
