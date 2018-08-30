@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-menu
-      router="true"
+      :router="true"
       mode="horizontal"
       background-color="#545c64"
       text-color="#fff"
@@ -46,12 +46,12 @@ export default {
 }
 
 .main-view {
-    margin: auto;
-    display: block;
-    max-width: 1000px;
+  margin: auto;
+  display: block;
+  max-width: 1000px;
 }
 
 body {
-  margin: 0
+  margin: 0;
 }
 </style>
