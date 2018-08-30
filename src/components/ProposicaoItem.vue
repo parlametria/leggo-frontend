@@ -4,13 +4,12 @@
         <router-link :to="{ name: 'proposicaoDetails', params: { idProposicao: prop.id }}" />
             {{ prop.id }}
         -
-        <a :href="prop.page_url" target="_blank">link</a> -
-        fases:
-        <ul class="fases">
+        <a :href="prop.page_url" target="_blank">link</a>
+        <energy value="30" class="inline-content"/>
+        <ul class="fases inline-content">
             <li :key="j" v-for="(fase, j) in prop.fases" :class="fase.casa" :title="fase.nome">
             </li>
         </ul>
-        <energy value="30"/>
     </el-card>
 </template>
 
@@ -46,7 +45,10 @@ export default {
     }
 }
 .box-card {
-    width: 480px;
+    width: auto;
+}
+.inline-content {
+    display: inline-block;
 }
 
 </style>

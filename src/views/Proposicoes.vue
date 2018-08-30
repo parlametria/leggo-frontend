@@ -36,4 +36,7 @@ export default {
   margin: auto;
   align-items: center;
 }
+.el-row {
+  margin: 5px;
+}
 </style>
