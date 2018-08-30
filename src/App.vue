@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-menu
-      @select="handleSelect"
+      router="true"
       mode="horizontal"
       background-color="#545c64"
       text-color="#fff"
@@ -32,11 +32,6 @@ export default {
   components: {
     HelloWorld,
     SearchBar
-  },
-  methods: {
-    handleSelect(key) {
-      this.$router.push(key)
-    }
   }
 }
 </script>
