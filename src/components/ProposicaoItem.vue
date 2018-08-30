@@ -1,9 +1,9 @@
 <template>
     <el-card shadow="hover" class="box-card">
         {{ prop.ano }}{{ prop.ano_materia }} -
-        <router-link :to="{ name: 'proposicaoDetails', params: { idProposicao: prop.id }}" />
-            {{ prop.id }}
-        -
+        <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
+            {{ prop.sigla }}
+        </router-link>
         <a :href="prop.page_url" target="_blank">link</a>
         <energy value="30" class="inline-content"/>
         <ul class="fases inline-content">
