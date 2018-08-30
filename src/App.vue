@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+    <el-menu
+      @select="handleSelect"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b">
+      <el-menu-item index="home">Home</el-menu-item>
+      <el-menu-item index="proposicoes">Proposições</el-menu-item>
+      <el-menu-item index="about">About</el-menu-item>
+    </el-menu>
+
     <el-container>
       <el-header>
       </el-header>
@@ -7,11 +18,7 @@
         <search-bar/>
       </el-main>
     </el-container>
-    <div id="nav">
-      <router-link :to="{name: 'home'}">Home</router-link> |
-      <router-link :to="{name: 'about'}">About</router-link> |
-      <router-link :to="{name: 'proposicoes'}">Proposições</router-link>
-    </div>
+
     <router-view/>
   </div>
 </template>
@@ -25,6 +32,11 @@ export default {
   components: {
     HelloWorld,
     SearchBar
+  },
+  methods: {
+    handleSelect(key) {
+      this.$router.push(key)
+    }
   }
 }
 </script>
@@ -36,16 +48,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 
 .main-view {
