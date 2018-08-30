@@ -1,16 +1,22 @@
 <template>
-  <el-container class="main-view app">
-    <el-header>
-      <div id="nav">
-        <router-link :to="{name: 'home'}">Home</router-link> |
-        <router-link :to="{name: 'about'}">About</router-link> |
-        <router-link :to="{name: 'proposicoes'}">Proposições</router-link>
-      </div>
-    </el-header>
-    <el-main>
-      <router-view/>
-    </el-main>
-  </el-container>
+  <div id="app">
+    <el-menu
+      :router="true"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b">
+      <el-menu-item index="/">Home</el-menu-item>
+      <el-menu-item index="proposicoes">Proposições</el-menu-item>
+      <el-menu-item index="about">About</el-menu-item>
+    </el-menu>
+
+    <el-container>
+      <el-main class="main-view">
+        <router-view/>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 
 <script>
@@ -25,27 +31,20 @@ export default {
 </script>
 
 <style lang="scss">
-.app {
+#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 .main-view {
-    margin: auto;
-    display: block;
-    max-width: 1000px;
+  margin: auto;
+  display: block;
+  max-width: 1000px;
 }
 
+body {
+  margin: 0;
+}
 </style>
