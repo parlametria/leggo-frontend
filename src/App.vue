@@ -51,4 +51,7 @@ export default {
     max-width: 1000px;
 }
 
+body {
+  margin: 0
+}
 </style>
