@@ -37,7 +37,10 @@ export default {
     }
   },
   async mounted () {
-    var url = 'http://localhost:8000/proposicoes/' + this.$route.params.idProposicao
+    var casa = this.$route.params.casa
+    var idExt = this.$route.params.idExt
+    console.log(this.$route.params)
+    var url = `http://localhost:8000/proposicoes/${casa}/${idExt}`
     this.prop = await (await fetch(url)).json()
   }
 }

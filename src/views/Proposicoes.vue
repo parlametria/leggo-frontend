@@ -3,10 +3,9 @@
     <h1>Proposições</h1>
     <ul>
       <li :key="i" v-for="(prop, i) in props">
-        {{ prop.ano }}{{ prop.ano_materia }} -
         <router-link
-          :to="{ name: 'proposicaoDetails', params: { idProposicao: prop.id }}">
-          {{ prop.id }}
+          :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
+          {{ prop.sigla }}
         </router-link>
          -
         <a :href="prop.page_url" target="_blank">link</a> -
