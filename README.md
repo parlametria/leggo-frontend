@@ -25,3 +25,14 @@ npm run lint
 ```
 npm run test:unit
 ```
+
+### Testes
+
+Abre a tela do Cypress de gerenciamento, execução e visualização dos testes:
+```
+npm run test:e2e 
+```
+Roda testes mostrando só resultado:
+```
+npm run test:e2e -- --headless
+```
