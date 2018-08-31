@@ -11,14 +11,22 @@ cache:
     - npm ci
     - npm run cy:verify
 
-defaults: &defaults
-  script:
-    #   ## print all Travis environment variables for debugging
-    # - $(npm bin)/print-env TRAVIS
-    - npm run test:e2e -- --headless # --parallel --group $STAGE_NAME
-    # after all tests finish running we need
-    # to kill all background jobs (like "npm start &")
-    - kill $(jobs -p) || true
+script:
+  #   ## print all Travis environment variables for debugging
+  # - $(npm bin)/print-env TRAVIS
+  - npm run test:e2e -- --headless # --parallel --group $STAGE_NAME
+  # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  - kill $(jobs -p) || true
+
+# defaults: &defaults
+#   script:
+#     #   ## print all Travis environment variables for debugging
+#     # - $(npm bin)/print-env TRAVIS
+#     - npm run test:e2e -- --headless # --parallel --group $STAGE_NAME
+#     # after all tests finish running we need
+#     # to kill all background jobs (like "npm start &")
+#     - kill $(jobs -p) || true
 
 # jobs:
 #   include:
