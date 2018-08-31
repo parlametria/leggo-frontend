@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{ prop.nome }}</h1>
+        <h1>{{ prop.sigla }}</h1>
         <p v-if="pending.proposicao">loading posts...</p>
         <p v-if="error.proposicao">loading failed</p>
         <el-main>
