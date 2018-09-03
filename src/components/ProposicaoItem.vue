@@ -1,6 +1,6 @@
 <template>
     <el-card shadow="hover" class="box-card">
-        {{ prop.ano }}{{ prop.ano_materia }} -
+        {{ prop.sigla }} -
         <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
             {{ prop.sigla }}
         </router-link>
