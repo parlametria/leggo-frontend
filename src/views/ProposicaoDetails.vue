@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>{{ prop.nome }}</h1>
+        <h1>{{ prop.sigla }}</h1>
+        <p v-if="pending.proposicao">loading posts...</p>
+        <p v-if="error.proposicao">loading failed</p>
         <el-main>
             <el-row type="flex" class="row-bg" justify="center">
                 <el-col :span="18">
@@ -17,6 +19,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import GeneralInformationProp from '@/components/GeneralInformationProp'
 import SummaryProp from '@/components/SummaryProp'
 
@@ -26,29 +30,20 @@ export default {
     GeneralInformationProp,
     SummaryProp
   },
-  data () {
-    return {
-      prop: {
-        // nome: 'PL 490/2007',
-        // autor: 'Homero Pereira PSD/SP',
-        // casa_origem: 'Câmara dos Deputados',
-        // data_apresentacao: '20/03/2007',
-        // ementa: 'Altera a Lei n° 6.001, de 19 de dezembro de 1973, que dispõe sobre o Estatuto do Índio.',
-        // explicacao_ementa: 'Estabelece que as terras indígenas serão demarcadas através de leis.',
-        // status_atual: 'Não Deliberado',
-        // forma_apreciacao: 'Plenário',
-        // regime_tramitacao: 'Ordinária',
-        // ultimo_relator: 'Dep. Jerônimo Goergen (PP-RS)',
-        // url: 'http://www.camara.gov.br/proposicoesWeb/fichadetramitacao?idProposicao=345311'
-      }
-    }
+  mounted () {
+    this.getProposicao(
+      {params: {casa: this.$route.params.casa, idExt: this.$route.params.idExt}}
+    )
   },
-  async mounted () {
-    var casa = this.$route.params.casa
-    var idExt = this.$route.params.idExt
-    console.log(this.$route.params)
-    var url = `http://localhost:8000/proposicoes/${casa}/${idExt}`
-    this.prop = await (await fetch(url)).json()
+  computed: mapState({
+    prop: state => state.proposicao,
+    pending: state => state.pending,
+    error: state => state.error
+  }),
+  methods: {
+    ...mapActions([
+      'getProposicao'
+    ])
   }
 }
 </script>

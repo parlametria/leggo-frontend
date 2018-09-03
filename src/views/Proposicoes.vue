@@ -5,6 +5,8 @@
       <el-input placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
     </el-header>
     <el-main class="el-main">
+      <p v-if="pending.proposicoes">loading posts...</p>
+      <p v-if="error.proposicoes">loading failed</p>
       <el-row :key="i" v-for="(prop, i) in filteredProps">
         <proposicao-item :prop= prop />
         
@@ -15,6 +17,8 @@
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'proposicoes',
   components: {
@@ -22,23 +26,30 @@ export default {
   },
   data () {
     return {
-      proposicoes: [],
       text_searched : ''
     }
   },
-  async mounted () {
-    var url = 'http://localhost:8000/proposicoes'
-    this.proposicoes = await (await fetch(url)).json()
+  mounted () {
+    this.listProposicoes()
   },
-  computed:{
-    filteredProps: function() {
-      if (!this.text_searched){
-        return this.proposicoes;
-      }
-      return this.proposicoes.filter((prop) => {
-        return prop.sigla.toLowerCase().match(this.text_searched.toLowerCase());
-      });
+  computed: mapState({
+    proposicoes: state => state.proposicoes,
+    pending: state => state.pending,
+    error: state => state.error,
+    filteredProps() {
+        if (!this.text_searched){
+          return this.proposicoes;
+        }
+        return this.proposicoes.filter((prop) => {
+          return prop.sigla.toLowerCase().match(this.text_searched.toLowerCase());
+        }
+      )
     }
+   }),
+  methods: {
+    ...mapActions([
+      'listProposicoes'
+    ])
   }
 }
 </script>
