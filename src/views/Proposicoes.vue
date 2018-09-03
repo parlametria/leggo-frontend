@@ -1,15 +1,14 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header class="el-header">
       <h1>Proposições</h1>
-      <el-input placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
     </el-header>
     <el-main class="el-main">
       <p v-if="pending.proposicoes">loading posts...</p>
       <p v-if="error.proposicoes">loading failed</p>
       <el-row :key="i" v-for="(prop, i) in filteredProps">
         <proposicao-item :prop= prop />
-        
       </el-row>
     </el-main>
   </el-container>
@@ -61,5 +60,8 @@ export default {
 }
 .el-row {
   margin: 5px;
+}
+.el-header{
+  display: contents;
 }
 </style>
