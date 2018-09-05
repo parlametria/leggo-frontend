@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      text_searched : ''
+      text_searched: ''
     }
   },
   mounted () {
@@ -35,16 +35,16 @@ export default {
     proposicoes: state => state.proposicoes,
     pending: state => state.pending,
     error: state => state.error,
-    filteredProps() {
-        if (!this.text_searched){
-          return this.proposicoes;
-        }
-        return this.proposicoes.filter((prop) => {
-          return prop.sigla.toLowerCase().match(this.text_searched.toLowerCase());
-        }
+    filteredProps () {
+      if (!this.text_searched) {
+        return this.proposicoes
+      }
+      return this.proposicoes.filter((prop) => {
+        return prop.sigla.toLowerCase().match(this.text_searched.toLowerCase())
+      }
       )
     }
-   }),
+  }),
   methods: {
     ...mapActions([
       'listProposicoes'
