@@ -5,8 +5,10 @@
         </router-link>
         <energy value="30" class="inline-content"/>
         <ul class="fases inline-content">
-            <li :key="j" v-for="(fase, j) in prop.fases" :class="fase.casa" :title="fase.nome">
-            </li>
+          <li
+            v-for="(event, j) in prop.resumo_tramitacao" :key="j"
+            :class="event.casa" :title="event.nome">
+          </li>
         </ul>
     </el-card>
 </template>
