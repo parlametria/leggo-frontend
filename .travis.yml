@@ -14,7 +14,9 @@ cache:
 script:
   #   ## print all Travis environment variables for debugging
   # - $(npm bin)/print-env TRAVIS
-  - npm run test:e2e -- --headless # --parallel --group $STAGE_NAME
+  - npm run lint
+  - npm run test:e2e -- --headless 
+  # --parallel --group $STAGE_NAME
   # after all tests finish running we need
   # to kill all background jobs (like "npm start &")
   - kill $(jobs -p) || true
