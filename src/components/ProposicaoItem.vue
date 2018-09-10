@@ -3,7 +3,7 @@
         <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
             {{ prop.sigla }}
         </router-link>
-        <energy value="30" class="inline-content"/>
+        <energy :value="prop.energia" class="inline-content"/>
         <ul class="fases inline-content">
           <li
             v-for="(event, j) in prop.resumo_tramitacao" :key="j"
