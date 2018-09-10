@@ -11,8 +11,8 @@ export default {
   name: 'Energy',
   data () {
     return {
-      strong: 30,
-      weak: 0
+      strong: 0.67,
+      weak: 0.33
     }
   },
   props: ['value']
