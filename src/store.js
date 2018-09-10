@@ -17,7 +17,7 @@ Vue.use(Vuex)
 // })
 
 const proposicoes = new Vapi({
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.VUE_APP_API_URL,
   state: {
     proposicoes: []
   }
