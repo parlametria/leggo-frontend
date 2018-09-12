@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <td><b>Casa de Origem</b></td>
-                <td>{{ proposicao.casa_origem }}</td>
+                <td>{{ proposicao.casa }}</td>
             </tr>
             <tr>
                 <td><b>Data de Apresentação</b></td>
@@ -22,12 +22,8 @@
                 <td>{{ proposicao.ementa }}</td>
             </tr>
             <tr>
-                <td><b>Explicação da Ementa</b></td>
-                <td>{{ proposicao.explicacao_ementa }}</td>
-            </tr>
-            <tr>
-                <td><b>Status Atual</b></td>
-                <td>{{ proposicao.status_atual }}</td>
+                <td><b>Justificativa da Ementa</b></td>
+                <td>{{ proposicao.justificativa }}</td>
             </tr>
             <tr>
                 <td><b>Forma de Apreciação</b></td>
@@ -36,10 +32,6 @@
             <tr>
                 <td><b>Regime de Tramitação</b></td>
                 <td>{{ proposicao.regime_tramitacao }}</td>
-            </tr>
-            <tr>
-                <td><b>Último Relator</b></td>
-                <td>{{ proposicao.ultimo_relator }}</td>
             </tr>
         </table>
 
