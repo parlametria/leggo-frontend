@@ -3,7 +3,6 @@
         <el-tag v-if="urgencia.includes(regime.toLowerCase())" type="danger">{{regime}}</el-tag>
         <el-tag v-else-if="prioridade.includes(regime.toLowerCase())" type="warning">{{regime}}</el-tag>
         <el-tag v-else-if="ordinaria.includes(regime.toLowerCase())">{{regime}}</el-tag>
-        <el-tag v-else>{{regime}}</el-tag>
     </div>
 
 </template>
