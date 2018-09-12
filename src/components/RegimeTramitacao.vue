@@ -1,8 +1,6 @@
 <template>
     <div>
-        <el-tag v-if="urgencia.includes(regime.toLowerCase())" type="danger">{{regime}}</el-tag>
-        <el-tag v-else-if="prioridade.includes(regime.toLowerCase())" type="warning">{{regime}}</el-tag>
-        <el-tag v-else-if="ordinaria.includes(regime.toLowerCase())">{{regime}}</el-tag>
+        <el-tag :type="regimeCor(regime)" size="small">{{regime}}</el-tag>
     </div>
 
 </template>
@@ -17,11 +15,22 @@ export default {
       ordinaria: ['ordinaria', 'ordinária']
     }
   },
+  methods: {
+    regimeCor (regime) {
+      if (this.urgencia.includes(regime.toLowerCase())) {
+        return 'danger'
+      }
+
+      if (this.prioridade.includes(regime.toLowerCase())) {
+        return 'warning'
+      }
+
+      if (this.ordinaria.includes(regime.toLowerCase())) {
+        return ''
+      }
+    }
+  },
   props: ['regime']
 }
 </script>
 <style scoped>
-.el-tag:hover {
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-}
-</style>
