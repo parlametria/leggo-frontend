@@ -10,7 +10,10 @@
             :class="event.casa" :title="event.nome">
           </li>
         </ul>
-        <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+        <div id="tags">
+            <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+            <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
+        </div>
     </el-card>
 </template>
 
@@ -55,6 +58,14 @@ export default {
 }
 a {
     text-decoration: none;
+}
+
+#tags {
+    display: flex;
+}
+
+.el-tag {
+    margin-right: 3px;
 }
 
 </style>
