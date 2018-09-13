@@ -1,0 +1,18 @@
+# Compose used for development
+# This file is needed because volumes are appended on override.
+# So prod would also have dev's volumes, what should not happen.
+
+version: '3'
+
+services:
+
+  frontend:
+    build:
+      context: ${FRONTEND_PATH:-.}
+    image: agoradigital/frontend-dev
+    container_name: frontend
+    tty: true
+    volumes:
+      - ${FRONTEND_PATH:-.}:/app
+    ports:
+      - "8080:8080"
