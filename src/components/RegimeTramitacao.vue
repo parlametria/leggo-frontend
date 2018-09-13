@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-tag v-if="options.includes(regime.toLowerCase())" type="info" >{{regime}}</el-tag>
+        <el-tag v-if="options.includes(regime.toLowerCase())" type="info" size="mini">{{regime}}</el-tag>
     </div>
 
 </template>
@@ -10,7 +10,7 @@ export default {
   name: 'RegimeTramitacao',
   data () {
     return {
-      options: ['urgencia', 'urgência', 'prioridade', 'ordinaria', 'ordinária']
+      options: [' ', 'urgência', 'prioridade', 'ordinaria', 'ordinária']
     }
   },
   props: ['regime']
