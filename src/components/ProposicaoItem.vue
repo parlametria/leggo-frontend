@@ -10,16 +10,19 @@
             :class="event.casa" :title="event.nome">
           </li>
         </ul>
+        <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
     </el-card>
 </template>
 
 <script>
 import Energy from '@/components/Energy.vue'
+import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 
 export default {
   name: 'proposicaoitem',
   components: {
-    Energy
+    Energy,
+    RegimeTramitacao
   },
   props: {
     prop: Object
