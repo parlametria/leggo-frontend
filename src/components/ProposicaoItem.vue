@@ -13,6 +13,7 @@
         <div id="tags">
              <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
              <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+            <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
         </div>
     </el-card>
 </template>
@@ -65,6 +66,7 @@ a {
 #tags {
     display: flex;
 }
+
  .el-tag {
     margin-right: 3px;
 }
