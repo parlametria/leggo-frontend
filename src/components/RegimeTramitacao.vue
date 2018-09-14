@@ -10,7 +10,7 @@ export default {
   name: 'RegimeTramitacao',
   data () {
     return {
-      options: [' ', 'urgência', 'prioridade', 'ordinaria', 'ordinária']
+      options: ['urgencia', 'urgência', 'prioridade', 'ordinaria', 'ordinária']
     }
   },
   props: ['regime']

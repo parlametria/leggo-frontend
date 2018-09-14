@@ -10,19 +10,24 @@
             :class="event.casa" :title="event.nome">
           </li>
         </ul>
-        <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+        <div id="tags">
+             <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+             <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+        </div>
     </el-card>
 </template>
 
 <script>
 import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
+import FormaApreciacao from '@/components/FormaApreciacao.vue'
 
 export default {
   name: 'proposicaoitem',
   components: {
     Energy,
-    RegimeTramitacao
+    RegimeTramitacao,
+    FormaApreciacao
   },
   props: {
     prop: Object
@@ -55,6 +60,13 @@ export default {
 }
 a {
     text-decoration: none;
+}
+
+#tags {
+    display: flex;
+}
+ .el-tag {
+    margin-right: 3px;
 }
 
 </style>
