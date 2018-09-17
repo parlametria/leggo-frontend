@@ -11,7 +11,8 @@
           </li>
         </ul>
         <div id="tags">
-            <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+             <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+             <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
             <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
         </div>
     </el-card>
@@ -20,12 +21,14 @@
 <script>
 import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
+import FormaApreciacao from '@/components/FormaApreciacao.vue'
 
 export default {
   name: 'proposicaoitem',
   components: {
     Energy,
-    RegimeTramitacao
+    RegimeTramitacao,
+    FormaApreciacao
   },
   props: {
     prop: Object
@@ -64,7 +67,7 @@ a {
     display: flex;
 }
 
-.el-tag {
+ .el-tag {
     margin-right: 3px;
 }
 
