@@ -1,7 +1,7 @@
 <template>
     <el-card shadow="hover" class="box-card">
         <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
-            {{ prop.sigla }}
+            {{ prop.apelido }}
         </router-link>
         <energy :value="prop.energia" class="inline-content"/>
         <ul class="fases inline-content">

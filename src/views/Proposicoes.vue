@@ -40,7 +40,7 @@ export default {
         return this.proposicoes
       }
       return this.proposicoes.filter((prop) => {
-        return prop.sigla.toLowerCase().match(this.text_searched.toLowerCase())
+        return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase())
       }
       )
     }
