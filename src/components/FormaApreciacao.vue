@@ -10,7 +10,7 @@ export default {
   name: 'FormaApreciacao',
   data () {
     return {
-      options: [' ', 'conclusiva', 'plenário']
+      options: ['conclusiva', 'plenário']
     }
   },
   props: ['apreciacao']
