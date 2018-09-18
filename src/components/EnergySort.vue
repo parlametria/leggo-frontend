@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <el-select v-model="energy_order" clearable placeholder="Ordenar por" size="mini">
+        <el-select v-model="energyOrder" clearable placeholder="Ordenar por" size="mini">
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -27,11 +27,11 @@ export default {
         label: 'Decrescente'
       }],
 
-      energy_order: ''
+      energyOrder: ''
     }
   },
   watch: {
-    energy_order (newEnergyOrder, oldEnergyOrder) {
+    energyOrder (newEnergyOrder, oldEnergyOrder) {
       this.updateEnergyOrder(newEnergyOrder)
     }
   }
