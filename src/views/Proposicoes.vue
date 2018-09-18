@@ -1,32 +1,36 @@
 <template>
   <el-container>
-    <el-header class="el-header">
-      <h1>Proposições</h1>
+    <el-container>
+    <el-aside>
       <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
-    </el-header>
-    <el-main class="el-main">
-      <p v-if="pending.proposicoes">loading posts...</p>
-      <p v-if="error.proposicoes">loading failed</p>
-      <el-row>
-        <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
-          {{ tema }}
-          <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-            <proposicao-item :prop= prop />
-          </el-row>
-        </el-col>
-     </el-row>
-    </el-main>
+      <nav-menu v-model="text_searched"></nav-menu>
+    </el-aside>
+      <el-main class="el-main">
+        <p v-if="pending.proposicoes">loading posts...</p>
+        <p v-if="error.proposicoes">loading failed</p>
+        <el-row>
+          <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
+            {{ tema }}
+            <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
+              <proposicao-item :prop= prop />
+            </el-row>
+          </el-col>
+      </el-row>
+      </el-main>
+    </el-container>
   </el-container>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
+import NavMenu from '@/components/NavMenu'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'proposicoes',
   components: {
-    ProposicaoItem
+    ProposicaoItem,
+    NavMenu
   },
   data () {
     return {
@@ -69,5 +73,9 @@ export default {
 }
 .el-header{
   display: contents;
+}
+.el-aside{
+  margin: 0px;
+  padding: 0px;
 }
 </style>

@@ -32,7 +32,7 @@ export default {
   },
   mounted () {
     this.getProposicao(
-      {params: {casa: this.$route.params.casa, idExt: this.$route.params.idExt}}
+      { params: { casa: this.$route.params.casa, idExt: this.$route.params.idExt } }
     )
   },
   computed: mapState({
