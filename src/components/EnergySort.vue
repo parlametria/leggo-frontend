@@ -21,10 +21,10 @@ export default {
     return {
       options: [{
         value: 'asc',
-        label: 'Mais energia'
+        label: 'Menos energia'
       }, {
         value: 'desc',
-        label: 'Menos energia'
+        label: 'Mais energia'
       }],
 
       energyOrder: ''
