@@ -20,11 +20,11 @@ export default {
   data () {
     return {
       options: [{
-        value: 'crescent',
-        label: 'Crescente'
+        value: 'asc',
+        label: 'Mais energia'
       }, {
-        value: 'decreasing',
-        label: 'Decrescente'
+        value: 'desc',
+        label: 'Menos energia'
       }],
 
       energyOrder: ''

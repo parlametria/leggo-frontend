@@ -14,7 +14,7 @@
         <el-row>
           <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
             {{ tema }}
-            <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
+            <el-row :key="j" v-for="(prop,j) in (filteredProps.filter((prop) => prop.tema == tema))">
               <proposicao-item :prop= prop />
             </el-row>
           </el-col>
@@ -29,6 +29,7 @@ import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
 import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
+import _ from 'lodash'
 
 export default {
   name: 'proposicoes',
@@ -53,7 +54,7 @@ export default {
     error: state => state.error,
     filteredProps () {
       if (!this.text_searched) {
-        return this.proposicoes
+        return this.orderByEnergy(this.proposicoes)
       }
       return this.proposicoes.filter(prop => {
         return prop.apelido
@@ -61,11 +62,16 @@ export default {
           .match(this.text_searched.toLowerCase())
       })
     }
+
   }),
   methods: {
     ...mapActions(['listProposicoes']),
     updateEnergyOrder (energyOrder) {
       this.energyOrder = energyOrder
+    },
+
+    orderByEnergy (list, attribute) {
+      return _.orderBy(list, 'energia', this.energyOrder)
     }
   }
 }
