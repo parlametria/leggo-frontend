@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <energy-sort class="energy-sort" :updateEnergyOrder=updateEnergyOrder></energy-sort>
+      <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
     </el-header>
     <el-container>
     <el-aside>
@@ -29,7 +29,7 @@ import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
 import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
-import _ from 'lodash'
+import orderBy from 'lodash/orderBy'
 
 export default {
   name: 'proposicoes',
@@ -62,16 +62,11 @@ export default {
           .match(this.text_searched.toLowerCase())
       })
     }
-
   }),
   methods: {
     ...mapActions(['listProposicoes']),
-    updateEnergyOrder (energyOrder) {
-      this.energyOrder = energyOrder
-    },
-
-    orderByEnergy (list, attribute) {
-      return _.orderBy(list, 'energia', this.energyOrder)
+    orderByEnergy (list) {
+      return orderBy(list, 'energia', this.energyOrder)
     }
   }
 }
