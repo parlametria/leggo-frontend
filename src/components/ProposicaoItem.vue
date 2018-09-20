@@ -1,7 +1,7 @@
 <template>
     <el-card shadow="hover" class="box-card">
         <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
-            {{ prop.sigla }}
+            {{ prop.apelido }}
         </router-link>
         <energy :value="prop.energia" class="inline-content"/>
         <ul class="fases inline-content">
@@ -10,19 +10,25 @@
             :class="event.casa" :title="event.nome">
           </li>
         </ul>
-        <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+        <div id="tags">
+             <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+             <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+            <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
+        </div>
     </el-card>
 </template>
 
 <script>
 import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
+import FormaApreciacao from '@/components/FormaApreciacao.vue'
 
 export default {
   name: 'proposicaoitem',
   components: {
     Energy,
-    RegimeTramitacao
+    RegimeTramitacao,
+    FormaApreciacao
   },
   props: {
     prop: Object
@@ -55,6 +61,14 @@ export default {
 }
 a {
     text-decoration: none;
+}
+
+#tags {
+    display: flex;
+}
+
+ .el-tag {
+    margin-right: 3px;
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{ prop.sigla }}</h1>
+        <h1>{{ prop.apelido }}</h1>
         <p v-if="pending.proposicao">loading posts...</p>
         <p v-if="error.proposicao">loading failed</p>
         <el-main>
@@ -32,7 +32,7 @@ export default {
   },
   mounted () {
     this.getProposicao(
-      {params: {casa: this.$route.params.casa, idExt: this.$route.params.idExt}}
+      { params: { casa: this.$route.params.casa, idExt: this.$route.params.idExt } }
     )
   },
   computed: mapState({

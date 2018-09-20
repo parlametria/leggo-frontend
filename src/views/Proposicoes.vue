@@ -1,31 +1,48 @@
 <template>
   <el-container>
-    <el-header class="el-header">
-      <h1>Proposições</h1>
-      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+    <el-header>
+      <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
     </el-header>
-    <el-main class="el-main">
-      <p v-if="pending.proposicoes">loading posts...</p>
-      <p v-if="error.proposicoes">loading failed</p>
-      <el-row :key="i" v-for="(prop, i) in filteredProps">
-        <proposicao-item :prop= prop />
+    <el-container>
+    <el-aside>
+      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+      <nav-menu></nav-menu>
+    </el-aside>
+      <el-main class="el-main">
+        <p v-if="pending.proposicoes">loading posts...</p>
+        <p v-if="error.proposicoes">loading failed</p>
+        <el-row>
+          <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
+            {{ tema }}
+            <el-row :key="j" v-for="(prop,j) in (filteredProps.filter((prop) => prop.tema == tema))">
+              <proposicao-item :prop= prop />
+            </el-row>
+          </el-col>
       </el-row>
-    </el-main>
+      </el-main>
+    </el-container>
   </el-container>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
+import NavMenu from '@/components/NavMenu'
+import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
+import orderBy from 'lodash/orderBy'
 
 export default {
   name: 'proposicoes',
   components: {
-    ProposicaoItem
+    ProposicaoItem,
+    NavMenu,
+    EnergySort
   },
   data () {
     return {
-      text_searched: ''
+      text_searched: '',
+      energyOrder: '',
+      temas: ['Meio Ambiente', 'Agenda Nacional']
     }
   },
   mounted () {
@@ -37,18 +54,20 @@ export default {
     error: state => state.error,
     filteredProps () {
       if (!this.text_searched) {
-        return this.proposicoes
+        return this.orderByEnergy(this.proposicoes)
       }
-      return this.proposicoes.filter((prop) => {
-        return prop.sigla.toLowerCase().match(this.text_searched.toLowerCase())
-      }
-      )
+      return this.proposicoes.filter(prop => {
+        return prop.apelido
+          .toLowerCase()
+          .match(this.text_searched.toLowerCase())
+      })
     }
   }),
   methods: {
-    ...mapActions([
-      'listProposicoes'
-    ])
+    ...mapActions(['listProposicoes']),
+    orderByEnergy (list) {
+      return orderBy(list, 'energia', this.energyOrder)
+    }
   }
 }
 </script>
@@ -61,7 +80,15 @@ export default {
 .el-row {
   margin: 5px;
 }
-.el-header{
+.el-header {
   display: contents;
+}
+.el-aside {
+  margin: 0px;
+  padding: 0px;
+}
+.energy-sort {
+  margin-left: auto;
+  margin-right: 0;
 }
 </style>
