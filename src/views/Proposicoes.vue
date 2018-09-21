@@ -12,7 +12,7 @@
           <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
             {{ tema }}
             <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-              <proposicao-item :prop= prop />
+              <proposicao-item :prop= prop :vis= "'vis' + i + '-' + j" />
             </el-row>
           </el-col>
       </el-row>
