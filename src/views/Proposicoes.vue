@@ -49,18 +49,18 @@ export default {
     this.listProposicoes()
   },
   computed: mapState({
-    proposicoes: state => state.proposicoes,
-    pending: state => state.pending,
-    error: state => state.error,
+    proposicoes: state => state.proposicoes.proposicoes,
+    pending: state => state.proposicoes.pending,
+    error: state => state.proposicoes.error,
+    apreciacaoFilter: state => state.filter.apreciacaoFilter,
     filteredProps () {
+      let result = this.proposicoes;
       if (!this.text_searched) {
-        return this.orderByEnergy(this.proposicoes)
+        result = result.filter((proposicao) => proposicao.apelido.toLowerCase().match(this.text_searched.toLowerCase()))
+      }else {
+      result = this.result.filter(j => this.apreciacaoFilter.includes(j.forma_apreciacao))
       }
-      return this.proposicoes.filter(prop => {
-        return prop.apelido
-          .toLowerCase()
-          .match(this.text_searched.toLowerCase())
-      })
+      return result;
     }
   }),
   methods: {

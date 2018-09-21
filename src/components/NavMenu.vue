@@ -5,6 +5,9 @@
     <template slot="title">
       <span slot="title">Apreciação</span>
     </template>
+    <el-menu-item v-for="(opcao, i) in apreciacaoFilter" :index="'1-' + (i+1)" :key="i">
+      <el-checkbox @change="filtraApreciacao(apreciacaoFilter)" v-model="opcao.status">{{ opcao.tipo }}</el-checkbox>
+    </el-menu-item>
   </el-submenu>
 
   <el-submenu index="2">
@@ -29,8 +32,16 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
-  name: 'navMenu'
+  name: 'navMenu',
+  computed: mapState({
+    apreciacaoFilter: state => state.filter.apreciacaoFilter
+  }),
+  methods: {
+    ...mapMutations(['filtraApreciacao'])
+  }
 }
 </script>
 
