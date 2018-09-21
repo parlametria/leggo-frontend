@@ -3,13 +3,13 @@
         <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
             {{ prop.apelido }}
         </router-link>
-        <energy :value="prop.energia" class="inline-content"/>
         <ul class="fases inline-content">
           <li
             v-for="(event, j) in prop.resumo_tramitacao" :key="j"
             :class="event.casa" :title="event.nome">
           </li>
         </ul>
+        <energy-graphic/>
         <div id="tags">
              <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
              <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
@@ -22,13 +22,15 @@
 import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import EnergyGraphic from '@/components/EnergyGraphic'
 
 export default {
   name: 'proposicaoitem',
   components: {
     Energy,
     RegimeTramitacao,
-    FormaApreciacao
+    FormaApreciacao,
+    EnergyGraphic
   },
   props: {
     prop: Object
@@ -70,5 +72,4 @@ a {
  .el-tag {
     margin-right: 3px;
 }
-
 </style>
