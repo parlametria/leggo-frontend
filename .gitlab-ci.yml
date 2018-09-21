@@ -12,6 +12,7 @@ variables:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  - export FRONTEND_IMAGE_TAG=$CONTAINER_TEST_IMAGE
 
 build:
   stage: build

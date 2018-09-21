@@ -10,7 +10,8 @@ services:
     build:
       context: ..
       dockerfile: deploy/Dockerfile
-    image: agoradigital/frontend
+    # image: agoradigital/frontend
+    image: registry.gitlab.com/analytics-ufcg/front:gitlab-ci
     container_name: frontend
     ports:
       - "9001:80"
