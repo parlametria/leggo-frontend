@@ -12,7 +12,7 @@ variables:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  - export FRONTEND_IMAGE_TAG=$CONTAINER_TEST_IMAGE
+  # - export FRONTEND_IMAGE_TAG=$CONTAINER_TEST_IMAGE
 
 build:
   stage: build
@@ -20,12 +20,12 @@ build:
     - docker-compose -f deploy/prod.yml build
     - docker push $CONTAINER_TEST_IMAGE
 
-tests:
-  stage: test
-  script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker-compose -f deploy/prod.yml run frontend sh -c 'npm test_all'
-  # coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
+# tests:
+#   stage: test
+#   script:
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker-compose -f deploy/prod.yml run frontend sh -c 'npm test_all'
+#   # coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
 
 release-image:
   stage: release
