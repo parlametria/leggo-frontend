@@ -4,3 +4,4 @@
 !tests/*
 !*.json
 !*.js
+!.env*
