@@ -39,10 +39,12 @@ export default {
     }
   },
   mounted () {
-    this.listProposicoes()
+    this.listProposicoes();
+    this.listEnergiaRecente();
   },
   computed: mapState({
     proposicoes: state => state.proposicoes,
+    energiasRecentes: state => state.energiasRecentes,
     pending: state => state.pending,
     error: state => state.error,
     filteredProps () {
@@ -57,7 +59,8 @@ export default {
   }),
   methods: {
     ...mapActions([
-      'listProposicoes'
+      'listProposicoes',
+      'listEnergiaRecente'
     ])
   }
 }
