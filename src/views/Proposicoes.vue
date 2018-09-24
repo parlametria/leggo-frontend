@@ -54,13 +54,16 @@ export default {
     error: state => state.proposicoes.error,
     apreciacaoFilter: state => state.filter.apreciacaoFilter,
     filteredProps () {
-      let result = this.proposicoes;
       if (!this.text_searched) {
-        result = result.filter((proposicao) => proposicao.apelido.toLowerCase().match(this.text_searched.toLowerCase()))
-      }else {
-      result = this.result.filter(j => this.apreciacaoFilter.includes(j.forma_apreciacao))
+        return this.orderByEnergy(this.proposicoes.filter(prop => {
+          return this.apreciacaoFilter.some(e => e.tipo == prop.forma_apreciacao && e.status == true)
+        })) //FUNFOOOOOOOOOOOOOU ~so ta feio~
       }
-      return result;
+      return this.proposicoes.filter(prop => {
+        return prop.apelido
+          .toLowerCase()
+          .match(this.text_searched.toLowerCase())
+      })
     }
   }),
   methods: {
