@@ -1,6 +1,16 @@
 # Ágora Digital Web
 [![Build Status](https://travis-ci.org/analytics-ufcg/agora-digital-web.svg?branch=master)](https://travis-ci.org/analytics-ufcg/agora-digital-web)
 
+## Docker
+Desenvolvimento:
+```
+docker-compose up
+```
+Produção:
+```
+docker-compose -f deploy/prod.yml up
+```
+
 ## Project setup
 ```
 npm install
