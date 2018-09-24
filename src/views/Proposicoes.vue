@@ -59,7 +59,7 @@ export default {
     filteredProps () {
       return this.orderByEnergy(this.proposicoes.filter(prop => {
         return (this.processProps(prop) && this.searchMatch(prop))
-      }))     
+      }))
     }
   }),
   methods: {
@@ -67,14 +67,14 @@ export default {
     orderByEnergy (list) {
       return orderBy(list, 'energia', this.energyOrder)
     },
-    processProps(prop) {
+    processProps (prop) {
       return this.apreciacaoFilter.some(options => options.tipo === prop.forma_apreciacao && options.status) &&
-        this.regimeFilter.some(options => options.tipo === prop.regime_tramitacao && options.status) && 
-        this.casaFilter.some(options => options.tipo === prop.casa && options.status) && 
-        this.emPautaFilter.some(options => ((options.tipo === 'Sim' && prop.em_pauta) || 
-          (options.tipo === 'Não' && !prop.em_pauta )) && options.status) 
+        this.regimeFilter.some(options => options.tipo === prop.regime_tramitacao && options.status) &&
+        this.casaFilter.some(options => options.tipo === prop.casa && options.status) &&
+        this.emPautaFilter.some(options => ((options.tipo === 'Sim' && prop.em_pauta) ||
+          (options.tipo === 'Não' && !prop.em_pauta)) && options.status)
     },
-    searchMatch(prop) {
+    searchMatch (prop) {
       return prop.apelido
         .toLowerCase()
         .match(this.text_searched.toLowerCase())
