@@ -1,0 +1,6 @@
+**
+!src/*
+!public/*
+!tests/*
+!*.json
+!*.js
