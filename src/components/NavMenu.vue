@@ -14,18 +14,27 @@
     <template slot="title">
       <span slot="title">Regime de tramitação</span>
     </template>
+     <el-menu-item v-for="(opcao, i) in regimeFilter" :index="'1-' + (i+1)" :key="i">
+      <el-checkbox @change="filtraRegime(regimeFilter)" v-model="opcao.status">{{ opcao.tipo }}</el-checkbox>
+    </el-menu-item>
   </el-submenu>
 
    <el-submenu index="3">
     <template slot="title">
       <span slot="title">Casa</span>
     </template>
+     <el-menu-item v-for="(opcao, i) in casaFilter" :index="'1-' + (i+1)" :key="i">
+      <el-checkbox @change="filtraCasa(casaFilter)" v-model="opcao.status">{{ opcao.tipo }}</el-checkbox>
+    </el-menu-item>
   </el-submenu>
 
   <el-submenu index="4">
     <template slot="title">
-      <span slot="title">Finalizada</span>
+      <span slot="title">Em pauta</span>
     </template>
+     <el-menu-item v-for="(opcao, i) in emPautaFilter" :index="'1-' + (i+1)" :key="i">
+      <el-checkbox @change="filtraEmPauta(emPautaFilter)" v-model="opcao.status">{{ opcao.tipo }}</el-checkbox>
+    </el-menu-item>
   </el-submenu>
 </el-menu>
 </div>
@@ -37,10 +46,14 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'navMenu',
   computed: mapState({
-    apreciacaoFilter: state => state.filter.apreciacaoFilter
+    apreciacaoFilter: state => state.filter.apreciacaoFilter,
+    regimeFilter: state => state.filter.regimeFilter,
+    casaFilter: state => state.filter.casaFilter,
+    emPautaFilter: state => state.filter.emPautaFilter
+
   }),
   methods: {
-    ...mapMutations(['filtraApreciacao'])
+    ...mapMutations(['filtraApreciacao', 'filtraRegime', 'filtraCasa', 'filtraEmPauta'])
   }
 }
 </script>
