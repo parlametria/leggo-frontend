@@ -2,7 +2,7 @@
 # This file is needed because volumes are appended on override.
 # So prod would also have dev's volumes, what should not happen.
 
-version: '3'
+version: '3.2'
 
 services:
 
@@ -13,6 +13,8 @@ services:
     container_name: frontend
     tty: true
     volumes:
-      - ${FRONTEND_PATH:-.}:/app
+      - ${FRONTEND_PATH:-.}/src:/app/src
+      - ${FRONTEND_PATH:-.}/tests:/app/tests
+      - ${FRONTEND_PATH:-.}/public:/app/public
     ports:
       - "8080:8080"

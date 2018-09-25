@@ -12,7 +12,7 @@ variables:
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  # - export FRONTEND_IMAGE_TAG=$CONTAINER_TEST_IMAGE
+  - export FRONTEND_IMAGE_TAG=$CONTAINER_TEST_IMAGE
 
 build:
   stage: build
@@ -33,12 +33,12 @@ release-image:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
     - docker push $CONTAINER_RELEASE_IMAGE
-  # only:
-  #   - master
+  only:
+    - master
 
 deploy:
   stage: deploy
   script:
     - curl --fail -XPOST "$DEPLOY_WEBHOOK"
-  # only:
-  #   - master
+  only:
+    - master
