@@ -49,24 +49,35 @@ export default {
     this.listProposicoes()
   },
   computed: mapState({
-    proposicoes: state => state.proposicoes,
-    pending: state => state.pending,
-    error: state => state.error,
+    proposicoes: state => state.proposicoes.proposicoes,
+    pending: state => state.proposicoes.pending,
+    error: state => state.proposicoes.error,
+    apreciacaoFilter: state => state.filter.apreciacaoFilter,
+    regimeFilter: state => state.filter.regimeFilter,
+    casaFilter: state => state.filter.casaFilter,
+    emPautaFilter: state => state.filter.emPautaFilter,
     filteredProps () {
-      if (!this.text_searched) {
-        return this.orderByEnergy(this.proposicoes)
-      }
-      return this.proposicoes.filter(prop => {
-        return prop.apelido
-          .toLowerCase()
-          .match(this.text_searched.toLowerCase())
-      })
+      return this.orderByEnergy(this.proposicoes.filter(prop => {
+        return (this.processProps(prop) && this.searchMatch(prop))
+      }))
     }
   }),
   methods: {
     ...mapActions(['listProposicoes']),
     orderByEnergy (list) {
       return orderBy(list, 'energia', this.energyOrder)
+    },
+    processProps (prop) {
+      return this.apreciacaoFilter.some(options => options.tipo === prop.forma_apreciacao && options.status) &&
+        this.regimeFilter.some(options => options.tipo === prop.regime_tramitacao && options.status) &&
+        this.casaFilter.some(options => options.tipo === prop.casa && options.status) &&
+        this.emPautaFilter.some(options => ((options.tipo === 'Sim' && prop.em_pauta) ||
+          (options.tipo === 'Não' && !prop.em_pauta)) && options.status)
+    },
+    searchMatch (prop) {
+      return prop.apelido
+        .toLowerCase()
+        .match(this.text_searched.toLowerCase())
     }
   }
 }
