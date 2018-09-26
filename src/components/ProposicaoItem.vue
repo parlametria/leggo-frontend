@@ -4,12 +4,7 @@
             {{ prop.apelido }}
         </router-link>
         <energy :value="prop.energia" class="inline-content"/>
-        <ul class="fases inline-content">
-          <li
-            v-for="(event, j) in prop.resumo_tramitacao" :key="j"
-            :class="event.casa" :title="event.nome">
-          </li>
-        </ul>
+        <fases-bar :fases="prop.resumo_progresso" />
         <div id="tags">
              <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
              <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
@@ -22,13 +17,15 @@
 import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import FasesBar from '@/components/FasesBar'
 
 export default {
   name: 'proposicaoitem',
   components: {
     Energy,
     RegimeTramitacao,
-    FormaApreciacao
+    FormaApreciacao,
+    FasesBar
   },
   props: {
     prop: Object
