@@ -22,7 +22,7 @@ export default {
   },
   async mounted () {
     const response = await axios.get(
-      `${process.env.VUE_APP_API_URL}/energia/${this.casa}/${this.id}`
+      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}`
     )
 
     this.energia = response.data
@@ -34,7 +34,7 @@ export default {
       $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
       height: 50,
       width: 150,
-      title: 'Energia Recente',
+      title: 'Energia Acumulada',
       data: {
         values: this.energia
       },
