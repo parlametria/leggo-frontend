@@ -15,7 +15,7 @@
                 </ul>
             </el-col>
             <el-col :span="6">
-                <energy-graphic :vis= "vis" :id= "prop.id_ext" :casa= "prop.casa"/>
+                <energy-graphic :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
             </el-col>
             <el-col id="tags">
                 <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
@@ -42,7 +42,7 @@ export default {
   },
   props: {
     prop: Object,
-    vis: String
+    visId: String
   }
 }
 </script>
