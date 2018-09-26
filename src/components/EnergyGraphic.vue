@@ -11,7 +11,8 @@ export default {
   name: 'EnergyGraphic',
   data () {
     return {
-      energia: {}
+      energia: {},
+      tendenciaColor: ''
     }
   },
   props: {
@@ -26,6 +27,8 @@ export default {
 
     this.energia = response.data
 
+    this.tendenciaColor = this.getTendeciaColor(this.energia)
+
     const vlSpec = {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
@@ -38,7 +41,7 @@ export default {
       mark: {
         type: 'line',
         line: true,
-        color: '#888'
+        color: this.tendenciaColor
       },
       encoding: {
         x: {
@@ -77,6 +80,18 @@ export default {
 
     // eslint-disable-next-line no-undef
     vegaEmbed(`#${this.visId}`, vlSpec)
+  },
+  methods: {
+    getTendeciaColor: (energia) => {
+      const ultima = energia[energia.length - 1].energia_recente
+      const penultima = energia[energia.length - 2].energia_recente
+      
+      if (ultima - penultima < 0) {
+        return '#ef8a62'
+      } else {
+        return '#67a9cf'
+      }
+    }
   }
 }
 </script>
