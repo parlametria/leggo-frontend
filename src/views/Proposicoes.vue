@@ -1,9 +1,12 @@
 <template>
   <el-container>
+    <el-header>
+      <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
+    </el-header>
     <el-container>
     <el-aside>
       <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
-      <nav-menu v-model="text_searched"></nav-menu>
+      <nav-menu></nav-menu>
     </el-aside>
       <el-main class="el-main">
         <p v-if="pending.proposicoes">loading posts...</p>
@@ -24,17 +27,21 @@
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
+import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
+import orderBy from 'lodash/orderBy'
 
 export default {
   name: 'proposicoes',
   components: {
     ProposicaoItem,
-    NavMenu
+    NavMenu,
+    EnergySort
   },
   data () {
     return {
       text_searched: '',
+      energyOrder: '',
       temas: ['Meio Ambiente', 'Agenda Nacional']
     }
   },
@@ -42,23 +49,36 @@ export default {
     this.listProposicoes()
   },
   computed: mapState({
-    proposicoes: state => state.proposicoes,
-    pending: state => state.pending,
-    error: state => state.error,
+    proposicoes: state => state.proposicoes.proposicoes,
+    pending: state => state.proposicoes.pending,
+    error: state => state.proposicoes.error,
+    apreciacaoFilter: state => state.filter.apreciacaoFilter,
+    regimeFilter: state => state.filter.regimeFilter,
+    casaFilter: state => state.filter.casaFilter,
+    emPautaFilter: state => state.filter.emPautaFilter,
     filteredProps () {
-      if (!this.text_searched) {
-        return this.proposicoes
-      }
-      return this.proposicoes.filter((prop) => {
-        return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase())
-      }
-      )
+      return this.orderByEnergy(this.proposicoes.filter(prop => {
+        return (this.processProps(prop) && this.searchMatch(prop))
+      }))
     }
   }),
   methods: {
-    ...mapActions([
-      'listProposicoes'
-    ])
+    ...mapActions(['listProposicoes']),
+    orderByEnergy (list) {
+      return orderBy(list, 'energia', this.energyOrder)
+    },
+    processProps (prop) {
+      return this.apreciacaoFilter.some(options => options.tipo === prop.forma_apreciacao && options.status) &&
+        this.regimeFilter.some(options => options.tipo === prop.regime_tramitacao && options.status) &&
+        this.casaFilter.some(options => options.tipo === prop.casa && options.status) &&
+        this.emPautaFilter.some(options => ((options.tipo === 'Sim' && prop.em_pauta) ||
+          (options.tipo === 'Não' && !prop.em_pauta)) && options.status)
+    },
+    searchMatch (prop) {
+      return prop.apelido
+        .toLowerCase()
+        .match(this.text_searched.toLowerCase())
+    }
   }
 }
 </script>
@@ -71,11 +91,15 @@ export default {
 .el-row {
   margin: 5px;
 }
-.el-header{
+.el-header {
   display: contents;
 }
-.el-aside{
+.el-aside {
   margin: 0px;
   padding: 0px;
+}
+.energy-sort {
+  margin-left: auto;
+  margin-right: 0;
 }
 </style>
