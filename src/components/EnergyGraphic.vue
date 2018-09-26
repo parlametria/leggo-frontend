@@ -21,7 +21,7 @@ export default {
   },
   async mounted () {
     const response = await axios.get(
-      `${process.env.VUE_APP_API_URL}/energia-recente/${this.casa}/${this.id}`
+      `${process.env.VUE_APP_API_URL}/energia/${this.casa}/${this.id}`
     )
 
     this.energia = response.data
@@ -33,12 +33,12 @@ export default {
       width: 150,
       title: 'Energia Recente',
       data: {
-        values: this.energia.energia_recente
+        values: this.energia
       },
       mark: {
         type: 'line',
         line: true,
-        color: '#db5448'
+        color: '#888'
       },
       encoding: {
         x: {
