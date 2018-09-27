@@ -1,20 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
+import filter from './filter'
 
 Vue.use(Vuex)
-
-// export default new Vuex.Store({
-//   state: {
-
-//   },
-//   mutations: {
-
-//   },
-//   actions: {
-
-//   }
-// })
 
 const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
@@ -31,4 +20,9 @@ const proposicoes = new Vapi({
   path: '/proposicoes'
 }).getStore()
 
-export default new Vuex.Store(proposicoes)
+export default new Vuex.Store({
+  modules: {
+    proposicoes,
+    filter
+  }
+})

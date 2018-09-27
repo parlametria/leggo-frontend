@@ -41,7 +41,7 @@ export default {
 .main-view {
   margin: auto;
   display: block;
-  max-width: 1000px;
+  max-width: 100%;
 }
 
 body {
