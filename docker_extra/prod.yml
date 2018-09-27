@@ -1,0 +1,18 @@
+# Compose used for production
+
+version: '3.5'
+
+services:
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/prod.dockerfile
+    image: ${FRONTEND_IMAGE_TAG:-agoradigital/frontend}
+    container_name: frontend_prod
+    ports:
+      - "9001:80"
+
+networks:
+  default:
+    name: agoradigital

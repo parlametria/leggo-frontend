@@ -12,6 +12,18 @@ Produção:
 docker-compose -f deploy/prod.yml up
 ```
 
+### Testes
+
+Sem GUI:
+```
+npm run docker_test
+```
+Com GUI:
+```
+xhost +local:docker
+npm run docker_test_gui
+```
+
 ### Limitações
 
 Mesmo usando a imagem de desenvolvimento, alterações nos arquivos de configuração que estão na pasta raiz (como `package.json`) exigem um rebuild da imagem. Alterações no código fonte são sincronizadas dentro do container automaticamente.
