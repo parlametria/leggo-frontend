@@ -28,6 +28,7 @@ describe('My First Test', () => {
   })
 
   it('Visits the page of 91341', () => {
-    cy.visit('http://localhost:8080/#/proposicoes/senado/91341')
+    cy.visit('http://localhost:8080/#/proposicoes')
+      cy.get('.tooltip', { timeout: 10000 }).should('be.visible')
   })
 })
