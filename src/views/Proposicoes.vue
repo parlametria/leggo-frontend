@@ -1,6 +1,11 @@
 <template>
   <el-container>
     <el-header>
+      <el-date-picker class="energy-sort"
+        v-model="date"
+        type="date" placeholder="Referência da energia"
+        :picker-options="pickerOptions1">
+    </el-date-picker>
       <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
     </el-header>
     <el-container>
@@ -42,7 +47,13 @@ export default {
     return {
       text_searched: '',
       energyOrder: '',
-      temas: ['Meio Ambiente', 'Agenda Nacional']
+      temas: ['Meio Ambiente', 'Agenda Nacional'],
+      date: '',
+      pickerOptions1: {
+        disabledDate (time) {
+          return time.getTime() > Date.now()
+        }
+      }
     }
   },
   mounted () {
@@ -92,14 +103,14 @@ export default {
   margin: 5px;
 }
 .el-header {
-  display: contents;
+  display: inline;
 }
 .el-aside {
   margin: 0px;
   padding: 0px;
 }
 .energy-sort {
-  margin-left: auto;
-  margin-right: 0;
+  margin: 5px;
+  float: right;
 }
 </style>
