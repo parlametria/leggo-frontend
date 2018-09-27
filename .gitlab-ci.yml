@@ -17,7 +17,7 @@ before_script:
 build:
   stage: build
   script:
-    - docker-compose -f deploy/prod.yml build
+    - docker-compose -f docker_extra/prod.yml build
     - docker push $CONTAINER_TEST_IMAGE
 
 tests:
