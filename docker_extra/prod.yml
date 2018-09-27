@@ -7,7 +7,7 @@ services:
   frontend:
     build:
       context: ..
-      dockerfile: deploy/prod.dockerfile
+      dockerfile: docker_extra/prod.dockerfile
     image: ${FRONTEND_IMAGE_TAG:-agoradigital/frontend}
     container_name: frontend_prod
     ports:
