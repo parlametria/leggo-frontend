@@ -22,7 +22,7 @@ export default {
   },
   async mounted () {
     const response = await axios.get(
-      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}`
+      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}?periodo=90`
     )
 
     this.energia = response.data
@@ -82,15 +82,17 @@ export default {
     vegaEmbed(`#${this.visId}`, vlSpec)
   },
   methods: {
-    getTendeciaColor: (energia) => {
-      const ultima = energia[energia.length - 1].energia_recente
-      const penultima = energia[energia.length - 2].energia_recente
-      
-      if (ultima - penultima < 0) {
-        return '#ef8a62'
-      } else {
-        return '#67a9cf'
+    getTendeciaColor: energia => {
+      if (energia.length > 1) {
+        const ultima = energia[0].energia_recente
+        const penultima = energia[1].energia_recente
+
+        if (ultima - penultima <= 0) {
+          return '#ef8a62'
+        }
       }
+
+      return '#67a9cf'
     }
   }
 }
