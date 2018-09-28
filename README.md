@@ -1,7 +1,11 @@
-# Ágora Digital Web
-[![Build Status](https://travis-ci.org/analytics-ufcg/agora-digital-web.svg?branch=master)](https://travis-ci.org/analytics-ufcg/agora-digital-web)
+[![pipeline status](https://gitlab.com/analytics-ufcg/front/badges/master/pipeline.svg)](https://gitlab.com/analytics-ufcg/back-test/commits/master)
+
+# Ágora Digital Frontend
+
+Código do frontend do projeto Ágora Digital.
 
 ## Docker
+
 Desenvolvimento:
 ```
 docker-compose up
@@ -11,7 +15,26 @@ Produção:
 docker-compose -f deploy/prod.yml up
 ```
 
-## Project setup
+### Testes
+
+Sem GUI:
+```
+npm run docker_test
+```
+Com GUI:
+```
+xhost +local:docker
+npm run docker_test_gui
+```
+O primeiro comando é necessário para que o X11 da máquina hospedeira autorize o acesso de aplicações rodando dentro dos containers. No caso, o Electron com a interface do Cypress.
+
+### Limitações
+
+Mesmo usando a imagem de desenvolvimento, alterações nos arquivos de configuração que estão na pasta raiz (como `package.json`) exigem um rebuild da imagem. Alterações no código fonte são sincronizadas dentro do container automaticamente.
+
+---
+
+## Sem Docker
 ```
 npm install
 ```

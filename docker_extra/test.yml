@@ -1,0 +1,27 @@
+# Compose used for production testing
+
+version: '3.5'
+
+services:
+
+  frontend_test:
+    build:
+      context: ${FRONTEND_PATH:-..}
+      dockerfile: ${FRONTEND_PATH:-.}/docker_extra/test.dockerfile
+    image: ${FRONTEND_TEST_IMAGE_TAG:-agoradigital/frontend-test}
+    container_name: frontend_test
+    # command:
+    #   - bash
+    tty: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${FRONTEND_PATH:-..}/tests:/app/tests
+    environment:
+      - CYPRESS_baseUrl=${FRONTEND_ADDR:-http://frontend:8080}
+      - GUI=${GUI:-false}
+      - DISPLAY
+
+networks:
+  default:
+    external:
+      name: agoradigital
