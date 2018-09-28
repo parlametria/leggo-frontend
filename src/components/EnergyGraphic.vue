@@ -11,7 +11,7 @@ export default {
   name: 'EnergyGraphic',
   data () {
     return {
-      energia: {},
+      energia: [],
       tendenciaColor: ''
     }
   },
@@ -26,6 +26,7 @@ export default {
     )
 
     this.energia = response.data
+    this.energia[0].energia_dia = this.energia[0].energia_recente
 
     this.tendenciaColor = this.getTendeciaColor(this.energia)
 
@@ -38,33 +39,66 @@ export default {
       data: {
         values: this.energia
       },
-      mark: {
-        type: 'line',
-        line: true,
-        color: this.tendenciaColor
-      },
-      encoding: {
-        x: {
-          field: 'periodo',
-          type: 'temporal',
-          axis: {
-            title: '',
-            grid: false,
-            ticks: false,
-            labels: false
+      layer: [
+        {
+          mark: {
+            type: 'line',
+            line: true,
+            color: this.tendenciaColor
+          },
+          encoding: {
+            x: {
+              field: 'periodo',
+              type: 'temporal',
+              axis: {
+                title: '',
+                grid: false,
+                ticks: false,
+                labels: false
+              }
+            },
+            y: {
+              field: 'energia_recente',
+              type: 'quantitative',
+              axis: {
+                title: '',
+                grid: false,
+                labels: false,
+                ticks: false
+              }
+            }
           }
         },
-        y: {
-          field: 'energia_recente',
-          type: 'quantitative',
-          axis: {
-            title: '',
-            grid: false,
-            labels: false,
-            ticks: false
+        {
+          mark: {
+            type: 'circle',
+            color: this.tendenciaColor
+          },
+          encoding: {
+            x: {
+              field: 'periodo',
+              type: 'temporal',
+              axis: {
+                title: '',
+                grid: false,
+                ticks: false,
+                labels: false
+              }
+            },
+            y: {
+              field: 'energia_dia',
+              type: 'quantitative',
+              axis: {
+                title: '',
+                grid: false,
+                labels: false,
+                ticks: false
+              }
+            },
+            size: {'value': 80}
           }
         }
-      },
+      ],
       config: {
         view: {
           stroke: 'transparent'
