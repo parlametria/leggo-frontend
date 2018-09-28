@@ -1,8 +1,6 @@
 <template>
   <div>
     <div :id= "visId"></div>
-    {{this.date}}
-    {{this.energia}}
   </div>
 </template>
 
@@ -24,12 +22,9 @@ export default {
     casa: String,
     date: Date
   },
-  async updated() {
-    const graphicDate = this.date.toString().split("T")[0];
+  async mounted() {
     const response = await axios.get(
-      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${
-        this.id
-      }?semanas_anteriores=${this.semanas}&data_referencia=${this.date}`
+      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}?semanas_anteriores=${this.semanas}`
     );
 
     this.energia = response.data;
@@ -86,10 +81,13 @@ export default {
     };
 
     // eslint-disable-next-line no-undef
-    vegaEmbed(`#${this.visId}`, vlSpec).then((res) => res.view
-    .insert("myData", [ /* some data array */])
-    .run()
-  );
+    vegaEmbed(`#${this.visId}`, vlSpec).then(res =>
+      res.view
+        .insert("myData", [
+          /* some data array */
+        ])
+        .run()
+    );
   },
   methods: {
     getTendeciaColor: energia => {
