@@ -12,7 +12,8 @@ export default {
   data () {
     return {
       energia: [],
-      tendenciaColor: ''
+      tendenciaColor: '',
+      semanas: 12
     }
   },
   props: {
@@ -22,7 +23,7 @@ export default {
   },
   async mounted () {
     const response = await axios.get(
-      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}?periodo=90`
+      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}?semanas_anteriores=${this.semanas}`
     )
 
     this.energia = response.data
