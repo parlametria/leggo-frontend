@@ -18,6 +18,10 @@ const proposicoes = new Vapi({
   action: 'listProposicoes',
   property: 'proposicoes',
   path: '/proposicoes'
+}).get({
+  action: 'listEnergiaRecente',
+  property: 'energiasRecentes',
+  path: '/energia-recente'
 }).getStore()
 
 export default new Vuex.Store({
