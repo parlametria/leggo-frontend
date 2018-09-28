@@ -15,7 +15,7 @@
                 </ul>
             </el-col>
             <el-col :span="6">
-                <energy-graphic :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
+                <energy-graphic :date= "date" :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
             </el-col>
             <el-col id="tags">
                 <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
@@ -31,6 +31,7 @@ import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
 import EnergyGraphic from '@/components/EnergyGraphic'
+import { mapState } from 'vuex'
 
 export default {
   name: 'proposicaoitem',
@@ -40,9 +41,13 @@ export default {
     FormaApreciacao,
     EnergyGraphic
   },
+  computed: mapState({
+    dateFilter: state => state.dateFilter
+  }),
   props: {
     prop: Object,
-    visId: String
+    visId: String,
+    date: Date
   }
 }
 </script>

@@ -1,64 +1,71 @@
 <template>
   <div>
     <div :id= "visId"></div>
+    {{this.date}}
+    {{this.energia}}
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-  name: 'EnergyGraphic',
-  data () {
+  name: "EnergyGraphic",
+  data() {
     return {
       energia: {},
-      tendenciaColor: ''
-    }
+      tendenciaColor: "",
+      semanas: 12
+    };
   },
   props: {
     visId: String,
     id: Number,
-    casa: String
+    casa: String,
+    date: Date
   },
-  async mounted () {
+  async updated() {
+    const graphicDate = this.date.toString().split("T")[0];
     const response = await axios.get(
-      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${this.id}?periodo=90`
-    )
+      `${process.env.VUE_APP_API_URL}energia/${this.casa}/${
+        this.id
+      }?semanas_anteriores=${this.semanas}&data_referencia=${this.date}`
+    );
 
-    this.energia = response.data
+    this.energia = response.data;
 
-    this.tendenciaColor = this.getTendeciaColor(this.energia)
+    this.tendenciaColor = this.getTendeciaColor(this.energia);
 
     const vlSpec = {
-      description: 'Últimos 30 dias',
-      $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
+      description: "Últimos 30 dias",
+      $schema: "https://vega.github.io/schema/vega-lite/v2.json",
       height: 50,
       width: 150,
-      title: 'Energia Acumulada',
+      title: "Energia Acumulada",
       data: {
         values: this.energia
       },
       mark: {
-        type: 'line',
+        type: "line",
         line: true,
         color: this.tendenciaColor
       },
       encoding: {
         x: {
-          field: 'periodo',
-          type: 'temporal',
+          field: "periodo",
+          type: "temporal",
           axis: {
-            title: '',
+            title: "",
             grid: false,
             ticks: false,
             labels: false
           }
         },
         y: {
-          field: 'energia_recente',
-          type: 'quantitative',
+          field: "energia_recente",
+          type: "quantitative",
           axis: {
-            title: '',
+            title: "",
             grid: false,
             labels: false,
             ticks: false
@@ -67,7 +74,7 @@ export default {
       },
       config: {
         view: {
-          stroke: 'transparent'
+          stroke: "transparent"
         },
         axisY: {
           minExtent: 0
@@ -76,26 +83,29 @@ export default {
           domain: false
         }
       }
-    }
+    };
 
     // eslint-disable-next-line no-undef
-    vegaEmbed(`#${this.visId}`, vlSpec)
+    vegaEmbed(`#${this.visId}`, vlSpec).then((res) => res.view
+    .insert("myData", [ /* some data array */])
+    .run()
+  );
   },
   methods: {
     getTendeciaColor: energia => {
       if (energia.length > 1) {
-        const ultima = energia[0].energia_recente
-        const penultima = energia[1].energia_recente
+        const ultima = energia[0].energia_recente;
+        const penultima = energia[1].energia_recente;
 
         if (ultima - penultima <= 0) {
-          return '#ef8a62'
+          return "#ef8a62";
         }
       }
 
-      return '#67a9cf'
+      return "#67a9cf";
     }
   }
-}
+};
 </script>
 
 <style>

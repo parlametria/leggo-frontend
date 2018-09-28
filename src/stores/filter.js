@@ -38,20 +38,24 @@ const filtro = {
         'tipo': 'Não',
         'status': true
       }
-    ]
+    ],
+    dateFilter: ''
   },
   mutations: {
-    filtraApreciacao (state, apreciacoes) {
+    filtraApreciacao(state, apreciacoes) {
       state.apreciacaoFilter = apreciacoes
     },
-    filtraRegime (state, regimes) {
+    filtraRegime(state, regimes) {
       state.regimeFilter = regimes
     },
-    filtraCasa (state, casas) {
+    filtraCasa(state, casas) {
       state.casaFilter = casas
     },
-    filtraEmPauta (state, pautas) {
+    filtraEmPauta(state, pautas) {
       state.emPautaFilter = pautas
+    },
+    updateDate(state, date) {
+      state.dateFilter = date
     }
   },
   actions: {
