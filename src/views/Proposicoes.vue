@@ -3,7 +3,7 @@
     <el-header>
       <el-date-picker class="energy-sort"
         v-model="date"
-        type="date" placeholder="Referência da energia"
+        type="date" placeholder="Data de referência"
         :picker-options="pickerOptions1">
     </el-date-picker>
       <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
