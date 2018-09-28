@@ -1,7 +1,7 @@
 describe('My First Test', () => {
 
   it('Test filter apreciacao', () => {
-    cy.visit('http://localhost:8080/#/proposicoes')
+    cy.visit('/#/proposicoes')
     const apreciacoes = ['Plenário', 'Conclusiva']
       cy.contains('Apreciação').click()
       apreciacoes.forEach(apreciacao => {
@@ -14,7 +14,7 @@ describe('My First Test', () => {
   })
 
   it('Test filter regime', () => {
-    cy.visit('http://localhost:8080/#/proposicoes')
+    cy.visit('/#/proposicoes')
 
     const regimes = ['Urgência', 'Ordinária', 'Prioridade']
     cy.contains('Regime de tramitação').click()
@@ -24,10 +24,11 @@ describe('My First Test', () => {
       cy.get('#tags > div > span').should('not.contain', regime)
       cy.contains('span', regime).click()
       cy.get('#tags > div > span').should('contain', regime)
-    });
+    })
   })
 
-  it('Visits the page of 91341', () => {
-    cy.visit('http://localhost:8080/#/proposicoes/senado/91341')
+  it('Detalhe Proposicao', () => {
+    cy.visit('/#/proposicoes/senado/91341')
   })
+
 })
