@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <el-select :value="value" @input="$emit('input', $event)" clearable placeholder="Ordenar por" size="large">
+        <el-select :value="value" @input="$emit('input', $event)" clearable placeholder="aa por" size="mini">
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -11,25 +11,18 @@
     </el-container>
 </template>
 <script>
+import Datepicker from 'vuejs-datepicker'
 export default {
-  name: 'EnergySort',
-  props: {
-    value: String
+  name: 'DatePicker',
+  components: {
+    Datepicker
   },
 
   data () {
     return {
-      options: [
-        {
-          value: 'asc',
-          label: 'Menos energia'
-        },
-        {
-          value: 'desc',
-          label: 'Mais energia'
-        }
-      ],
-      energyOrder: ''
+      state: {
+        date: new Date(2016, 9, 16)
+      }
     }
   }
 }
