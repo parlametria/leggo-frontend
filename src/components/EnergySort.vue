@@ -1,6 +1,6 @@
 <template>
     <el-container>
-        <el-select :value="value" @input="$emit('input', $event)" clearable placeholder="Ordenar por" size="mini">
+        <el-select :value="value" @input="$emit('input', $event)" clearable placeholder="Ordenar por" size="large">
           <el-option
               v-for="item in options"
               :key="item.value"
