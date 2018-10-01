@@ -10,6 +10,7 @@ stages:
   - deploy
 
 variables:
+  DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
   CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
