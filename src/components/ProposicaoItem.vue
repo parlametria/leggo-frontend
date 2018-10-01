@@ -6,16 +6,10 @@
                 {{ prop.apelido }}
                 </router-link>
                 <br>
-
-                <ul class="fases inline-content">
-                    <li
-                        v-for="(event, j) in prop.resumo_tramitacao" :key="j"
-                        :class="event.casa" :title="event.nome">
-                    </li>
-                </ul>
+              <fases-bar :fases="prop.resumo_progresso" />
             </el-col>
             <el-col :span="6">
-                <energy-graphic :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
+              <energy-graphic :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
             </el-col>
             <el-col id="tags">
                 <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
@@ -31,6 +25,7 @@ import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
 import EnergyGraphic from '@/components/EnergyGraphic'
+import FasesBar from '@/components/FasesBar'
 
 export default {
   name: 'proposicaoitem',
@@ -38,7 +33,8 @@ export default {
     Energy,
     RegimeTramitacao,
     FormaApreciacao,
-    EnergyGraphic
+    EnergyGraphic,
+    FasesBar
   },
   props: {
     prop: Object,

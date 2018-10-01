@@ -1,8 +1,10 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in fases" :key="i" class="fase" :class="geraEstilo(fase)">
+    <div v-for="(fase,i) in fases" :key="i" class="fase" :class="geraEstilo(fase)" >
       <div v-if="isAtualFase(fase)" class="triangulo"></div>
-      {{ fase.nome }}
+      <div class="tooltip">
+        <h5>{{ fase.local }} - {{ fase.fase_global }}</h5>
+      </div>
     </div>
   </div>
 </template>
@@ -18,8 +20,8 @@ export default {
       return {
         'faseConcluida': this.isFaseConcluida(fase),
         'faseAtual': this.isAtualFase(fase),
-        'faseSenado': fase.casa === 'senado',
-        'faseCamara': fase.casa === 'camara'
+        'faseSenado': fase.local_casa === 'senado',
+        'faseCamara': fase.local_casa === 'camara'
       }
     },
     isFaseConcluida (fase) {
@@ -33,17 +35,23 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.fasesBlock {
+
+<style lang="scss" scopped>
+ .fasesBlock {
     display: inline-flex;
     padding: 3px;
 }
 .fase {
-    width: 50px;
+    width: 30px;
     height: 30px;
     border: 1px #000 solid;
     border-right: 0px;
     background-color: #EEE;
+}
+.fase:hover{
+  .tooltip{
+    visibility: visible;
+  }
 }
 .fase:last-child {
     border-right: 1px #000 solid;
@@ -52,7 +60,9 @@ export default {
     background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
     display: block;
 }
-
+.fase .tooltip {
+  visibility: hidden;
+}
 .faseConcluida.faseSenado{
     background-color: #a6cee3;
 }
@@ -65,14 +75,15 @@ export default {
 .faseAtual.faseCamara{
     background-color: #33a02c;
 }
-.triangulo{
-    width: 0;
-    height: 0;
-    margin-top: -8px;
-    margin-left: 20px;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    border-top: 6px solid rgb(255, 20, 20);
-}
-
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  background-color: rgb(150,150,150);
+  color: #FFF;
+  pointer-events: none;
+  padding: 5px;
+  z-index: 100;
+ }
 </style>
