@@ -60,7 +60,10 @@ export default {
       )
 
       let energia = response.data
-      energia[0].energia_dia = energia[0].energia_recente
+      if (energia.length > 0) {
+        energia[0].energia_dia = energia[0].energia_recente
+      }
+      
       const color = getTendeciaColor(energia)
 
       const vlSpec = {
