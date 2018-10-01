@@ -56,12 +56,14 @@ export default {
       }
 
       const response = await axios.get(
-        `${
-          process.env.VUE_APP_API_URL
-        }energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
+        `${process.env.VUE_APP_API_URL}energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
       )
 
-      const energia = response.data
+      let energia = response.data
+      if (energia.length > 0) {
+        energia[0].energia_dia = energia[0].energia_recente
+      }
+      
       const color = getTendeciaColor(energia)
 
       const vlSpec = {
@@ -73,33 +75,66 @@ export default {
         data: {
           name: 'energia'
         },
-        mark: {
-          type: 'line',
-          line: true,
-          color: color
-        },
-        encoding: {
-          x: {
-            field: 'periodo',
-            type: 'temporal',
-            axis: {
-              title: '',
-              grid: false,
-              ticks: false,
-              labels: false
+        layer: [
+          {
+            mark: {
+              type: 'line',
+              line: true,
+              color: color
+            },
+            encoding: {
+              x: {
+                field: 'periodo',
+                type: 'temporal',
+                axis: {
+                  title: '',
+                  grid: false,
+                  ticks: false,
+                  labels: false
+                }
+              },
+              y: {
+                field: 'energia_recente',
+                type: 'quantitative',
+                axis: {
+                  title: '',
+                  grid: false,
+                  labels: false,
+                  ticks: false
+                }
+              }
             }
           },
-          y: {
-            field: 'energia_recente',
-            type: 'quantitative',
-            axis: {
-              title: '',
-              grid: false,
-              labels: false,
-              ticks: false
+          {
+            mark: {
+              type: 'circle',
+              color: color
+            },
+            encoding: {
+              x: {
+                field: 'periodo',
+                type: 'temporal',
+                axis: {
+                  title: '',
+                  grid: false,
+                  ticks: false,
+                  labels: false
+                }
+              },
+              y: {
+                field: 'energia_dia',
+                type: 'quantitative',
+                axis: {
+                  title: '',
+                  grid: false,
+                  labels: false,
+                  ticks: false
+                }
+              },
+              size: {'value': 80}
             }
           }
-        },
+        ],
         config: {
           view: {
             stroke: 'transparent'
