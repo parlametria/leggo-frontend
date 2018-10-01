@@ -23,3 +23,5 @@ yarn-error.log*
 # e2e logs
 tests/e2e/screenshots/
 tests/e2e/videos/
+
+.Trash*

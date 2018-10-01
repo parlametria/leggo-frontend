@@ -1,17 +1,22 @@
 <template>
     <el-card shadow="hover" class="box-card">
-        <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
-            {{ prop.apelido }}
-        </router-link>
-        <FasesBar :fases="prop.resumo_progresso" />
-        <energy :value="prop.energia" class="inline-content">
-        
-        <div id="tags">
-            <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-            <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
-            <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
-        </div>
-        
+        <el-row>
+            <el-col :span="6">
+                <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
+                {{ prop.apelido }}
+                </router-link>
+                <br>
+              <fases-bar :fases="prop.resumo_progresso" />
+            </el-col>
+            <el-col :span="6">
+              <energy-graphic :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
+            </el-col>
+            <el-col id="tags">
+                <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+                <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+                <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
+            </el-col>
+        </el-row>
     </el-card>
 </template>
 
@@ -19,6 +24,7 @@
 import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import EnergyGraphic from '@/components/EnergyGraphic'
 import FasesBar from '@/components/FasesBar'
 
 export default {
@@ -27,47 +33,48 @@ export default {
     Energy,
     RegimeTramitacao,
     FormaApreciacao,
+    EnergyGraphic,
     FasesBar
   },
   props: {
-    prop: Object
+    prop: Object,
+    visId: String
   }
 }
 </script>
 
 <style lang="scss">
 .fases {
+  display: inline-block;
+  padding: 0;
+  li {
     display: inline-block;
-    padding: 0;
-    li {
-        display: inline-block;
-        width: 10px;
-        height: 20px;
-        margin: 3px;
-    }
-    .senado {
-        background-color: #cbd5e8;
-    }
-    .camara {
-        background-color: #b3e2cd;
-    }
+    width: 10px;
+    height: 20px;
+    margin: 3px;
+  }
+  .senado {
+    background-color: #cbd5e8;
+  }
+  .camara {
+    background-color: #b3e2cd;
+  }
 }
 .box-card {
-    width: auto;
+  width: auto;
 }
 .inline-content {
-    display: inline-block;
+  display: inline-block;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 #tags {
-    display: flex;
+  display: flex;
 }
 
 .el-tag {
-    margin-right: 3px;
+  margin-right: 3px;
 }
-
 </style>

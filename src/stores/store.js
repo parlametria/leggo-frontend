@@ -8,7 +8,8 @@ Vue.use(Vuex)
 const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
   state: {
-    proposicoes: []
+    proposicoes: [],
+    tramitacoes: new Set()
   }
 }).get({
   action: 'getProposicao',
@@ -18,6 +19,10 @@ const proposicoes = new Vapi({
   action: 'listProposicoes',
   property: 'proposicoes',
   path: '/proposicoes'
+}).get({
+  action: 'listEnergiaRecente',
+  property: 'energiasRecentes',
+  path: '/energia-recente'
 }).getStore()
 
 export default new Vuex.Store({

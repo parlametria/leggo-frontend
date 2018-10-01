@@ -2,5 +2,5 @@
 !src/*
 !public/*
 !tests/*
-!*.json
-!*.js
+!*.js*
+!.env*

@@ -8,7 +8,10 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "cy:verify": "cypress verify"
+    "test_all": "vue-cli-service lint && vue-cli-service test:e2e --headless",
+    "cy:verify": "cypress verify",
+    "docker_test": "export GUI=false; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test",
+    "docker_test_gui": "export GUI=true; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test"
   },
   "dependencies": {
     "element-ui": "^2.4.6",
@@ -20,7 +23,6 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
-    "@vue/cli-plugin-e2e-cypress": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
     "@vue/cli-plugin-unit-mocha": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
@@ -51,6 +53,11 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {}
+    }
+  },
+  "vue": {
+    "devServer": {
+      "disableHostCheck": true
     }
   },
   "browserslist": [
