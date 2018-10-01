@@ -6,13 +6,7 @@
                 {{ prop.apelido }}
                 </router-link>
                 <br>
-
-                <ul class="fases inline-content">
-                    <li
-                        v-for="(event, j) in prop.resumo_tramitacao" :key="j"
-                        :class="event.casa" :title="event.nome">
-                    </li>
-                </ul>
+              <fases-bar :fases="prop.resumo_progresso" />
             </el-col>
             <el-col :span="6">
                 <energy-graphic :date= "date" :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
@@ -31,6 +25,7 @@ import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
 import EnergyGraphic from '@/components/EnergyGraphic'
+import FasesBar from '@/components/FasesBar'
 import { mapState } from 'vuex'
 
 export default {
@@ -39,7 +34,8 @@ export default {
     Energy,
     RegimeTramitacao,
     FormaApreciacao,
-    EnergyGraphic
+    EnergyGraphic,
+    FasesBar
   },
   computed: mapState({
     dateFilter: state => state.dateFilter

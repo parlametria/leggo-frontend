@@ -27,6 +27,9 @@ describe('My First Test', () => {
   })
 
   it('Detalhe Proposicao', () => {
-    cy.visit('/#/proposicoes/senado/91341')
+    cy.visit('/#/proposicoes')
+    cy.get('.tooltip').should('not.be.visible')
+
+
   })
 })

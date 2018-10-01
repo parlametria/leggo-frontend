@@ -8,7 +8,8 @@ Vue.use(Vuex)
 const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
   state: {
-    proposicoes: []
+    proposicoes: [],
+    tramitacoes: new Set()
   }
 }).get({
   action: 'getProposicao',
