@@ -22,6 +22,7 @@ before_script:
 build:
   stage: build
   script:
+    - docker pull $CONTAINER_TEST_IMAGE || true
     - docker-compose -f docker_extra/prod.yml build
     - docker push $CONTAINER_TEST_IMAGE
 
