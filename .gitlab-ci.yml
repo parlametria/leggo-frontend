@@ -1,5 +1,8 @@
 image: agoradigital/frontend-cicd:latest
 
+services:
+  - docker:dind
+
 stages:
   - build
   - test
@@ -7,6 +10,7 @@ stages:
   - deploy
 
 variables:
+  DOCKER_DRIVER: overlay2
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
   CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
 
