@@ -26,4 +26,5 @@ describe('FasesBar', () => {
     return expect(cmp.contains('.fase')).to.be.true &&
     expect(cmp.findAll('.fase')).to.have.lengthOf(fases.length)
   })
+  
 })

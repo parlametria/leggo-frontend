@@ -3,13 +3,15 @@
         <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
             {{ prop.apelido }}
         </router-link>
-        <energy :value="prop.energia" class="inline-content"/>
-        <fases-bar :fases="prop.resumo_progresso" />
+        <FasesBar :fases="prop.resumo_progresso" />
+        <energy :value="prop.energia" class="inline-content">
+        
         <div id="tags">
-             <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-             <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+            <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+            <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
             <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
         </div>
+        
     </el-card>
 </template>
 
@@ -64,7 +66,7 @@ a {
     display: flex;
 }
 
- .el-tag {
+.el-tag {
     margin-right: 3px;
 }
 
