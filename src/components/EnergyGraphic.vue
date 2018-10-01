@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 
 export default {
-  name: "EnergyGraphic",
-  data() {
+  name: 'EnergyGraphic',
+  data () {
     return {
       energia: {},
       semanas: 12
-    };
+    }
   },
   props: {
     visId: String,
@@ -21,85 +21,85 @@ export default {
     casa: String,
     date: Date
   },
-  async mounted() {
+  async mounted () {
     this.mountGraphic(
       this.visId,
       this.id,
       this.casa,
       this.semanas,
       this.formatDate(this.date)
-    );
+    )
   },
   methods: {
     formatDate: date => {
-      let month = "" + (date.getMonth() + 1);
-      let day = "" + date.getDate();
-      let year = date.getFullYear();
+      let month = '' + (date.getMonth() + 1)
+      let day = '' + date.getDate()
+      let year = date.getFullYear()
 
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
+      if (month.length < 2) month = '0' + month
+      if (day.length < 2) day = '0' + day
 
-      return [year, month, day].join("-");
+      return [year, month, day].join('-')
     },
     mountGraphic: async (visId, id, casa, semanas, date) => {
-      function getTendeciaColor(energia) {
+      function getTendeciaColor (energia) {
         if (energia.length > 1) {
-          const ultima = energia[0].energia_recente;
-          const penultima = energia[1].energia_recente;
+          const ultima = energia[0].energia_recente
+          const penultima = energia[1].energia_recente
 
           if (ultima - penultima <= 0) {
-            return "#ef8a62";
+            return '#ef8a62'
           }
         }
 
-        return "#67a9cf";
+        return '#67a9cf'
       }
 
       const response = await axios.get(
         `${
           process.env.VUE_APP_API_URL
         }energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
-      );
+      )
 
-      const energia = response.data;
-      const color = getTendeciaColor(energia);
+      const energia = response.data
+      const color = getTendeciaColor(energia)
 
-      console.log(`${id} - `);
+      console.log(`${id} - `)
       console.log(energia)
       console.log(`${
-          process.env.VUE_APP_API_URL
-        }energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`)
+        process.env.VUE_APP_API_URL
+      }energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`)
 
       const vlSpec = {
-        description: "Últimos 30 dias",
-        $schema: "https://vega.github.io/schema/vega-lite/v2.json",
+        description: 'Últimos 30 dias',
+        $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
         height: 50,
         width: 150,
-        title: "Energia Acumulada",
+        title: 'Energia Acumulada',
         data: {
-          name: "energia"
+          name: 'energia'
         },
         mark: {
-          type: "line",
+          type: 'line',
           line: true,
           color: color
         },
         encoding: {
           x: {
-            field: "periodo",
-            type: "temporal",
+            field: 'periodo',
+            type: 'temporal',
             axis: {
-              title: "",
+              title: '',
               grid: false,
               ticks: false,
               labels: false
             }
           },
           y: {
-            field: "energia_recente",
-            type: "quantitative",
+            field: 'energia_recente',
+            type: 'quantitative',
             axis: {
-              title: "",
+              title: '',
               grid: false,
               labels: false,
               ticks: false
@@ -108,7 +108,7 @@ export default {
         },
         config: {
           view: {
-            stroke: "transparent"
+            stroke: 'transparent'
           },
           axisY: {
             minExtent: 0
@@ -117,34 +117,34 @@ export default {
             domain: false
           }
         }
-      };
+      }
 
       // eslint-disable-next-line no-undef
       vegaEmbed(`#${visId}`, vlSpec).then(res => {
-        const view = res.view;
+        const view = res.view
         /* view.insert("energia", this.energia).run(); */
         view
-          .change("energia", vega.changeset().remove("energia", d => true))
-          .insert("energia", energia)
-          .run();
-      });
+          .change('energia', vega.changeset().remove('energia', d => true))
+          .insert('energia', energia)
+          .run()
+      })
     }
   },
   watch: {
     date: {
-      handler: function(val, oldVal) {
+      handler: function (val, oldVal) {
         this.mountGraphic(
           this.visId,
           this.id,
           this.casa,
           this.semanas,
           this.formatDate(this.date)
-        );
+        )
       },
       deep: true
     }
   }
-};
+}
 </script>
 
 <style>

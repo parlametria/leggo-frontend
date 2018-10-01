@@ -30,34 +30,34 @@
 </template>
 
 <script>
-import ProposicaoItem from "@/components/ProposicaoItem";
-import NavMenu from "@/components/NavMenu";
-import EnergySort from "@/components/EnergySort";
-import { mapState, mapActions } from "vuex";
-import orderBy from "lodash/orderBy";
+import ProposicaoItem from '@/components/ProposicaoItem'
+import NavMenu from '@/components/NavMenu'
+import EnergySort from '@/components/EnergySort'
+import { mapState, mapActions } from 'vuex'
+import orderBy from 'lodash/orderBy'
 
 export default {
-  name: "proposicoes",
+  name: 'proposicoes',
   components: {
     ProposicaoItem,
     NavMenu,
     EnergySort
   },
-  data() {
+  data () {
     return {
-      text_searched: "",
-      energyOrder: "",
-      temas: ["Meio Ambiente", "Agenda Nacional"],
+      text_searched: '',
+      energyOrder: '',
+      temas: ['Meio Ambiente', 'Agenda Nacional'],
       date: new Date(Date.now()),
       pickerOptions1: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
+        disabledDate (time) {
+          return time.getTime() > Date.now()
         }
       }
-    };
+    }
   },
-  mounted() {
-    this.listProposicoes();
+  mounted () {
+    this.listProposicoes()
   },
   computed: mapState({
     proposicoes: state => state.proposicoes.proposicoes,
@@ -67,20 +67,20 @@ export default {
     regimeFilter: state => state.filter.regimeFilter,
     casaFilter: state => state.filter.casaFilter,
     emPautaFilter: state => state.filter.emPautaFilter,
-    filteredProps() {
+    filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
-          return this.processProps(prop) && this.searchMatch(prop);
+          return this.processProps(prop) && this.searchMatch(prop)
         })
-      );
+      )
     }
   }),
   methods: {
-    ...mapActions(["listProposicoes"]),
-    orderByEnergy(list) {
-      return orderBy(list, "energia", this.energyOrder);
+    ...mapActions(['listProposicoes']),
+    orderByEnergy (list) {
+      return orderBy(list, 'energia', this.energyOrder)
     },
-    processProps(prop) {
+    processProps (prop) {
       return (
         this.apreciacaoFilter.some(
           options => options.tipo === prop.forma_apreciacao && options.status
@@ -93,17 +93,17 @@ export default {
         ) &&
         this.emPautaFilter.some(
           options =>
-            ((options.tipo === "Sim" && prop.em_pauta) ||
-              (options.tipo === "Não" && !prop.em_pauta)) &&
+            ((options.tipo === 'Sim' && prop.em_pauta) ||
+              (options.tipo === 'Não' && !prop.em_pauta)) &&
             options.status
         )
-      );
+      )
     },
-    searchMatch(prop) {
-      return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase());
+    searchMatch (prop) {
+      return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase())
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
