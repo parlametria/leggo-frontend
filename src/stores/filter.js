@@ -38,7 +38,8 @@ const filtro = {
         'tipo': 'Não',
         'status': true
       }
-    ]
+    ],
+    dateFilter: ''
   },
   mutations: {
     filtraApreciacao (state, apreciacoes) {
@@ -52,6 +53,9 @@ const filtro = {
     },
     filtraEmPauta (state, pautas) {
       state.emPautaFilter = pautas
+    },
+    updateDate (state, date) {
+      state.dateFilter = date
     }
   },
   actions: {
