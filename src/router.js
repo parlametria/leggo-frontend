@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 import Proposicoes from './views/Proposicoes.vue'
 import Sobre from './views/Sobre.vue'
 import ProposicaoDetails from './views/ProposicaoDetails.vue'
@@ -11,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'proposicoes',
+      component: Proposicoes
     },
     {
       path: '/proposicoes',
