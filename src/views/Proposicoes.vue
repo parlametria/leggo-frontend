@@ -48,7 +48,7 @@ export default {
       text_searched: "",
       energyOrder: "",
       temas: ["Meio Ambiente", "Agenda Nacional"],
-      date: Date.now(),
+      date: new Date(Date.now()),
       pickerOptions1: {
         disabledDate(time) {
           return time.getTime() > Date.now();
