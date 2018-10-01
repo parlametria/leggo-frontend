@@ -1,0 +1,11 @@
+# Compose used to build CI/CD image
+
+version: '3.5'
+
+services:
+
+  cicd:
+    build:
+      context: ..
+      dockerfile: docker_extra/cicd.dockerfile
+    image: ${CICD_IMAGE_TAG:-agoradigital/frontend-cicd}
