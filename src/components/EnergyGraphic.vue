@@ -64,12 +64,6 @@ export default {
       const energia = response.data
       const color = getTendeciaColor(energia)
 
-      console.log(`${id} - `)
-      console.log(energia)
-      console.log(`${
-        process.env.VUE_APP_API_URL
-      }energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`)
-
       const vlSpec = {
         description: 'Últimos 30 dias',
         $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
@@ -119,11 +113,9 @@ export default {
         }
       }
 
-      // eslint-disable-next-line no-undef
+      // eslint-disable-next-line
       vegaEmbed(`#${visId}`, vlSpec).then(res => {
-        const view = res.view
-        /* view.insert("energia", this.energia).run(); */
-        view
+        res.view /* eslint-disable */
           .change('energia', vega.changeset().remove('energia', d => true))
           .insert('energia', energia)
           .run()
