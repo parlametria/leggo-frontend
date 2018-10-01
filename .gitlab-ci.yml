@@ -28,6 +28,7 @@ tests:
     - export FRONTEND_ADDR="http://frontend:80"
     - npm run docker_test
     - docker-compose -f docker_extra/prod.yml down
+    - sudo chown gitlab-runner:gitlab-runner -R *
   # coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
 
 release-image:
