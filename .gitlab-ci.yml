@@ -31,6 +31,7 @@ tests:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker-compose -f docker_extra/prod.yml up -d
     - export FRONTEND_ADDR="http://frontend:80"
+    - export BACKEND_ADDR="150.165.85.25 11002"
     - npm run docker_test
     - docker-compose -f docker_extra/prod.yml down
     # - sudo chown gitlab-runner:gitlab-runner -R *
