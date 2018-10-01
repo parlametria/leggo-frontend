@@ -28,6 +28,7 @@ build:
     - docker pull $CONTAINER_TEST_IMAGE || true
     - docker images
     - docker-compose -f docker_extra/prod.yml build
+    - docker images
     - docker push $CONTAINER_TEST_IMAGE
 
 tests:
