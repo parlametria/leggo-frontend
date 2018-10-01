@@ -22,9 +22,11 @@ before_script:
 build:
   stage: build
   script:
+    - docker images
     - "echo FRONTEND_IMAGE_TAG: $FRONTEND_IMAGE_TAG"
     - "echo CONTAINER_TEST_IMAGE: $CONTAINER_TEST_IMAGE"
     - docker pull $CONTAINER_TEST_IMAGE || true
+    - docker images
     - docker-compose -f docker_extra/prod.yml build
     - docker push $CONTAINER_TEST_IMAGE
 
