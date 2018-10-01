@@ -20,7 +20,7 @@
           <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
             {{ tema }}
             <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-              <proposicao-item :prop= prop :visId= "`vis${i}-${j}`" />
+              <proposicao-item :date= date :prop= prop :visId= "`vis${i}-${j}`"/>
             </el-row>
           </el-col>
       </el-row>
@@ -48,7 +48,7 @@ export default {
       text_searched: '',
       energyOrder: '',
       temas: ['Meio Ambiente', 'Agenda Nacional'],
-      date: '',
+      date: new Date(),
       pickerOptions1: {
         disabledDate (time) {
           return time.getTime() > Date.now()
@@ -68,9 +68,11 @@ export default {
     casaFilter: state => state.filter.casaFilter,
     emPautaFilter: state => state.filter.emPautaFilter,
     filteredProps () {
-      return this.orderByEnergy(this.proposicoes.filter(prop => {
-        return (this.processProps(prop) && this.searchMatch(prop))
-      }))
+      return this.orderByEnergy(
+        this.proposicoes.filter(prop => {
+          return this.processProps(prop) && this.searchMatch(prop)
+        })
+      )
     }
   }),
   methods: {
@@ -79,16 +81,26 @@ export default {
       return orderBy(list, 'energia', this.energyOrder)
     },
     processProps (prop) {
-      return this.apreciacaoFilter.some(options => options.tipo === prop.forma_apreciacao && options.status) &&
-        this.regimeFilter.some(options => options.tipo === prop.regime_tramitacao && options.status) &&
-        this.casaFilter.some(options => options.tipo === prop.casa && options.status) &&
-        this.emPautaFilter.some(options => ((options.tipo === 'Sim' && prop.em_pauta) ||
-          (options.tipo === 'Não' && !prop.em_pauta)) && options.status)
+      return (
+        this.apreciacaoFilter.some(
+          options => options.tipo === prop.forma_apreciacao && options.status
+        ) &&
+        this.regimeFilter.some(
+          options => options.tipo === prop.regime_tramitacao && options.status
+        ) &&
+        this.casaFilter.some(
+          options => options.tipo === prop.casa && options.status
+        ) &&
+        this.emPautaFilter.some(
+          options =>
+            ((options.tipo === 'Sim' && prop.em_pauta) ||
+              (options.tipo === 'Não' && !prop.em_pauta)) &&
+            options.status
+        )
+      )
     },
     searchMatch (prop) {
-      return prop.apelido
-        .toLowerCase()
-        .match(this.text_searched.toLowerCase())
+      return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase())
     }
   }
 }

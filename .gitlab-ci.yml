@@ -1,4 +1,4 @@
-image: docker:stable
+image: agoradigital/frontend-cicd:latest
 
 stages:
   - build
@@ -25,7 +25,8 @@ tests:
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker-compose -f docker_extra/prod.yml up -d
-    - export FRONTEND_ADDR="http://frontend:80"; export GUI=false; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test
+    - export FRONTEND_ADDR="http://frontend:80"
+    - npm run docker_test
     - docker-compose -f docker_extra/prod.yml down
   # coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
 

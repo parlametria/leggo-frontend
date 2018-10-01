@@ -1,16 +1,15 @@
 describe('My First Test', () => {
-
   it('Test filter apreciacao', () => {
     cy.visit('/#/proposicoes')
     const apreciacoes = ['Plenário', 'Conclusiva']
-      cy.contains('Apreciação').click()
-      apreciacoes.forEach(apreciacao => {
-        cy.get('#tags > div > span').should('contain', apreciacao)
-        cy.contains('.is-checked', apreciacao).click()
-        cy.get('#tags > div > span').should('not.contain', apreciacao)
-        cy.contains('span', apreciacao).click()
-        cy.get('#tags > div > span').should('contain', apreciacao)
-      });
+    cy.contains('Apreciação').click()
+    apreciacoes.forEach(apreciacao => {
+      cy.get('#tags > div > span').should('contain', apreciacao)
+      cy.contains('.is-checked', apreciacao).click()
+      cy.get('#tags > div > span').should('not.contain', apreciacao)
+      cy.contains('span', apreciacao).click()
+      cy.get('#tags > div > span').should('contain', apreciacao)
+    })
   })
 
   it('Test filter regime', () => {
@@ -30,5 +29,4 @@ describe('My First Test', () => {
   it('Detalhe Proposicao', () => {
     cy.visit('/#/proposicoes/senado/91341')
   })
-
 })
