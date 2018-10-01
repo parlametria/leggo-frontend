@@ -10,8 +10,8 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test_all": "vue-cli-service lint && vue-cli-service test:e2e --headless",
     "cy:verify": "cypress verify",
-    "docker_test": "GUI=false; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test",
-    "docker_test_gui": "GUI=true; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test"
+    "docker_test": "export GUI=false; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test",
+    "docker_test_gui": "export GUI=true; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test"
   },
   "dependencies": {
     "element-ui": "^2.4.6",
