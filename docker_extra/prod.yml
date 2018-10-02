@@ -6,8 +6,10 @@ services:
 
   frontend:
     build:
-      context: ..
+      context: ${FRONTEND_PATH:-..}
       dockerfile: docker_extra/prod.dockerfile
+      cache_from:
+        - ${FRONTEND_IMAGE_TAG:-agoradigital/frontend}
     image: ${FRONTEND_IMAGE_TAG:-agoradigital/frontend}
     container_name: frontend_prod
     ports:

@@ -14,6 +14,7 @@ variables:
   DOCKER_DRIVER: overlay2
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
   CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
+  COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -22,24 +23,19 @@ before_script:
 build:
   stage: build
   script:
-    - docker images
-    - "echo FRONTEND_IMAGE_TAG: $FRONTEND_IMAGE_TAG"
-    - "echo CONTAINER_TEST_IMAGE: $CONTAINER_TEST_IMAGE"
-    - docker pull $CONTAINER_TEST_IMAGE || true
-    - docker images
-    - docker-compose -f docker_extra/prod.yml build
-    - docker images
-    - docker push $CONTAINER_TEST_IMAGE
+    - $COMPOSE_CMD pull || true
+    - $COMPOSE_CMD build
+    - $COMPOSE_CMD push
 
 tests:
   stage: test
   script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker-compose -f docker_extra/prod.yml up -d
+    - $COMPOSE_CMD pull
+    - $COMPOSE_CMD up -d
     - export FRONTEND_ADDR="http://frontend:80"
     # - export BACKEND_ADDR="150.165.85.25 11002"
     - npm run docker_test
-    - docker-compose -f docker_extra/prod.yml down
+    - $COMPOSE_CMD down
     # - sudo chown gitlab-runner:gitlab-runner -R *
   # coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
 
