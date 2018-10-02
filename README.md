@@ -47,6 +47,7 @@ Os outros arquivos estão na pasta `docker_extra`:
 - **Testes:** Os arquivos `test.yml` e `test.dockerfile` são usados para rodar os testes via Cypress, uma vez que ele precisa de uma imagem específica (baseada no Ubuntu e não Alpine).
 - **Produção:** Os arquivos `prod.yml` e `prod.dockerfile` são usados gerar a imagem de produção.
 - **Cache do builder:** O fato de `prod.dockerfile` ser uma imagem multi-stage faz com que seu build-stage não receba uma tag, o que impede que ele use a cache em CI. O `builder.yml` permite fazer a build apenas do build-stage, adicionando a ele uma tag, que depois é usada no `cache_from` do `prod.yml`.
+- **CI/CD:** Os arquivos `cicd.yml` e `cicd.dockerfile` são usados para criar os containers que rodam o script de CI/CD.
 
 ---
 
