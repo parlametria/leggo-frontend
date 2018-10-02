@@ -89,7 +89,7 @@ a {
   font-size: 12px;
   margin-top: 0.5rem;
   padding-top: 0.3rem;
-  color: rgb(140, 140, 140);
+  color: #8c8c8c;
   border-top: 1px solid #dadada;
 }
 
