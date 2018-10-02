@@ -26,7 +26,7 @@ export default {
     },
     isFaseConcluida (fase) {
       const now = Date.now()
-      return new Date(fase.data_inicio) < now && new Date(fase.data_fim) < now
+      return new Date(fase.data_fim) < now
     },
     isAtualFase (fase) {
       const now = Date.now()
@@ -44,9 +44,8 @@ export default {
 .fase {
     width: 30px;
     height: 30px;
-    border: 1px #000 solid;
-    border-right: 0px;
     background-color: #EEE;
+    margin-right: 2px;
 }
 .fase:hover{
   .tooltip{
@@ -54,7 +53,8 @@ export default {
   }
 }
 .fase:last-child {
-    border-right: 1px #000 solid;
+    border: none;
+    box-shadow: 3px 3px 10px #9b9b9b;
 }
 .cerrilhado {
     background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
