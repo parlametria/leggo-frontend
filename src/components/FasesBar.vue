@@ -1,6 +1,6 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in fases" :key="i" class="fase" :class="geraEstilo(fase)" >
+    <div v-for="(fase,i) in fases" :key="i" class="fase" :class="geraEstilo(fase)">
       <div v-if="isAtualFase(fase)" class="triangulo"></div>
       <div class="tooltip">
         <h5>{{ fase.local }} - {{ fase.fase_global }}</h5>
