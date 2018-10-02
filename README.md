@@ -40,7 +40,7 @@ Mesmo usando a imagem de desenvolvimento, alterações nos arquivos de configura
 Esse repositório possui diversos arquivos docker-compose e dockerfile.
 A seguir explicamos a motivação por trás de cada um:
 
-- **Desenvolvimento:** Os dois arquivos na pasta raiz (`docker-compose.yml` e `Dockerfile`) são usados para desenvolvimento.
+- **Desenvolvimento:** Os dois arquivos na pasta raiz (`docker-compose.yml` e `Dockerfile`) são usados para rodar o ambiente de desenvolvimento.
 
 Os outros arquivos estão na pasta `docker_extra`:
 
