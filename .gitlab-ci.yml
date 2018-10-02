@@ -53,12 +53,12 @@ release-image:
     - docker pull $CANDIDATE_IMAGE
     - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
-  # only:
-  #   - master
+  only:
+    - master
 
 deploy:
   stage: deploy
   script:
     - curl --fail -XPOST "$DEPLOY_WEBHOOK"
-  # only:
-  #   - master
+  only:
+    - master
