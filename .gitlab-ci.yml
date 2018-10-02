@@ -27,7 +27,7 @@ build:
   script:
     - $COMPOSE_CMD pull || true
     - docker pull $FRONTEND_BUILDER_IMAGE_TAG || true
-    - docker build -t $FRONTEND_BUILDER_IMAGE_TAG --target build-stage --cache-from $FRONTEND_BUILDER_IMAGE_TAG .
+    - docker build -f docker_extra/prod.dockerfile -t $FRONTEND_BUILDER_IMAGE_TAG --target build-stage --cache-from $FRONTEND_BUILDER_IMAGE_TAG .
     - docker push $FRONTEND_BUILDER_IMAGE_TAG
     - $COMPOSE_CMD build
     - $COMPOSE_CMD push
