@@ -109,6 +109,6 @@ export default {
   float: right;
   margin-top: -20px;
   margin-left: 40px;
-  
+
  }
 </style>
