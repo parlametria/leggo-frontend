@@ -1,0 +1,15 @@
+# Compose used to build production build-stage
+# Usefull for caching
+
+version: '3.5'
+
+services:
+
+  frontend_builder:
+    build:
+      context: ${FRONTEND_PATH:-..}
+      dockerfile: docker_extra/prod.dockerfile
+      target: build-stage
+      cache_from:
+        - ${FRONTEND_BUILDER_IMAGE_TAG:-agoradigital/frontend-builder}
+    image: ${FRONTEND_BUILDER_IMAGE_TAG:-agoradigital/frontend}

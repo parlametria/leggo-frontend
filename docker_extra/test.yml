@@ -8,16 +8,17 @@ services:
     build:
       context: ${FRONTEND_PATH:-..}
       dockerfile: ${FRONTEND_PATH:-.}/docker_extra/test.dockerfile
+      cache_from:
+        - ${FRONTEND_TEST_IMAGE_TAG:-agoradigital/frontend-test}
     image: ${FRONTEND_TEST_IMAGE_TAG:-agoradigital/frontend-test}
     container_name: frontend_test
-    # command:
-    #   - bash
     tty: true
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${FRONTEND_PATH:-..}/tests:/app/tests
     environment:
       - CYPRESS_baseUrl=${FRONTEND_ADDR:-http://frontend:8080}
+      - BACKEND_ADDR=${BACKEND_ADDR:-api 8000}
       - GUI=${GUI:-false}
       - DISPLAY
 
