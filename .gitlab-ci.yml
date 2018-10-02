@@ -14,6 +14,7 @@ variables:
   DOCKER_DRIVER: overlay2
   CANDIDATE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
   RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
+  COMPOSE_BUILDER_CMD: docker-compose -f docker_extra/builder.yml
   COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
   FRONTEND_BUILDER_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-builder
   FRONTEND_TEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-test
@@ -25,10 +26,10 @@ before_script:
 build:
   stage: build
   script:
+    - $COMPOSE_BUILDER_CMD pull || true
+    - $COMPOSE_BUILDER_CMD build
+    - $COMPOSE_BUILDER_CMD push
     - $COMPOSE_CMD pull || true
-    - docker pull $FRONTEND_BUILDER_IMAGE_TAG || true
-    - docker build -f docker_extra/prod.dockerfile -t $FRONTEND_BUILDER_IMAGE_TAG --target build-stage --cache-from $FRONTEND_BUILDER_IMAGE_TAG .
-    - docker push $FRONTEND_BUILDER_IMAGE_TAG
     - $COMPOSE_CMD build
     - $COMPOSE_CMD push
 
