@@ -67,6 +67,7 @@ export default {
     regimeFilter: state => state.filter.regimeFilter,
     casaFilter: state => state.filter.casaFilter,
     emPautaFilter: state => state.filter.emPautaFilter,
+    energias: state => state.filter.energias,
     filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
@@ -77,8 +78,13 @@ export default {
   }),
   methods: {
     ...mapActions(['listProposicoes']),
+
     orderByEnergy (list) {
       return orderBy(list, 'energia', this.energyOrder)
+      // return list.sort((a, b) =>  this.getEnergy(a.id_ext) - this.getEnergy(b.id_ext))
+    },
+    getEnergy(key) {
+      return this.energias[key]
     },
     processProps (prop) {
       return (

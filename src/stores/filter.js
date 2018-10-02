@@ -39,7 +39,8 @@ const filtro = {
         'status': true
       }
     ],
-    dateFilter: ''
+    dateFilter: '',
+    energias: {}
   },
   mutations: {
     filtraApreciacao (state, apreciacoes) {
@@ -56,6 +57,9 @@ const filtro = {
     },
     updateDate (state, date) {
       state.dateFilter = date
+    },
+    updateEnergias (state, payload) {
+        state.energias[payload.id] = payload.energia
     }
   },
   actions: {

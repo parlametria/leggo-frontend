@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div :id= "visId"></div>
+    <div :id="visId"></div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'EnergyGraphic',
@@ -30,7 +31,12 @@ export default {
       this.formatDate(this.date)
     )
   },
+  computed: mapState({
+    energias: state => state.filter.energias,
+  }),
+
   methods: {
+    ...mapMutations(['updateEnergias']),
     formatDate: date => {
       let month = '' + (date.getMonth() + 1)
       let day = '' + date.getDate()
@@ -41,7 +47,7 @@ export default {
 
       return [year, month, day].join('-')
     },
-    mountGraphic: async (visId, id, casa, semanas, date) => {
+    async mountGraphic(visId, id, casa, semanas, date) {
       function getTendeciaColor (energia) {
         if (energia.length > 1) {
           const ultima = energia[0].energia_recente
@@ -54,16 +60,21 @@ export default {
 
         return '#67a9cf'
       }
-
+      
       const response = await axios.get(
         `${process.env.VUE_APP_API_URL}energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
       )
-
+    
       let energia = response.data
+      this.updateEnergias({
+        "energia": energia[0].energia_recente,
+        "id": id
+      })
+
       if (energia.length > 0) {
         energia[0].energia_dia = energia[0].energia_recente
       }
-      
+
       const color = getTendeciaColor(energia)
 
       const vlSpec = {
@@ -86,6 +97,10 @@ export default {
               x: {
                 field: 'periodo',
                 type: 'temporal',
+                format: "%Y-%m-%d",
+                scale: {
+                  type: "utc"
+                },
                 axis: {
                   title: '',
                   grid: false,
@@ -114,6 +129,10 @@ export default {
               x: {
                 field: 'periodo',
                 type: 'temporal',
+                format: "%Y-%m-%d",
+                scale: {
+                  type: "utc"
+                },
                 axis: {
                   title: '',
                   grid: false,
@@ -159,6 +178,42 @@ export default {
   },
   watch: {
     date: {
+      handler: function (val, oldVal) {
+        this.mountGraphic(
+          this.visId,
+          this.id,
+          this.casa,
+          this.semanas,
+          this.formatDate(this.date)
+        )
+      },
+      deep: true
+    },
+    id: {
+      handler: function (val, oldVal) {
+        this.mountGraphic(
+          this.visId,
+          this.id,
+          this.casa,
+          this.semanas,
+          this.formatDate(this.date)
+        )
+      },
+      deep: true
+    },
+    casa: {
+      handler: function (val, oldVal) {
+        this.mountGraphic(
+          this.visId,
+          this.id,
+          this.casa,
+          this.semanas,
+          this.formatDate(this.date)
+        )
+      },
+      deep: true
+    },
+    visId: {
       handler: function (val, oldVal) {
         this.mountGraphic(
           this.visId,
