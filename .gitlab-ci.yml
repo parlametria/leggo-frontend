@@ -15,16 +15,20 @@ variables:
   CANDIDATE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
   RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
   COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
+  FRONTEND_BUILDER_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-builder
+  FRONTEND_TEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-test
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - export FRONTEND_IMAGE_TAG=$CANDIDATE_IMAGE
-  - export FRONTEND_TEST_IMAGE_TAG=$CI_REGISTRY_IMAGE:gitlab-ci-test
 
 build:
   stage: build
   script:
     - $COMPOSE_CMD pull || true
+    - docker pull $FRONTEND_BUILDER_IMAGE_TAG || true
+    - docker build -t $FRONTEND_BUILDER_IMAGE_TAG --target build-stage --cache-from $FRONTEND_BUILDER_IMAGE_TAG .
+    - docker push $FRONTEND_BUILDER_IMAGE_TAG
     - $COMPOSE_CMD build
     - $COMPOSE_CMD push
 
@@ -48,8 +52,12 @@ release-image:
     - docker pull $CANDIDATE_IMAGE
     - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
+  # only:
+  #   - master
 
 deploy:
   stage: deploy
   script:
     - curl --fail -XPOST "$DEPLOY_WEBHOOK"
+  # only:
+  #   - master
