@@ -64,19 +64,24 @@ export default {
       const response = await axios.get(
         `${process.env.VUE_APP_API_URL}energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
       )
-
       let energia = response.data
-      this.updateEnergias({
-        'energia': energia[0].energia_recente,
-        'id': id
-      })
 
       if (energia.length > 0) {
         energia[0].energia_dia = energia[0].energia_recente
+        this.updateEnergias({
+          'energia': energia[0].energia_recente,
+          'id': id
+        })
+      }
+      else {
+        this.updateEnergias({
+          'energia': -1,
+          'id': id
+        })
       }
 
       const color = getTendeciaColor(energia)
-
+      
       const vlSpec = {
         description: 'Últimos 30 dias',
         $schema: 'https://vega.github.io/schema/vega-lite/v2.json',

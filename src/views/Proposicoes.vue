@@ -58,23 +58,26 @@ export default {
   mounted () {
     this.listProposicoes()
   },
-  computed: mapState({
-    proposicoes: state => state.proposicoes.proposicoes,
-    pending: state => state.proposicoes.pending,
-    error: state => state.proposicoes.error,
-    apreciacaoFilter: state => state.filter.apreciacaoFilter,
-    regimeFilter: state => state.filter.regimeFilter,
-    casaFilter: state => state.filter.casaFilter,
-    emPautaFilter: state => state.filter.emPautaFilter,
-    energias: state => state.filter.energias,
-    filteredProps () {
+  computed: {
+     filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
           return this.processProps(prop) && this.searchMatch(prop)
         })
       )
-    }
-  }),
+    },
+    ...mapState({
+      proposicoes: state => state.proposicoes.proposicoes,
+      pending: state => state.proposicoes.pending,
+      error: state => state.proposicoes.error,
+      apreciacaoFilter: state => state.filter.apreciacaoFilter,
+      regimeFilter: state => state.filter.regimeFilter,
+      casaFilter: state => state.filter.casaFilter,
+      emPautaFilter: state => state.filter.emPautaFilter,
+      energias: state => state.filter.energias,
+   
+    })
+  },
   methods: {
     ...mapActions(['listProposicoes']),
 
