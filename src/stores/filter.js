@@ -59,7 +59,7 @@ const filtro = {
       state.dateFilter = date
     },
     updateEnergias (state, payload) {
-        state.energias[payload.id] = payload.energia
+      state.energias[payload.id] = payload.energia
     }
   },
   actions: {

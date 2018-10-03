@@ -6,7 +6,7 @@
 
 <script>
 import axios from 'axios'
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'EnergyGraphic',
@@ -32,7 +32,7 @@ export default {
     )
   },
   computed: mapState({
-    energias: state => state.filter.energias,
+    energias: state => state.filter.energias
   }),
 
   methods: {
@@ -47,7 +47,7 @@ export default {
 
       return [year, month, day].join('-')
     },
-    async mountGraphic(visId, id, casa, semanas, date) {
+    async mountGraphic (visId, id, casa, semanas, date) {
       function getTendeciaColor (energia) {
         if (energia.length > 1) {
           const ultima = energia[0].energia_recente
@@ -60,15 +60,15 @@ export default {
 
         return '#67a9cf'
       }
-      
+
       const response = await axios.get(
         `${process.env.VUE_APP_API_URL}energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
       )
-    
+
       let energia = response.data
       this.updateEnergias({
-        "energia": energia[0].energia_recente,
-        "id": id
+        'energia': energia[0].energia_recente,
+        'id': id
       })
 
       if (energia.length > 0) {
@@ -97,9 +97,9 @@ export default {
               x: {
                 field: 'periodo',
                 type: 'temporal',
-                format: "%Y-%m-%d",
+                format: '%Y-%m-%d',
                 scale: {
-                  type: "utc"
+                  type: 'utc'
                 },
                 axis: {
                   title: '',
@@ -129,9 +129,9 @@ export default {
               x: {
                 field: 'periodo',
                 type: 'temporal',
-                format: "%Y-%m-%d",
+                format: '%Y-%m-%d',
                 scale: {
-                  type: "utc"
+                  type: 'utc'
                 },
                 axis: {
                   title: '',
