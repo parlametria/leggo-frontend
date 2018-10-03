@@ -34,7 +34,6 @@ import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
 import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
-import orderBy from 'lodash/orderBy'
 
 export default {
   name: 'proposicoes',
@@ -59,26 +58,31 @@ export default {
   mounted () {
     this.listProposicoes()
   },
-  computed: mapState({
-    proposicoes: state => state.proposicoes.proposicoes,
-    pending: state => state.proposicoes.pending,
-    error: state => state.proposicoes.error,
-    apreciacaoFilter: state => state.filter.apreciacaoFilter,
-    regimeFilter: state => state.filter.regimeFilter,
-    casaFilter: state => state.filter.casaFilter,
-    emPautaFilter: state => state.filter.emPautaFilter,
+  computed: {
     filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
           return this.processProps(prop) && this.searchMatch(prop)
         })
       )
-    }
-  }),
+    },
+    ...mapState({
+      proposicoes: state => state.proposicoes.proposicoes,
+      pending: state => state.proposicoes.pending,
+      error: state => state.proposicoes.error,
+      apreciacaoFilter: state => state.filter.apreciacaoFilter,
+      regimeFilter: state => state.filter.regimeFilter,
+      casaFilter: state => state.filter.casaFilter,
+      emPautaFilter: state => state.filter.emPautaFilter,
+      energias: state => state.filter.energias
+
+    })
+  },
   methods: {
     ...mapActions(['listProposicoes']),
+
     orderByEnergy (list) {
-      return orderBy(list, 'energia', this.energyOrder)
+      if (this.energyOrder === 'desc') { return list.sort((a, b) => this.energias[b.id_ext] - this.energias[a.id_ext]) } else { return list.sort((a, b) => this.energias[a.id_ext] - this.energias[b.id_ext]) }
     },
     processProps (prop) {
       return (
