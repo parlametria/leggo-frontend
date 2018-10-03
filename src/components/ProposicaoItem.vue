@@ -2,9 +2,10 @@
     <el-card shadow="hover" class="box-card">
         <el-row>
             <el-col :span="6">
-                <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}">
+               <!--  <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}"> -->
                 {{ prop.apelido }}
-                </router-link>
+                <!-- </router-link> -->
+                <span class="sigla">{{ prop.sigla }}</span>
                 <br>
               <fases-bar :fases="prop.resumo_progresso" />
             </el-col>
@@ -82,4 +83,14 @@ a {
 .el-tag {
   margin-right: 3px;
 }
+
+.sigla {
+  display: block;
+  font-size: 12px;
+  margin-top: 0.5rem;
+  padding-top: 0.3rem;
+  color: #8c8c8c;
+  border-top: 1px solid #dadada;
+}
+
 </style>
