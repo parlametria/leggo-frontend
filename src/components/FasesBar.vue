@@ -1,10 +1,13 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in fases" :key="i" class="fase" :class="geraEstilo(fase)">
-      <div v-if="isAtualFase(fase)" class="triangulo"></div>
-      <div class="tooltip">
+    <div v-for="(fase,i) in fases" :key="i">
+      <div v-if="i == fases.length -1" class="arrow-down"></div>
+      <div v-else class="padding"></div>
+      <div class="fase" :class="geraEstilo(fase)">
+        <div class="tooltip">
         <h5>{{ fase.local }} - {{ fase.fase_global }}</h5>
         <div class="tooltiptriangulo"></div>
+      </div>
       </div>
     </div>
   </div>
@@ -27,7 +30,7 @@ export default {
     },
     isFaseConcluida (fase) {
       const now = Date.now()
-      return new Date(fase.data_inicio) < now && new Date(fase.data_fim) < now
+      return new Date(fase.data_fim) < now
     },
     isAtualFase (fase) {
       const now = Date.now()
@@ -45,9 +48,8 @@ export default {
 .fase {
     width: 30px;
     height: 30px;
-    border: 1px #000 solid;
-    border-right: 0px;
     background-color: #EEE;
+    margin-right: 3px;
 }
 .fase:hover{
   .tooltip{
@@ -55,7 +57,7 @@ export default {
   }
 }
 .fase:last-child {
-    border-right: 1px #000 solid;
+
 }
 .cerrilhado {
     background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
@@ -109,6 +111,17 @@ export default {
   float: right;
   margin-top: -20px;
   margin-left: 40px;
-
- }
+}
+.arrow-down {
+  margin-left: 10px;
+  border: solid rgb(211, 83, 83);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.padding {
+  padding-top: 18px;
+}
 </style>
