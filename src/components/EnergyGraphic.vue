@@ -72,8 +72,7 @@ export default {
           'energia': energia[0].energia_recente,
           'id': id
         })
-      }
-      else {
+      } else {
         this.updateEnergias({
           'energia': -1,
           'id': id
@@ -81,7 +80,7 @@ export default {
       }
 
       const color = getTendeciaColor(energia)
-      
+
       const vlSpec = {
         description: 'Últimos 30 dias',
         $schema: 'https://vega.github.io/schema/vega-lite/v2.json',

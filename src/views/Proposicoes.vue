@@ -59,7 +59,7 @@ export default {
     this.listProposicoes()
   },
   computed: {
-     filteredProps () {
+    filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
           return this.processProps(prop) && this.searchMatch(prop)
@@ -74,8 +74,8 @@ export default {
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
-      energias: state => state.filter.energias,
-   
+      energias: state => state.filter.energias
+
     })
   },
   methods: {
