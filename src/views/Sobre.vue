@@ -12,7 +12,7 @@
         <a href="https://github.com/analytics-ufcg/agora-digital">Pacote R</a>
       </li>
       <li>
-        <a href="https://github.com/analytics-ufcg/agora-digital-web">Ágora-Web</a>
+        <a href="https://github.com/analytics-ufcg/agora-digital-frontend">Ágora-Frontend</a>
       </li>
       <li>
         <a href="https://github.com/analytics-ufcg/agora-digital-backend">Ágora-Backend</a>
