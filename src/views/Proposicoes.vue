@@ -80,11 +80,10 @@ export default {
     ...mapActions(['listProposicoes']),
 
     orderByEnergy (list) {
-      return orderBy(list, 'energia', this.energyOrder)
-      // return list.sort((a, b) =>  this.getEnergy(a.id_ext) - this.getEnergy(b.id_ext))
-    },
-    getEnergy(key) {
-      return this.energias[key]
+      if(this.energyOrder === "desc")
+        return list.sort((a, b) =>  this.energias[b.id_ext] - this.energias[a.id_ext])
+      else
+        return list.sort((a, b) =>  this.energias[a.id_ext] - this.energias[b.id_ext])
     },
     processProps (prop) {
       return (
