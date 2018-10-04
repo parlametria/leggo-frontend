@@ -32,6 +32,7 @@
     "chai": "^4.1.2",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
+    "eslint-plugin-cypress": "^2.0.1",
     "vue-cli-plugin-element": "^1.0.0",
     "vue-template-compiler": "^2.5.17",
     "vuex-rest-api": "^2.9.0"
