@@ -6,13 +6,15 @@
   </el-menu-item>
 
   <el-menu-item index="2">
+    <i class="el-icon-search"></i>
     <template slot="title">
-      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search"></el-input>
+      <el-input id="el-input" placeholder="Pesquisar Projeto"></el-input>
     </template>
   </el-menu-item>
 
   <el-submenu index="3">
     <template slot="title">
+      <i class="el-icon-edit-outline"></i>
       <span slot="title">Apreciação</span>
     </template>
     <el-menu-item v-for="(opcao, i) in apreciacaoFilter" :index="'1-' + (i+1)" :key="i">
@@ -22,6 +24,7 @@
 
   <el-submenu index="4">
     <template slot="title">
+      <i class="el-icon-edit-outline"></i>
       <span slot="title">Regime de tramitação</span>
     </template>
      <el-menu-item v-for="(opcao, i) in regimeFilter" :index="'1-' + (i+1)" :key="i">
@@ -31,6 +34,7 @@
 
    <el-submenu index="5">
     <template slot="title">
+      <i class="el-icon-edit-outline"></i>
       <span slot="title">Casa</span>
     </template>
      <el-menu-item v-for="(opcao, i) in casaFilter" :index="'1-' + (i+1)" :key="i">
@@ -40,6 +44,7 @@
 
   <el-submenu index="6">
     <template slot="title">
+      <i class="el-icon-edit-outline"></i>
       <span slot="title">Em pauta</span>
     </template>
      <el-menu-item v-for="(opcao, i) in emPautaFilter" :index="'1-' + (i+1)" :key="i">
