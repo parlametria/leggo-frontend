@@ -1,13 +1,17 @@
 <template>
 <div>
-  <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="true" :collapse-transition="true">
-  <el-menu-item index="1">
+  <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" :collapse-transition="false">
+  <el-menu-item index="1" @click="isCollapse = !isCollapse">
+    <i class="el-icon-menu"></i>
+  </el-menu-item>
+
+  <el-menu-item index="2">
     <template slot="title">
-      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search"></el-input>
     </template>
   </el-menu-item>
 
-  <el-submenu index="2">
+  <el-submenu index="3">
     <template slot="title">
       <span slot="title">Apreciação</span>
     </template>
@@ -16,7 +20,7 @@
     </el-menu-item>
   </el-submenu>
 
-  <el-submenu index="3">
+  <el-submenu index="4">
     <template slot="title">
       <span slot="title">Regime de tramitação</span>
     </template>
@@ -25,7 +29,7 @@
     </el-menu-item>
   </el-submenu>
 
-   <el-submenu index="4">
+   <el-submenu index="5">
     <template slot="title">
       <span slot="title">Casa</span>
     </template>
@@ -34,7 +38,7 @@
     </el-menu-item>
   </el-submenu>
 
-  <el-submenu index="5">
+  <el-submenu index="6">
     <template slot="title">
       <span slot="title">Em pauta</span>
     </template>
@@ -51,6 +55,11 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'navMenu',
+  data() {
+    return {
+      isCollapse: true
+    }
+  },
   computed: mapState({
     apreciacaoFilter: state => state.filter.apreciacaoFilter,
     regimeFilter: state => state.filter.regimeFilter,
