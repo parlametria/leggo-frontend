@@ -1,7 +1,13 @@
 <template>
 <div>
-  <el-menu default-active="2" class="el-menu-vertical-demo">
-  <el-submenu index="1">
+  <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="true" :collapse-transition="true">
+  <el-menu-item index="1">
+    <template slot="title">
+      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+    </template>
+  </el-menu-item>
+
+  <el-submenu index="2">
     <template slot="title">
       <span slot="title">Apreciação</span>
     </template>
@@ -10,7 +16,7 @@
     </el-menu-item>
   </el-submenu>
 
-  <el-submenu index="2">
+  <el-submenu index="3">
     <template slot="title">
       <span slot="title">Regime de tramitação</span>
     </template>
@@ -19,7 +25,7 @@
     </el-menu-item>
   </el-submenu>
 
-   <el-submenu index="3">
+   <el-submenu index="4">
     <template slot="title">
       <span slot="title">Casa</span>
     </template>
@@ -28,7 +34,7 @@
     </el-menu-item>
   </el-submenu>
 
-  <el-submenu index="4">
+  <el-submenu index="5">
     <template slot="title">
       <span slot="title">Em pauta</span>
     </template>

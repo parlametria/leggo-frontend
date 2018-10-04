@@ -9,10 +9,9 @@
       <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
     </el-header>
     <el-container>
-    <el-aside>
-      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+      <!-- <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input> -->
       <nav-menu></nav-menu>
-    </el-aside>
+
       <el-main class="el-main">
         <p v-if="pending.proposicoes">loading posts...</p>
         <p v-if="error.proposicoes">loading failed</p>
