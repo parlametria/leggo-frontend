@@ -93,8 +93,7 @@ export default {
         layer: [
           {
             mark: {
-              type: 'line',
-              line: true,
+              type: 'area',
               color: color
             },
             encoding: {

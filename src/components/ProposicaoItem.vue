@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
 import EnergyGraphic from '@/components/EnergyGraphic'
@@ -32,7 +31,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'proposicaoitem',
   components: {
-    Energy,
     RegimeTramitacao,
     FormaApreciacao,
     EnergyGraphic,
