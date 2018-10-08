@@ -81,6 +81,32 @@ export default {
 
       const color = getTendeciaColor(energia)
 
+      const encoding = {
+        x: {
+          field: 'periodo',
+          type: 'temporal',
+          format: '%Y-%m-%d',
+          scale: {
+            type: 'utc'
+          },
+          axis: {
+            title: '',
+            grid: false,
+            ticks: false,
+            labels: false
+          }
+        },
+        y: {
+          field: 'energia_recente',
+          type: 'quantitative',
+          axis: {
+            title: '',
+            grid: false,
+            labels: false,
+            ticks: false
+          }
+        }
+      }
       const vlSpec = {
         description: 'Últimos 30 dias',
         $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
@@ -94,34 +120,10 @@ export default {
           {
             mark: {
               type: 'area',
-              color: color
+              color: color,
+              fillOpacity: 0.5
             },
-            encoding: {
-              x: {
-                field: 'periodo',
-                type: 'temporal',
-                format: '%Y-%m-%d',
-                scale: {
-                  type: 'utc'
-                },
-                axis: {
-                  title: '',
-                  grid: false,
-                  ticks: false,
-                  labels: false
-                }
-              },
-              y: {
-                field: 'energia_recente',
-                type: 'quantitative',
-                axis: {
-                  title: '',
-                  grid: false,
-                  labels: false,
-                  ticks: false
-                }
-              }
-            }
+            encoding: encoding
           },
           {
             mark: {
@@ -129,32 +131,39 @@ export default {
               color: color
             },
             encoding: {
-              x: {
-                field: 'periodo',
-                type: 'temporal',
-                format: '%Y-%m-%d',
-                scale: {
-                  type: 'utc'
-                },
-                axis: {
-                  title: '',
-                  grid: false,
-                  ticks: false,
-                  labels: false
-                }
-              },
-              y: {
-                field: 'energia_dia',
-                type: 'quantitative',
-                axis: {
-                  title: '',
-                  grid: false,
-                  labels: false,
-                  ticks: false
-                }
-              },
-              size: {'value': 80}
+               x: {
+                 field: 'periodo',
+                 type: 'temporal',
+                 format: '%Y-%m-%d',
+                 scale: {
+                   type: 'utc'
+                 },
+                 axis: {
+                   title: '',
+                   grid: false,
+                   ticks: false,
+                   labels: false
+                 }
+               },
+               y: {
+                 field: 'energia_dia',
+                 type: 'quantitative',
+                 axis: {
+                   title: '',
+                   grid: false,
+                   labels: false,
+                   ticks: false
+                 }
+               },
+               size: {'value': 80}
             }
+          },
+          {
+            mark: {
+              type: 'line',
+              color: color
+            },
+            encoding: encoding
           }
         ],
         config: {
