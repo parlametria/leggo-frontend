@@ -104,6 +104,9 @@ export default {
             grid: false,
             labels: false,
             ticks: false
+          },
+          scale: {
+            domain: [0, 40]
           }
         }
       }
@@ -173,9 +176,9 @@ export default {
           axisY: {
             minExtent: 0
           },
-          axis: {
-            domain: false
-          }
+          /* axis: {
+            "domain": false
+          } */
         }
       }
 
