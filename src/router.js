@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Temas from './views/Temas.vue'
 import Proposicoes from './views/Proposicoes.vue'
 import Sobre from './views/Sobre.vue'
 import ProposicaoDetails from './views/ProposicaoDetails.vue'
@@ -10,12 +11,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'proposicoes',
-      component: Proposicoes
+      name: 'temas',
+      component: Temas
     },
     {
-      path: '/proposicoes',
-      name: 'proposicoes',
+      path: '/temas',
+      name: 'temas',
+      component: Temas
+    },
+    {
+      path: '/temas/:tema',
+      name: 'tema',
       component: Proposicoes
     },
     {
@@ -25,7 +31,7 @@ export default new Router({
     },
     {
       path: '/proposicoes/:casa/:idExt',
-      name: 'proposicaoDetails',
+      name: 'temas',
       component: ProposicaoDetails
     }
   ]
