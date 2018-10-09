@@ -2,9 +2,9 @@
     <el-card shadow="hover" class="box-card" :body-style= "highlight()">
         <el-row>
             <el-col :span="6">
-               <!--  <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}"> -->
+              <a :href="prop.url"> 
                 {{ prop.apelido }}
-                <!-- </router-link> -->
+              </a> 
                 <span class="sigla">{{ prop.sigla }}</span>
                 <br>
               <fases-bar :fases="prop.resumo_progresso" />
