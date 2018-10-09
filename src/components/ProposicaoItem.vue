@@ -1,6 +1,6 @@
 <template>
     <el-card shadow="hover" class="box-card" :body-style= "highlight()">
-        <el-row class="em-pauta">
+        <el-row>
             <el-col :span="6">
                <!--  <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}"> -->
                 {{ prop.apelido }}
@@ -45,9 +45,9 @@ export default {
     date: Date
   },
   methods: {
-    highlight() {
+    highlight () {
       if (this.prop.em_pauta) {
-        return "border: 2px solid #ffec00"
+        return 'border: 2px solid #ffec00'
       }
     }
   }
