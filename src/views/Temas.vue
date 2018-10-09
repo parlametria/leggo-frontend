@@ -3,7 +3,7 @@
         <el-col :xs="20" :sm="12" :md="8" :lg="8" :xl="6" > 
             <el-row v-for="(tema, i) in temas" :key="i">
                 <router-link :to="`/temas/${tema}`">
-                    <el-card >
+                    <el-card shadow="hover">
                     {{ tema }}
                     </el-card>
                 </router-link>
@@ -27,4 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-row {
+    margin-bottom: 5px;
+}
 </style>
