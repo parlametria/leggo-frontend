@@ -113,5 +113,7 @@ a {
 }
 .mark{
   width: 100%;
+  right: -39px;
+  cursor: pointer;
 }
 </style>
