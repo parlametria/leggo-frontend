@@ -2,9 +2,9 @@
     <el-card shadow="hover" class="box-card" :body-style= "highlight()">
         <el-row>
             <el-col :span="6">
-              <a :href="prop.url"> 
+              <a :href="prop.url">
                 {{ prop.apelido }}
-              </a> 
+              </a>
                 <span class="sigla">{{ prop.sigla }}</span>
                 <br>
               <fases-bar :fases="prop.resumo_progresso" />
