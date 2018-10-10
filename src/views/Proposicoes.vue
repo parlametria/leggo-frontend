@@ -16,14 +16,12 @@
       <el-main class="el-main">
         <p v-if="pending.proposicoes">loading posts...</p>
         <p v-if="error.proposicoes">loading failed</p>
-        <el-row>
-          <el-col v-for="(tema, i) in temas" :key="i" :span="24 / temas.length">
-            {{ tema }}
-            <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-              <proposicao-item :date= date :prop= prop :visId= "`vis${i}-${j}`"/>
-            </el-row>
-          </el-col>
-      </el-row>
+        <el-col :span="24">
+          {{ tema }}
+          <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
+            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis${i}-${j}`"/>
+          </el-row>
+        </el-col>
       </el-main>
     </el-container>
   </el-container>
@@ -59,10 +57,13 @@ export default {
     this.listProposicoes()
   },
   computed: {
+    tema () { return this.$route.params.tema },
     filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
-          return this.processProps(prop) && this.searchMatch(prop)
+          let [etapa] = prop.etapas.slice(-1)
+          prop.lastEtapa = etapa
+          return this.processProps(etapa) && this.searchMatch(etapa)
         })
       )
     },
@@ -75,14 +76,17 @@ export default {
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
       energias: state => state.filter.energias
-
     })
   },
   methods: {
     ...mapActions(['listProposicoes']),
 
     orderByEnergy (list) {
-      if (this.energyOrder === 'desc') { return list.sort((a, b) => this.energias[b.id_ext] - this.energias[a.id_ext]) } else { return list.sort((a, b) => this.energias[a.id_ext] - this.energias[b.id_ext]) }
+      if (this.energyOrder === 'desc') {
+        return list.sort((a, b) => this.energias[b.id_ext] - this.energias[a.id_ext])
+      } else {
+        return list.sort((a, b) => this.energias[a.id_ext] - this.energias[b.id_ext])
+      }
     },
     processProps (prop) {
       return (

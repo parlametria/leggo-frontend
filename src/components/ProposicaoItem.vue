@@ -22,10 +22,10 @@
               </a>
                 <span class="sigla">{{ prop.sigla }}</span>
                 <br>
-              <fases-bar :fases="prop.resumo_progresso" />
+              <fases-bar :fases="prop.resumo_progresso"/>
             </el-col>
             <el-col :span="6">
-                <energy-graphic :date= "date" :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
+                <energy-graphic :date="date" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
             </el-col>
             <el-col id="tags">
                 <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
