@@ -1,10 +1,10 @@
 <template>
-    <el-card shadow="hover" class="box-card">
+    <el-card shadow="hover" class="box-card" :body-style= "highlight()">
         <el-row>
             <el-col :span="6">
-               <!--  <router-link :to="{ name: 'proposicaoDetails', params: { casa: prop.casa, idExt: prop.id_ext }}"> -->
+              <a :href="prop.url"> 
                 {{ prop.apelido }}
-                <!-- </router-link> -->
+              </a> 
                 <span class="sigla">{{ prop.sigla }}</span>
                 <br>
               <fases-bar :fases="prop.resumo_progresso" />
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import Energy from '@/components/Energy.vue'
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
 import EnergyGraphic from '@/components/EnergyGraphic'
@@ -32,7 +31,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'proposicaoitem',
   components: {
-    Energy,
     RegimeTramitacao,
     FormaApreciacao,
     EnergyGraphic,
@@ -45,6 +43,13 @@ export default {
     prop: Object,
     visId: String,
     date: Date
+  },
+  methods: {
+    highlight () {
+      if (this.prop.em_pauta) {
+        return 'border: 2px solid #ffec00'
+      }
+    }
   }
 }
 </script>
@@ -75,15 +80,12 @@ export default {
 a {
   text-decoration: none;
 }
-
 #tags {
   display: flex;
 }
-
 .el-tag {
   margin-right: 3px;
 }
-
 .sigla {
   display: block;
   font-size: 12px;
