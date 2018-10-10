@@ -1,12 +1,8 @@
 <template>
 <div>
-  <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" :collapse-transition="false">
-  <el-menu-item index="1" @click="isCollapse = !isCollapse">
-    <i class="el-icon-menu"></i>
-  </el-menu-item>
-
+  <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="widthCollapse()" :collapse-transition="false">
   <el-menu-item index="2">
-    <i class="el-icon-search"></i>
+    <i class="el-icon-search" @click="isCollapse = !isCollapse"></i>
     <template slot="title">
       <el-input @change="filtraNomeProposicao(nomeProposicaoFilter)" id="el-input" placeholder="Pesquisar Projeto" v-model="nomeProposicaoFilter.nomeProposicao"></el-input>
     </template>
@@ -62,8 +58,15 @@ export default {
   name: 'navMenu',
   data() {
     return {
-      isCollapse: true
+      isCollapse: true,
+      windowWidth: 0
     }
+  },
+  mounted() {
+    this.$nextTick(function() {
+      window.addEventListener('resize', this.getWindowWidth);
+      this.getWindowWidth()
+    })
   },
   computed: mapState({
     apreciacaoFilter: state => state.filter.apreciacaoFilter,
@@ -73,7 +76,13 @@ export default {
     nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
   }),
   methods: {
-    ...mapMutations(['filtraApreciacao', 'filtraRegime', 'filtraCasa', 'filtraEmPauta', 'filtraNomeProposicao'])
+    ...mapMutations(['filtraApreciacao', 'filtraRegime', 'filtraCasa', 'filtraEmPauta', 'filtraNomeProposicao']),
+    getWindowWidth(event) {
+      this.windowWidth = document.documentElement.clientWidth;
+    },
+    widthCollapse() {
+      return this.windowWidth < 660 && this.isCollapse;
+    }
   }
 }
 </script>
@@ -82,7 +91,6 @@ export default {
 .el-menu-vertical-demo{
     height:100%,
 }
-
 .el-submenu{
   text-align: left;
 }
