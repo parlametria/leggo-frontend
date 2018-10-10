@@ -116,7 +116,7 @@ export default {
   align-items: center;
 }
 .el-row {
-  margin: 5px;
+  margin: 10px;
 }
 .el-header {
   display: inline;

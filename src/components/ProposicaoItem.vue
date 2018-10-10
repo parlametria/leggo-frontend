@@ -1,10 +1,25 @@
 <template>
     <el-card shadow="hover" class="box-card" :body-style= "highlight()">
+        <el-row >
+           <el-col :span="1" :offset="23">
+              <el-popover
+                placement="right"
+                width="400"
+                trigger="click">
+                <el-table :data="gridData">
+                  <el-table-column width="100" property="data" label="data"></el-table-column>
+                  <el-table-column width="100" property="evento" label="evento"></el-table-column>
+                  <el-table-column width="200" property="local" label="local"></el-table-column>
+                </el-table>
+                 <el-badge slot="reference" class="mark" :value="4"/>
+              </el-popover>
+            </el-col>
+        </el-row>
         <el-row>
             <el-col :span="6">
-              <a :href="prop.url"> 
+              <a :href="prop.url">
                 {{ prop.apelido }}
-              </a> 
+              </a>
                 <span class="sigla">{{ prop.sigla }}</span>
                 <br>
               <fases-bar :fases="prop.resumo_progresso" />
@@ -47,14 +62,16 @@ export default {
   methods: {
     highlight () {
       if (this.prop.em_pauta) {
-        return 'border: 2px solid #ffec00'
+        return 'padding-right: 0px; padding-top: 0px;border: 2px solid #ffec00'
+      } else {
+        return 'padding-right: 0px; padding-top: 0px;'
       }
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fases {
   display: inline-block;
   padding: 0;
@@ -94,5 +111,7 @@ a {
   color: #8c8c8c;
   border-top: 1px solid #dadada;
 }
-
+.mark{
+  width: 100%;
+}
 </style>
