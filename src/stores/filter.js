@@ -1,5 +1,8 @@
 const filtro = {
   state: {
+    nomeProposicaoFilter: {
+      'nomeProposicao': ''
+    },
     apreciacaoFilter: [
       {
         'tipo': 'Plenário',
@@ -43,6 +46,9 @@ const filtro = {
     energias: {}
   },
   mutations: {
+    filtraNomeProposicao (state, nomeProposicao) {
+      state.searchFilter = nomeProposicao
+    },
     filtraApreciacao (state, apreciacoes) {
       state.apreciacaoFilter = apreciacoes
     },

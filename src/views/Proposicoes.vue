@@ -9,7 +9,6 @@
       <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
     </el-header>
     <el-container>
-      <!-- <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input> -->
       <nav-menu></nav-menu>
 
       <el-main class="el-main">
@@ -61,7 +60,7 @@ export default {
     filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
-          return this.processProps(prop) && this.searchMatch(prop)
+          return this.processProps(prop)
         })
       )
     },
@@ -73,8 +72,8 @@ export default {
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
+      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter,
       energias: state => state.filter.energias
-
     })
   },
   methods: {
@@ -99,11 +98,9 @@ export default {
             ((options.tipo === 'Sim' && prop.em_pauta) ||
               (options.tipo === 'Não' && !prop.em_pauta)) &&
             options.status
-        )
+        ) &&
+        prop.apelido.toLowerCase().match(this.nomeProposicaoFilter.nomeProposicao.toLowerCase())
       )
-    },
-    searchMatch (prop) {
-      return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase())
     }
   }
 }
@@ -111,7 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 .el-main {
-  margin: auto;
+  margin: 0;
   align-items: center;
 }
 .el-row {

@@ -18,7 +18,16 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.main-view {
+  padding: 0;
+  margin: auto;
+  display: block;
+  max-width: 100%;
+}
+</style>
+
+<style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -26,12 +35,6 @@
   text-align: center;
   color: #2c3e50;
 }
-.main-view {
-  margin: auto;
-  display: block;
-  max-width: 100%;
-}
-
 body {
   margin: 0;
 }

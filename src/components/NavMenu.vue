@@ -8,7 +8,7 @@
   <el-menu-item index="2">
     <i class="el-icon-search"></i>
     <template slot="title">
-      <el-input id="el-input" placeholder="Pesquisar Projeto"></el-input>
+      <el-input @change="filtraNomeProposicao(nomeProposicaoFilter)" id="el-input" placeholder="Pesquisar Projeto" v-model="nomeProposicaoFilter.nomeProposicao"></el-input>
     </template>
   </el-menu-item>
 
@@ -69,11 +69,11 @@ export default {
     apreciacaoFilter: state => state.filter.apreciacaoFilter,
     regimeFilter: state => state.filter.regimeFilter,
     casaFilter: state => state.filter.casaFilter,
-    emPautaFilter: state => state.filter.emPautaFilter
-
+    emPautaFilter: state => state.filter.emPautaFilter,
+    nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
   }),
   methods: {
-    ...mapMutations(['filtraApreciacao', 'filtraRegime', 'filtraCasa', 'filtraEmPauta'])
+    ...mapMutations(['filtraApreciacao', 'filtraRegime', 'filtraCasa', 'filtraEmPauta', 'filtraNomeProposicao'])
   }
 }
 </script>
@@ -85,5 +85,8 @@ export default {
 
 .el-submenu{
   text-align: left;
+}
+.el-input {
+  width: 200px;
 }
 </style>
