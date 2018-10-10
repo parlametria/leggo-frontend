@@ -56,15 +56,15 @@ import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'navMenu',
-  data() {
+  data () {
     return {
       isCollapse: true,
       windowWidth: 0
     }
   },
-  mounted() {
-    this.$nextTick(function() {
-      window.addEventListener('resize', this.getWindowWidth);
+  mounted () {
+    this.$nextTick(function () {
+      window.addEventListener('resize', this.getWindowWidth)
       this.getWindowWidth()
     })
   },
@@ -77,11 +77,11 @@ export default {
   }),
   methods: {
     ...mapMutations(['filtraApreciacao', 'filtraRegime', 'filtraCasa', 'filtraEmPauta', 'filtraNomeProposicao']),
-    getWindowWidth(event) {
-      this.windowWidth = document.documentElement.clientWidth;
+    getWindowWidth (event) {
+      this.windowWidth = document.documentElement.clientWidth
     },
-    widthCollapse() {
-      return this.windowWidth < 660 && this.isCollapse;
+    widthCollapse () {
+      return this.windowWidth < 660 && this.isCollapse
     }
   }
 }
