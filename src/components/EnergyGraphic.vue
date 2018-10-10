@@ -158,7 +158,7 @@ export default {
                   ticks: false
                 }
               },
-              size: {'value': 80}
+              size: { 'value': 80 }
             }
           },
           {

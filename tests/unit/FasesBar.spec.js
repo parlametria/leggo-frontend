@@ -10,10 +10,10 @@ import FasesBar from '@/components/FasesBar.vue'
 describe('FasesBar', () => {
   let cmp
   const fases = [
-    {'data_inicio': '2018-09-16', 'data_fim': '2018-09-17', 'casa': 'senado', 'nome': 'Comissões'},
-    {'data_inicio': '2018-09-17', 'data_fim': '2018-09-17', 'casa': 'senado', 'nome': 'Plenário'},
-    {'data_inicio': '2018-09-17', 'data_fim': '2018-09-19', 'casa': 'camara', 'nome': 'Comissões'},
-    {'data_inicio': '2018-09-19', 'data_fim': '2018-10-19', 'casa': 'camara', 'nome': 'Plenário'}
+    { 'data_inicio': '2018-09-16', 'data_fim': '2018-09-17', 'casa': 'senado', 'nome': 'Comissões' },
+    { 'data_inicio': '2018-09-17', 'data_fim': '2018-09-17', 'casa': 'senado', 'nome': 'Plenário' },
+    { 'data_inicio': '2018-09-17', 'data_fim': '2018-09-19', 'casa': 'camara', 'nome': 'Comissões' },
+    { 'data_inicio': '2018-09-19', 'data_fim': '2018-10-19', 'casa': 'camara', 'nome': 'Plenário' }
   ]
 
   beforeEach(() => {
