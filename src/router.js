@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'temas',
-      component: Temas
+      name: 'home',
+      redirect: { name: 'temas' }
     },
     {
       path: '/temas',

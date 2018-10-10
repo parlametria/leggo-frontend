@@ -17,7 +17,7 @@
         <el-col :span="24">
           {{ tema }}
           <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-            <proposicao-item :date= date :prop= prop :visId= "`vis-${j}`"/>
+            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis${i}-${j}`"/>
           </el-row>
         </el-col>
       </el-main>
@@ -59,7 +59,9 @@ export default {
     filteredProps () {
       return this.orderByEnergy(
         this.proposicoes.filter(prop => {
-          return this.processProps(prop)
+          let [etapa] = prop.etapas.slice(-1)
+          prop.lastEtapa = etapa
+          return this.processProps(etapa)
         })
       )
     },
@@ -79,7 +81,11 @@ export default {
     ...mapActions(['listProposicoes']),
 
     orderByEnergy (list) {
-      if (this.energyOrder === 'desc') { return list.sort((a, b) => this.energias[b.id_ext] - this.energias[a.id_ext]) } else { return list.sort((a, b) => this.energias[a.id_ext] - this.energias[b.id_ext]) }
+      if (this.energyOrder === 'desc') {
+        return list.sort((a, b) => this.energias[b.id_ext] - this.energias[a.id_ext])
+      } else {
+        return list.sort((a, b) => this.energias[a.id_ext] - this.energias[b.id_ext])
+      }
     },
     processProps (prop) {
       return (
