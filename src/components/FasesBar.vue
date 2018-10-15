@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scopped>
 .fasesBlock {
-    display: inline-flex;
+    display: flex;
     padding: 3px;
 }
 .fase {
