@@ -1,3 +1,4 @@
+import axios from 'axios'
 const filtro = {
   state: {
     nomeProposicaoFilter: {
@@ -43,7 +44,8 @@ const filtro = {
       }
     ],
     dateFilter: '',
-    energias: {}
+    energias: {},
+    a: {}
   },
   mutations: {
     filtraNomeProposicao (state, nomeProposicao) {
@@ -66,9 +68,13 @@ const filtro = {
     },
     updateEnergias (state, payload) {
       state.energias[payload.id] = payload.energia
+    },
+    updateA (state, payload) { 
+      state.a[payload.id] = payload
     }
   },
   actions: {
+    
   }
 }
 export default filtro
