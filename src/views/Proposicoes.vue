@@ -40,7 +40,7 @@ export default {
         let [etapa] = prop.etapas.slice(-1)
         prop.lastEtapa = etapa
         return this.processProps(etapa)
-      }).filter((prop) => prop.tema == this.tema).sort((a, b) => {
+      }).filter((prop) => prop.tema === this.tema).sort((a, b) => {
         if (this.energyOrder === 'desc') {
           return b.lastEtapa.energia - a.lastEtapa.energia
         } else {
