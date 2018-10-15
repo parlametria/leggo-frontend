@@ -1,39 +1,37 @@
 <template>
-    <el-card shadow="hover" class="box-card" :body-style= "highlight()">
-        <el-row >
-           <el-col :span="1" :offset="23">
-              <el-popover
-                placement="right"
-                width="400"
-                trigger="click">
-                <el-table :data="gridData">
-                  <el-table-column width="100" property="data" label="data"></el-table-column>
-                  <el-table-column width="100" property="evento" label="evento"></el-table-column>
-                  <el-table-column width="200" property="local" label="local"></el-table-column>
-                </el-table>
-                 <el-badge slot="reference" class="mark" :value="4"/>
-              </el-popover>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="6">
-              <a :href="prop.url">
-                {{ prop.apelido }}
-              </a>
-                <span class="sigla">{{ prop.sigla }}</span>
-                <br>
-              <fases-bar :fases="prop.resumo_progresso"/>
-            </el-col>
-            <el-col :span="6">
-                <energy-graphic :date="date" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
-            </el-col>
-            <el-col id="tags">
-                <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-                <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
-                <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
-            </el-col>
-        </el-row>
-    </el-card>
+  <el-card shadow="hover" class="box-card" :body-style= "highlight()">
+    <el-row>
+      <el-popover
+        placement="right"
+        width="400"
+        trigger="click">
+        <el-table :data="gridData">
+          <el-table-column width="100" property="data" label="data"></el-table-column>
+          <el-table-column width="100" property="evento" label="evento"></el-table-column>
+          <el-table-column width="200" property="local" label="local"></el-table-column>
+        </el-table>
+        <el-badge slot="reference" :value="4">
+          <el-button type="info" icon="el-icon-message" circle></el-button>
+        </el-badge>
+      </el-popover>
+      <el-col :span="6">
+        <a :href="prop.url">
+          {{ prop.apelido }}
+        </a>
+          <span class="sigla">{{ prop.sigla }}</span>
+          <br>
+        <fases-bar :fases="prop.resumo_progresso"/>
+      </el-col>
+      <el-col :span="6">
+        <energy-graphic :date="date" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
+      </el-col>
+      <el-col id="tags">
+        <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+        <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+        <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
+      </el-col>
+    </el-row>
+  </el-card>
 </template>
 
 <script>
@@ -52,7 +50,13 @@ export default {
     FasesBar
   },
   computed: mapState({
-    dateFilter: state => state.dateFilter
+    dateFilter: state => state.dateFilter,
+    gridData () {
+      // fake data
+      return [
+        { data: '10-10-2010', evento: 'correu', local: 'praça' }
+      ]
+    }
   }),
   props: {
     prop: Object,
