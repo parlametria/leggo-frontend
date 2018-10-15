@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover" class="box-card" :body-style= "highlight()">
+  <el-card shadow="hover" class="box-card" :class="{ 'border-pauta': this.prop.em_pauta }">
     <el-row>
       <el-popover
         placement="right"
@@ -66,7 +66,7 @@ export default {
   methods: {
     highlight () {
       if (this.prop.em_pauta) {
-        return 'padding-right: 0px; padding-top: 0px;border: 2px solid #ffec00'
+        return 'padding-right: 0px; padding-top: 0px;'
       } else {
         return 'padding-right: 0px; padding-top: 0px;'
       }
@@ -115,9 +115,12 @@ a {
   color: #8c8c8c;
   border-top: 1px solid #dadada;
 }
-.mark{
+.mark {
   width: 100%;
   right: -39px;
   cursor: pointer;
+}
+.border-pauta {
+  border: 2px solid #ffec00;
 }
 </style>
