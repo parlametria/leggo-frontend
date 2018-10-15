@@ -19,7 +19,7 @@
         <el-col :span="24">
           {{ tema }}
           <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis${i}-${j}`"/>
+            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
           </el-row>
         </el-col>
       </el-main>
