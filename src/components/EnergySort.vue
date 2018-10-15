@@ -1,22 +1,16 @@
 <template>
-    <el-container>
-        <el-select :value="value" @input="$emit('input', $event)" clearable placeholder="Ordenar por" size="large">
-          <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
-    </el-container>
+  <el-select v-model="energyOrder" clearable placeholder="Ordenar por" size="large">
+    <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+    </el-option>
+  </el-select>
 </template>
 <script>
 export default {
   name: 'EnergySort',
-  props: {
-    value: String
-  },
-
   data () {
     return {
       options: [
@@ -28,8 +22,17 @@ export default {
           value: 'desc',
           label: 'Mais energia'
         }
-      ],
-      energyOrder: ''
+      ]
+    }
+  },
+  computed: {
+    energyOrder: {
+      get () {
+        return this.$store.state.filter.energyOrder
+      },
+      set (value) {
+        this.$store.commit('updateEnergyOrder', value)
+      }
     }
   }
 }
