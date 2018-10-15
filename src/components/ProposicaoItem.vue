@@ -29,9 +29,11 @@
 
     <fases-bar :fases="prop.resumo_progresso"/>
     <energy-graphic :date="date" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
-    <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-    <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
-    <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
+    <div id="tags">
+      <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
+      <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
+      <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
+    </div>
   </el-card>
 </template>
 

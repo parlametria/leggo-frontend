@@ -1,14 +1,14 @@
-describe('My First Test', () => {
+describe('Test proposições', () => {
   it('Test filter apreciacao', () => {
     cy.visit('/#/temas/Meio Ambiente')
     const apreciacoes = ['Plenário', 'Conclusiva']
     cy.contains('Apreciação').click()
     apreciacoes.forEach(apreciacao => {
-      cy.get('#tags > div > span').should('contain', apreciacao)
+      cy.get('#tags > span').should('contain', apreciacao)
       cy.contains('.is-checked', apreciacao).click()
-      cy.get('#tags > div > span').should('not.contain', apreciacao)
+      cy.get('#tags > span').should('not.contain', apreciacao)
       cy.contains('span', apreciacao).click()
-      cy.get('#tags > div > span').should('contain', apreciacao)
+      cy.get('#tags > span').should('contain', apreciacao)
     })
   })
 
@@ -18,11 +18,11 @@ describe('My First Test', () => {
     const regimes = ['Ordinária', 'Prioridade']
     cy.contains('Regime de tramitação').click()
     regimes.forEach(regime => {
-      cy.get('#tags > div > span').should('contain', regime)
+      cy.get('#tags > span').should('contain', regime)
       cy.contains('.is-checked', regime).click()
-      cy.get('#tags > div > span').should('not.contain', regime)
+      cy.get('#tags > span').should('not.contain', regime)
       cy.contains('span', regime).click()
-      cy.get('#tags > div > span').should('contain', regime)
+      cy.get('#tags > span').should('contain', regime)
     })
   })
 
