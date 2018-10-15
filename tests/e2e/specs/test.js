@@ -1,6 +1,6 @@
 describe('My First Test', () => {
   it('Test filter apreciacao', () => {
-    cy.visit('/#/temas/Meio%20Ambiente')
+    cy.visit('/#/temas/Meio Ambiente')
     const apreciacoes = ['Plenário', 'Conclusiva']
     cy.contains('Apreciação').click()
     apreciacoes.forEach(apreciacao => {
@@ -13,9 +13,9 @@ describe('My First Test', () => {
   })
 
   it('Test filter regime', () => {
-    cy.visit('/#/temas/Meio%20Ambiente')
+    cy.visit('/#/temas/Meio Ambiente')
 
-    const regimes = ['Urgência', 'Ordinária', 'Prioridade']
+    const regimes = ['Ordinária', 'Prioridade']
     cy.contains('Regime de tramitação').click()
     regimes.forEach(regime => {
       cy.get('#tags > div > span').should('contain', regime)
@@ -27,7 +27,7 @@ describe('My First Test', () => {
   })
 
   it('Detalhe Proposicao', () => {
-    cy.visit('/#/temas/Meio%20Ambiente')
+    cy.visit('/#/temas/Meio Ambiente')
     cy.get('.tooltip').should('not.be.visible')
   })
 })
