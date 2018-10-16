@@ -20,9 +20,16 @@ const proposicoes = new Vapi({
   property: 'proposicoes',
   path: '/proposicoes'
 }).get({
-  action: 'listEnergiaRecente',
-  property: 'energiasRecentes',
-  path: '/energia-recente'
+  action: 'getEnergiaRecente',
+  path: ({ casa, id, semanas, date }) => `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    state.proposicoes.map((prop) => {
+      if (prop.lastEtapa.id_ext === params.id) {
+        prop.lastEtapa['energias'] = data
+      }
+      return prop
+    })
+  }
 }).getStore()
 
 export default new Vuex.Store({
