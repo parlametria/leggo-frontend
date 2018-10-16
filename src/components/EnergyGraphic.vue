@@ -6,7 +6,7 @@
 
 <script>
 import axios from 'axios'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'EnergyGraphic',
@@ -30,12 +30,20 @@ export default {
       this.semanas,
       this.formatDate(this.date)
     )
+    this.getEnergiaRecente({ params: {
+      id: this.id,
+      casa: this.casa,
+      semanas: this.semanas,
+      date: this.formatDate(this.date)
+    }}
+    )
   },
   computed: mapState({
     energias: state => state.filter.energias
   }),
 
   methods: {
+    ...mapActions(['getEnergiaRecente']),
     ...mapMutations(['updateEnergias']),
     formatDate: date => {
       let month = '' + (date.getMonth() + 1)
