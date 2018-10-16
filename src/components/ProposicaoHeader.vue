@@ -9,8 +9,6 @@
         </el-col>
         <el-col :span="1" :offset="13">
           <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-          <!-- <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
-          <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag> -->
         </el-col>
         <el-col :span="2" :offset="0">
           <forma-apreciacao :apreciacao="prop.forma_apreciacao"/>
