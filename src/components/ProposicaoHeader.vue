@@ -6,10 +6,10 @@
             {{ prop.apelido }}
           </div>
         </el-col>
-        <el-col :xs="{span:1 ,offset: 1}" :sm="{span: 1, offset: 2}" :md="{span: 1, offset: 6}" :lg="{span: 2, offset: 14}">
+        <el-col :xs="{span:1 ,offset: 1}" :sm="{span: 1, offset: 2}" :md="{span: 1, offset: 6}" :lg="{span: 2, offset: 14}" id="tags">
             <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
         </el-col>
-        <el-col :xs="1" :sm="1" :md="1" :lg="2" >
+        <el-col :xs="1" :sm="1" :md="1" :lg="2" id="tags">
           <forma-apreciacao :apreciacao="prop.forma_apreciacao"/>
         </el-col>
         <el-col :xs="1" :sm="2" :md="4" :lg="2" >
