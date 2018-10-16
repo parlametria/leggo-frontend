@@ -7,12 +7,15 @@
       <p v-if="pending.proposicoes">loading posts...</p>
       <p v-if="error.proposicoes">loading failed</p>
       <h2>{{ tema }}</h2>
-      <div class="flex flex-center">
-        <proposicao-item
-          class="proposicao-item"
-          :key="j"
-          v-for="(prop,j) in filteredProps"
-          :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+      <div >
+        <el-collapse v-model="activeNames">
+          <el-collapse-item :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
+            <proposicao-header :prop="prop.lastEtapa" slot="title" />
+            <proposicao-item
+              class="proposicao-item"
+              :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+          </el-collapse-item>
+        </el-collapse>
       </div>
     </el-col>
   </el-row>
@@ -20,14 +23,20 @@
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
+import ProposicaoHeader from '@/components/ProposicaoHeader'
 import NavMenu from '@/components/NavMenu'
 import { mapState, mapActions } from 'vuex'
-
 export default {
   name: 'proposicoes',
   components: {
     ProposicaoItem,
-    NavMenu
+    NavMenu,
+    ProposicaoHeader
+  },
+  data () {
+    return {
+      activeNames: []
+    }
   },
   mounted () {
     this.listProposicoes()
