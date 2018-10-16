@@ -31,7 +31,7 @@ export default new Router({
     },
     {
       path: '/proposicoes/:casa/:idExt',
-      name: 'temas',
+      name: 'proposicao',
       component: ProposicaoDetails
     }
   ]

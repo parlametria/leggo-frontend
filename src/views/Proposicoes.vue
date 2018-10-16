@@ -1,57 +1,33 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-date-picker class="energy-sort"
-        v-model="date"
-        type="date" placeholder="Data de referência"
-        :picker-options="pickerOptions1">
-    </el-date-picker>
-      <energy-sort class="energy-sort" v-model="energyOrder"></energy-sort>
-    </el-header>
-    <el-container>
-    <el-aside>
-      <el-input id="el-input" placeholder="Pesquisar Projeto de Lei" prefix-icon="el-icon-search" v-model="text_searched"></el-input>
+  <el-row :gutter="20">
+    <el-col :sm="10" :md="8" :lg="6">
       <nav-menu></nav-menu>
-    </el-aside>
-      <el-main class="el-main">
-        <p v-if="pending.proposicoes">loading posts...</p>
-        <p v-if="error.proposicoes">loading failed</p>
-        <el-col :span="24">
-          {{ tema }}
-          <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
-          </el-row>
-        </el-col>
-      </el-main>
-    </el-container>
-  </el-container>
+    </el-col>
+    <el-col :sm="14" :md="16" :lg="18">
+      <p v-if="pending.proposicoes">loading posts...</p>
+      <p v-if="error.proposicoes">loading failed</p>
+      <h2>{{ tema }}</h2>
+      <div class="flex flex-center">
+        <proposicao-item
+          class="proposicao-item"
+          :key="j"
+          v-for="(prop,j) in filteredProps"
+          :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+      </div>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
-import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'proposicoes',
   components: {
     ProposicaoItem,
-    NavMenu,
-    EnergySort
-  },
-  data () {
-    return {
-      text_searched: '',
-      energyOrder: '',
-      temas: ['Meio Ambiente', 'Agenda Nacional'],
-      date: new Date(),
-      pickerOptions1: {
-        disabledDate (time) {
-          return time.getTime() > Date.now()
-        }
-      }
-    }
+    NavMenu
   },
   mounted () {
     this.listProposicoes()
@@ -59,13 +35,18 @@ export default {
   computed: {
     tema () { return this.$route.params.tema },
     filteredProps () {
-      return this.orderByEnergy(
-        this.proposicoes.filter(prop => {
-          let [etapa] = prop.etapas.slice(-1)
-          prop.lastEtapa = etapa
-          return this.processProps(etapa) && this.searchMatch(etapa)
-        })
-      )
+      return this.proposicoes.filter(prop => {
+        // por enquanto usa apenas a última etapa
+        let [etapa] = prop.etapas.slice(-1)
+        prop.lastEtapa = etapa
+        return this.processProps(etapa)
+      }).filter((prop) => prop.tema === this.tema).sort((a, b) => {
+        if (this.energyOrder === 'desc') {
+          return b.lastEtapa.energia - a.lastEtapa.energia
+        } else {
+          return a.lastEtapa.energia - b.lastEtapa.energia
+        }
+      })
     },
     ...mapState({
       proposicoes: state => state.proposicoes.proposicoes,
@@ -75,19 +56,13 @@ export default {
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
+      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter,
+      energyOrder: state => state.filter.energyOrder,
       energias: state => state.filter.energias
     })
   },
   methods: {
     ...mapActions(['listProposicoes']),
-
-    orderByEnergy (list) {
-      if (this.energyOrder === 'desc') {
-        return list.sort((a, b) => this.energias[b.id_ext] - this.energias[a.id_ext])
-      } else {
-        return list.sort((a, b) => this.energias[a.id_ext] - this.energias[b.id_ext])
-      }
-    },
     processProps (prop) {
       return (
         this.apreciacaoFilter.some(
@@ -104,33 +79,21 @@ export default {
             ((options.tipo === 'Sim' && prop.em_pauta) ||
               (options.tipo === 'Não' && !prop.em_pauta)) &&
             options.status
-        )
+        ) &&
+          prop.apelido.toLowerCase().match(
+            this.nomeProposicaoFilter.nomeProposicao.toLowerCase())
       )
-    },
-    searchMatch (prop) {
-      return prop.apelido.toLowerCase().match(this.text_searched.toLowerCase())
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.el-main {
-  margin: auto;
-  align-items: center;
+.proposicao-item {
+  min-width: 350px;
 }
-.el-row {
-  margin: 10px;
-}
-.el-header {
-  display: inline;
-}
-.el-aside {
-  margin: 0px;
-  padding: 0px;
-}
-.energy-sort {
-  margin: 5px;
-  float: right;
+.flex {
+    display: flex;
+    flex-wrap: wrap;
 }
 </style>

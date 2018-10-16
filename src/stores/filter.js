@@ -1,5 +1,8 @@
 const filtro = {
   state: {
+    nomeProposicaoFilter: {
+      'nomeProposicao': ''
+    },
     apreciacaoFilter: [
       {
         'tipo': 'Plenário',
@@ -39,10 +42,14 @@ const filtro = {
         'status': true
       }
     ],
-    dateFilter: '',
+    dateRef: new Date(),
+    energyOrder: 'desc',
     energias: {}
   },
   mutations: {
+    filtraNomeProposicao (state, nomeProposicao) {
+      state.searchFilter = nomeProposicao
+    },
     filtraApreciacao (state, apreciacoes) {
       state.apreciacaoFilter = apreciacoes
     },
@@ -55,8 +62,11 @@ const filtro = {
     filtraEmPauta (state, pautas) {
       state.emPautaFilter = pautas
     },
-    updateDate (state, date) {
-      state.dateFilter = date
+    updateDateRef (state, date) {
+      state.dateRef = date
+    },
+    updateEnergyOrder (state, order) {
+      state.energyOrder = order
     },
     updateEnergias (state, payload) {
       state.energias[payload.id] = payload.energia

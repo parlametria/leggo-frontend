@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover" class="box-card" :class="{ 'border-pauta': this.prop.em_pauta }">
+  <el-card shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': this.prop.em_pauta }">
 
     <!-- Header -->
     <div slot="header" class="flex-between">
@@ -28,7 +28,7 @@
     </a>
 
     <fases-bar :fases="prop.resumo_progresso"/>
-    <energy-graphic :date="date" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
+    <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
     <div id="tags">
       <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
       <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
@@ -53,7 +53,7 @@ export default {
     FasesBar
   },
   computed: mapState({
-    dateFilter: state => state.dateFilter,
+    dateRef: state => state.filter.dateRef,
     gridData () {
       // fake data
       return [
@@ -63,8 +63,7 @@ export default {
   }),
   props: {
     prop: Object,
-    visId: String,
-    date: Date
+    visId: String
   }
 }
 </script>
@@ -79,5 +78,11 @@ export default {
 .flex-between {
     display: flex;
     justify-content: space-between;
+}
+.prop-item {
+    margin: 10px;
+}
+.el-badge {
+    margin: 10px;
 }
 </style>
