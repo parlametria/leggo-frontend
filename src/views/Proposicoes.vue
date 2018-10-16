@@ -18,9 +18,14 @@
         <p v-if="error.proposicoes">loading failed</p>
         <el-col :span="24">
           {{ tema }}
+          <el-collapse v-model="activeNames">
           <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+            <el-collapse-item :name="prop.apelido">
+              <proposicao-header :prop="prop.lastEtapa" slot="title"/>
+              <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+            </el-collapse-item>
           </el-row>
+          </el-collapse>
         </el-col>
       </el-main>
     </el-container>
@@ -29,6 +34,7 @@
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
+import ProposicaoHeader from '@/components/ProposicaoHeader'
 import NavMenu from '@/components/NavMenu'
 import EnergySort from '@/components/EnergySort'
 import { mapState, mapActions } from 'vuex'
@@ -38,7 +44,8 @@ export default {
   components: {
     ProposicaoItem,
     NavMenu,
-    EnergySort
+    EnergySort,
+    ProposicaoHeader
   },
   data () {
     return {
@@ -50,7 +57,8 @@ export default {
         disabledDate (time) {
           return time.getTime() > Date.now()
         }
-      }
+      },
+      activeNames: []
     }
   },
   mounted () {
