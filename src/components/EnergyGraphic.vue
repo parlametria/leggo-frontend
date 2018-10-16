@@ -30,15 +30,20 @@ export default {
       this.semanas,
       this.formatDate(this.date)
     )
-    this.getEnergiaRecente({ params: { id: this.id, casa: this.casa,
+    this.getEnergiaRecente({ params: {
+      id: this.id,
+      casa: this.casa,
       semanas: this.semanas,
-      date: this.formatDate(this.date)}})
+      date: this.formatDate(this.date)
+    }}
+    )
   },
   computed: mapState({
     energias: state => state.filter.energias
   }),
 
   methods: {
+    ...mapActions(['getEnergiaRecente']),
     ...mapMutations(['updateEnergias']),
     ...mapActions(['getEnergiaRecente']),
     formatDate: date => {
@@ -162,7 +167,7 @@ export default {
                   ticks: false
                 }
               },
-              size: {'value': 80}
+              size: { 'value': 80 }
             }
           },
           {

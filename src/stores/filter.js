@@ -1,4 +1,3 @@
-import axios from 'axios'
 const filtro = {
   state: {
     nomeProposicaoFilter: {
@@ -43,9 +42,9 @@ const filtro = {
         'status': true
       }
     ],
-    dateFilter: '',
-    energias: {},
-    a: {}
+    dateRef: new Date(),
+    energyOrder: 'desc',
+    energias: {}
   },
   mutations: {
     filtraNomeProposicao (state, nomeProposicao) {
@@ -63,18 +62,17 @@ const filtro = {
     filtraEmPauta (state, pautas) {
       state.emPautaFilter = pautas
     },
-    updateDate (state, date) {
-      state.dateFilter = date
+    updateDateRef (state, date) {
+      state.dateRef = date
+    },
+    updateEnergyOrder (state, order) {
+      state.energyOrder = order
     },
     updateEnergias (state, payload) {
       state.energias[payload.id] = payload.energia
-    },
-    updateA (state, payload) { 
-      state.a[payload.id] = payload
     }
   },
   actions: {
-    
   }
 }
 export default filtro

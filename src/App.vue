@@ -17,24 +17,11 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.main-view {
-  padding: 0;
-  margin: auto;
-  display: block;
-  max-width: 100%;
-}
-</style>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style lang="scss">
 body {
-  margin: 0;
+    margin: 0;
+}
+.flex-center {
+  justify-content: center;
 }
 </style>

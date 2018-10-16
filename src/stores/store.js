@@ -23,13 +23,12 @@ const proposicoes = new Vapi({
   action: 'getEnergiaRecente',
   path: ({ casa, id, semanas, date }) => `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    const propsFilter = state.proposicoes.map((prop) => {
-      if(prop.id_ext == params.id){
-        prop["energias"] = data
+    state.proposicoes.map((prop) => {
+      if (prop.lastEtapa.id_ext === params.id) {
+        prop.lastEtapa['energias'] = data
       }
-      return prop;
+      return prop
     })
-    console.log(params, data)
   }
 }).getStore()
 
