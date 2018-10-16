@@ -16,6 +16,7 @@
         <p v-if="error.proposicoes">loading failed</p>
         <el-col :span="24">
           {{ tema }}
+          <tema-graphic :tema="tema" />
           <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
             <proposicao-item :date= date :prop= prop :visId= "`vis-${j}`"/>
           </el-row>
@@ -29,6 +30,7 @@
 import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
 import EnergySort from '@/components/EnergySort'
+import TemaGraphic from '@/components/TemaGraphic'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -36,7 +38,8 @@ export default {
   components: {
     ProposicaoItem,
     NavMenu,
-    EnergySort
+    EnergySort,
+    TemaGraphic
   },
   data () {
     return {
