@@ -18,9 +18,13 @@
         <p v-if="error.proposicoes">loading failed</p>
         <el-col :span="24">
           {{ tema }}
+          <!-- <el-collapse v-model="activeNames" @change="handleChange"> -->
           <el-row :key="j" v-for="(prop,j) in filteredProps.filter((prop) => prop.tema == tema)">
-            <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+            <!-- <el-collapse-item :name="prop.apelido" :title="prop.apelido"> -->
+              <proposicao-item :date="date" :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+            <!-- </el-collapse-item> -->
           </el-row>
+          <!-- </el-collapse> -->
         </el-col>
       </el-main>
     </el-container>
@@ -50,7 +54,8 @@ export default {
         disabledDate (time) {
           return time.getTime() > Date.now()
         }
-      }
+      },
+      activeNames: []
     }
   },
   mounted () {
