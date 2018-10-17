@@ -1,7 +1,7 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in fases" :key="i">
-      <div v-if="i == fases.length -1" class="arrow-down"></div>
+    <div v-for="(fase,i) in sortedFases" :key="i">
+      <div v-if="isAtualFase(fase)" class="arrow-down"></div>
       <div v-else class="padding"></div>
       <div class="fase" :class="geraEstilo(fase)">
         <div class="tooltip">
@@ -34,7 +34,25 @@ export default {
     },
     isAtualFase (fase) {
       const now = Date.now()
-      return new Date(fase.data_inicio) < now && new Date(fase.data_fim) >= now
+      return fase.data_inicio != null && fase.data_fim == null
+    }
+  },
+  computed: {
+    sortedFases () {
+      let sortOrder = {'Comissões - Construção': '1',
+        'Plenário - Construção': '2',
+        'Comissões - Revisão I': '3',
+        'Plenário - Revisão I': '4',
+        'Comissões - Revisão II': '5',
+        'Plenário - Revisão II': '6',
+        'Presidência da República - Sansão/Veto': '7',
+        'Presidência da República - Avaliação dos Vetos': '8'}
+
+      return this.fases.sort((a, b) => {
+        let indexA = a.local + ' - ' + a.fase_global
+        let indexB = b.local + ' - ' + b.fase_global
+        return (sortOrder[indexA] - sortOrder[indexB])
+      })
     }
   }
 }
