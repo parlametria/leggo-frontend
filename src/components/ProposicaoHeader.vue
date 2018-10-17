@@ -66,8 +66,5 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
   }
-  .container > .brand {
-    margin-right: 0;
-  }
 }
 </style>
