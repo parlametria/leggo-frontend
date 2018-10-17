@@ -4,8 +4,8 @@
     {{ prop.apelido }}
   </p>
   <div class="end">
-    <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-    <forma-apreciacao :apreciacao="prop.forma_apreciacao"/>
+    <regime-tramitacao :regime="prop.regime_tramitacao" id="tags"></regime-tramitacao>
+    <forma-apreciacao :apreciacao="prop.forma_apreciacao" id="tags"/>
     <el-popover
       placement="right"
       width="400"
