@@ -3,9 +3,9 @@
   <p class="brand">
     {{ prop.apelido }}
   </p>
-  <div class="end">
-    <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-    <forma-apreciacao :apreciacao="prop.forma_apreciacao"/>
+  <div class="end" id="end">
+    <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"></regime-tramitacao>
+    <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
     <el-popover
       placement="right"
       width="400"
