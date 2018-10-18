@@ -15,12 +15,12 @@
         <el-col :xs="1" :sm="2" :md="4" :lg="2" >
           <el-popover
             placement="right"
-            width="400"
+            width="300"
             trigger="click">
             <el-table :data="gridData">
-              <el-table-column width="100" property="data" label="data"></el-table-column>
-              <el-table-column width="200" property="evento" label="notificação"></el-table-column>
-              <el-table-column width="100" property="local" label="local"></el-table-column>
+              <el-table-column property="data" label="data"></el-table-column>
+              <el-table-column property="evento" label="notificação"></el-table-column>
+              <el-table-column property="local" label="local"></el-table-column>
             </el-table>
             <el-badge slot="reference" :value="4">
               <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
@@ -47,7 +47,7 @@ export default {
   computed: {
     gridData () {
       return [
-        { data: '10-10-2010', evento: 'correu', local: 'praça' }
+        { data: '10-10-2010', evento: 'Daniel é um l56in56d5o6 56lá de Sousa', local: 'praça' }
       ]
     }
   }
