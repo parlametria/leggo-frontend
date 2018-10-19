@@ -40,6 +40,7 @@ export default {
     eventos () {
       return [
         {data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ'},
+        {data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR'},
         {data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR'}
       ]
     }
