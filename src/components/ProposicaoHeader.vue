@@ -11,7 +11,7 @@
       width="300"
       trigger="click">
       <ul>
-        <li :v-for="evento in eventos">
+        <li v-for="(evento,i) in eventos" :key="i">
           {{ evento.data }} - {{ evento.evento }} - {{ evento.local }}
         </li>
       </ul>
@@ -40,7 +40,6 @@ export default {
     eventos () {
       return [
         {data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ'},
-        {data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR'},
         {data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR'}
       ]
     }
