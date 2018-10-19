@@ -10,11 +10,11 @@
       placement="right"
       width="300"
       trigger="click">
-      <el-table :data="gridData">
-        <el-table-column width="100" property="data" label="data"></el-table-column>
-        <el-table-column width="200" property="evento" label="notificação"></el-table-column>
-        <el-table-column width="100" property="local" label="local"></el-table-column>
-      </el-table>
+      <ul>
+        <li :v-for="evento in eventos">
+          {{ evento.data }} - {{ evento.evento }} - {{ evento.local }}
+        </li>
+      </ul>
       <el-badge slot="reference" :value="4">
         <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
       </el-badge>
@@ -37,9 +37,10 @@ export default {
     FormaApreciacao
   },
   computed: {
-    gridData () {
+    eventos () {
       return [
-        { data: '10-10-2010', evento: 'Daniel é um l56in56d5o6 56lá de Sousa', local: 'praça' }
+        {data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ'},
+        {data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR'}
       ]
     }
   }
@@ -59,6 +60,9 @@ export default {
 }
 .container > .end > * {
   margin: 0 0.5rem;
+}
+el-propover p {
+  border-bottom: 1px solid black;
 }
 
 @media only screen and (max-width: 768px) {
