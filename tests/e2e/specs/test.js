@@ -25,11 +25,11 @@ describe('Test proposicoes view', () => {
     const apreciacoes = ['Plenário', 'Conclusiva']
     cy.contains('Apreciação').click()
     apreciacoes.forEach(apreciacao => {
-      cy.get('#tags > span').should('contain', apreciacao)
+      cy.get('.forma_apreciacao').should('contain', apreciacao)
       cy.contains('.is-checked', apreciacao).click()
-      cy.get('#tags > span').should('not.contain', apreciacao)
+      cy.get('.forma_apreciacao').should('not.contain', apreciacao)
       cy.contains('span', apreciacao).click()
-      cy.get('#tags > span').should('contain', apreciacao)
+      cy.get('.forma_apreciacao').should('contain', apreciacao)
     })
   })
 
@@ -39,11 +39,11 @@ describe('Test proposicoes view', () => {
     const regimes = ['Ordinária', 'Prioridade']
     cy.contains('Regime de tramitação').click()
     regimes.forEach(regime => {
-      cy.get('#tags > span').should('contain', regime)
+      cy.get('.regime_tramitacao').should('contain', regime)
       cy.contains('.is-checked', regime).click()
-      cy.get('#tags > span').should('not.contain', regime)
+      cy.get('.regime_tramitacao').should('not.contain', regime)
       cy.contains('span', regime).click()
-      cy.get('#tags > span').should('contain', regime)
+      cy.get('.regime_tramitacao').should('contain', regime)
     })
   })
 
