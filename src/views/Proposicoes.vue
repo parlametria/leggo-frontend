@@ -8,15 +8,10 @@
       <p v-if="error.proposicoes">loading failed</p>
       <h2>{{ tema }}</h2>
       <tema-graphic :tema="tema" />
-      <div >
-        <el-collapse v-model="activeNames">
-          <el-collapse-item :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
-            <proposicao-header :prop="prop.lastEtapa" slot="title" />
-            <proposicao-item
-              class="proposicao-item"
-              :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
-          </el-collapse-item>
-        </el-collapse>
+      <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
+        <proposicao-item
+          class="proposicao-item"
+          :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
       </div>
     </el-col>
   </el-row>
@@ -24,7 +19,6 @@
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
-import ProposicaoHeader from '@/components/ProposicaoHeader'
 import NavMenu from '@/components/NavMenu'
 import EnergySort from '@/components/EnergySort'
 import TemaGraphic from '@/components/TemaGraphic'
@@ -34,9 +28,7 @@ export default {
   components: {
     ProposicaoItem,
     NavMenu,
-    EnergySort,
-    TemaGraphic,
-    ProposicaoHeader
+    TemaGraphic
   },
   data () {
     return {

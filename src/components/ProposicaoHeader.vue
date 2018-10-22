@@ -1,34 +1,26 @@
 <template>
-    <div >
-      <el-row :gutter="20" type="flex" justify="space-between">
-        <el-col :xs="5" :sm="10" :md="10" :lg="10">
-          <div>
-            {{ prop.apelido }}
-          </div>
-        </el-col>
-        <el-col :xs="{span:1 ,offset: 1}" :sm="{span: 1, offset: 2}" :md="{span: 1, offset: 6}" :lg="{span: 2, offset: 14}" id="tags">
-            <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-        </el-col>
-        <el-col :xs="1" :sm="1" :md="1" :lg="2" id="tags">
-          <forma-apreciacao :apreciacao="prop.forma_apreciacao"/>
-        </el-col>
-        <el-col :xs="1" :sm="2" :md="4" :lg="2" >
-          <el-popover
-            placement="right"
-            width="400"
-            trigger="click">
-            <el-table :data="gridData">
-              <el-table-column width="100" property="data" label="data"></el-table-column>
-              <el-table-column width="200" property="evento" label="notificação"></el-table-column>
-              <el-table-column width="100" property="local" label="local"></el-table-column>
-            </el-table>
-            <el-badge slot="reference" :value="4">
-              <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
-            </el-badge>
-          </el-popover>
-      </el-col>
-      </el-row>
-    </div>
+<div class="container">
+  <p class="brand">
+    {{ prop.apelido }}
+  </p>
+  <div class="end" id="end">
+    <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"></regime-tramitacao>
+    <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
+    <el-popover
+      placement="right"
+      width="300"
+      trigger="click">
+      <ul>
+        <li v-for="(evento,i) in eventos" :key="i">
+          {{ evento.data }} - {{ evento.evento }} - {{ evento.local }}
+        </li>
+      </ul>
+      <el-badge slot="reference" :value="4">
+        <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
+      </el-badge>
+    </el-popover>
+  </div>
+</div>
 </template>
 
 <script>
@@ -45,11 +37,38 @@ export default {
     FormaApreciacao
   },
   computed: {
-    gridData () {
+    eventos () {
       return [
-        { data: '10-10-2010', evento: 'correu', local: 'praça' }
+        {data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ'},
+        {data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR'}
       ]
     }
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-end;
+  padding: 0.5rem 0;
+}
+.container > .brand {
+  margin-right: auto;
+}
+.container > .end > * {
+  margin: 0 0.5rem;
+}
+el-propover p {
+  border-bottom: 1px solid black;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+</style>

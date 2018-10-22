@@ -203,48 +203,48 @@ export default {
   watch: {
     date: {
       handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
+        this.getEnergiaRecente({ params: {
+          id: this.id,
+          casa: this.casa,
+          semanas: this.semanas,
+          date: this.formatDate(this.date)
+        }}
         )
       },
       deep: true
     },
     id: {
       handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
+        this.getEnergiaRecente({ params: {
+          id: this.id,
+          casa: this.casa,
+          semanas: this.semanas,
+          date: this.formatDate(this.date)
+        }}
         )
       },
       deep: true
     },
     casa: {
       handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
+        this.getEnergiaRecente({ params: {
+          id: this.id,
+          casa: this.casa,
+          semanas: this.semanas,
+          date: this.formatDate(this.date)
+        }}
         )
       },
       deep: true
     },
     visId: {
       handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
+        this.getEnergiaRecente({ params: {
+          id: this.id,
+          casa: this.casa,
+          semanas: this.semanas,
+          date: this.formatDate(this.date)
+        }}
         )
       },
       deep: true
