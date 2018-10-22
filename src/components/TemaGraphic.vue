@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     criaGrafico () {
+      // eslint-disable-next-line
       vegaEmbed(`#temaGrafico`, this.graphJson)
     }
   },

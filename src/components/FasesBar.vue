@@ -33,7 +33,6 @@ export default {
       return new Date(fase.data_fim) < now
     },
     isAtualFase (fase) {
-      const now = Date.now()
       return fase.data_inicio != null && fase.data_fim == null
     }
   },
@@ -47,8 +46,7 @@ export default {
         'Plenário - Revisão II': '6',
         'Presidência da República - Sansão/Veto': '7',
         'Presidência da República - Avaliação dos Vetos': '8'}
-
-      return this.fases.sort((a, b) => {
+      return this.fases.slice().sort((a, b) => {
         let indexA = a.local + ' - ' + a.fase_global
         let indexB = b.local + ' - ' + b.fase_global
         return (sortOrder[indexA] - sortOrder[indexB])

@@ -20,7 +20,6 @@
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
-import EnergySort from '@/components/EnergySort'
 import TemaGraphic from '@/components/TemaGraphic'
 import { mapState, mapActions } from 'vuex'
 export default {
