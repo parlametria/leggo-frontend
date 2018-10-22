@@ -33,7 +33,6 @@ export default {
       return new Date(fase.data_fim) < now
     },
     isAtualFase (fase) {
-      const now = Date.now()
       return fase.data_inicio != null && fase.data_fim == null
     }
   },

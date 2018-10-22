@@ -9,6 +9,7 @@ const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
   state: {
     proposicoes: [],
+    maxEnergia: 0,
     tramitacoes: new Set()
   }
 }).get({
@@ -27,7 +28,10 @@ const proposicoes = new Vapi({
       if (prop.lastEtapa.id_ext === params.id) {
         prop.lastEtapa['energias'] = data
       }
-      return prop
+      const maxEnergia = Math.max(...data.map(x => x.energia_recente))
+      if (maxEnergia > state.maxEnergia) {
+        state.maxEnergia = maxEnergia
+      }
     })
   }
 }).getStore()
