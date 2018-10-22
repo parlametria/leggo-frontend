@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'temas',
-      component: Temas
+      name: 'home',
+      redirect: { name: 'temas' }
     },
     {
       path: '/temas',
@@ -31,7 +31,7 @@ export default new Router({
     },
     {
       path: '/proposicoes/:casa/:idExt',
-      name: 'temas',
+      name: 'proposicao',
       component: ProposicaoDetails
     }
   ]

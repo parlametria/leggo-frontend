@@ -1,24 +1,13 @@
 <template>
-    <el-card shadow="hover" class="box-card" :body-style= "highlight()">
-        <el-row>
-            <el-col :span="6">
-              <a :href="prop.url">
-                {{ prop.apelido }}
-              </a>
-                <span class="sigla">{{ prop.sigla }}</span>
-                <br>
-              <fases-bar :fases="prop.resumo_progresso" />
-            </el-col>
-            <el-col :span="6">
-                <energy-graphic :date= "date" :visId= "visId" :id= "prop.id_ext" :casa= "prop.casa"/>
-            </el-col>
-            <el-col id="tags">
-                <regime-tramitacao :regime="prop.regime_tramitacao"></regime-tramitacao>
-                <forma-apreciacao :apreciacao="prop.forma_apreciacao"></forma-apreciacao>
-                <el-tag v-if="prop.em_pauta" type="info" size="mini">Em pauta</el-tag>
-            </el-col>
-        </el-row>
-    </el-card>
+  <el-card shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': this.prop.em_pauta }">
+    <el-row>
+      <el-col :sm="2" :md="6" :lg="6"><fases-bar :fases="prop.resumo_progresso"/></el-col>
+      <el-col :sm="2" :md="6" :lg="6"><energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/></el-col>
+    </el-row>
+    <a class="sigla" :href="prop.url">
+      {{ prop.sigla }}
+    </a>
+  </el-card>
 </template>
 
 <script>
@@ -37,62 +26,30 @@ export default {
     FasesBar
   },
   computed: mapState({
-    dateFilter: state => state.dateFilter
+    dateRef: state => state.filter.dateRef
   }),
   props: {
     prop: Object,
-    visId: String,
-    date: Date
-  },
-  methods: {
-    highlight () {
-      if (this.prop.em_pauta) {
-        return 'border: 2px solid #ffec00'
-      }
-    }
+    visId: String
   }
 }
 </script>
 
-<style lang="scss">
-.fases {
-  display: inline-block;
-  padding: 0;
-  li {
-    display: inline-block;
-    width: 10px;
-    height: 20px;
-    margin: 3px;
-  }
-  .senado {
-    background-color: #cbd5e8;
-  }
-  .camara {
-    background-color: #b3e2cd;
-  }
-}
-.box-card {
-  width: auto;
-}
-.inline-content {
-  display: inline-block;
-}
-a {
-  text-decoration: none;
-}
-#tags {
-  display: flex;
-}
-.el-tag {
-  margin-right: 3px;
-}
+<style lang="scss" scoped>
 .sigla {
-  display: block;
-  font-size: 12px;
-  margin-top: 0.5rem;
-  padding-top: 0.3rem;
-  color: #8c8c8c;
-  border-top: 1px solid #dadada;
+    font-size: 12px;
 }
-
+.border-pauta {
+    border: 2px solid #ffec00;
+}
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+.prop-item {
+    margin: 10px;
+}
+.el-badge {
+    margin: 10px;
+}
 </style>
