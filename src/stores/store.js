@@ -11,7 +11,7 @@ const proposicoes = new Vapi({
     proposicoes: [],
     tramitacoes: new Set(),
     energias: {}
-  },
+  }
 }).get({
   action: 'getProposicao',
   property: 'proposicao',
@@ -25,7 +25,7 @@ const proposicoes = new Vapi({
   property: 'energias',
   path: ({ casa, id, semanas, date }) => `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    Vue.set(state.energias, params.id, data )
+    Vue.set(state.energias, params.id, data)
   }
 }).getStore()
 
