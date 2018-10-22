@@ -39,7 +39,8 @@ export default {
     )
   },
   computed: mapState({
-    energias: state => state.filter.energias
+    energias: state => state.filter.energias,
+    maxEnergia: state => state.proposicoes.maxEnergia
   }),
 
   methods: {
@@ -115,7 +116,7 @@ export default {
             ticks: false
           },
           scale: {
-            domain: [0, 40]
+            domain: [0, this.maxEnergia]
           }
         }
       }
