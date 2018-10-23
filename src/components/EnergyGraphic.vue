@@ -23,6 +23,7 @@ export default {
     date: Date
   },
   async mounted () {
+    this.maxEnergia
     this.mountGraphic(
       this.visId,
       this.id,
