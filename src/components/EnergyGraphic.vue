@@ -23,14 +23,13 @@ export default {
     date: Date
   },
   async mounted () {
-    this.maxEnergia
-    this.mountGraphic(
+    setTimeout(() => {this.mountGraphic(
       this.visId,
       this.id,
       this.casa,
       this.semanas,
       this.formatDate(this.date)
-    )
+    )}, 1000)
     this.getEnergiaRecente({ params: {
       id: this.id,
       casa: this.casa,
