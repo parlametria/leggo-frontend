@@ -7,6 +7,7 @@
       <p v-if="pending.proposicoes">loading posts...</p>
       <p v-if="error.proposicoes">loading failed</p>
       <h2>{{ tema }}</h2>
+      <tema-graphic :tema="tema" />
       <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
         <proposicao-item
           class="proposicao-item"
@@ -19,12 +20,14 @@
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
+import TemaGraphic from '@/components/TemaGraphic'
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'proposicoes',
   components: {
     ProposicaoItem,
-    NavMenu
+    NavMenu,
+    TemaGraphic
   },
   data () {
     return {
