@@ -6,10 +6,10 @@
     </label>
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': this.prop.em_pauta }">
-        <el-row>
-          <el-col :sm="6" :md="6" :lg="6"><fases-bar :fases="prop.resumo_progresso"/></el-col>
-          <el-col :sm="6" :md="6" :lg="6"><energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/></el-col>
-        </el-row>
+        <div class="flex">
+          <fases-bar :fases="prop.resumo_progresso"/>
+          <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
+        </div>
         <a class="sigla" :href="prop.url">
           {{ prop.sigla }}
         </a>
@@ -88,5 +88,9 @@ export default {
   &:hover {
     box-shadow: 0 5px 5px rgb(198, 198, 198);
   }
+}
+.flex {
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
