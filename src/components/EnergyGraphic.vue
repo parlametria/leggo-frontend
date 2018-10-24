@@ -7,7 +7,6 @@
 <script>
 import axios from 'axios'
 import { mapState, mapMutations, mapActions } from 'vuex'
-
 export default {
   name: 'EnergyGraphic',
   data () {
@@ -23,38 +22,35 @@ export default {
     date: Date
   },
   async mounted () {
-    setTimeout(() => {this.mountGraphic(
-      this.visId,
-      this.id,
-      this.casa,
-      this.semanas,
-      this.formatDate(this.date)
-    )}, 1000)
     this.getEnergiaRecente({ params: {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
       date: this.formatDate(this.date)
     }}
-    )
+    ).then(() => {
+      this.mountGraphic(
+        this.visId,
+        this.id,
+        this.casa,
+        this.semanas,
+        this.formatDate(this.date)
+      )
+    })
   },
   computed: mapState({
     energias: state => state.filter.energias,
     maxEnergia: state => state.proposicoes.maxEnergia
   }),
-
   methods: {
-    ...mapActions(['getEnergiaRecente']),
     ...mapMutations(['updateEnergias']),
     ...mapActions(['getEnergiaRecente']),
     formatDate: date => {
       let month = '' + (date.getMonth() + 1)
       let day = '' + date.getDate()
       let year = date.getFullYear()
-
       if (month.length < 2) month = '0' + month
       if (day.length < 2) day = '0' + day
-
       return [year, month, day].join('-')
     },
     async mountGraphic (visId, id, casa, semanas, date) {
@@ -62,20 +58,23 @@ export default {
         if (energia.length > 1) {
           const ultima = energia[0].energia_recente
           const penultima = energia[1].energia_recente
-
           if (ultima - penultima <= 0) {
             return '#ef8a62'
           }
         }
-
         return '#67a9cf'
       }
-
+      this.getEnergiaRecente({ params: {
+        id: this.id,
+        casa: this.casa,
+        semanas: this.semanas,
+        date: this.formatDate(this.date)
+      }}
+      )
       const response = await axios.get(
         `${process.env.VUE_APP_API_URL}energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
       )
       let energia = response.data
-
       if (energia.length > 0) {
         energia[0].energia_dia = energia[0].energia_recente
         this.updateEnergias({
@@ -88,9 +87,7 @@ export default {
           'id': id
         })
       }
-
       const color = getTendeciaColor(energia)
-
       const encoding = {
         x: {
           field: 'periodo',
@@ -191,7 +188,6 @@ export default {
           } */
         }
       }
-
       // eslint-disable-next-line
       vegaEmbed(`#${visId}`, vlSpec).then(res => {
         res.view /* eslint-disable */

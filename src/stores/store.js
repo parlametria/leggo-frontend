@@ -9,8 +9,9 @@ const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
   state: {
     proposicoes: [],
-    maxEnergia: 0,
-    tramitacoes: new Set()
+    tramitacoes: new Set(),
+    energias: {},
+    maxEnergia: 0
   }
 }).get({
   action: 'getProposicao',
@@ -22,17 +23,14 @@ const proposicoes = new Vapi({
   path: '/proposicoes'
 }).get({
   action: 'getEnergiaRecente',
+  property: 'energias',
   path: ({ casa, id, semanas, date }) => `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    state.proposicoes.map((prop) => {
-      if (prop.lastEtapa.id_ext === params.id) {
-        prop.lastEtapa['energias'] = data
-      }
-      const maxEnergia = Math.max(...data.map(x => x.energia_recente))
-      if (maxEnergia > state.maxEnergia) {
-        state.maxEnergia = maxEnergia
-      }
-    })
+    const maxEnergia = Math.max(...data.map(x => x.energia_recente))
+    if (maxEnergia > state.maxEnergia) {
+      state.maxEnergia = maxEnergia
+    }
+    Vue.set(state.energias, params.id, data)
   }
 }).getStore()
 
