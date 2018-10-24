@@ -10,7 +10,8 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    energias: {}
+    energias: {},
+    maxEnergia: 0
   }
 }).get({
   action: 'getProposicao',
@@ -25,6 +26,10 @@ const proposicoes = new Vapi({
   property: 'energias',
   path: ({ casa, id, semanas, date }) => `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
+    const maxEnergia = Math.max(...data.map(x => x.energia_recente))
+    if (maxEnergia > state.maxEnergia) {
+      state.maxEnergia = maxEnergia
+    }
     Vue.set(state.energias, params.id, data)
   }
 }).getStore()

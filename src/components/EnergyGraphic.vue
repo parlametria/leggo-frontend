@@ -22,23 +22,25 @@ export default {
     date: Date
   },
   async mounted () {
-    this.mountGraphic(
-      this.visId,
-      this.id,
-      this.casa,
-      this.semanas,
-      this.formatDate(this.date)
-    )
     this.getEnergiaRecente({ params: {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
       date: this.formatDate(this.date)
     }}
-    )
+    ).then(() => {
+      this.mountGraphic(
+        this.visId,
+        this.id,
+        this.casa,
+        this.semanas,
+        this.formatDate(this.date)
+      )
+    })
   },
   computed: mapState({
-    energias: state => state.filter.energias
+    energias: state => state.filter.energias,
+    maxEnergia: state => state.proposicoes.maxEnergia
   }),
   methods: {
     ...mapMutations(['updateEnergias']),
@@ -111,7 +113,7 @@ export default {
             ticks: false
           },
           scale: {
-            domain: [0, 40]
+            domain: [0, this.maxEnergia]
           }
         }
       }
