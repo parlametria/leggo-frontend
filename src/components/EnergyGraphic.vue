@@ -1,12 +1,12 @@
 <template>
   <div>
     <div :id="`${casa}-${id}`"></div>
-    {{maxEnergia}}
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import EnergyGraphicModel from './EnergyGraphicModel.js'
 
 export default {
   name: 'EnergyGraphic',
@@ -39,7 +39,7 @@ export default {
   computed: mapState({
     listaEnergias: state => state.proposicoes.energias,
     maxEnergia: state => state.proposicoes.maxEnergia,
-    energias () { 
+    energias () {
       return this.listaEnergias[this.id]
     },
     formattedDate () {
@@ -50,7 +50,7 @@ export default {
       if (day.length < 2) day = '0' + day
       return [year, month, day].join('-')
     },
-    tendeciaColor () {
+    tendenciaColor () {
       if (this.energias.length > 1) {
         const ultima = this.energias[0].energia_recente
         const penultima = this.energias[1].energia_recente
@@ -65,122 +65,16 @@ export default {
     }
   }),
   methods: {
-    ...mapMutations(['updateEnergias']),
     ...mapActions(['getEnergiaRecente']),
     async mountGraphic (id, casa, semanas, date) {
       if (this.energias.length > 0) {
         this.energias[0].energia_dia = this.energias[0].energia_recente
-        this.updateEnergias({
-          'energia': this.energias[0].energia_recente,
-          'id': id
-        })
-      } else {
-        this.updateEnergias({
-          'energia': -1,
-          'id': id
-        })
-      }
-      
-      const encoding = {
-        x: {
-          field: 'periodo',
-          type: 'temporal',
-          format: '%Y-%m-%d',
-          scale: {
-            type: 'utc'
-          },
-          axis: {
-            title: '',
-            grid: false,
-            ticks: false,
-            labels: false
-          }
-        },
-        y: {
-          field: 'energia_recente',
-          type: 'quantitative',
-          axis: {
-            title: '',
-            grid: false,
-            labels: false,
-            ticks: false
-          },
-          scale: {
-            domain: [0, this.maxEnergia]
-          }
-        }
       }
 
-      const vlSpec = {
-        description: 'Últimos 30 dias',
-        $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
-        height: 50,
-        width: 150,
-        title: 'Energia Acumulada',
-        data: {
-          name: 'energia'
-        },
-        layer: [
-          {
-            mark: {
-              type: 'area',
-              color: this.tendeciaColor,
-              fillOpacity: 0.5
-            },
-            encoding: encoding
-          },
-          {
-            mark: {
-              type: 'circle',
-              color: this.tendeciaColor
-            },
-            encoding: {
-              x: {
-                field: 'periodo',
-                type: 'temporal',
-                format: '%Y-%m-%d',
-                scale: {
-                  type: 'utc'
-                },
-                axis: {
-                  title: '',
-                  grid: false,
-                  ticks: false,
-                  labels: false
-                }
-              },
-              y: {
-                field: 'energia_dia',
-                type: 'quantitative',
-                axis: {
-                  title: '',
-                  grid: false,
-                  labels: false,
-                  ticks: false
-                }
-              },
-              size: { 'value': 80 }
-            }
-          },
-          {
-            mark: {
-              type: 'line',
-              color: this.tendeciaColor
-            },
-            encoding: encoding
-          }
-        ],
-        config: {
-          view: {
-            stroke: 'transparent'
-          },
-          axisY: {
-            minExtent: 0
-          }
-        }
-      }
+      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor)
+
       // eslint-disable-next-line
-      vegaEmbed(`#${casa}-${id}`, vlSpec).then(res => {
+      vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
         res.view /* eslint-disable */
           .change('energia', vega.changeset().remove('energia', d => true))
           .insert('energia', this.energias)
