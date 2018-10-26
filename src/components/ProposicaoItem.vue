@@ -8,7 +8,7 @@
       <div shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': this.prop.em_pauta }">
         <div class="flex">
           <fases-bar :fases="prop.resumo_progresso"/>
-          <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
+          <energy-graphic :date="dateRef" :id="prop.id_ext" :casa="prop.casa"/>
         </div>
         <a class="sigla" :href="prop.url">
           {{ prop.sigla }}

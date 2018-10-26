@@ -26,15 +26,14 @@ export default {
       casa: this.casa,
       semanas: this.semanas,
       date: this.formattedDate
-    }}
-    ).then(() => {
-      this.mountGraphic(
-        this.id,
-        this.casa,
-        this.semanas,
-        this.formattedDate
-      )
-    })
+    }})
+
+    setTimeout(() => this.mountGraphic(
+          this.id,
+          this.casa,
+          this.semanas,
+          this.formattedDate
+        ), 3000)
   },
   computed: mapState({
     listaEnergias: state => state.proposicoes.energias,
@@ -85,20 +84,12 @@ export default {
   watch: {
     compoundWatch: {
       handler: function (val, oldVal) {
-        this.getEnergiaRecente({ params: {
-        id: this.id,
-        casa: this.casa,
-        semanas: this.semanas,
-        date: this.formattedDate
-      }}
-      ).then(() => {
         this.mountGraphic(
           this.id,
           this.casa,
           this.semanas,
           this.formattedDate
         )
-      })
       },
       deep: true
     }
