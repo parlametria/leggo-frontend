@@ -13,6 +13,11 @@
     "docker_test": "export GUI=false; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test",
     "docker_test_gui": "export GUI=true; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint --fix"
+    }
+  },
   "dependencies": {
     "element-ui": "^2.4.6",
     "loadash": "^1.0.0",
@@ -31,6 +36,7 @@
     "axios": "^0.18.0",
     "chai": "^4.1.2",
     "eslint-plugin-cypress": "^2.0.1",
+    "husky": "^1.1.2",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "vue-cli-plugin-element": "^1.0.0",
