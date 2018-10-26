@@ -1,22 +1,21 @@
 <template>
   <div>
-    <div :id="visId"></div>
+    <div :id="`${casa}-${id}`"></div>
+    {{maxEnergia}}
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import { mapState, mapMutations, mapActions } from 'vuex'
+
 export default {
   name: 'EnergyGraphic',
   data () {
     return {
-      energia: {},
       semanas: 12
     }
   },
   props: {
-    visId: String,
     id: Number,
     casa: String,
     date: Date
@@ -26,59 +25,53 @@ export default {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
-      date: this.formatDate(this.date)
+      date: this.formattedDate
     }}
     ).then(() => {
       this.mountGraphic(
-        this.visId,
         this.id,
         this.casa,
         this.semanas,
-        this.formatDate(this.date)
+        this.formattedDate
       )
     })
   },
   computed: mapState({
-    energias: state => state.filter.energias,
-    maxEnergia: state => state.proposicoes.maxEnergia
-  }),
-  methods: {
-    ...mapMutations(['updateEnergias']),
-    ...mapActions(['getEnergiaRecente']),
-    formatDate: date => {
-      let month = '' + (date.getMonth() + 1)
-      let day = '' + date.getDate()
-      let year = date.getFullYear()
+    listaEnergias: state => state.proposicoes.energias,
+    maxEnergia: state => state.proposicoes.maxEnergia,
+    energias () { 
+      return this.listaEnergias[this.id]
+    },
+    formattedDate () {
+      let month = '' + (this.date.getMonth() + 1)
+      let day = '' + this.date.getDate()
+      let year = this.date.getFullYear()
       if (month.length < 2) month = '0' + month
       if (day.length < 2) day = '0' + day
       return [year, month, day].join('-')
     },
-    async mountGraphic (visId, id, casa, semanas, date) {
-      function getTendeciaColor (energia) {
-        if (energia.length > 1) {
-          const ultima = energia[0].energia_recente
-          const penultima = energia[1].energia_recente
-          if (ultima - penultima <= 0) {
-            return '#ef8a62'
-          }
+    tendeciaColor () {
+      if (this.energias.length > 1) {
+        const ultima = this.energias[0].energia_recente
+        const penultima = this.energias[1].energia_recente
+        if (ultima - penultima <= 0) {
+          return '#ef8a62'
         }
-        return '#67a9cf'
       }
-      this.getEnergiaRecente({ params: {
-        id: this.id,
-        casa: this.casa,
-        semanas: this.semanas,
-        date: this.formatDate(this.date)
-      }}
-      )
-      const response = await axios.get(
-        `${process.env.VUE_APP_API_URL}energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`
-      )
-      let energia = response.data
-      if (energia.length > 0) {
-        energia[0].energia_dia = energia[0].energia_recente
+      return '#67a9cf'
+    },
+    compoundWatch () {
+      return [this.date, this.id, this.casa].join()
+    }
+  }),
+  methods: {
+    ...mapMutations(['updateEnergias']),
+    ...mapActions(['getEnergiaRecente']),
+    async mountGraphic (id, casa, semanas, date) {
+      if (this.energias.length > 0) {
+        this.energias[0].energia_dia = this.energias[0].energia_recente
         this.updateEnergias({
-          'energia': energia[0].energia_recente,
+          'energia': this.energias[0].energia_recente,
           'id': id
         })
       } else {
@@ -87,7 +80,7 @@ export default {
           'id': id
         })
       }
-      const color = getTendeciaColor(energia)
+      
       const encoding = {
         x: {
           field: 'periodo',
@@ -117,6 +110,7 @@ export default {
           }
         }
       }
+
       const vlSpec = {
         description: 'Últimos 30 dias',
         $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
@@ -130,7 +124,7 @@ export default {
           {
             mark: {
               type: 'area',
-              color: color,
+              color: this.tendeciaColor,
               fillOpacity: 0.5
             },
             encoding: encoding
@@ -138,7 +132,7 @@ export default {
           {
             mark: {
               type: 'circle',
-              color: color
+              color: this.tendeciaColor
             },
             encoding: {
               x: {
@@ -171,7 +165,7 @@ export default {
           {
             mark: {
               type: 'line',
-              color: color
+              color: this.tendeciaColor
             },
             encoding: encoding
           }
@@ -183,66 +177,34 @@ export default {
           axisY: {
             minExtent: 0
           }
-          /* axis: {
-            domain: false
-          } */
         }
       }
       // eslint-disable-next-line
-      vegaEmbed(`#${visId}`, vlSpec).then(res => {
+      vegaEmbed(`#${casa}-${id}`, vlSpec).then(res => {
         res.view /* eslint-disable */
           .change('energia', vega.changeset().remove('energia', d => true))
-          .insert('energia', energia)
+          .insert('energia', this.energias)
           .run()
       })
     }
   },
   watch: {
-    date: {
+    compoundWatch: {
       handler: function (val, oldVal) {
+        this.getEnergiaRecente({ params: {
+        id: this.id,
+        casa: this.casa,
+        semanas: this.semanas,
+        date: this.formattedDate
+      }}
+      ).then(() => {
         this.mountGraphic(
-          this.visId,
           this.id,
           this.casa,
           this.semanas,
-          this.formatDate(this.date)
+          this.formattedDate
         )
-      },
-      deep: true
-    },
-    id: {
-      handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
-        )
-      },
-      deep: true
-    },
-    casa: {
-      handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
-        )
-      },
-      deep: true
-    },
-    visId: {
-      handler: function (val, oldVal) {
-        this.mountGraphic(
-          this.visId,
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formatDate(this.date)
-        )
+      })
       },
       deep: true
     }
