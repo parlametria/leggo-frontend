@@ -79,7 +79,6 @@ export default {
           .insert('energia', this.energias)
           .run()
       })
-      console.log(this.date)
     }
   },
   watch: {
