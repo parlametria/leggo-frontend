@@ -4,7 +4,7 @@
         <p id="descricao">Próximas pautas</p>
         <table>
             <tr v-for="(pauta, key) in pautas[id]" :key="key">
-                <td>{{pauta.data.getDate()}}-{{pauta.data.getMonth()}}-{{pauta.data.getFullYear()}}</td>
+                <td>{{formatDate(pauta.data)}}</td>
                 <td>{{pauta.local}}</td>
             </tr>
         </table>
@@ -23,7 +23,17 @@ export default {
     },
     computed: mapState ({
         pautas: state => state.proposicoes.pautas
-    })
+    }),
+    methods: {
+        formatDate: date => {
+        let month = '' + (date.getMonth() + 1)
+        let day = '' + date.getDate()
+        let year = date.getFullYear()
+        if (month.length < 2) month = '0' + month
+        if (day.length < 2) day = '0' + day
+        return [year, month, day].join('-')
+        }
+    }
 }
 </script>
 
