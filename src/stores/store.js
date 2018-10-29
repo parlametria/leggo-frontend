@@ -11,6 +11,16 @@ const proposicoes = new Vapi({
     proposicoes: [],
     tramitacoes: new Set(),
     energias: {},
+    pautas: {
+      '1': [
+        { data: '2018', local: 'aqui' },
+        { data: '2018', local: 'la' }
+      ],
+      '2': [
+        { data: '2018', local: 'aqui' },
+        { data: '2018', local: 'la' }
+      ]
+    },
     maxEnergia: 0
   }
 }).get({
