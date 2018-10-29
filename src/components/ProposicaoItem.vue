@@ -74,7 +74,7 @@ export default {
     /* border-bottom: 1px solid #d6d6d6; */
     /* padding: 0 1rem; */
     padding: .5rem .5rem 0 .5rem;
-    border: solid 1px #e9e9e9;
+    border-bottom: solid 1px #e9e9e9;
 
     label.collapse-box-label{
         width:100%;
@@ -98,10 +98,11 @@ export default {
     }
 }
 .border-pauta {
-    border: 1px solid #f56c6c;
+    border-left: 5px solid #f56c6c;
 }
 .flex {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>

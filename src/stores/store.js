@@ -13,14 +13,14 @@ const proposicoes = new Vapi({
     energias: {},
     pautas: {
       7: [
-        { data: new Date('2018-10-20'), local: 'sei la' },
-        { data: new Date('2018-11-04'), local: 'aqui' },
-        { data: new Date('2018-11-10'), local: 'la' }
+        { data: new Date('2018-10-20'), local: 'CCJ' },
+        { data: new Date('2018-11-04'), local: 'CAPADR' },
+        { data: new Date('2018-11-10'), local: 'CMADS' }
       ],
-      14: [
-        { data: new Date('2018-10-20'), local: 'sei la' },
-        { data: new Date('2018-11-07'), local: 'aqui' },
-        { data: new Date('2018-11-20'), local: 'la' }
+      15: [
+        { data: new Date('2018-10-20'), local: 'CAPADR' },
+        { data: new Date('2018-11-07'), local: 'CAPADR' },
+        { data: new Date('2018-11-20'), local: 'CMADS' }
       ]
     },
     maxEnergia: 0
