@@ -9,6 +9,7 @@
         <div class="flex">
           <fases-bar :fases="prop.resumo_progresso"/>
           <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
+          <lista-pauta :id="prop.id"></lista-pauta>
         </div>
         <a class="sigla" :href="prop.url">
           {{ prop.sigla }}
@@ -24,6 +25,7 @@ import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
 import EnergyGraphic from '@/components/EnergyGraphic'
 import FasesBar from '@/components/FasesBar'
+import ListaPauta from '@/components/ListaPauta'
 import { mapState } from 'vuex'
 
 export default {
@@ -33,7 +35,8 @@ export default {
     FormaApreciacao,
     EnergyGraphic,
     FasesBar,
-    ProposicaoHeader
+    ProposicaoHeader,
+    ListaPauta
   },
   computed: mapState({
     dateRef: state => state.filter.dateRef
