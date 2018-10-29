@@ -1,11 +1,11 @@
 <template>
-  <div class="collapse-box-wrapper">
+  <div class="collapse-box-wrapper" :class="{ 'border-pauta': emPauta }">
     <input type="checkbox" :id="`collapsebox2-${visId}`" class="collapse-box-check">
     <label :for="`collapsebox2-${visId}`" class="collapse-box-label">
       <proposicao-header :prop="prop" />
     </label>
     <div class="collapse-box">
-      <div shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': emPauta }">
+      <div shadow="hover" class="box-card prop-item">
         <div class="flex">
           <fases-bar :fases="prop.resumo_progresso"/>
           <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
@@ -59,7 +59,7 @@ export default {
     font-size: 12px;
 }
 .border-pauta {
-    border: 2px solid #ffec00;
+    border-left: 6px solid #ffee00;
 }
 .flex-between {
     display: flex;
