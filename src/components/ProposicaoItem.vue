@@ -5,7 +5,7 @@
       <proposicao-header :prop="prop" />
     </label>
     <div class="collapse-box">
-      <div shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': this.prop.em_pauta }">
+      <div shadow="hover" class="box-card prop-item" :class="{ 'border-pauta': emPauta }">
         <div class="flex">
           <fases-bar :fases="prop.resumo_progresso"/>
           <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
@@ -35,9 +35,15 @@ export default {
     FasesBar,
     ProposicaoHeader
   },
-  computed: mapState({
-    dateRef: state => state.filter.dateRef
-  }),
+  computed: {
+    emPauta () {
+      return this.pautas[this.prop.id]
+    },
+    ...mapState({
+      dateRef: state => state.filter.dateRef,
+      pautas: state => state.proposicoes.pautas
+    })
+  },
   props: {
     prop: Object,
     visId: String
