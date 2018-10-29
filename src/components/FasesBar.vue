@@ -1,14 +1,11 @@
 <template>
   <div class="fasesBlock">
     <div v-for="(fase,i) in sortedFases" :key="i">
-      <div v-if="isAtualFase(fase)" class="arrow-down"></div>
-      <div v-else class="padding"></div>
-      <div class="fase" :class="geraEstilo(fase)">
-        <div class="tooltip">
-        <h5>{{ fase.local }} - {{ fase.fase_global }}</h5>
-        <div class="tooltiptriangulo"></div>
-      </div>
-      </div>
+      <div v-if="isAtualFase(fase)" class="arrow-down"/>
+      <div v-else class="padding"/>
+      <el-tooltip :content="fase.local + '-' + fase.fase_global">
+        <div class="fase" :class="geraEstilo(fase)"/>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -45,7 +42,7 @@ export default {
         'Comissões - Revisão II': '5',
         'Plenário - Revisão II': '6',
         'Presidência da República - Sansão/Veto': '7',
-        'Presidência da República - Avaliação dos Vetos': '8'}
+        'Congresso - Avaliação dos Vetos': '8'}
       return this.fases.slice().sort((a, b) => {
         let indexA = a.local + ' - ' + a.fase_global
         let indexB = b.local + ' - ' + b.fase_global
