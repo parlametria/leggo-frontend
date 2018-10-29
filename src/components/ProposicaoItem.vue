@@ -95,5 +95,6 @@ export default {
 .flex {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>
