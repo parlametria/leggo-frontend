@@ -1,15 +1,15 @@
 <template>
-<div id="pautas">
+<div class="pautas">
     <div v-if="id in pautas">
-        <p id="descricao">Próximas pautas</p>
+        <p class="descricao">Próximas pautas</p>
         <table>
-            <tr v-for="(pauta, key) in pautas[id]" :key="key">
+            <tr v-for="(pauta, key) in propPautas" :key="key">
                 <td>{{formatDate(pauta.data)}}</td>
                 <td>{{pauta.local}}</td>
             </tr>
         </table>
     </div>
-    <div id="empty-pautas" v-else>Calendário de pautas não disponível</div>
+    <div class="empty-pautas" v-else>Calendário de pautas não disponível</div>
 </div>
 </template>
 
@@ -21,30 +21,29 @@ export default {
   props: {
     id: Number
   },
-  computed: mapState({
-    pautas: state => state.proposicoes.pautas
-  }),
+  computed: {
+    propPautas () {
+      let now = Date.now()
+      return this.pautas[this.id].filter(pauta => pauta.data >= now)
+    },
+    ...mapState({
+      pautas: state => state.proposicoes.pautas
+    })
+  },
   methods: {
-    formatDate: date => {
-      let month = '' + (date.getMonth() + 1)
-      let day = '' + date.getDate()
-      let year = date.getFullYear()
-      if (month.length < 2) month = '0' + month
-      if (day.length < 2) day = '0' + day
-      return [year, month, day].join('-')
-    }
+    formatDate: date => date.toISOString().slice(0, 10)
   }
 }
 </script>
 
 <style scoped>
-#pautas {
+.pautas {
     text-align: center;
 }
-#descricao {
+.descricao {
     font-weight: bold;
 }
-#empty-pautas {
+.empty-pautas {
     color: #999;
 }
 table {
