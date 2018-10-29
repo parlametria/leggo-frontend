@@ -15,12 +15,12 @@
 import { mapState } from 'vuex'
 
 export default {
-    name: 'listapauta',
-    props: {
-        id: Number
-    },
-    computed: mapState ({
-        pautas: state => state.proposicoes.pautas
-    })
+  name: 'listapauta',
+  props: {
+    id: Number
+  },
+  computed: mapState({
+    pautas: state => state.proposicoes.pautas
+  })
 }
 </script>
