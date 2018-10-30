@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
     <el-col :sm="10" :md="8" :lg="6">
-      <nav-menu></nav-menu>
+      <nav-menu/>
     </el-col>
     <el-col :sm="14" :md="16" :lg="18">
       <p v-if="pending.proposicoes">loading posts...</p>
@@ -80,6 +80,7 @@ export default {
           options => options.tipo === prop.casa && options.status
         ) &&
         this.emPautaFilter.some(
+          // TODO: usar nova estrutura do emPauta
           options =>
             ((options.tipo === 'Sim' && prop.em_pauta) ||
               (options.tipo === 'Não' && !prop.em_pauta)) &&

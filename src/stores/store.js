@@ -12,12 +12,12 @@ const proposicoes = new Vapi({
     tramitacoes: new Set(),
     energias: {},
     pautas: {
-      7: [
+      4: [
         { data: new Date('2018-10-20'), local: 'CCJ' },
         { data: new Date('2018-11-04'), local: 'CAPADR' },
         { data: new Date('2018-11-10'), local: 'CMADS' }
       ],
-      15: [
+      9: [
         { data: new Date('2018-10-20'), local: 'CAPADR' },
         { data: new Date('2018-11-07'), local: 'CAPADR' },
         { data: new Date('2018-11-20'), local: 'CMADS' }
