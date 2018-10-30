@@ -1,14 +1,11 @@
 <template>
   <div class="fasesBlock">
     <div v-for="(fase,i) in sortedFases" :key="i">
-      <div v-if="isAtualFase(fase)" class="arrow-down"></div>
-      <div v-else class="padding"></div>
-      <div class="fase" :class="geraEstilo(fase)">
-        <div class="tooltip">
-        <h5>{{ fase.local }} - {{ fase.fase_global }}</h5>
-        <div class="tooltiptriangulo"></div>
-      </div>
-      </div>
+      <div v-if="isAtualFase(fase)" class="arrow-down"/>
+      <div v-else class="padding"/>
+      <el-tooltip :content="fase.local + '-' + fase.fase_global">
+        <div class="fase" :class="geraEstilo(fase)"/>
+      </el-tooltip>
     </div>
   </div>
 </template>
@@ -45,7 +42,7 @@ export default {
         'Comissões - Revisão II': '5',
         'Plenário - Revisão II': '6',
         'Presidência da República - Sansão/Veto': '7',
-        'Presidência da República - Avaliação dos Vetos': '8'}
+        'Congresso - Avaliação dos Vetos': '8'}
       return this.fases.slice().sort((a, b) => {
         let indexA = a.local + ' - ' + a.fase_global
         let indexB = b.local + ' - ' + b.fase_global
@@ -67,20 +64,9 @@ export default {
     background-color: #EEE;
     margin-right: 3px;
 }
-.fase:hover{
-  .tooltip{
-    visibility: visible;
-  }
-}
-.fase:last-child {
-
-}
 .cerrilhado {
     background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
     display: block;
-}
-.fase .tooltip {
-  visibility: hidden;
 }
 .faseConcluida.faseSenado{
     background-color: #a6cee3;
@@ -93,40 +79,6 @@ export default {
 }
 .faseAtual.faseCamara{
     background-color: #33a02c;
-}
-.triangulo {
-    width: 0;
-    height: 0;
-    margin-top: -8px;
-    margin-left: 20px;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-    border-top: 6px solid rgb(255, 20, 20);
-}
-.tooltiptriangulo{
-    width: 0;
-    height: 0;
-    position: inherit;
-    margin-top: -35px;
-    margin-left: -10px;
-    border-right: 5px solid rgba(77, 76, 128, 0.7);
-    border-bottom: 5px solid transparent;
-    border-top: 5px solid transparent;
-}
-.tooltip {
-  border-radius: 6px;
-  position: absolute;
-  text-align: center;
-  width: auto;
-  height: auto;
-  background-color: rgba(77, 76, 128, 0.7);
-  color: #FFF;
-  pointer-events: none;
-  padding: 5px;
-  z-index: 1000;
-  float: right;
-  margin-top: -20px;
-  margin-left: 40px;
 }
 .arrow-down {
   margin-left: 10px;
