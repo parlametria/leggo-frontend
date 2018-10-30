@@ -11,7 +11,7 @@
       <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
         <proposicao-item
           class="proposicao-item"
-          :prop="prop.lastEtapa" :visId= "`vis-${j}`"/>
+          :prop="prop.lastEtapa"/>
       </div>
     </el-col>
   </el-row>
