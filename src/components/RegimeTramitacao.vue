@@ -1,5 +1,5 @@
 <template>
-  <el-tag v-if="options.includes(regime.toLowerCase())" type="info" size="mini">{{regime}}</el-tag>
+  <el-tag v-if="options.includes(regime.toLowerCase())" type="info" style="width:70px">{{regime}}</el-tag>
 
 </template>
 
