@@ -1,14 +1,14 @@
 <template>
   <div class="collapse-box-wrapper" :class="{ 'border-pauta': emPauta }">
-    <input type="checkbox" :id="`collapsebox2-${visId}`" class="collapse-box-check">
-    <label :for="`collapsebox2-${visId}`" class="collapse-box-label">
+    <input type="checkbox" :id="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-check">
+    <label :for="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-label">
       <proposicao-header :prop="prop" />
     </label>
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">
         <div class="flex">
           <fases-bar :fases="prop.resumo_progresso"/>
-          <energy-graphic :date="dateRef" :visId="visId" :id="prop.id_ext" :casa="prop.casa"/>
+          <energy-graphic :date="dateRef" :id="prop.id_ext" :casa="prop.casa"/>
           <lista-pauta :id="prop.id"></lista-pauta>
         </div>
         <a class="sigla" :href="prop.url">
@@ -48,8 +48,7 @@ export default {
     })
   },
   props: {
-    prop: Object,
-    visId: String
+    prop: Object
   }
 }
 </script>
