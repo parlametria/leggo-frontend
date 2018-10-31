@@ -6,7 +6,7 @@
   <div class="end" id="end">
     <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"></regime-tramitacao>
     <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
-    <el-popover
+    <!-- <el-popover
       placement="right"
       width="300"
       trigger="click">
@@ -18,7 +18,7 @@
       <el-badge slot="reference" :value="4">
         <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
       </el-badge>
-    </el-popover>
+    </el-popover> -->
   </div>
 </div>
 </template>
