@@ -1,5 +1,6 @@
 <template>
-  <div class="collapse-box-wrapper" :class="{ 'border-pauta': emPauta }">
+  <div class="collapse-box-wrapper">
+    <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <input type="checkbox" :id="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-check">
     <label :for="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-label">
       <proposicao-header :prop="prop" />
@@ -72,8 +73,8 @@ export default {
     margin-bottom: 0.5rem;
     /* border-bottom: 1px solid #d6d6d6; */
     /* padding: 0 1rem; */
-    padding: .5rem .5rem 0 .5rem;
-    border-bottom: solid 1px #e9e9e9;
+    padding: 0.5rem 1.5rem;
+    border: solid 1px #e9e9e9;
 
     label.collapse-box-label{
         width:100%;
@@ -96,12 +97,14 @@ export default {
         box-shadow: 0 5px 5px rgb(198, 198, 198);
     }
 }
-.border-pauta {
-    border-left: 5px solid #f56c6c;
-}
 .flex {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.pauta-label {
+  position: absolute;
+  top: 2px;
+  left: 2px;
 }
 </style>
