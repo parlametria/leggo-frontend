@@ -56,7 +56,7 @@ export default {
             aggregate: 'sum',
             field: 'energia_recente',
             type: 'quantitative',
-            axis: { title: 'Energia', 'titlePadding': -7 }
+            axis: { title: 'Pressão', 'titlePadding': -7 }
           },
           color: {
             field: 'apelido',
