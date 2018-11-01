@@ -35,7 +35,7 @@ export default class EnergyGraphicModel {
       $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
       height: 50,
       width: 150,
-      title: 'Energia Acumulada',
+      title: 'Pressão Acumulada',
       data: {
         name: 'energia'
       },
