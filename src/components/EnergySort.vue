@@ -16,11 +16,11 @@ export default {
       options: [
         {
           value: 'asc',
-          label: 'Menos energia'
+          label: 'Menor pressão'
         },
         {
           value: 'desc',
-          label: 'Mais energia'
+          label: 'Maior pressão'
         }
       ]
     }
