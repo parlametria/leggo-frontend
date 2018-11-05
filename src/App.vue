@@ -19,9 +19,13 @@
 
 <style lang="scss">
 body {
-    margin: 0;
+  margin: 0;
 }
 .flex-center {
   justify-content: center;
+}
+.el-tag {
+  width: 4rem;
+  text-align: center;
 }
 </style>
