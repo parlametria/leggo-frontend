@@ -27,10 +27,16 @@ const proposicoes = new Vapi({
   },
   getters: {
     maxPressao: state => {
-      const maxEnergia = Math.max(...data.map(x => x.energia_recente))
-      if (maxEnergia > state.maxEnergia) {
-        state.maxEnergia = maxEnergia
-      }
+        console.log(state);
+      const energias = state.proposicoes.energias
+      const maxEnergia = 0;
+      
+      Object.keys(energias).forEach(function(key) {
+        if (energias[key][0].energia_recente > maxEnergia) {
+          maxEnergia = energias[key][0].energia_recente
+        }
+    });
+    console.log(maxEnergia);
     }
   }
 }).get({

@@ -3,16 +3,18 @@
         <div class="progress-bar progress-bar-info progress-bar-striped"
         role="progressbar"
 
-        :style="retornaEstilo()">
+        style="width:50%">
     </div>
+
+    {{ maxPressao }}
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  name: "ProgressBar",
+  name: "PressureBar",
   props: {
     id: Number
   },
@@ -29,13 +31,9 @@ export default {
       return `width:${this.pegaPorcentagem()}%`;
     }
   },
-  computed: mapState({
-    listaEnergias: state => state.proposicoes.energias,
-    maxEnergia: state => state.proposicoes.maxEnergia,
-    energias () {
-      return this.listaEnergias[this.id]
+  computed: {
+    ...mapGetters(['maxPressao'])
     }
-  })
 };
 </script>
 

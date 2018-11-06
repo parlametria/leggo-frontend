@@ -16,7 +16,7 @@
         </a>
       </div>
     </div>
-    <progress-bar :id="prop.id_ext"></progress-bar>
+    <pressure-bar :id="prop.id_ext"></pressure-bar>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ import FormaApreciacao from "@/components/FormaApreciacao.vue";
 import EnergyGraphic from "@/components/EnergyGraphic";
 import FasesBar from "@/components/FasesBar";
 import ListaPauta from "@/components/ListaPauta";
-import ProgressBar from "@/components/ProgressBar";
+import PressureBar from "@/components/PressureBar";
 import { mapState } from "vuex";
 
 export default {
@@ -39,7 +39,7 @@ export default {
     FasesBar,
     ProposicaoHeader,
     ListaPauta,
-    ProgressBar
+    PressureBar
   },
   computed: {
     emPauta() {
