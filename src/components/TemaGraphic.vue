@@ -1,6 +1,5 @@
 <template>
-  <div id="temaGrafico" ref="grafico">
-  </div>
+  <div id="temaGrafico" ref="grafico"/>
 </template>
 
 <script>
@@ -9,7 +8,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'TemaGraphic',
   props: {
-    tema: String
+    proposicoes: Array
   },
   data () {
     return {
@@ -84,7 +83,7 @@ export default {
     },
     formatEnergias () {
       let result = []
-      this.proposicoes.filter((prop) => prop.tema === this.tema).forEach((prop) => {
+      this.proposicoes.forEach((prop) => {
         const energias = this.energias[prop.lastEtapa.id_ext]
         if (energias) {
           energias.forEach((energia) => {
@@ -95,8 +94,7 @@ export default {
       return result
     },
     ...mapState({
-      energias: state => state.proposicoes.energias,
-      proposicoes: state => state.proposicoes.proposicoes
+      energias: state => state.proposicoes.energias
     })
   },
   watch: {

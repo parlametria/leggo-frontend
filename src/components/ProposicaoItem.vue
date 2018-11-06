@@ -2,18 +2,23 @@
   <div class="collapse-box-wrapper" :class="{ 'border-pauta': emPauta }">
     <input type="checkbox" :id="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-check">
     <label :for="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-label">
-      <proposicao-header :prop="prop" />
+      <proposicao-header :prop="prop.lastEtapa" />
     </label>
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">
         <div class="flex">
           <fases-bar :fases="prop.resumo_progresso"/>
-          <energy-graphic :date="dateRef" :id="prop.id_ext" :casa="prop.casa"/>
+          <energy-graphic
+            :date="dateRef"
+            :id="prop.lastEtapa.id_ext"
+            :casa="prop.lastEtapa.casa"/>
           <lista-pauta :id="prop.id"></lista-pauta>
         </div>
-        <a class="sigla" :href="prop.url">
-          {{ prop.sigla }}
-        </a>
+        <ul>
+          <li v-for="(etapa,i) in prop.etapas" :key="i">
+            <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
-      <el-menu-item index="/temas">Temas</el-menu-item>
+      <el-menu-item index="/proposicoes">Proposições</el-menu-item>
       <el-menu-item index="/sobre">Sobre</el-menu-item>
     </el-menu>
     <el-container>
@@ -19,9 +19,13 @@
 
 <style lang="scss">
 body {
-    margin: 0;
+  margin: 0;
 }
 .flex-center {
   justify-content: center;
+}
+.el-tag {
+  width: 4rem;
+  text-align: center;
 }
 </style>

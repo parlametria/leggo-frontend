@@ -1,38 +1,14 @@
+import Vue from 'vue'
+
 const filtro = {
   state: {
+    // Filtros abilitados e também o nome do atributo da proposição usado por ele
+    filters: ['tema', 'regime_tramitacao', 'forma_apreciacao', 'casa'],
+    // Valores usados atualmente pelos filtros
+    current: {},
     nomeProposicaoFilter: {
       'nomeProposicao': ''
     },
-    apreciacaoFilter: [
-      {
-        'tipo': 'Plenário',
-        'status': true
-      }, {
-        'tipo': 'Conclusiva',
-        'status': true
-      }
-    ],
-    regimeFilter: [
-      {
-        'tipo': 'Urgência',
-        'status': true
-      }, {
-        'tipo': 'Ordinária',
-        'status': true
-      }, {
-        'tipo': 'Prioridade',
-        'status': true
-      }
-    ],
-    casaFilter: [
-      {
-        'tipo': 'senado',
-        'status': true
-      }, {
-        'tipo': 'camara',
-        'status': true
-      }
-    ],
     emPautaFilter: [
       {
         'tipo': 'Sim',
@@ -50,15 +26,6 @@ const filtro = {
     filtraNomeProposicao (state, nomeProposicao) {
       state.searchFilter = nomeProposicao
     },
-    filtraApreciacao (state, apreciacoes) {
-      state.apreciacaoFilter = apreciacoes
-    },
-    filtraRegime (state, regimes) {
-      state.regimeFilter = regimes
-    },
-    filtraCasa (state, casas) {
-      state.casaFilter = casas
-    },
     filtraEmPauta (state, pautas) {
       state.emPautaFilter = pautas
     },
@@ -70,6 +37,15 @@ const filtro = {
     },
     updateEnergias (state, payload) {
       state.energias[payload.id] = payload.energia
+    },
+    setFilter (state, payload) {
+      // Se payload é no formato { filter, value }, seta filter como value,
+      // caso contrário substitui o obj com todos os filtros por payload
+      if (payload.filter) {
+        Vue.set(state.current, payload.filter, payload.value)
+      } else {
+        state.current = payload
+      }
     }
   },
   actions: {

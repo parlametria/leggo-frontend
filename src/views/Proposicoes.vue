@@ -1,17 +1,16 @@
 <template>
   <el-row :gutter="20">
     <el-col :sm="10" :md="8" :lg="6">
-      <nav-menu></nav-menu>
+      <nav-menu/>
     </el-col>
     <el-col :sm="14" :md="16" :lg="18">
       <p v-if="pending.proposicoes">loading posts...</p>
       <p v-if="error.proposicoes">loading failed</p>
-      <h2>{{ tema }}</h2>
-      <tema-graphic :tema="tema" />
+      <tema-graphic v-if="filteredProps.length" :proposicoes="filteredProps"/>
       <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
         <proposicao-item
           class="proposicao-item"
-          :prop="prop.lastEtapa"/>
+          :prop="prop"/>
       </div>
     </el-col>
   </el-row>
@@ -21,7 +20,7 @@
 import ProposicaoItem from '@/components/ProposicaoItem'
 import NavMenu from '@/components/NavMenu'
 import TemaGraphic from '@/components/TemaGraphic'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'proposicoes',
   components: {
@@ -34,60 +33,55 @@ export default {
       activeNames: []
     }
   },
-  mounted () {
-    this.listProposicoes()
+  async mounted () {
+    await this.listProposicoes()
+    // Deep clone o obj para que não seja modificado quando so filtros forem.
+    this.setFilter(JSON.parse(JSON.stringify(this.perFilterOptions)))
   },
   computed: {
-    tema () { return this.$route.params.tema },
     filteredProps () {
-      return this.proposicoes.filter(prop => {
-        // por enquanto usa apenas a última etapa
-        let [etapa] = prop.etapas.slice(-1)
-        prop.lastEtapa = etapa
-        return this.processProps(etapa)
-      }).filter((prop) => prop.tema === this.tema).sort((a, b) => {
-        if (this.energyOrder === 'desc') {
-          return b.lastEtapa.energia - a.lastEtapa.energia
-        } else {
-          return a.lastEtapa.energia - b.lastEtapa.energia
-        }
-      })
+      // Teste para ver se o obj com os filtros já foi inicializado
+      if (Object.keys(this.filter.current).length) {
+        return this.proposicoes.filter(prop => {
+          return this.checkPropMatchesFilter(prop.lastEtapa)
+        }).sort((a, b) => {
+          if (this.filter.energyOrder === 'desc') {
+            return b.lastEtapa.energia - a.lastEtapa.energia
+          } else {
+            return a.lastEtapa.energia - b.lastEtapa.energia
+          }
+        })
+      } else {
+        return this.proposicoes
+      }
     },
     ...mapState({
       proposicoes: state => state.proposicoes.proposicoes,
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
-      apreciacaoFilter: state => state.filter.apreciacaoFilter,
-      regimeFilter: state => state.filter.regimeFilter,
-      casaFilter: state => state.filter.casaFilter,
-      emPautaFilter: state => state.filter.emPautaFilter,
-      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter,
-      energyOrder: state => state.filter.energyOrder,
-      energias: state => state.filter.energias
-    })
+      filter: state => state.filter
+    }),
+    ...mapGetters(['perFilterOptions'])
   },
   methods: {
     ...mapActions(['listProposicoes']),
-    processProps (prop) {
-      return (
-        this.apreciacaoFilter.some(
-          options => options.tipo === prop.forma_apreciacao && options.status
-        ) &&
-        this.regimeFilter.some(
-          options => options.tipo === prop.regime_tramitacao && options.status
-        ) &&
-        this.casaFilter.some(
-          options => options.tipo === prop.casa && options.status
-        ) &&
-        this.emPautaFilter.some(
+    ...mapMutations(['setFilter']),
+    checkPropMatchesFilter (prop) {
+      // return this.filter.filters.every(filter => {
+      //   let filterSetup = this.filter.current[filter]
+      //   if (filterSetup) return filterSetup.includes(prop[filter])
+      //   else true
+      return this.filter.filters.every(
+        filter => this.filter.current[filter].includes(prop[filter])) &&
+        this.filter.emPautaFilter.some(
+          // TODO: usar nova estrutura do emPauta
           options =>
             ((options.tipo === 'Sim' && prop.em_pauta) ||
               (options.tipo === 'Não' && !prop.em_pauta)) &&
             options.status
         ) &&
           prop.apelido.toLowerCase().match(
-            this.nomeProposicaoFilter.nomeProposicao.toLowerCase())
-      )
+            this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
     }
   }
 }
