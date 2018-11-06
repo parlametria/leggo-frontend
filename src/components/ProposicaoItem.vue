@@ -16,31 +16,34 @@
         </a>
       </div>
     </div>
+    <progress-bar :id="prop.id_ext"></progress-bar>
   </div>
 </template>
 
 <script>
-import ProposicaoHeader from '@/components/ProposicaoHeader'
-import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
-import FormaApreciacao from '@/components/FormaApreciacao.vue'
-import EnergyGraphic from '@/components/EnergyGraphic'
-import FasesBar from '@/components/FasesBar'
-import ListaPauta from '@/components/ListaPauta'
-import { mapState } from 'vuex'
+import ProposicaoHeader from "@/components/ProposicaoHeader";
+import RegimeTramitacao from "@/components/RegimeTramitacao.vue";
+import FormaApreciacao from "@/components/FormaApreciacao.vue";
+import EnergyGraphic from "@/components/EnergyGraphic";
+import FasesBar from "@/components/FasesBar";
+import ListaPauta from "@/components/ListaPauta";
+import ProgressBar from "@/components/ProgressBar";
+import { mapState } from "vuex";
 
 export default {
-  name: 'proposicaoitem',
+  name: "proposicaoitem",
   components: {
     RegimeTramitacao,
     FormaApreciacao,
     EnergyGraphic,
     FasesBar,
     ProposicaoHeader,
-    ListaPauta
+    ListaPauta,
+    ProgressBar
   },
   computed: {
-    emPauta () {
-      return this.pautas[this.prop.id]
+    emPauta() {
+      return this.pautas[this.prop.id];
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
@@ -50,54 +53,54 @@ export default {
   props: {
     prop: Object
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .sigla {
-    font-size: 12px;
+  font-size: 12px;
 }
 .flex-between {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .prop-item {
-    margin: 10px;
+  margin: 10px;
 }
 .el-badge {
-    margin: 10px;
+  margin: 10px;
 }
 .collapse-box-wrapper {
-    position: relative;
-    margin-bottom: 0.5rem;
-    /* border-bottom: 1px solid #d6d6d6; */
-    /* padding: 0 1rem; */
-    padding: .5rem .5rem 0 .5rem;
-    border-bottom: solid 1px #e9e9e9;
+  position: relative;
+  margin-bottom: 0.5rem;
+  /* border-bottom: 1px solid #d6d6d6; */
+  /* padding: 0 1rem; */
+  padding: 0.5rem 0.5rem 0 0.5rem;
+  border-bottom: solid 1px #e9e9e9;
 
-    label.collapse-box-label{
-        width:100%;
-        display:inline-block;
-        cursor: pointer;
-    }
-    .collapse-box-check {
-        position: fixed;
-        left:-9999px;
-        opacity: 0;
+  label.collapse-box-label {
+    width: 100%;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .collapse-box-check {
+    position: fixed;
+    left: -9999px;
+    opacity: 0;
 
-        &:checked + label.collapse-box-label + .collapse-box {
-            display: block;
-        }
+    &:checked + label.collapse-box-label + .collapse-box {
+      display: block;
     }
-    .collapse-box {
-        display: none;
-    }
-    &:hover {
-        box-shadow: 0 5px 5px rgb(198, 198, 198);
-    }
+  }
+  .collapse-box {
+    display: none;
+  }
+  &:hover {
+    box-shadow: 0 5px 5px rgb(198, 198, 198);
+  }
 }
 .border-pauta {
-    border-left: 5px solid #f56c6c;
+  border-left: 5px solid #f56c6c;
 }
 .flex {
   display: flex;

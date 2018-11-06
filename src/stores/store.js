@@ -24,6 +24,14 @@ const proposicoes = new Vapi({
       ]
     },
     maxEnergia: 0
+  },
+  getters: {
+    maxPressao: state => {
+      const maxEnergia = Math.max(...data.map(x => x.energia_recente))
+      if (maxEnergia > state.maxEnergia) {
+        state.maxEnergia = maxEnergia
+      }
+    }
   }
 }).get({
   action: 'getProposicao',
