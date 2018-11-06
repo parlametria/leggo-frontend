@@ -7,7 +7,7 @@
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">
         <div class="flex">
-          <fases-bar :fases="prop.resumo_progresso"/>
+          <fases-bar :fases="prop.lastEtapa.resumo_progresso"/>
           <energy-graphic
             :date="dateRef"
             :id="prop.lastEtapa.id_ext"
@@ -21,7 +21,7 @@
         </ul>
       </div>
     </div>
-    <pressure-bar :id="prop.id_ext"></pressure-bar>
+    <pressure-bar :energia="prop.lastEtapa.energia"></pressure-bar>
   </div>
 </template>
 
