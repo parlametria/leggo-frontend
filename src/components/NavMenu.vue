@@ -33,60 +33,8 @@
       </template>
     </el-menu-item>
 
-    <!-- Apreciação -->
-    <el-submenu index="5">
-      <template slot="title">
-        <i class="el-icon-edit-outline"/>
-        <span slot="title">Apreciação</span>
-      </template>
-      <el-menu-item
-        v-for="(opcao, i) in apreciacaoFilter"
-        :index="'1-' + (i+1)"
-        :key="i">
-        <el-checkbox
-          @change="filtraApreciacao(apreciacaoFilter)"
-          v-model="opcao.status">
-          {{ opcao.tipo }}
-        </el-checkbox>
-      </el-menu-item>
-    </el-submenu>
-
-    <!-- Regime -->
-    <el-submenu index="6">
-      <template slot="title">
-        <i class="el-icon-edit-outline"/>
-        <span slot="title">Regime de tramitação</span>
-      </template>
-      <el-menu-item
-        v-for="(opcao, i) in regimeFilter"
-        :index="'1-' + (i+1)" :key="i">
-        <el-checkbox
-          @change="filtraRegime(regimeFilter)"
-          v-model="opcao.status">
-          {{ opcao.tipo }}
-        </el-checkbox>
-      </el-menu-item>
-    </el-submenu>
-
-    <!-- Casa -->
-    <el-submenu index="7">
-      <template slot="title">
-        <i class="el-icon-edit-outline"></i>
-        <span slot="title">Casa</span>
-      </template>
-      <el-menu-item
-        v-for="(opcao, i) in casaFilter"
-        :index="'1-' + (i+1)" :key="i">
-        <el-checkbox
-          @change="filtraCasa(casaFilter)"
-          v-model="opcao.status">
-          {{ opcao.tipo }}
-        </el-checkbox>
-      </el-menu-item>
-    </el-submenu>
-
     <!-- Pauta -->
-    <el-submenu index="8">
+    <el-submenu index="5">
       <template slot="title">
         <i class="el-icon-edit-outline"></i>
         <span slot="title">Em pauta</span>
@@ -102,12 +50,42 @@
       </el-menu-item>
     </el-submenu>
 
+    <!-- Vários Filtros -->
+    <el-submenu v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
+      <template slot="title">
+        <i class="el-icon-edit-outline"></i>
+        <span slot="title">{{ $t(filterName) }}</span>
+      </template>
+      <el-checkbox-group v-model="self[filterName]">
+        <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]" :key="j" index="j">
+          <el-checkbox :label="opcao">{{ $t(opcao) }}</el-checkbox>
+        </el-menu-item>
+      </el-checkbox-group>
+    </el-submenu>
+
   </el-menu>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import EnergySort from '@/components/EnergySort'
+import store from '@/stores/store'
+
+function generateFilterModels () {
+  let models = {}
+  let filterStore = store.state.filter
+  for (let filter of filterStore.filters) {
+    models[filter] = {
+      get () {
+        return filterStore.current[filter]
+      },
+      set (value) {
+        store.commit('setFilter', { value, filter })
+      }
+    }
+  }
+  return models
+}
 
 export default {
   name: 'navMenu',
@@ -115,6 +93,7 @@ export default {
     EnergySort
   },
   data () {
+    let self = this
     return {
       isCollapse: true,
       windowWidth: 0,
@@ -122,23 +101,21 @@ export default {
         disabledDate (time) {
           return time.getTime() > Date.now()
         }
-      }
+      },
+      self
     }
   },
-  // mounted () {
-  //   this.$nextTick(function () {
-  //     window.addEventListener('resize', this.getWindowWidth)
-  //     this.getWindowWidth()
-  //   })
-  // },
   computed: {
     ...mapState({
+      filter: state => state.filter,
       apreciacaoFilter: state => state.filter.apreciacaoFilter,
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
       nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
     }),
+    ...mapGetters(['perFilterOptions']),
+    ...generateFilterModels(),
     dateRef: {
       get () {
         return this.$store.state.filter.dateRef
@@ -156,12 +133,6 @@ export default {
       'filtraEmPauta',
       'filtraNomeProposicao'
     ])
-    // getWindowWidth (event) {
-    //   this.windowWidth = document.documentElement.clientWidth
-    // },
-    // widthCollapse () {
-    //   return this.windowWidth < 660 && this.isCollapse
-    // }
   }
 }
 </script>

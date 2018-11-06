@@ -1,26 +1,26 @@
 <template>
-<div class="container">
-  <p class="brand">
-    {{ prop.apelido }}
-  </p>
-  <div class="end" id="end">
-    <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"></regime-tramitacao>
-    <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
-    <!-- <el-popover
-      placement="right"
-      width="300"
-      trigger="click">
-      <ul>
-        <li v-for="(evento,i) in eventos" :key="i">
-          {{ evento.data }} - {{ evento.evento }} - {{ evento.local }}
-        </li>
-      </ul>
-      <el-badge slot="reference" :value="4">
-        <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
-      </el-badge>
-    </el-popover> -->
+  <div class="container">
+    <p class="brand">
+      {{ prop.apelido }}
+    </p>
+    <div class="end">
+      <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"/>
+      <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
+      <!-- <el-popover
+        placement="right"
+        width="300"
+        trigger="click">
+        <ul>
+          <li v-for="(evento,i) in eventos" :key="i">
+            {{ evento.data }} - {{ evento.evento }} - {{ evento.local }}
+          </li>
+        </ul>
+        <el-badge slot="reference" :value="4">
+          <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
+        </el-badge>
+      </el-popover> -->
+    </div>
   </div>
-</div>
 </template>
 
 <script>

@@ -1,26 +1,26 @@
 describe('Test proposicoes view', () => {
-  it('Test meio ambiente proposicoes', () => {
-    const propsMeioAmbiente = ['PL do Veneno', 'Lei do Licenciamento Ambiental', 'Lei para Acabar Zona de Amortecimento',
-      'Política Nacional de Redução de Agrotóxico', 'Estatuto do Índio']
-    cy.visit('/#/temas/Meio Ambiente')
+  // it('Test meio ambiente proposicoes', () => {
+  //   const propsMeioAmbiente = ['PL do Veneno', 'Lei do Licenciamento Ambiental', 'Lei para Acabar Zona de Amortecimento',
+  //     'Política Nacional de Redução de Agrotóxico', 'Estatuto do Índio']
+  //   cy.visit('/#/proposicoes')
 
-    propsMeioAmbiente.forEach(prop => {
-      cy.contains(prop)
-    })
-  })
+  //   propsMeioAmbiente.forEach(prop => {
+  //     cy.contains(prop)
+  //   })
+  // })
 
-  it('Test agenda nacional proposicoes', () => {
-    const propsMeioAmbiente = ['Lei do Teto Remuneratório', 'Modernização da Lei de Licitações e Contratos', 'Lei do Cadastro Positivo',
-      'Lei da Qualidade Fiscal']
-    cy.visit('/#/temas/Agenda Nacional')
+  // it('Test agenda nacional proposicoes', () => {
+  //   const propsMeioAmbiente = ['Lei do Teto Remuneratório', 'Modernização da Lei de Licitações e Contratos', 'Lei do Cadastro Positivo',
+  //     'Lei da Qualidade Fiscal']
+  //   cy.visit('/#/proposicoes')
 
-    propsMeioAmbiente.forEach(prop => {
-      cy.contains(prop)
-    })
-  })
+  //   propsMeioAmbiente.forEach(prop => {
+  //     cy.contains(prop)
+  //   })
+  // })
 
   it('Test filter apreciacao', () => {
-    cy.visit('/#/temas/Meio Ambiente')
+    cy.visit('/#/proposicoes')
     const apreciacoes = ['Plenário', 'Conclusiva']
     cy.contains('Apreciação').click()
     apreciacoes.forEach(apreciacao => {
@@ -33,10 +33,10 @@ describe('Test proposicoes view', () => {
   })
 
   it('Test filter regime', () => {
-    cy.visit('/#/temas/Meio Ambiente')
+    cy.visit('/#/proposicoes')
 
     const regimes = ['Ordinária', 'Prioridade']
-    cy.contains('Regime de tramitação').click()
+    cy.contains('Tramitação').click()
     regimes.forEach(regime => {
       cy.get('.regime_tramitacao').should('contain', regime)
       cy.contains('.is-checked', regime).click()
