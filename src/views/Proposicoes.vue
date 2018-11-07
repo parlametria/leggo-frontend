@@ -6,9 +6,7 @@
       <div v-if="filteredProps.length">
         <tema-graphic :proposicoes="filteredProps"/>
         <transition-group name="el-fade-in" tag="div">
-          <proposicao-item
-            :key="prop.apelido" v-for="prop in filteredProps"
-            class="proposicao-item" :prop="prop"/>
+          <proposicao-item :key="prop.apelido" v-for="prop in filteredProps" :prop="prop"/>
         </transition-group>
       </div>
       <p v-else>Nenhuma proposição para mostrar...</p>
@@ -81,9 +79,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.proposicao-item {
-    min-width: 350px;
-}
 .flex {
     display: flex;
     flex-wrap: wrap;
