@@ -24,7 +24,7 @@ const proposicoes = new Vapi({
       ]
     },
     maxEnergia: 0
-  }}).get({
+  } }).get({
   action: 'getProposicao',
   property: 'proposicao',
   path: ({ casa, idExt }) => `/proposicoes/${casa}/${idExt}`

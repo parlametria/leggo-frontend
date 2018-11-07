@@ -8,7 +8,7 @@
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">
         <div class="flex">
-          <fases-bar :fases="prop.resumo_progresso"/>
+          <fases-bar :fases="prop.etapas[0].resumo_progresso"/>
           <energy-graphic
             :date="dateRef"
             :id="prop.lastEtapa.id_ext"
@@ -61,6 +61,10 @@ export default {
         localAtual = 'Comissão Especial - ' + localAtual
       }
       return localAtual
+    },
+    Progresso () {
+      let Progresso = this.prop.resumo_progresso
+      return Progresso
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
