@@ -1,6 +1,6 @@
 <template>
-    <div :class="geraEstilo(true)">
-        <div class="progress-bar"
+    <div :class="geraEstilo()">
+        <div class="progress-bar" :class="{ down: this.coeficiente < 0 }"
         role="progressbar"
         :style="retornaEstilo()">
         <i class="right"></i>
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'PressureBar',
-  props: ['energia'],
+  props: ['id'],
   methods: {
     pegaPorcentagem () {
       return (this.energia * 100) / this.maxPressao
@@ -23,12 +23,26 @@ export default {
     },
     geraEstilo (tendencia) {
       return {
-        'progress-down after': true,
-        'progress-up after': true
+        'progress-down after': this.coeficiente < 0,
+        'progress-up after': this.coeficiente >= 0
       }
-    }
+    },
   },
-  computed: {
+  computed:  { 
+    energia () {
+      if(this.listaEnergias[this.id])
+        return this.listaEnergias[this.id][0].energia_recente
+      return 0
+    },
+    coeficiente () {
+      if(this.listaCoeficientes[this.id])
+        return this.listaCoeficientes[this.id]
+      return 0
+    },
+    ...mapState({
+      listaEnergias: state => state.proposicoes.energias,
+      listaCoeficientes: state => state.proposicoes.coeficiente
+    }),
     ...mapGetters(['maxPressao'])
   }
 }
@@ -57,6 +71,10 @@ export default {
     border-left: 5px solid #f5f5f5;
     transform: rotate(180deg);
     margin-left: -5px;
+}
+
+.down {
+  background-color:#ef8a62;
 }
 
 </style>
