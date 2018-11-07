@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-click-outside="hide">
     <button type="button" class="open-btn" @click="open = true">
       <i class="el-icon el-icon-menu"></i>
     </button>
