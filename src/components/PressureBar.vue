@@ -35,8 +35,8 @@ export default {
 </script>
 
 <style scoped>
-.progress-down{height:10px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
-.progress-up{height:10px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
+.progress-down{height:7px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
+.progress-up{height:7px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
 .progress-bar{float:left;width:0;height:100%;font-size:12px;line-height:20px;color:#fff;text-align:center;background-color:#337ab7;-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);-webkit-transition:width .6s ease;-o-transition:width .6s ease;transition:width .6s ease}
 .progress-up::after{
     width: 0;
@@ -50,13 +50,13 @@ export default {
 .progress-down::after{
     width: 0;
     height: 0;
-    border-top: 5px inset transparent;
-    border-bottom: 5px inset transparent;
+    border-top: 4px inset transparent;
+    border-bottom: 4px inset transparent;
     position: absolute;
     content: "";
-    border-left: 5px solid #f5f5f5;
+    border-left: 4px solid #f5f5f5;
     transform: rotate(180deg);
-    margin-left: -5px;
+    margin-left: -3px;
 }
 
 </style>
