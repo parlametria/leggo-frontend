@@ -1,31 +1,22 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :sm="10" :md="8" :lg="6">
-      <nav-menu/>
-    </el-col>
-    <el-col :sm="14" :md="16" :lg="18">
-      <p v-if="pending.proposicoes">loading posts...</p>
-      <p v-if="error.proposicoes">loading failed</p>
-      <tema-graphic v-if="filteredProps.length" :proposicoes="filteredProps"/>
-      <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
-        <proposicao-item
-          class="proposicao-item"
-          :prop="prop"/>
-      </div>
-    </el-col>
-  </el-row>
+  <div>
+    <p v-if="pending.proposicoes">loading posts...</p>
+    <p v-if="error.proposicoes">loading failed</p>
+    <tema-graphic v-if="filteredProps.length" :proposicoes="filteredProps"/>
+    <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
+      <proposicao-item class="proposicao-item" :prop="prop"/>
+    </div>
+  </div>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
-import NavMenu from '@/components/NavMenu'
 import TemaGraphic from '@/components/TemaGraphic'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'proposicoes',
   components: {
     ProposicaoItem,
-    NavMenu,
     TemaGraphic
   },
   data () {
