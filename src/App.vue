@@ -2,11 +2,15 @@
   <el-container id="app">
     <el-aside class="aside-menu">
       <nav-menu>
-        <router-view name="menu"/>
+        <el-collapse-transition mode="out-in">
+          <router-view name="menu"/>
+        </el-collapse-transition>
       </nav-menu>
     </el-aside>
     <el-main>
-      <router-view/>
+      <transition name="el-fade-in" mode="out-in">
+        <router-view/>
+      </transition>
     </el-main>
   </el-container>
 </template>
