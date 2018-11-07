@@ -26,17 +26,15 @@ export default {
         'progress-down after': this.coeficiente < 0,
         'progress-up after': this.coeficiente >= 0
       }
-    },
+    }
   },
-  computed:  { 
+  computed: {
     energia () {
-      if(this.listaEnergias[this.id])
-        return this.listaEnergias[this.id][0].energia_recente
+      if (this.listaEnergias[this.id]) { return this.listaEnergias[this.id][0].energia_recente }
       return 0
     },
     coeficiente () {
-      if(this.listaCoeficientes[this.id])
-        return this.listaCoeficientes[this.id]
+      if (this.listaCoeficientes[this.id]) { return this.listaCoeficientes[this.id] }
       return 0
     },
     ...mapState({

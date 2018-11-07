@@ -48,11 +48,11 @@ const proposicoes = new Vapi({
     const pressoes = data.pressoes
     const coeficiente = data.coeficiente
     const maxEnergia = Math.max(...pressoes.map(x => x.energia_recente))
-   
+
     if (maxEnergia > state.maxEnergia) {
       state.maxEnergia = maxEnergia
     }
-    
+
     Vue.set(state.coeficiente, params.id, coeficiente)
     Vue.set(state.energias, params.id, pressoes)
   }
@@ -77,7 +77,7 @@ proposicoes.getters = {
     let maxEnergia = 0
     Object.keys(energias).forEach(function (key) {
       if (energias[key][0] != null && energias[key][0].energia_recente > maxEnergia) {
-        maxEnergia = energias[key][0].energia_recente  + 5
+        maxEnergia = energias[key][0].energia_recente + 5
       }
     })
 
