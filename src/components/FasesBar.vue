@@ -35,14 +35,14 @@ export default {
   },
   computed: {
     sortedFases () {
-      let sortOrder = {'Comissões - Construção': '1',
+      let sortOrder = { 'Comissões - Construção': '1',
         'Plenário - Construção': '2',
         'Comissões - Revisão I': '3',
         'Plenário - Revisão I': '4',
         'Comissões - Revisão II': '5',
         'Plenário - Revisão II': '6',
         'Presidência da República - Sansão/Veto': '7',
-        'Congresso - Avaliação dos Vetos': '8'}
+        'Congresso - Avaliação dos Vetos': '8' }
       return this.fases.slice().sort((a, b) => {
         let indexA = a.local + ' - ' + a.fase_global
         let indexB = b.local + ' - ' + b.fase_global
