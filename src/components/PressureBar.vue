@@ -8,23 +8,23 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "PressureBar",
+  name: 'PressureBar',
   props: ['energia'],
   methods: {
-    pegaPorcentagem() {
-      return (this.energia * 100) / this.maxPressao;
+    pegaPorcentagem () {
+      return (this.energia * 100) / this.maxPressao
     },
-    retornaEstilo() {
-      return `width:${this.pegaPorcentagem()}%`;
+    retornaEstilo () {
+      return `width:${this.pegaPorcentagem()}%`
     }
   },
   computed: {
     ...mapGetters(['maxPressao'])
-    }
-};
+  }
+}
 </script>
 
 <style scoped>
