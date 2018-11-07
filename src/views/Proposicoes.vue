@@ -1,31 +1,27 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :sm="10" :md="8" :lg="6">
-      <nav-menu/>
-    </el-col>
-    <el-col :sm="14" :md="16" :lg="18">
-      <p v-if="pending.proposicoes">loading posts...</p>
-      <p v-if="error.proposicoes">loading failed</p>
-      <tema-graphic v-if="filteredProps.length" :proposicoes="filteredProps"/>
-      <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
-        <proposicao-item
-          class="proposicao-item"
-          :prop="prop"/>
+  <div>
+    <p v-if="pending.proposicoes">loading posts...</p>
+    <p v-if="error.proposicoes">loading failed</p>
+    <transition name="el-fade-in" mode="out-in">
+      <div v-if="filteredProps.length">
+        <tema-graphic :proposicoes="filteredProps"/>
+        <transition-group name="el-fade-in" tag="div">
+          <proposicao-item :key="prop.apelido" v-for="prop in filteredProps" :prop="prop"/>
+        </transition-group>
       </div>
-    </el-col>
-  </el-row>
+      <p v-else>Nenhuma proposição para mostrar...</p>
+    </transition>
+  </div>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
-import NavMenu from '@/components/NavMenu'
 import TemaGraphic from '@/components/TemaGraphic'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'proposicoes',
   components: {
     ProposicaoItem,
-    NavMenu,
     TemaGraphic
   },
   data () {
@@ -67,30 +63,22 @@ export default {
     ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
     checkPropMatchesFilter (prop) {
-      // return this.filter.filters.every(filter => {
-      //   let filterSetup = this.filter.current[filter]
-      //   if (filterSetup) return filterSetup.includes(prop[filter])
-      //   else true
       return this.filter.filters.every(
         filter => this.filter.current[filter].includes(prop[filter])) &&
         this.filter.emPautaFilter.some(
           // TODO: usar nova estrutura do emPauta
           options =>
             ((options.tipo === 'Sim' && prop.em_pauta) ||
-              (options.tipo === 'Não' && !prop.em_pauta)) &&
-            options.status
+              (options.tipo === 'Não' && !prop.em_pauta)) && options.status
         ) &&
-          prop.apelido.toLowerCase().match(
-            this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+        prop.apelido.toLowerCase().match(
+          this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.proposicao-item {
-  min-width: 350px;
-}
 .flex {
     display: flex;
     flex-wrap: wrap;
