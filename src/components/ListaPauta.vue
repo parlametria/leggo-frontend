@@ -9,7 +9,7 @@
             </tr>
         </table>
     </div>
-    <div class="empty-pautas" v-else>Calendário de pautas não disponível</div>
+    <div class="empty-pautas" v-else></div>
 </div>
 </template>
 
