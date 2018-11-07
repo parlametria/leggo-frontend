@@ -65,21 +65,16 @@ export default {
     ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
     checkPropMatchesFilter (prop) {
-      // return this.filter.filters.every(filter => {
-      //   let filterSetup = this.filter.current[filter]
-      //   if (filterSetup) return filterSetup.includes(prop[filter])
-      //   else true
       return this.filter.filters.every(
         filter => this.filter.current[filter].includes(prop[filter])) &&
         this.filter.emPautaFilter.some(
           // TODO: usar nova estrutura do emPauta
           options =>
             ((options.tipo === 'Sim' && prop.em_pauta) ||
-              (options.tipo === 'Não' && !prop.em_pauta)) &&
-            options.status
+              (options.tipo === 'Não' && !prop.em_pauta)) && options.status
         ) &&
-          prop.apelido.toLowerCase().match(
-            this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+        prop.apelido.toLowerCase().match(
+          this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
     }
   }
 }
@@ -92,14 +87,5 @@ export default {
 .flex {
     display: flex;
     flex-wrap: wrap;
-}
-.list-item {
-    display: inline-block;
-}
-.list-enter-active, .list-leave-active {
-    transition: all 1s;
-}
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
-    opacity: 0;
 }
 </style>
