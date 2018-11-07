@@ -43,7 +43,7 @@ export default {
     height: 0;
     border-top: 5px inset transparent;
     border-bottom: 5px inset transparent;
-    border-left: 5px solid #337ab7;  
+    border-left: 5px solid #337ab7;
     position: absolute;
     content: "";
 }
@@ -54,7 +54,7 @@ export default {
     border-bottom: 5px inset transparent;
     position: absolute;
     content: "";
-    border-left: 5px solid #f5f5f5; 
+    border-left: 5px solid #f5f5f5;
     transform: rotate(180deg);
     margin-left: -5px;
 }
