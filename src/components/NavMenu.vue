@@ -43,6 +43,7 @@ export default {
 }
 .collapsable-menu {
     min-width: 300px;
+    transition: all 1s;
 }
 @media (max-width: $nav-menu-break-width) {
   .collapsable-menu {
@@ -59,7 +60,7 @@ export default {
     box-shadow: 0px 0px 20px black;
   }
   .collapsed {
-    display: none;
+    transform: translateX(-110%);
   }
   .close-btn {
     display: block;
