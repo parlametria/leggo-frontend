@@ -24,8 +24,7 @@ const proposicoes = new Vapi({
       ]
     },
     maxEnergia: 0
-  }
-}).get({
+  }}).get({
   action: 'getProposicao',
   property: 'proposicao',
   path: ({ casa, idExt }) => `/proposicoes/${casa}/${idExt}`
@@ -66,7 +65,18 @@ proposicoes.getters = {
       ).values()]
     }
     return options
-  }
+  },
+    maxPressao (state) {
+
+      const energias = state.energias
+      let maxEnergia = 0;
+      Object.keys(energias).forEach(function(key) {
+          if (energias[key][0] != null && energias[key][0].energia_recente > maxEnergia) {
+            maxEnergia = energias[key][0].energia_recente
+          }
+      });
+      return maxEnergia
+    }
 }
 
 export default new Vuex.Store({
