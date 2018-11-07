@@ -26,7 +26,7 @@ export default {
       casa: this.casa,
       semanas: this.semanas,
       date: this.formattedDate
-    }})
+    } })
 
     setTimeout(() => this.mountGraphic(
       this.id,
