@@ -51,7 +51,7 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  align-content: center;
+  align-items: center;
   justify-content: flex-end;
   padding: 0.5rem 0;
 }
