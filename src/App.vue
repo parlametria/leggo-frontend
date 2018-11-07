@@ -42,4 +42,8 @@ body {
         width: 0px !important;
     }
 }
+a {
+    color: #098484;
+    text-decoration: none;
+}
 </style>
