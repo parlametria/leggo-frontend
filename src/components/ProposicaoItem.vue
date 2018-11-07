@@ -15,10 +15,13 @@
             :casa="prop.lastEtapa.casa"/>
           <lista-pauta :id="prop.id"></lista-pauta>
         </div>
-        <ul>
+        <p style = "font-size:14px">Informações Gerais:</p>
+        <ul style = "font-size:13px">
           <li v-for="(etapa,i) in prop.etapas" :key="i">
-            <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+            Etapa {{i+1}}: <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
           </li>
+          <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
+          <li> Local Atual: {{ localAtual }} </li>
         </ul>
       </div>
     </div>
@@ -50,6 +53,14 @@ export default {
   computed: {
     emPauta() {
       return this.pautas[this.prop.id];
+    },
+    localAtual () {
+      let locais = this.prop.lastEtapa.resumo_tramitacao
+      let local_atual = locais[locais.length - 1].nome
+      if (local_atual.startsWith('PL')) {
+        local_atual = 'Comissão Especial - ' + local_atual
+      }
+      return local_atual
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
