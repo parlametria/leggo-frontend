@@ -2,10 +2,17 @@
   <div>
     <p v-if="pending.proposicoes">loading posts...</p>
     <p v-if="error.proposicoes">loading failed</p>
-    <tema-graphic v-if="filteredProps.length" :proposicoes="filteredProps"/>
-    <div :key="j" v-for="(prop,j) in filteredProps" :name="prop.apelido">
-      <proposicao-item class="proposicao-item" :prop="prop"/>
-    </div>
+    <transition name="el-fade-in" mode="out-in">
+      <div v-if="filteredProps.length">
+        <tema-graphic :proposicoes="filteredProps"/>
+        <transition-group name="el-fade-in" tag="div">
+          <proposicao-item
+            :key="prop.apelido" v-for="prop in filteredProps"
+            class="proposicao-item" :prop="prop"/>
+        </transition-group>
+      </div>
+      <p v-else>Nenhuma proposição para mostrar...</p>
+    </transition>
   </div>
 </template>
 
@@ -80,10 +87,19 @@ export default {
 
 <style lang="scss" scoped>
 .proposicao-item {
-  min-width: 350px;
+    min-width: 350px;
 }
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+.list-item {
+    display: inline-block;
+}
+.list-enter-active, .list-leave-active {
+    transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    opacity: 0;
 }
 </style>
