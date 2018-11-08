@@ -4,26 +4,28 @@
     <div @click="dropShow = !dropShow" class="card-header">
       <proposicao-header :prop="prop.lastEtapa"/>
     </div>
-    <div v-show="dropShow" class="card-body">
-      <div shadow="hover" class="prop-item">
-        <div class="flex">
-          <fases-bar :fases="(prop.etapas[0]).resumo_progresso"/>
-          <energy-graphic
-            :date="dateRef"
-            :id="prop.lastEtapa.id_ext"
-            :casa="prop.lastEtapa.casa"/>
-          <lista-pauta :id="prop.id"></lista-pauta>
+    <transition name="slide">
+      <div v-show="dropShow" class="card-body">
+        <div shadow="hover" class="prop-item">
+          <div class="flex">
+            <fases-bar :fases="(prop.etapas[0]).resumo_progresso"/>
+            <energy-graphic
+              :date="dateRef"
+              :id="prop.lastEtapa.id_ext"
+              :casa="prop.lastEtapa.casa"/>
+            <lista-pauta :id="prop.id"></lista-pauta>
+          </div>
+          <p style = "font-size:14px">Informações Gerais:</p>
+          <ul style = "font-size:13px">
+            <li v-for="(etapa,i) in prop.etapas" :key="i">
+              Etapa {{i+1}}: <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+            </li>
+            <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
+            <li> Local Atual: {{ localAtual }} </li>
+          </ul>
         </div>
-        <p style = "font-size:14px">Informações Gerais:</p>
-        <ul style = "font-size:13px">
-          <li v-for="(etapa,i) in prop.etapas" :key="i">
-            Etapa {{i+1}}: <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
-          </li>
-          <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
-          <li> Local Atual: {{ localAtual }} </li>
-        </ul>
       </div>
-    </div>
+    </transition>
     <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
   </div>
 </template>
@@ -120,5 +122,21 @@ export default {
   position: absolute;
   top: 2px;
   left: 2px;
+}
+.slide-enter-active {
+  transition: all .3s ease-out;
+}
+.slide-leave-active {
+  transition: all .3s ease-out;
+}
+.slide-enter {
+  transform: translateY(30px);
+  opacity: 0;
+  border: none;
+}
+.slide-leave-to {
+  transform: translateY(-30px);
+  border: none;
+  opacity: 0;
 }
 </style>
