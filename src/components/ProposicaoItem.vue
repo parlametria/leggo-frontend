@@ -123,10 +123,7 @@ export default {
   top: 2px;
   left: 2px;
 }
-.slide-enter-active {
-  transition: all .3s ease-out;
-}
-.slide-leave-active {
+.slide-enter-active, .slide-leave-active {
   transition: all .3s ease-out;
 }
 .slide-enter {
