@@ -1,14 +1,14 @@
 <template>
   <div class="collapse-box-wrapper">
     <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
-    <input type="checkbox" :id="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-check">
-    <label :for="`collapsebox-${prop.casa}-${prop.id}`" class="collapse-box-label">
+    <input type="checkbox" :id="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-check">
+    <label :for="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-label">
       <proposicao-header :prop="prop.lastEtapa" />
     </label>
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">
         <div class="flex">
-          <fases-bar :fases="prop.etapas[0].resumo_progresso"/>
+          <fases-bar :fases="(prop.etapas[0]).resumo_progresso"/>
           <energy-graphic
             :date="dateRef"
             :id="prop.lastEtapa.id_ext"
