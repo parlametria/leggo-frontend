@@ -41,6 +41,7 @@ tests:
     - export FRONTEND_ADDR="http://frontend:80"
     # - export BACKEND_ADDR="150.165.85.25 11002"
     - docker pull $FRONTEND_TEST_IMAGE_TAG || true
+    - npm run check-lint
     - npm run docker_test
     - $COMPOSE_CMD down
     - docker push $FRONTEND_TEST_IMAGE_TAG
