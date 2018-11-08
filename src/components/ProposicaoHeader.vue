@@ -20,21 +20,25 @@
         </el-badge>
       </el-popover> -->
     </div>
+    <fases-progress :fases="fases"/>
   </div>
 </template>
 
 <script>
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import FasesProgress from '@/components/FasesProgress.vue'
 
 export default {
   name: 'proposicaoheader',
   props: {
-    prop: Object
+    prop: Object,
+    fases: Array
   },
   components: {
     RegimeTramitacao,
-    FormaApreciacao
+    FormaApreciacao,
+    FasesProgress
   },
   computed: {
     eventos () {
