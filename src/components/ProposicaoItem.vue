@@ -3,12 +3,12 @@
     <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <input type="checkbox" :id="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-check">
     <label :for="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-label">
-      <proposicao-header :prop="prop.lastEtapa" />
+      <proposicao-header :prop="prop" />
     </label>
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">
         <div class="flex">
-          <fases-bar :fases="(prop.etapas[0]).resumo_progresso"/>
+          <fases-bar :fases="prop.resumo_progresso"/>
           <energy-graphic
             :date="dateRef"
             :id="prop.lastEtapa.id_ext"
