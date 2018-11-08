@@ -5,8 +5,8 @@
       {{ prop.apelido }}
     </p>
     <div class="end">
-      <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"/>
-      <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
+      <regime-tramitacao :regime="prop.lastEtapa.regime_tramitacao" class="regime_tramitacao"/>
+      <forma-apreciacao :apreciacao="prop.lastEtapa.forma_apreciacao" class="forma_apreciacao"/>
       <fase-atual-block :fases="prop.resumo_progresso" class="fase_atual_bock"/>
       <!-- <el-popover
       <fase-atual-block :fases="prop.etapas[0].resumo_progresso"/>
