@@ -1,7 +1,7 @@
 <template>
-  <el-tag color="pink">
-   A
-  </el-tag>
+  <span color="pink">
+   {{ atualFase }}
+  </span>
 </template>
 
 <script>
@@ -11,17 +11,8 @@ export default {
     fases: Array
   },
   computed: {
-    isAtualFase (fase) {
-      return fase.data_inicio != null && fase.data_fim == null
-    },
-    atualFase (fases) {
-      let atualFase = 'A'
-      fases.forEach(fase => {
-        // if (isAtualFase(fase)) {
-
-        // }
-
-      })
+    atualFase () {
+      let atualFase = 'Doida'
       return atualFase
     }
   }
@@ -31,6 +22,7 @@ export default {
 <style lang="scss" scopped>
 .fase_atual_bock{
   background-color: red;
+  padding: 6px;
 }
 
 </style>
