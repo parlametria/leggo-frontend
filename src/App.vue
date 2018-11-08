@@ -32,10 +32,6 @@ body {
 .flex-center {
     justify-content: center;
 }
-.el-tag {
-    width: 8em;
-    text-align: center;
-}
 .aside-menu {
     width: 300px !important;
     @media (max-width: $nav-menu-break-width) {
