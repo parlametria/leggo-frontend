@@ -30,10 +30,7 @@ export default {
   },
   computed: {
     energia () {
-     if(this.listaEnergias[this.id])
-      return this.listaEnergias[this.id][0].energia_recente
-    else
-      return 0; 
+      if (this.listaEnergias[this.id]) { return this.listaEnergias[this.id][0].energia_recente } else { return 0 }
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
