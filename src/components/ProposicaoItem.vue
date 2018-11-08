@@ -62,10 +62,6 @@ export default {
       }
       return localAtual
     },
-    Progresso () {
-      let Progresso = this.prop.resumo_progresso
-      return Progresso
-    },
     ...mapState({
       dateRef: state => state.filter.dateRef,
       pautas: state => state.proposicoes.pautas
