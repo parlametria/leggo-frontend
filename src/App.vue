@@ -33,7 +33,7 @@ body {
     justify-content: center;
 }
 .el-tag {
-    width: 4rem;
+    width: 8em;
     text-align: center;
 }
 .aside-menu {
