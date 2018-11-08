@@ -1,12 +1,11 @@
 <template>
-  <div class="collapse-box-wrapper">
+  <div class="proposicao-card">
     <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
-    <input type="checkbox" :id="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-check">
-    <label :for="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-label">
-      <proposicao-header :prop="prop.lastEtapa" />
-    </label>
-    <div class="collapse-box">
-      <div shadow="hover" class="box-card prop-item">
+    <div @click="dropShow = !dropShow" class="card-header">
+      <proposicao-header :prop="prop.lastEtapa"/>
+    </div>
+    <div v-show="dropShow" class="card-body">
+      <div shadow="hover" class="prop-item">
         <div class="flex">
           <fases-bar :fases="(prop.etapas[0]).resumo_progresso"/>
           <energy-graphic
@@ -41,6 +40,11 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'proposicaoitem',
+  data () {
+    return {
+      dropShow: false
+    }
+  },
   components: {
     RegimeTramitacao,
     FormaApreciacao,
@@ -87,33 +91,19 @@ export default {
 .el-badge {
   margin: 10px;
 }
-.collapse-box-wrapper {
+.proposicao-card {
   position: relative;
   margin-bottom: 0.5rem;
-  /* border-bottom: 1px solid #d6d6d6; */
-  /* padding: 0 1rem; */
   padding: 0.5rem 0.5rem 0 0.5rem;
   border-bottom: solid 1px #e9e9e9;
-
-  label.collapse-box-label {
-    width: 100%;
-    display: inline-block;
+  &:hover {
+    box-shadow: 0 5px 5px #c6c6c6;
+  }
+  .card-header {
     cursor: pointer;
   }
-  .collapse-box-check {
-    position: fixed;
-    left: -9999px;
-    opacity: 0;
-
-    &:checked + label.collapse-box-label + .collapse-box {
-      display: block;
-    }
-  }
-  .collapse-box {
-    display: none;
-  }
-  &:hover {
-    box-shadow: 0 5px 5px rgb(198, 198, 198);
+  .card-body {
+    border-top: 1px solid #ddd;
   }
 }
 
