@@ -1,12 +1,15 @@
 <template>
   <div class="container">
+
     <p class="brand">
       {{ prop.apelido }}
     </p>
     <div class="end">
       <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"/>
       <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
+      <fase-atual-block :fases="prop.resumo_progresso" class="fase_atual_bock"/>
       <!-- <el-popover
+      <fase-atual-block :fases="prop.etapas[0].resumo_progresso"/>
         placement="right"
         width="300"
         trigger="click">
@@ -26,6 +29,7 @@
 <script>
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import FaseAtualBlock from '@/components/FaseAtualBlock.vue'
 
 export default {
   name: 'proposicaoheader',
@@ -34,7 +38,8 @@ export default {
   },
   components: {
     RegimeTramitacao,
-    FormaApreciacao
+    FormaApreciacao,
+    FaseAtualBlock
   },
   computed: {
     eventos () {
