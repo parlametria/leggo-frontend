@@ -30,12 +30,13 @@ export default {
   },
   computed: {
     energia () {
-      if (this.listaEnergias[this.id]) { return this.listaEnergias[this.id][0].energia_recente }
-      return 0
+     if(this.listaEnergias[this.id])
+      return this.listaEnergias[this.id][0].energia_recente
+    else
+      return 0; 
     },
     coeficiente () {
-      if (this.listaCoeficientes[this.id]) { return this.listaCoeficientes[this.id] }
-      return 0
+      return this.listaCoeficientes[this.id] || 0
     },
     ...mapState({
       listaEnergias: state => state.proposicoes.energias,
