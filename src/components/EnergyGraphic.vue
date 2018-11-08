@@ -38,8 +38,13 @@ export default {
   computed: mapState({
     listaEnergias: state => state.proposicoes.energias,
     maxEnergia: state => state.proposicoes.maxEnergia,
+    listaCoeficientes: state => state.proposicoes.coeficiente,
+
     energias () {
       return this.listaEnergias[this.id]
+    },
+    coeficiente () {
+      return this.listaCoeficientes[this.id] || 0
     },
     formattedDate () {
       let month = '' + (this.date.getMonth() + 1)
@@ -51,9 +56,7 @@ export default {
     },
     tendenciaColor () {
       if (this.energias.length > 1) {
-        const ultima = this.energias[0].energia_recente
-        const penultima = this.energias[1].energia_recente
-        if (ultima - penultima <= 0) {
+        if (this.coeficiente <= 0) {
           return '#ef8a62'
         }
       }

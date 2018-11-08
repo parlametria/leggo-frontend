@@ -25,7 +25,7 @@
         </ul>
       </div>
     </div>
-    <pressure-bar :energia="prop.lastEtapa.energia"></pressure-bar>
+    <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
   </div>
 </template>
 
