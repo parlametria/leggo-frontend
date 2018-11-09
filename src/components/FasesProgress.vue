@@ -1,7 +1,7 @@
 <template>
   <div class="fases-progress">
     <div v-for="(fase, index) in fases" :key="index"
-    class="barra" :class="{ concluida : index <= indexFaseAtual }" >
+      class="barra" :class="{ concluida : index <= indexFaseAtual }" >
     </div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
   width: 35px;
   height: 5px;
   margin: 1.5px 0;
-  background: #999;
+  background: #ccc;
 }
 .concluida {
   background: #65e16b;
