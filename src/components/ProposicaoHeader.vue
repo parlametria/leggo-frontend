@@ -4,9 +4,11 @@
       {{ prop.apelido }}
     </p>
     <div class="end">
-      <regime-tramitacao :regime="prop.regime_tramitacao" class="regime_tramitacao"/>
-      <forma-apreciacao :apreciacao="prop.forma_apreciacao" class="forma_apreciacao"/>
+      <regime-tramitacao :regime="prop.lastEtapa.regime_tramitacao" class="regime_tramitacao"/>
+      <forma-apreciacao :apreciacao="prop.lastEtapa.forma_apreciacao" class="forma_apreciacao"/>
+      <fase-atual-block :fases="prop.resumo_progresso" class="fase_atual_bock"/>
       <!-- <el-popover
+      <fase-atual-block :fases="prop.etapas[0].resumo_progresso"/>
         placement="right"
         width="300"
         trigger="click">
@@ -20,12 +22,15 @@
         </el-badge>
       </el-popover> -->
     </div>
+    <fases-progress :fases="prop.resumo_progresso"/>
   </div>
 </template>
 
 <script>
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import FasesProgress from '@/components/FasesProgress.vue'
+import FaseAtualBlock from '@/components/FaseAtualBlock.vue'
 
 export default {
   name: 'proposicaoheader',
@@ -34,7 +39,9 @@ export default {
   },
   components: {
     RegimeTramitacao,
-    FormaApreciacao
+    FormaApreciacao,
+    FasesProgress,
+    FaseAtualBlock
   },
   computed: {
     eventos () {
@@ -53,7 +60,7 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
 }
 .container > .brand {
   margin-right: auto;

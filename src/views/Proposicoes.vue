@@ -4,7 +4,6 @@
     <p v-if="error.proposicoes">loading failed</p>
     <transition name="el-fade-in" mode="out-in">
       <div v-if="filteredProps.length">
-        <tema-graphic :proposicoes="filteredProps"/>
         <transition-group name="el-fade-in" tag="div">
           <proposicao-item :key="prop.apelido" v-for="prop in filteredProps" :prop="prop"/>
         </transition-group>
@@ -16,13 +15,11 @@
 
 <script>
 import ProposicaoItem from '@/components/ProposicaoItem'
-import TemaGraphic from '@/components/TemaGraphic'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'proposicoes',
   components: {
-    ProposicaoItem,
-    TemaGraphic
+    ProposicaoItem
   },
   data () {
     return {

@@ -23,7 +23,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
 @import "@/vars.scss";
 body {
@@ -31,10 +30,6 @@ body {
 }
 .flex-center {
     justify-content: center;
-}
-.el-tag {
-    width: 4rem;
-    text-align: center;
 }
 .aside-menu {
     width: 300px !important;

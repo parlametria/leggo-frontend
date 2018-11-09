@@ -2,13 +2,13 @@
   <div class="proposicao-card">
     <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop.lastEtapa"/>
+      <proposicao-header :prop="prop"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
           <div class="flex">
-            <fases-bar :fases="(prop.etapas[0]).resumo_progresso"/>
+            <fases-bar :fases="prop.resumo_progresso"/>
             <energy-graphic
               :date="dateRef"
               :id="prop.lastEtapa.id_ext"

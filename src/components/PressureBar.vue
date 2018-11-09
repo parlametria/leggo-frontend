@@ -1,10 +1,6 @@
 <template>
-    <div :class="geraEstilo()">
-        <div class="progress-bar" :class="{ down: this.coeficiente < 0 }"
-        role="progressbar"
-        :style="retornaEstilo()">
-        <i class="right"></i>
-    </div>
+  <div class="progress-outer">
+    <div class="progress-inner" role="progressbar" :style="retornaEstilo()"/>
   </div>
 </template>
 
@@ -19,18 +15,37 @@ export default {
       return (this.energia * 100) / this.maxPressao
     },
     retornaEstilo () {
-      return `width:${this.pegaPorcentagem()}%`
-    },
-    geraEstilo (tendencia) {
+      // up
+      let color = '#337ab7'
+      let arrows = `
+        linear-gradient(225deg, ${color} 60%, transparent 0%),
+        linear-gradient(-45deg, ${color} 60%, transparent 0%),
+        linear-gradient(90deg, #0005 50%, ${color} 50%)`
+      let direction = 'normal'
+      // down
+      if (this.coeficiente < 0) {
+        color = '#ef8a62'
+        arrows = `
+          linear-gradient(135deg, ${color} 29.4%, transparent 29.4%),
+          linear-gradient(45deg, ${color} 29.4%, transparent 29.4%),
+          linear-gradient(90deg, #0005 50%, ${color} 50%)`
+        direction = 'reverse'
+      }
       return {
-        'progress-down after': this.coeficiente < 0,
-        'progress-up after': this.coeficiente >= 0
+        width: `${this.pegaPorcentagem()}%`,
+        'background-image': arrows,
+        'background-color': color,
+        'animation-direction': direction
       }
     }
   },
   computed: {
     energia () {
-      if (this.listaEnergias[this.id]) { return this.listaEnergias[this.id][0].energia_recente } else { return 0 }
+      if (this.listaEnergias[this.id]) {
+        return this.listaEnergias[this.id][0].energia_recente
+      } else {
+        return 0
+      }
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
@@ -44,33 +59,32 @@ export default {
 }
 </script>
 
-<style scoped>
-.progress-down{height:7px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
-.progress-up{height:7px;margin-bottom:20px;overflow:hidden;background-color:#f5f5f5;border-radius:4px;-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
-.progress-bar{float:left;width:0;height:100%;font-size:12px;line-height:20px;color:#fff;text-align:center;background-color:#337ab7;-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);box-shadow:inset 0 -1px 0 rgba(0,0,0,.15);-webkit-transition:width .6s ease;-o-transition:width .6s ease;transition:width .6s ease}
-.progress-up::after{
+<style lang="scss" scoped>
+@keyframes movingBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 14px 0;
+    }
+}
+.progress-outer {
+    height: 7px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1)
+}
+.progress-inner {
+    float: left;
     width: 0;
-    height: 0;
-    border-top: 5px inset transparent;
-    border-bottom: 5px inset transparent;
-    border-left: 5px solid #337ab7;
-    position: absolute;
-    content: "";
+    height: 100%;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    transition: width .6s ease;
+    border-radius: 4px;
+    background-size: 14px 100%;
+    background-repeat: repeat-x;
+    background-position: center;
+    animation: movingBackground 1s linear infinite;
 }
-.progress-down::after{
-    width: 0;
-    height: 0;
-    border-top: 4px inset transparent;
-    border-bottom: 4px inset transparent;
-    position: absolute;
-    content: "";
-    border-left: 4px solid #f5f5f5;
-    transform: rotate(180deg);
-    margin-left: -3px;
-}
-
-.down {
-  background-color:#ef8a62;
-}
-
 </style>
