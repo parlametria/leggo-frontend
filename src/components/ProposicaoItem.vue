@@ -1,30 +1,31 @@
 <template>
-  <div class="collapse-box-wrapper">
+  <div class="proposicao-card">
     <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
-    <input type="checkbox" :id="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-check">
-    <label :for="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-label">
+    <div @click="dropShow = !dropShow" class="card-header">
       <proposicao-header :prop="prop"/>
-    </label>
-    <div class="collapse-box">
-      <div shadow="hover" class="box-card prop-item">
-        <div class="flex">
-          <fases-bar :fases="prop.resumo_progresso"/>
-          <energy-graphic
-            :date="dateRef"
-            :id="prop.lastEtapa.id_ext"
-            :casa="prop.lastEtapa.casa"/>
-          <lista-pauta :id="prop.id"></lista-pauta>
-        </div>
-        <p style = "font-size:14px">Informações Gerais:</p>
-        <ul style = "font-size:13px">
-          <li v-for="(etapa,i) in prop.etapas" :key="i">
-            Etapa {{i+1}} ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
-          </li>
-          <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
-          <li> Local Atual: {{ localAtual }} </li>
-        </ul>
-      </div>
     </div>
+    <el-collapse-transition>
+      <div v-show="dropShow" class="card-body">
+        <div shadow="hover" class="prop-item">
+          <div class="flex">
+            <fases-bar :fases="prop.resumo_progresso"/>
+            <energy-graphic
+              :date="dateRef"
+              :id="prop.lastEtapa.id_ext"
+              :casa="prop.lastEtapa.casa"/>
+            <lista-pauta :id="prop.id"></lista-pauta>
+          </div>
+          <p style = "font-size:14px">Informações Gerais:</p>
+          <ul style = "font-size:13px">
+            <li v-for="(etapa,i) in prop.etapas" :key="i">
+              Etapa {{i+1}} ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+            </li>
+            <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
+            <li> Local Atual: {{ localAtual }} </li>
+          </ul>
+        </div>
+      </div>
+    </el-collapse-transition>
     <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
   </div>
 </template>
@@ -41,6 +42,11 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'proposicaoitem',
+  data () {
+    return {
+      dropShow: false
+    }
+  },
   components: {
     RegimeTramitacao,
     FormaApreciacao,
@@ -87,33 +93,16 @@ export default {
 .el-badge {
   margin: 10px;
 }
-.collapse-box-wrapper {
+.proposicao-card {
   position: relative;
   margin-bottom: 0.5rem;
-  /* border-bottom: 1px solid #d6d6d6; */
-  /* padding: 0 1rem; */
   padding: 0.5rem 0.5rem 0 0.5rem;
   border-bottom: solid 1px #e9e9e9;
-
-  label.collapse-box-label {
-    width: 100%;
-    display: inline-block;
-    cursor: pointer;
-  }
-  .collapse-box-check {
-    position: fixed;
-    left: -9999px;
-    opacity: 0;
-
-    &:checked + label.collapse-box-label + .collapse-box {
-      display: block;
-    }
-  }
-  .collapse-box {
-    display: none;
-  }
   &:hover {
-    box-shadow: 0 5px 5px rgb(198, 198, 198);
+    box-shadow: 0 5px 5px #c6c6c6;
+  }
+  .card-header {
+    cursor: pointer;
   }
 }
 
