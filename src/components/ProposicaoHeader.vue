@@ -58,7 +58,7 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  padding: 0.5rem 0;
+  padding: 0.5rem 1rem;
 }
 .container > .brand {
   margin-right: auto;
