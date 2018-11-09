@@ -3,7 +3,7 @@
     <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <input type="checkbox" :id="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-check">
     <label :for="`collapsebox-${prop.lastEtapa.id_ext}`" class="collapse-box-label">
-      <proposicao-header :prop="prop" />
+      <proposicao-header :prop="prop"/>
     </label>
     <div class="collapse-box">
       <div shadow="hover" class="box-card prop-item">

@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <p class="brand">
       {{ prop.apelido }}
     </p>
@@ -23,12 +22,14 @@
         </el-badge>
       </el-popover> -->
     </div>
+    <fases-progress :fases="prop.resumo_progresso"/>
   </div>
 </template>
 
 <script>
 import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
 import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import FasesProgress from '@/components/FasesProgress.vue'
 import FaseAtualBlock from '@/components/FaseAtualBlock.vue'
 
 export default {
@@ -39,6 +40,7 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
+    FasesProgress,
     FaseAtualBlock
   },
   computed: {
