@@ -4,7 +4,7 @@
     <div @click="dropShow = !dropShow" class="card-header">
       <proposicao-header :prop="prop.lastEtapa"/>
     </div>
-    <transition name="slide">
+    <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
           <div class="flex">
@@ -25,7 +25,7 @@
           </ul>
         </div>
       </div>
-    </transition>
+    </el-collapse-transition>
     <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
   </div>
 </template>
@@ -104,9 +104,6 @@ export default {
   .card-header {
     cursor: pointer;
   }
-  .card-body {
-    border-top: 1px solid #ddd;
-  }
 }
 
 .border-pauta {
@@ -122,18 +119,5 @@ export default {
   position: absolute;
   top: 2px;
   left: 2px;
-}
-.slide-enter-active, .slide-leave-active {
-  transition: all .3s ease-out;
-}
-.slide-enter {
-  transform: translateY(30px);
-  opacity: 0;
-  border: none;
-}
-.slide-leave-to {
-  transform: translateY(-30px);
-  border: none;
-  opacity: 0;
 }
 </style>
