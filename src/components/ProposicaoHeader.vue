@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <p class="brand">
       {{ prop.apelido }}
     </p>
@@ -23,7 +22,7 @@
         </el-badge>
       </el-popover> -->
     </div>
-    <fases-progress :fases="fases"/>
+    <fases-progress :fases="prop.resumo_progresso"/>
   </div>
 </template>
 
@@ -36,8 +35,7 @@ import FaseAtualBlock from '@/components/FaseAtualBlock.vue'
 export default {
   name: 'proposicaoheader',
   props: {
-    prop: Object,
-    fases: Array
+    prop: Object
   },
   components: {
     RegimeTramitacao,
