@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
-import FormaApreciacao from '@/components/FormaApreciacao.vue'
-import FasesProgress from '@/components/FasesProgress.vue'
-import FaseAtualBlock from '@/components/FaseAtualBlock.vue'
+import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
+import FormaApreciacao from './collapsed/FormaApreciacao.vue'
+import FasesProgress from './collapsed/FasesProgress.vue'
+import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 
 export default {
   name: 'proposicaoheader',

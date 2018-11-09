@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import ProposicaoHeader from '@/components/ProposicaoHeader'
-import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
-import FormaApreciacao from '@/components/FormaApreciacao.vue'
-import EnergyGraphic from '@/components/EnergyGraphic'
-import FasesBar from '@/components/FasesBar'
-import ListaPauta from '@/components/ListaPauta'
-import PressureBar from '@/components/PressureBar'
+import ProposicaoHeader from './ProposicaoHeader'
+import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
+import FormaApreciacao from './collapsed/FormaApreciacao.vue'
+import EnergyGraphic from './expanded/EnergyGraphic'
+import FasesBar from './expanded/FasesBar'
+import ListaPauta from './expanded/ListaPauta'
+import PressureBar from './collapsed/PressureBar'
 import { mapState } from 'vuex'
 
 export default {

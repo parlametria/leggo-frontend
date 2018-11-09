@@ -68,7 +68,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import EnergySort from '@/components/EnergySort'
+import EnergySort from '@/components/card/expanded/EnergySort'
 import store from '@/stores/store'
 
 function generateFilterModels () {
