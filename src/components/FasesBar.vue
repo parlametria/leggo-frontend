@@ -1,10 +1,10 @@
 <template>
   <div class="fasesBlock">
     <div v-for="(fase,i) in sortedFases" :key="i">
-      <div v-if="isAtualFase(fase)" class="arrow-down"/>
-      <div v-else class="padding"/>
       <el-tooltip :content="fase.local + '-' + fase.fase_global">
-        <div class="fase" :class="geraEstilo(fase)"/>
+        <div class="fase" :class="geraEstilo(fase)">
+          <div v-if="isAtualFase(fase)" class="arrow-down"/>
+        </div>
       </el-tooltip>
     </div>
   </div>
@@ -30,7 +30,9 @@ export default {
       return new Date(fase.data_fim) < now
     },
     isAtualFase (fase) {
-      return fase.data_inicio != null && fase.data_fim == null
+      const now = Date.now()
+      return fase.data_inicio != null &&
+        (fase.data_fim == null || new Date(fase.data_fim) >= now)
     }
   },
   computed: {
@@ -63,6 +65,7 @@ export default {
     height: 30px;
     background-color: #EEE;
     margin-right: 3px;
+    position: relative;
 }
 .cerrilhado {
     background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
@@ -81,15 +84,13 @@ export default {
     background-color: #33a02c;
 }
 .arrow-down {
+  position: absolute;
+  top: -15px;
   margin-left: 10px;
   border: solid rgb(211, 83, 83);
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-.padding {
-  padding-top: 18px;
 }
 </style>
