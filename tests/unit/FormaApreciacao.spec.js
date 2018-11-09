@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import FormaApreciacao from '@/components/FormaApreciacao.vue'
+import FormaApreciacao from '@/components/card/collapsed/FormaApreciacao.vue'
 
 describe('FormaApreciacao.vue', () => {
   it('renders props.forma_apreciacao when prioridade type passed', () => {

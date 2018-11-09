@@ -5,7 +5,7 @@
 /* eslint no-unused-expressions: 2 */
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
-import FasesBar from '@/components/FasesBar.vue'
+import FasesBar from '@/components/card/expanded/FasesBar.vue'
 
 describe('FasesBar', () => {
   let cmp

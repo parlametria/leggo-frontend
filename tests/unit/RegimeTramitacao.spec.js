@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import RegimeTramitacao from '@/components/RegimeTramitacao.vue'
+import RegimeTramitacao from '@/components/card/collapsed/RegimeTramitacao.vue'
 
 describe('RegimeTramitacao.vue', () => {
   it('renders props.regime_tramitacao when prioridade type passed', () => {
