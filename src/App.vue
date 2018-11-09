@@ -27,6 +27,7 @@ export default {
 @import "@/vars.scss";
 body {
     margin: 0;
+    font-family: 'Ubuntu', sans-serif;
 }
 .flex-center {
     justify-content: center;
