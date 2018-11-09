@@ -3,7 +3,6 @@
     <div v-for="(fase, index) in fases" :key="index"
     class="barra" :class="{ concluida : index <= indexFaseAtual }" >
     </div>
-    {{indexFaseAtual}}
   </div>
 </template>
 
@@ -15,9 +14,11 @@ export default {
   },
   computed: {
     indexFaseAtual () {
-      return this.fases.findIndex(fase => {
-        return fase.data_inicio && !fase.data_fim
+      let index = Infinity
+      this.fases.forEach((fase, i) => {
+        if (fase.data_inicio) index = i
       })
+      return index
     }
   }
 }
