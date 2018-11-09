@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ProposicaoItem from '@/components/ProposicaoItem'
+import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'proposicoes',
