@@ -1,7 +1,9 @@
 <template>
-  <span class="fase_atual_block" :class="geraEstilo(atualFase)">
-   {{ atualFase.sigla_fase }}
-  </span>
+  <el-tooltip :content="`${atualFase.local} - ${atualFase.fase_global}`">
+    <span class="fase_atual_block" :class="geraEstilo(atualFase)">
+    {{ atualFase.sigla_fase }}
+    </span>
+  </el-tooltip>
 </template>
 
 <script>
