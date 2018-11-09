@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Proposicoes from '@/views/Proposicoes.vue'
 import Sobre from '@/views/Sobre.vue'
-import ProposicaoDetails from '@/views/ProposicaoDetails.vue'
-import FilterMenu from '@/components/FilterMenu.vue'
+import FilterMenu from '@/components/menu/FilterMenu.vue'
 
 Vue.use(Router)
 
@@ -26,11 +25,6 @@ export default new Router({
         default: Proposicoes,
         menu: FilterMenu
       }
-    },
-    {
-      path: '/proposicoes/:casa/:idExt',
-      name: 'proposicao',
-      component: ProposicaoDetails
     }
   ]
 })

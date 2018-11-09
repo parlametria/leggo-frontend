@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import ProposicaoItem from '@/components/ProposicaoItem.vue'
+import ProposicaoItem from '@/components/card/ProposicaoItem.vue'
 
 describe('ProposicaoItem.vue', () => {
   it('renders props.em_pauta when em_pauta is true', () => {
