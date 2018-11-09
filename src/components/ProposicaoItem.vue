@@ -18,7 +18,7 @@
         <p style = "font-size:14px">Informações Gerais:</p>
         <ul style = "font-size:13px">
           <li v-for="(etapa,i) in prop.etapas" :key="i">
-            Etapa {{i+1}}: <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+            Etapa {{i+1}} ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
           </li>
           <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
           <li> Local Atual: {{ localAtual }} </li>
