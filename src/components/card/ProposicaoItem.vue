@@ -1,8 +1,7 @@
 <template>
   <div class="proposicao-card">
-    <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop"/>
+      <proposicao-header :prop="prop" :emPauta="emPauta"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
@@ -26,7 +25,7 @@
         </div>
       </div>
     </el-collapse-transition>
-    <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
+    <!-- <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar> -->
   </div>
 </template>
 
@@ -96,7 +95,7 @@ export default {
 .proposicao-card {
   position: relative;
   margin-bottom: 0.5rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding-top: 0.5rem;
   border-bottom: solid 1px #e9e9e9;
   &:hover {
     box-shadow: 0 5px 5px #c6c6c6;

@@ -25,6 +25,11 @@ export default {
 </script>
 <style lang="scss">
 @import "@/vars.scss";
+
+.el-container > .el-main {
+  padding: 0px;
+}
+
 body {
     margin: 0;
     font-family: 'Ubuntu', sans-serif;
