@@ -18,16 +18,16 @@ export default {
   methods: {
     geraEstilo (fase) {
       return {
-        'faseConcluida': this.isFaseConcluida(fase),
+        'faseConcluida': this.isFaseConcluida(fase)
       }
     },
     isFaseConcluida (fase) {
       return fase.data_fim
     },
-    jumpedFase(fase){
-        const now = Date.now()
-        return new Date(fase.data_fim) < now
-    },
+    jumpedFase (fase) {
+      const now = Date.now()
+      return new Date(fase.data_fim) < now
+    }
   },
   computed: {
     sortedFases () {
@@ -71,7 +71,5 @@ export default {
 .faseConcluida {
     background-color: #DC6060;
 }
-
-
 
 </style>

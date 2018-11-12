@@ -7,7 +7,7 @@
         </el-collapse-transition>
       </nav-menu>
     </el-aside>
-    <el-main class="main">
+    <el-main>
       <transition name="el-fade-in" mode="out-in">
         <router-view/>
       </transition>

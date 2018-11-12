@@ -5,8 +5,8 @@
       <span>{{prop.apelido}}</span>
       <div class="tags">
         <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
-        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div> 
-      </div> 
+        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
+      </div>
   </div>
 </template>
 
