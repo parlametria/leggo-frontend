@@ -1,28 +1,12 @@
 <template>
   <div class="container">
-    <p class="brand">
-      {{ prop.apelido }}
-    </p>
-    <div class="end">
-      <regime-tramitacao :regime="prop.lastEtapa.regime_tramitacao" class="regime_tramitacao"/>
-      <forma-apreciacao :apreciacao="prop.lastEtapa.forma_apreciacao" class="forma_apreciacao"/>
-      <fase-atual-block :fases="prop.resumo_progresso" class="fase_atual_bock"/>
-      <!-- <el-popover
-      <fase-atual-block :fases="prop.etapas[0].resumo_progresso"/>
-        placement="right"
-        width="300"
-        trigger="click">
-        <ul>
-          <li v-for="(evento,i) in eventos" :key="i">
-            {{ evento.data }} - {{ evento.evento }} - {{ evento.local }}
-          </li>
-        </ul>
-        <el-badge slot="reference" :value="4">
-          <el-button icon="el-icon-bell" size="medium" plain circle></el-button>
-        </el-badge>
-      </el-popover> -->
-    </div>
-    <fases-progress :fases="prop.resumo_progresso"/>
+      <span v-if="emPauta" class="emPautaTag">em pauta</span>
+      <fases :fases="prop.resumo_progresso"/>
+      <span>{{prop.apelido}}</span>
+      <div class="tags">
+        <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
+        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div> 
+      </div> 
   </div>
 </template>
 
@@ -31,17 +15,20 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FasesProgress from './collapsed/FasesProgress.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
+import Fases from './collapsed/Fases.vue'
 
 export default {
   name: 'proposicaoheader',
   props: {
-    prop: Object
+    prop: Object,
+    emPauta: Boolean
   },
   components: {
     RegimeTramitacao,
     FormaApreciacao,
     FasesProgress,
-    FaseAtualBlock
+    FaseAtualBlock,
+    Fases
   },
   computed: {
     eventos () {
@@ -55,27 +42,42 @@ export default {
 </script>
 
 <style scoped>
+
 .container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
+  flex-direction: column;
   padding: 0.5rem 1rem;
-}
-.container > .brand {
-  margin-right: auto;
-}
-.container > .end > * {
-  margin: 0 0.5rem;
-}
-el-propover p {
-  border-bottom: 1px solid black;
+  background: #000;
+  margin: 0px;
+  color: white;
+  font-size: 16pt;
 }
 
-@media only screen and (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
+.container  * {
+  margin: 3px 0;
 }
+
+.emPautaTag {
+  background-color: white;
+  color:black;
+  text-decoration: underline;
+  font-style: italic;
+  font-size: 9pt;
+  padding: 2px;
+  user-select: none;
+  width: 55px;
+}
+
+.tag {
+  font-size: 8pt;
+  user-select: none;
+  text-transform: uppercase;
+}
+
+.tags {
+  margin-top: 5px;
+  color: #ffdf
+}
+
 </style>

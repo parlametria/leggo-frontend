@@ -7,7 +7,7 @@
         </el-collapse-transition>
       </nav-menu>
     </el-aside>
-    <el-main>
+    <el-main class="main">
       <transition name="el-fade-in" mode="out-in">
         <router-view/>
       </transition>
@@ -25,6 +25,11 @@ export default {
 </script>
 <style lang="scss">
 @import "@/vars.scss";
+
+.el-container > .el-main {
+  padding: 0px;
+}
+
 body {
     margin: 0;
     font-family: 'Ubuntu', sans-serif;
