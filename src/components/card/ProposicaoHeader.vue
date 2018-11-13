@@ -2,7 +2,10 @@
   <div class="container">
       <span v-if="emPauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
-      <span>{{prop.apelido}}</span>
+      <div style="vertical-align: middle;">
+        <span>{{prop.apelido}}</span>
+        <span class="selector">></span>
+      </div>
       <div class="tags">
         <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
         <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
@@ -78,6 +81,13 @@ export default {
 .tags {
   margin-top: 5px;
   color: #ffdf
+}
+
+.selector {
+  position: absolute;
+  right: 0;
+  font-size: 60px;
+  top: 30px;
 }
 
 </style>
