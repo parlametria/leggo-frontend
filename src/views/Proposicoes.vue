@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="content">
+    <div class="middle">
+      <img src="../assets/logoweb.png" class="logo" />
     <p v-if="pending.proposicoes">loading posts...</p>
     <p v-if="error.proposicoes">loading failed</p>
     <transition name="el-fade-in" mode="out-in">
@@ -10,6 +12,8 @@
       </div>
       <p v-else>Nenhuma proposição para mostrar...</p>
     </transition>
+    </div>
+    
   </div>
 </template>
 
@@ -79,5 +83,18 @@ export default {
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+.content {
+   display: block;
+   margin:auto;
+}
+
+.middle {
+  
+}
+
+.logo{
+  max-width: 100%;
+  height: auto;
 }
 </style>
