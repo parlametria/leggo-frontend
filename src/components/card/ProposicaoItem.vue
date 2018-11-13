@@ -15,7 +15,7 @@
             Link da proposição ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
           </p>
           <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: XX/XX/XXXX</p>
-          <fases-bar style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+          <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
           <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
           <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
           <!-- TODO: Mudar o relator. -->
@@ -42,6 +42,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import EnergyGraphic from './expanded/EnergyGraphic'
 import FasesBar from './expanded/FasesBar'
+import FasesProgress from './expanded/FasesProgress'
 import ListaPauta from './expanded/ListaPauta'
 import PressureBar from './collapsed/PressureBar'
 import { mapState } from 'vuex'
@@ -60,6 +61,7 @@ export default {
     FasesBar,
     ProposicaoHeader,
     ListaPauta,
+    FasesProgress,
     PressureBar
   },
   computed: {
