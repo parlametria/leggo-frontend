@@ -11,9 +11,22 @@
         @click="hide">
         <i class="el-dialog__close el-icon el-icon-close"></i>
       </button>
-      <el-menu :router="true" mode="vertical">
-        <el-menu-item index="/proposicoes">Proposições</el-menu-item>
-        <el-menu-item index="/sobre">Sobre</el-menu-item>
+      <el-menu mode="vertical">
+        <!-- <el-menu-item index="/sobre">Sobre</el-menu-item> -->
+        <!-- <el-menu-item index="/proposicoes">Proposições</el-menu-item> -->
+
+        <el-menu-item index="1" @click="propagateClick" class="menu-route-link">
+          <router-link :to="{ name: 'sobre' }">Sobre</router-link>
+        </el-menu-item>
+
+        <el-menu-item index="2" @click="propagateClick" class="menu-route-link">
+          <router-link :to="{ name: 'proposicoes' }">Proproposições</router-link>
+        </el-menu-item>
+
+        <!-- <el-menu-item index="2" @click="propagateClick" class="menu-route-link"> -->
+          <!-- <router-link tag="el-menu-item" index="3" :to="{ name: 'proposicoes' }">Proproposições</router-link> -->
+        <!-- </el-menu-item> -->
+
       </el-menu>
       <slot/>
     </div>
@@ -31,6 +44,9 @@ export default {
   methods: {
     hide () {
       this.open = false
+    },
+    propagateClick (el) {
+      el.$children.forEach(x => x.$el.click())
     }
   }
 }
@@ -88,6 +104,18 @@ export default {
     &:hover {
       background: white;
     }
+  }
+}
+.menu-route-link {
+  a {
+    outline: none;
+    color: #303133;
+    transition: all .3s;
+    font-size: 14pt;
+  }
+  .router-link-active {
+    color: #098484;
+    padding-left: 1em;
   }
 }
 </style>
