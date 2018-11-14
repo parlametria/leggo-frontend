@@ -33,7 +33,7 @@ export default {
     },
     barStyle () {
       return {
-        background: (this.coeficiente >= 0 ? '#dc6060' : '#6090dc'),
+        background: (this.coeficiente >= 0 ? '#dc6060' : '#60C7DC'),
         height: `${this.porcentagem}%`
       }
     },
