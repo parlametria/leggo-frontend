@@ -27,7 +27,12 @@ export default class EnergyGraphicModel {
         scale: {
           domain: [0, maxEnergia]
         }
-      }
+      },
+      tooltip: [
+        { 'field': 'energia_periodo', 'type': 'Number', 'title': 'pressao_semana' },
+        { 'field': 'energia_recente', 'type': 'Number', 'title': 'pressao_acumulada' },
+        { 'field': 'periodo', 'type': 'temporal', format: '%d-%m-%Y', scale: { type: 'utc' }, 'title': 'semana' }
+      ]
     }
 
     this.vsSpec = {
@@ -42,49 +47,9 @@ export default class EnergyGraphicModel {
       layer: [
         {
           mark: {
-            type: 'area',
+            type: 'point',
             color: color,
             fillOpacity: 0.5
-          },
-          encoding: encoding
-        },
-        {
-          mark: {
-            type: 'circle',
-            color: color
-          },
-          encoding: {
-            x: {
-              field: 'periodo',
-              type: 'temporal',
-              format: '%Y-%m-%d',
-              scale: {
-                type: 'utc'
-              },
-              axis: {
-                title: '',
-                grid: false,
-                ticks: false,
-                labels: false
-              }
-            },
-            y: {
-              field: 'energia_dia',
-              type: 'quantitative',
-              axis: {
-                title: '',
-                grid: false,
-                labels: false,
-                ticks: false
-              }
-            },
-            size: { 'value': 80 }
-          }
-        },
-        {
-          mark: {
-            type: 'line',
-            color: color
           },
           encoding: encoding
         }
