@@ -51,7 +51,7 @@ release-image:
     - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
   only:
-    - master
+    - development
 
 deploy:
   stage: deploy
