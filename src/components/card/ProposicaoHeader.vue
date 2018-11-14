@@ -1,14 +1,18 @@
 <template>
   <div class="container">
-    <i class="arrow"></i>
-    <span v-if="emPauta" class="emPautaTag">em pauta</span>
-    <fases :fases="prop.resumo_progresso"/>
-    <div>
-      <span>{{prop.apelido}}</span>
+    <div class="content">
+      <span v-if="emPauta" class="emPautaTag">em pauta</span>
+      <fases :fases="prop.resumo_progresso"/>
+      <div>
+        <span>{{prop.apelido}}</span>
+      </div>
+      <div class="tags">
+        <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
+        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
+      </div>
     </div>
-    <div class="tags">
-      <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
-      <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
+    <div class="selector">
+      <i class="arrow" :class="{'arrow-down': clicked}" :style="arrowStyle"></i>
     </div>
   </div>
 </template>
@@ -24,7 +28,8 @@ export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    emPauta: Boolean
+    emPauta: Boolean,
+    clicked: Boolean
   },
   components: {
     RegimeTramitacao,
@@ -45,19 +50,23 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
+  display: flex;
+  justify-content: space-between;
+  background: #000;
+}
+
+.content {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   padding: 0.5rem 1rem;
-  background: #000;
   margin: 0px;
   color: white;
   font-size: 16pt;
 }
 
-.container  * {
+.content  * {
   margin: 3px 0;
 }
 
@@ -84,8 +93,8 @@ export default {
 }
 
 .selector {
-  position: absolute;
-  right: 0;
+  position: relative;
+  margin-left: 1rem;
 }
 
 .arrow {
@@ -98,9 +107,13 @@ export default {
   height: 10px;
   width: 10px;
   border: solid #fff;
-  border-width: 0 4px 4px 0;
+  border-width: 0px 4px 4px 0;
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
+}
+
+.arrow-down {
+  border-width: 0px 0px 4px 4px;
 }
 
 </style>
