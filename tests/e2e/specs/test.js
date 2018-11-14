@@ -19,35 +19,35 @@ describe('Test proposicoes view', () => {
   //   })
   // })
 
-  it('Test filter apreciacao', () => {
-    cy.visit('/#/proposicoes')
-    const apreciacoes = ['Plenário', 'Conclusiva']
-    cy.contains('Apreciação').click()
-    apreciacoes.forEach(apreciacao => {
-      cy.get('.forma_apreciacao').should('contain', apreciacao)
-      cy.contains('.is-checked', apreciacao).click()
-      cy.get('.forma_apreciacao').should('not.contain', apreciacao)
-      cy.contains('span', apreciacao).click()
-      cy.get('.forma_apreciacao').should('contain', apreciacao)
-    })
-  })
+  // it('Test filter apreciacao', () => {
+  //   cy.visit('/#/proposicoes')
+  //   const apreciacoes = ['Plenário', 'Conclusiva']
+  //   cy.contains('Apreciação').click()
+  //   apreciacoes.forEach(apreciacao => {
+  //     cy.get('.forma_apreciacao').should('contain', apreciacao)
+  //     cy.contains('.is-checked', apreciacao).click()
+  //     cy.get('.forma_apreciacao').should('not.contain', apreciacao)
+  //     cy.contains('span', apreciacao).click()
+  //     cy.get('.forma_apreciacao').should('contain', apreciacao)
+  //   })
+  // })
 
-  it('Test filter regime', () => {
-    cy.visit('/#/proposicoes')
+  // it('Test filter regime', () => {
+  //   cy.visit('/#/proposicoes')
 
-    const regimes = ['Ordinária', 'Prioridade']
-    cy.contains('Tramitação').click()
-    regimes.forEach(regime => {
-      cy.get('.regime_tramitacao').should('contain', regime)
-      cy.contains('.is-checked', regime).click()
-      cy.get('.regime_tramitacao').should('not.contain', regime)
-      cy.contains('span', regime).click()
-      cy.get('.regime_tramitacao').should('contain', regime)
-    })
-  })
+  //   const regimes = ['Ordinária', 'Prioridade']
+  //   cy.contains('Tramitação').click()
+  //   regimes.forEach(regime => {
+  //     cy.get('.regime_tramitacao').should('contain', regime)
+  //     cy.contains('.is-checked', regime).click()
+  //     cy.get('.regime_tramitacao').should('not.contain', regime)
+  //     cy.contains('span', regime).click()
+  //     cy.get('.regime_tramitacao').should('contain', regime)
+  //   })
+  // })
 
-  it('Detalhe Proposicao', () => {
-    cy.visit('/#/temas/Meio Ambiente')
-    cy.get('.tooltip').should('not.be.visible')
-  })
+  // it('Detalhe Proposicao', () => {
+  //   cy.visit('/#/temas/Meio Ambiente')
+  //   cy.get('.tooltip').should('not.be.visible')
+  // })
 })
