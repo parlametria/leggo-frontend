@@ -13,7 +13,6 @@
       <p v-else>Nenhuma proposição para mostrar...</p>
     </transition>
     </div>
-    
   </div>
 </template>
 
@@ -87,10 +86,6 @@ export default {
 .content {
    display: block;
    margin:auto;
-}
-
-.middle {
-  
 }
 
 .logo{
