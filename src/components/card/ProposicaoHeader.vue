@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-      <span v-if="emPauta" class="emPautaTag">em pauta</span>
-      <fases :fases="prop.resumo_progresso"/>
-      <div style="vertical-align: middle;">
-        <span>{{prop.apelido}}</span>
-        <span class="selector">></span>
-      </div>
-      <div class="tags">
-        <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
-        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
-      </div>
+    <i class="arrow"></i>
+    <span v-if="emPauta" class="emPautaTag">em pauta</span>
+    <fases :fases="prop.resumo_progresso"/>
+    <div>
+      <span>{{prop.apelido}}</span>
+    </div>
+    <div class="tags">
+      <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
+      <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
+    </div>
   </div>
 </template>
 
@@ -86,8 +86,21 @@ export default {
 .selector {
   position: absolute;
   right: 0;
-  font-size: 60px;
-  top: 30px;
+}
+
+.arrow {
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 10px;
+  width: 10px;
+  border: solid #fff;
+  border-width: 0 4px 4px 0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 
 </style>
