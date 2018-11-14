@@ -19,7 +19,6 @@
       </transition>
       </el-col>
     </el-row>
-    
   </div>
 </template>
 
@@ -94,7 +93,6 @@ export default {
    display: block;
    margin:auto;
 }
-
 .logo-container {
   background-color: #000000;
   margin-bottom: 2rem;
