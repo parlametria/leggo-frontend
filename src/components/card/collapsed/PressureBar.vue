@@ -1,8 +1,8 @@
 <template>
   <div class="pressure-bar">
-    <img src="../../../assets/arrow.svg" alt="" 
+    <img src="../../../assets/arrow.svg" alt=""
     class="arrow" :style="arrowStyle">
-    <div :style="barStyle"></div> 
+    <div :style="barStyle"></div>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default {
     },
     arrowStyle () {
       return {
-        transform: (this.coeficiente < 0 ? "rotate(180deg)" : "")
+        transform: (this.coeficiente < 0 ? 'rotate(180deg)' : '')
       }
     }
   }
