@@ -20,7 +20,7 @@
         </el-menu-item>
 
         <el-menu-item index="2" @click="propagateClick" class="menu-route-link">
-          <router-link :to="{ name: 'proposicoes' }">Proproposições</router-link>
+          <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
 
         <!-- <el-menu-item index="2" @click="propagateClick" class="menu-route-link"> -->
