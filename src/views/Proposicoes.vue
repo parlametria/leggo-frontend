@@ -38,6 +38,10 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
+          var n = b.lastEtapa.em_pauta - a.lastEtapa.em_pauta
+          if (n !== 0) {
+              return n;
+          }
           if (this.filter.energyOrder === 'desc') {
             return b.lastEtapa.energia - a.lastEtapa.energia
           } else {

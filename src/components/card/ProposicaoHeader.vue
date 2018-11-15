@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <span v-if="emPauta" class="emPautaTag">em pauta</span>
+      <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
       <span>{{prop.apelido}}</span>
       <div class="tags">

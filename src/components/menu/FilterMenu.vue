@@ -42,7 +42,6 @@
         </template>
         <el-menu-item
           v-for="(opcao, i) in emPautaFilter"
-          @click="propagateClick"
           :index="'1-' + (i+1)" :key="i">
           <el-checkbox
             @change="filtraEmPauta(emPautaFilter)"
