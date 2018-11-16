@@ -1,68 +1,71 @@
 <template>
   <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
+    <el-menu-item-group title="Filtros:">
 
-    <!-- Search -->
-    <el-menu-item index="2">
-      <i class="el-icon-search" @click="isCollapse = !isCollapse"></i>
-      <template slot="title">
-        <el-input
-          @change="filtraNomeProposicao(nomeProposicaoFilter)"
-          id="el-input"
-          placeholder="Pesquisar Projeto"
-          v-model="nomeProposicaoFilter.nomeProposicao"/>
-      </template>
-    </el-menu-item>
-
-    <!-- Date -->
-    <el-menu-item index="3">
-      <i class="el-icon-date"/>
-      <template slot="title">
-        <el-date-picker
-          v-model="dateRef"
-          type="date" placeholder="Data de referência"
-          :picker-options="datePickerOptions">
-        </el-date-picker>
-      </template>
-    </el-menu-item>
-
-    <!-- Sort -->
-    <el-menu-item index="4">
-      <i class="el-icon-sort"/>
-      <template slot="title">
-        <energy-sort/>
-      </template>
-    </el-menu-item>
-
-    <!-- Pauta -->
-    <el-submenu index="5">
-      <template slot="title">
-        <i class="el-icon-edit-outline"></i>
-        <span slot="title">Em pauta</span>
-      </template>
-      <el-menu-item
-        v-for="(opcao, i) in emPautaFilter"
-        :index="'1-' + (i+1)" :key="i">
-        <el-checkbox
-          @change="filtraEmPauta(emPautaFilter)"
-          v-model="opcao.status">
-          {{ opcao.tipo }}
-        </el-checkbox>
+      <!-- Search -->
+      <el-menu-item index="2">
+        <i class="el-icon-search" @click="isCollapse = !isCollapse"></i>
+        <template slot="title">
+          <el-input
+            @change="filtraNomeProposicao(nomeProposicaoFilter)"
+            id="el-input"
+            placeholder="Pesquisar Projeto"
+            v-model="nomeProposicaoFilter.nomeProposicao"/>
+        </template>
       </el-menu-item>
-    </el-submenu>
 
-    <!-- Vários Filtros -->
-    <el-submenu v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
-      <template slot="title">
-        <i class="el-icon-edit-outline"></i>
-        <span slot="title">{{ $t(filterName) }}</span>
-      </template>
-      <el-checkbox-group v-model="self[filterName]">
-        <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]" :key="j" index="j">
-          <el-checkbox :label="opcao">{{ $t(opcao) }}</el-checkbox>
+      <!-- Date -->
+      <el-menu-item index="3">
+        <i class="el-icon-date"/>
+        <template slot="title">
+          <el-date-picker
+            v-model="dateRef"
+            type="date" placeholder="Data de referência"
+            :picker-options="datePickerOptions">
+          </el-date-picker>
+        </template>
+      </el-menu-item>
+
+      <!-- Sort -->
+      <el-menu-item index="4">
+        <i class="el-icon-sort"/>
+        <template slot="title">
+          <energy-sort/>
+        </template>
+      </el-menu-item>
+
+      <!-- Pauta -->
+      <el-submenu index="5">
+        <template slot="title">
+          <i class="el-icon-edit-outline"></i>
+          <span slot="title">Em pauta</span>
+        </template>
+        <el-menu-item
+          v-for="(opcao, i) in emPautaFilter"
+          @click="propagateClick"
+          :index="'1-' + (i+1)" :key="i">
+          <el-checkbox
+            @change="filtraEmPauta(emPautaFilter)"
+            v-model="opcao.status">
+            {{ opcao.tipo }}
+          </el-checkbox>
         </el-menu-item>
-      </el-checkbox-group>
-    </el-submenu>
+      </el-submenu>
 
+      <!-- Vários Filtros -->
+      <el-submenu v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
+        <template slot="title">
+          <i class="el-icon-edit-outline"></i>
+          <span slot="title">{{ $t(filterName) }}</span>
+        </template>
+        <el-checkbox-group v-model="self[filterName]">
+          <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]"
+                        :key="j" index="j" @click="propagateClick">
+            <el-checkbox :label="opcao">{{ $t(opcao) }}</el-checkbox>
+          </el-menu-item>
+        </el-checkbox-group>
+      </el-submenu>
+    </el-menu-item-group>
   </el-menu>
 </template>
 
@@ -132,13 +135,21 @@ export default {
       'filtraCasa',
       'filtraEmPauta',
       'filtraNomeProposicao'
-    ])
+    ]),
+    propagateClick (el) {
+      el.$children.forEach(x => x.$el.click())
+    }
   }
 }
 </script>
 
 <style scoped>
 .el-input, .el-select {
-  width: 200px !important;
+    width: 200px !important;
+}
+.filter-section-header {
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: .5em;
 }
 </style>

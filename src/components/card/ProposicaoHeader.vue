@@ -1,12 +1,19 @@
 <template>
   <div class="container">
+    <div class="content">
       <span v-if="emPauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
-      <span>{{prop.apelido}}</span>
+      <div>
+        <span>{{prop.apelido}}</span>
+      </div>
       <div class="tags">
         <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
         <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
       </div>
+    </div>
+    <div class="selector">
+      <span class="arrow" :class="{'arrow-down': clicked}"/>
+    </div>
   </div>
 </template>
 
@@ -21,7 +28,8 @@ export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    emPauta: Boolean
+    emPauta: Boolean,
+    clicked: Boolean
   },
   components: {
     RegimeTramitacao,
@@ -42,42 +50,71 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  padding: 0.5rem 1rem;
-  background: #000;
-  margin: 0px;
-  color: white;
-  font-size: 16pt;
+    display: flex;
+    justify-content: space-between;
+    background: #000;
 }
 
-.container  * {
-  margin: 3px 0;
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    margin: 0px;
+    color: white;
+    font-size: 16pt;
+}
+
+.content  * {
+    margin: 3px 0;
 }
 
 .emPautaTag {
-  background-color: white;
-  color:black;
-  text-decoration: underline;
-  font-style: italic;
-  font-size: 9pt;
-  padding: 2px;
-  user-select: none;
-  width: 55px;
+    background-color: white;
+    color:black;
+    text-decoration: underline;
+    font-style: italic;
+    font-size: 9pt;
+    padding: 2px;
+    user-select: none;
+    width: 55px;
 }
 
 .tag {
-  font-size: 8pt;
-  user-select: none;
-  text-transform: uppercase;
+    font-size: 8pt;
+    user-select: none;
+    text-transform: uppercase;
 }
 
 .tags {
-  margin-top: 5px;
-  color: #ffdf
+    margin-top: 5px;
+    color: #ffdf
+}
+
+.selector {
+    position: relative;
+    margin-left: 1rem;
+}
+
+.arrow {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 10px;
+    width: 10px;
+    border: solid #fff;
+    border-width: 0px 4px 4px 0;
+    transform: rotate(-45deg);
+    transition: transform .5s;
+    border-radius: 1px;
+}
+
+.arrow-down {
+    transform: rotate(45deg);
 }
 
 </style>
