@@ -14,7 +14,7 @@
           <p class = "small-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
             Link da proposição ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
           </p>
-          <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: XX/XX/XXXX</p>
+          <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ localAtual }}</p>
           <fases-bar style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
           <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
           <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
