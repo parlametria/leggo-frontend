@@ -1,8 +1,26 @@
 <template>
-    <div class="container">
-        <ul class="progressbar">
-            <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase)"/>
-        </ul>
+  <div>
+    <el-row justify="center">
+        <div>
+          <ul class="progressbar">
+              <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase, i)"/>
+          </ul>
+        </div>
+    </el-row>
+    <el-row type="flex" justify="center">
+          <el-button :disabled="this.selectedFase == 0"
+          round
+          class="el-icon-arrow-left"
+          size="mini"
+          @click="selectedFase--"></el-button>
+           {{ fases[selectedFase].local}} - {{ fases[selectedFase].fase_global }}
+          <el-button :disabled="this.selectedFase == this.fases.length - 1" 
+            round
+            class="el-icon-arrow-right"
+            size="mini"
+            @click="selectedFase++"></el-button>
+        
+      </el-row>
     </div>
 </template>
 
@@ -12,8 +30,13 @@ export default {
   props: {
     fases: Array
   },
+  data(){
+    return({
+      selectedFase: 0
+    })
+  },
   methods: {
-    styleFase (fase) {
+    styleFase (fase,i) {
       return {
         'active': this.isFinished(fase),
         'future': this.isFuture(fase),
@@ -21,7 +44,8 @@ export default {
         'inProgress': this.isInProgress(fase),
         'senado': fase.local_casa === 'senado',
         'camara': fase.local_casa === 'camara',
-        'planalto': fase.local === 'Plenário' && fase.local_casa === 'congresso'
+        'planalto': fase.local === 'Plenário' && fase.local_casa === 'congresso',
+        'selectedFase': i === this.selectedFase
       }
     },
     isInProgress (fase) {
@@ -70,11 +94,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .container {
-      width: 600px;
-  }
   .progressbar {
       counter-reset: step;
+      padding: 0;
   }
   .progressbar li {
       list-style-type: none;
@@ -133,7 +155,11 @@ export default {
   .jumped:before {
     background-image: url('../../../assets/vazio.png');
   }
-  .progressbar li:hover:before {
+  .progressbar {
+    transform: scale(1.5);
+  }
+  
+  .progressbar li::before {
     transform: scale(1.5);
   }
 

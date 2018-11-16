@@ -15,11 +15,21 @@
             Link da proposição ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
           </p>
           <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: XX/XX/XXXX</p>
-          <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
-          <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
-          <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
-          <!-- TODO: Mudar o relator. -->
-          <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
+          <el-row> 
+            <el-col :span="16">
+              <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+            </el-col>
+ 
+            <el-col :span="6">
+              <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
+              <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
+              <!-- TODO: Mudar o relator. -->
+              <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
+            </el-col>
+          </el-row>
+         
+          
+          
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
           <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
           <energy-graphic
