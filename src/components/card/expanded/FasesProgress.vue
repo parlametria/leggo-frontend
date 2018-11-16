@@ -71,7 +71,7 @@ export default {
 
 <style lang="scss" scoped>
   .container {
-      width: -webkit-fill-available;
+      width: 600px;
   }
   .progressbar {
       counter-reset: step;
