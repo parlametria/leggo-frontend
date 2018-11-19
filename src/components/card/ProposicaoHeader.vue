@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div class="content">
       <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
       <div>
@@ -9,6 +10,7 @@
         <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
         <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
       </div>
+    </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
     </div>
