@@ -1,7 +1,7 @@
 <template>
   <div class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop" :emPauta="emPauta"/>
+      <proposicao-header :prop="prop" :emPauta="emPauta" :clicked="dropShow"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
@@ -16,7 +16,7 @@
           </p>
           <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: XX/XX/XXXX</p>
           <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
-          <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
+          <p class = "medium-text-field" style = "margin-top: 80px; margin-bottom: 0px">{{ localAtual }}</p>
           <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
           <!-- TODO: Mudar o relator. -->
           <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
