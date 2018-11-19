@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <pressure-bar :id="prop.lastEtapa.id_ext"/>
     <div class="content">
       <span v-if="emPauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
@@ -23,6 +24,7 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FasesProgress from './collapsed/FasesProgress.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 import Fases from './collapsed/Fases.vue'
+import PressureBar from './collapsed/PressureBar.vue'
 
 export default {
   name: 'proposicaoheader',
@@ -36,7 +38,8 @@ export default {
     FormaApreciacao,
     FasesProgress,
     FaseAtualBlock,
-    Fases
+    Fases,
+    PressureBar
   },
   computed: {
     eventos () {
@@ -52,7 +55,6 @@ export default {
 <style scoped>
 .container {
     display: flex;
-    justify-content: space-between;
     background: #000;
 }
 
@@ -66,8 +68,12 @@ export default {
     font-size: 16pt;
 }
 
-.content  * {
+.content > * {
     margin: 3px 0;
+}
+
+.content .tags * {
+  margin-bottom: 3px;
 }
 
 .emPautaTag {
@@ -94,16 +100,13 @@ export default {
 
 .selector {
     position: relative;
-    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
 }
 
 .arrow {
-    position: absolute;
-    right: 1rem;
-    top: 0;
-    bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 1rem;
     height: 10px;
     width: 10px;
     border: solid #fff;
