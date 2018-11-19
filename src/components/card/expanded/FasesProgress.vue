@@ -16,10 +16,10 @@
                     @click="selectedFase--"></el-button>
         </el-col>
         <el-col :span="10" :style="{ 'text-align': 'center' }">
-           {{ fases[selectedFase].local }} - {{ fases[selectedFase].fase_global }}
+           {{ sortedFases[selectedFase].local }} - {{ sortedFases[selectedFase].fase_global }}
         </el-col>
         <el-col :span="6">
-          <el-button :disabled="this.selectedFase == this.fases.length - 1"
+          <el-button :disabled="this.selectedFase == this.sortedFases.length - 1"
             round
             class="el-icon-arrow-right"
             size="mini"
