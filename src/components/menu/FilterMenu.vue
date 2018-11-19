@@ -20,7 +20,7 @@
         <template slot="title">
           <el-date-picker
             v-model="dateRef"
-            type="date" placeholder="Data de referência"
+            type="date" placeholder="Data de referência" format="dd/MM/yyyy"
             :picker-options="datePickerOptions">
           </el-date-picker>
         </template>
