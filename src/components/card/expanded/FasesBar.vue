@@ -1,6 +1,6 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in sortedFases" :key="i">
+    <div v-for="(fase,i) in fases" :key="i">
       <el-tooltip :content="fase.local + '-' + fase.fase_global">
         <div class="fase" :class="geraEstilo(fase)">
           <div v-if="isAtualFase(fase)" class="arrow-down"/>
@@ -33,23 +33,6 @@ export default {
       const now = Date.now()
       return fase.data_inicio != null &&
         (fase.data_fim == null || new Date(fase.data_fim) >= now)
-    }
-  },
-  computed: {
-    sortedFases () {
-      let sortOrder = { 'Comissões - Construção': '1',
-        'Plenário - Construção': '2',
-        'Comissões - Revisão I': '3',
-        'Plenário - Revisão I': '4',
-        'Comissões - Revisão II': '5',
-        'Plenário - Revisão II': '6',
-        'Presidência da República - Sansão/Veto': '7',
-        'Congresso - Avaliação dos Vetos': '8' }
-      return this.fases.slice().sort((a, b) => {
-        let indexA = a.local + ' - ' + a.fase_global
-        let indexB = b.local + ' - ' + b.fase_global
-        return (sortOrder[indexA] - sortOrder[indexB])
-      })
     }
   }
 }
