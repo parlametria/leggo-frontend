@@ -19,7 +19,7 @@
           <p class = "medium-text-field" style = "margin-top: 80px; margin-bottom: 0px">{{ localAtual }}</p>
           <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
           <!-- TODO: Mudar o relator. -->
-          <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
+          <p class = "medium-text-field" style = "margin-top: 0px">{{prop.lastEtapa.relator_nome}}</p>
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
           <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
           <energy-graphic
