@@ -9,7 +9,6 @@
         <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
         <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
       </div>
-    </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
     </div>
