@@ -24,6 +24,7 @@
             <!-- TODO: Mudar o relator. -->
             <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
           </el-row>
+
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
           <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
           <energy-graphic
