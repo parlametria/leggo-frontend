@@ -113,7 +113,7 @@ export default {
     border-width: 0px 4px 4px 0;
     transform: rotate(-45deg);
     transition: transform .5s;
-    border-radius: 1px; 
+    border-radius: 1px;
 }
 
 .arrow-down {
