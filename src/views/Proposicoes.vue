@@ -47,8 +47,8 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          if(this.energias[b.lastEtapa.id_ext] && this.energias[a.lastEtapa.id_ext] && 
-              this.energias[b.lastEtapa.id_ext].length > 0 && this.energias[a.lastEtapa.id_ext].length > 0){
+          if (this.energias[b.lastEtapa.id_ext] && this.energias[a.lastEtapa.id_ext] &&
+              this.energias[b.lastEtapa.id_ext].length > 0 && this.energias[a.lastEtapa.id_ext].length > 0) {
             if (this.filter.energyOrder === 'desc') {
               return this.energias[b.lastEtapa.id_ext][0].energia_recente - this.energias[a.lastEtapa.id_ext][0].energia_recente
             } else {
