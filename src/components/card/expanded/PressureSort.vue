@@ -10,17 +10,17 @@
 </template>
 <script>
 export default {
-  name: 'EnergySort',
+  name: 'PressureSort',
   data () {
     return {
       options: [
         {
           value: 'asc',
-          label: 'Menor pressão'
+          label: 'Pressão Baixa'
         },
         {
           value: 'desc',
-          label: 'Maior pressão'
+          label: 'Pressão Alta'
         }
       ]
     }
