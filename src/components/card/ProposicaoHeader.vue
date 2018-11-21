@@ -21,7 +21,6 @@
 <script>
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import FasesProgress from './collapsed/FasesProgress.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 import Fases from './collapsed/Fases.vue'
 import PressureBar from './collapsed/PressureBar.vue'
@@ -36,7 +35,6 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
-    FasesProgress,
     FaseAtualBlock,
     Fases,
     PressureBar
