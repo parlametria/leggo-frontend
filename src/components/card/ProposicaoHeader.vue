@@ -30,7 +30,7 @@ export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    emPauta: Boolean,
+    emPauta: Array,
     clicked: Boolean
   },
   components: {
