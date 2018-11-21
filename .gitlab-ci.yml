@@ -54,11 +54,11 @@ release-image:
     - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
   only:
-    - master
+    - production
 
 deploy:
   stage: deploy
   script:
     - curl --fail -XPOST "$DEPLOY_WEBHOOK"
   only:
-    - master
+    - production
