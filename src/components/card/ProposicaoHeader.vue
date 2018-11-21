@@ -2,7 +2,7 @@
   <div class="container">
     <pressure-bar :id="prop.lastEtapa.id_ext"/>
     <div class="content">
-      <span v-if="emPauta != null" class="emPautaTag">em pauta</span>
+      <span v-if="emPauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
       <div>
         <span>{{prop.apelido}}</span>
