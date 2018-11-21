@@ -2,9 +2,7 @@
   <div class="fasesBlock">
     <div v-for="(fase,i) in sortedFases" :key="i">
       <el-tooltip :content="fase.local + '-' + fase.fase_global">
-        <div class="fase" :class="geraEstilo(fase)">
-          <div v-if="isAtualFase(fase)" class="arrow-down"/>
-        </div>
+        <div class="fase" :class="geraEstilo(fase)"/>
       </el-tooltip>
     </div>
   </div>
@@ -12,7 +10,7 @@
 
 <script>
 export default {
-  name: 'FasesBar',
+  name: 'Fases',
   props: {
     fases: Array
   },
@@ -20,20 +18,15 @@ export default {
   methods: {
     geraEstilo (fase) {
       return {
-        'faseConcluida': this.isFaseConcluida(fase),
-        'faseAtual': this.isAtualFase(fase),
-        'faseSenado': fase.local_casa === 'senado',
-        'faseCamara': fase.local_casa === 'camara'
+        'faseConcluida': this.isFaseConcluida(fase)
       }
     },
     isFaseConcluida (fase) {
+      return fase.data_fim
+    },
+    jumpedFase (fase) {
       const now = Date.now()
       return new Date(fase.data_fim) < now
-    },
-    isAtualFase (fase) {
-      const now = Date.now()
-      return fase.data_inicio != null &&
-        (fase.data_fim == null || new Date(fase.data_fim) >= now)
     }
   },
   computed: {
@@ -62,10 +55,10 @@ export default {
     padding: 3px;
 }
 .fase {
-    width: 30px;
-    height: 30px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background-color: #808080;
+    background-color: #723234;
     margin-right: 3px;
     position: relative;
 }
@@ -74,26 +67,9 @@ export default {
     background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
     display: block;
 }
-.faseConcluida.faseSenado{
-    background-color: #a6cee3;
+
+.faseConcluida {
+    background-color: #DC6060;
 }
-.faseConcluida.faseCamara{
-    background-color: #b2df8a;
-}
-.faseAtual.faseSenado{
-    background-color: #1f78b4;
-}
-.faseAtual.faseCamara{
-    background-color: #33a02c;
-}
-.arrow-down {
-  position: absolute;
-  top: -15px;
-  margin-left: 10px;
-  border: solid rgb(211, 83, 83);
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-}
+
 </style>

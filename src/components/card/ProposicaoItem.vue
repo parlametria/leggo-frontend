@@ -1,32 +1,43 @@
 <template>
   <div class="proposicao-card">
-    <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop"/>
+      <proposicao-header :prop="prop" :emPauta="emPauta" :clicked="dropShow"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
-          <div class="flex">
-            <fases-bar :fases="prop.resumo_progresso"/>
-            <energy-graphic
-              :date="dateRef"
-              :id="prop.lastEtapa.id_ext"
-              :casa="prop.lastEtapa.casa"/>
-            <lista-pauta :id="prop.id"></lista-pauta>
+          <div class ="informations">
+          <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
+          <p class = "big-text-field">{{ casa }}</p>
+          <p class = "medium-text-field" style="margin-top: 0px"> {{ autor  }}</p>
+          <hr class = "divider">
+          <p class = "small-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
+            Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+          </p>
+          <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: XX/XX/XXXX</p>
+          <el-row>
+            <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+          </el-row>
+          <el-row>
+            <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
+            <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
+            <!-- TODO: Mudar o relator. -->
+            <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
+          </el-row>
+
+          <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
+          <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
+          <energy-graphic
+            :date="dateRef"
+            :id="prop.lastEtapa.id_ext"
+            :casa="prop.lastEtapa.casa"
+            style="margin-bottom: 45px"/>
+          <!--<lista-pauta :id="prop.id"></lista-pauta> -->
           </div>
-          <p style = "font-size:14px">Informações Gerais:</p>
-          <ul style = "font-size:13px">
-            <li v-for="(etapa,i) in prop.etapas" :key="i">
-              Etapa {{i+1}} ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
-            </li>
-            <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
-            <li> Local Atual: {{ localAtual }} </li>
-          </ul>
         </div>
       </div>
     </el-collapse-transition>
-    <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
+    <!-- <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar> -->
   </div>
 </template>
 
@@ -36,6 +47,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import EnergyGraphic from './expanded/EnergyGraphic'
 import FasesBar from './expanded/FasesBar'
+import FasesProgress from './expanded/FasesProgress'
 import ListaPauta from './expanded/ListaPauta'
 import PressureBar from './collapsed/PressureBar'
 import { mapState } from 'vuex'
@@ -54,6 +66,7 @@ export default {
     FasesBar,
     ProposicaoHeader,
     ListaPauta,
+    FasesProgress,
     PressureBar
   },
   computed: {
@@ -67,6 +80,23 @@ export default {
         localAtual = 'Comissão Especial - ' + localAtual
       }
       return localAtual
+    },
+    casa () {
+      let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
+      let casa = ''
+      if (autores.length > 1) {
+        casa = autores[0]
+      } else {
+        casa = 'Câmara dos Deputados'
+      }
+      return casa
+    },
+    autor () {
+      let autor = (this.prop.lastEtapa.autor_nome).split(' - ')
+      if (autor.length > 1) {
+        autor = autor[autor.length - 1].toString()
+      }
+      return autor.toString()
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
@@ -96,7 +126,7 @@ export default {
 .proposicao-card {
   position: relative;
   margin-bottom: 0.5rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding-top: 0.5rem;
   border-bottom: solid 1px #e9e9e9;
   &:hover {
     box-shadow: 0 5px 5px #c6c6c6;
@@ -119,5 +149,32 @@ export default {
   position: absolute;
   top: 2px;
   left: 2px;
+}
+
+.informations{
+  margin-left: 30px;
+}
+
+.small-text-field{
+  font-size: 12px;
+  text-decoration-color: #000000;
+  opacity: 0.5;
+}
+
+.big-text-field{
+  margin-top: 0px;
+  font-size: 22px;
+  margin-bottom: 0px;
+}
+
+.medium-text-field{
+  font-size: 15px;
+  max-width: 70%;
+}
+
+.divider{
+  margin-right: 15px;
+  margin-left: -15px;
+  color: #000000;
 }
 </style>
