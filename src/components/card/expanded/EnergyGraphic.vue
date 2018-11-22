@@ -57,10 +57,10 @@ export default {
     tendenciaColor () {
       if (this.energias.length > 1) {
         if (this.coeficiente <= 0) {
-          return '#ef8a62'
+          return '#67a9cf'
         }
       }
-      return '#67a9cf'
+      return '#ef8a62'
     },
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
