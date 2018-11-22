@@ -27,17 +27,19 @@
 
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
           <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
-          <energy-graphic
-            :date="dateRef"
-            :id="prop.lastEtapa.id_ext"
-            :casa="prop.lastEtapa.casa"
-            style="margin-bottom: 45px"/>
-          <!--<lista-pauta :id="prop.id"></lista-pauta> -->
+          <div class="pressureArea" style="display: flex;">
+            <energy-graphic
+              :date="dateRef"
+              :id="prop.lastEtapa.id_ext"
+              :casa="prop.lastEtapa.casa"
+              style="margin-bottom: 10 px"/>
+            <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
+          </div>
+
           </div>
         </div>
       </div>
     </el-collapse-transition>
-    <!-- <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar> -->
   </div>
 </template>
 
@@ -50,6 +52,7 @@ import FasesBar from './expanded/FasesBar'
 import FasesProgress from './expanded/FasesProgress'
 import ListaPauta from './expanded/ListaPauta'
 import PressureBar from './collapsed/PressureBar'
+import PressureInfo from './expanded/PressureInfo'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -68,7 +71,8 @@ export default {
     ProposicaoHeader,
     ListaPauta,
     FasesProgress,
-    PressureBar
+    PressureBar,
+    PressureInfo
   },
   computed: {
     emPauta () {
@@ -182,4 +186,12 @@ export default {
   margin-left: -15px;
   color: #000000;
 }
+
+.pressure-info {
+  float: left;
+  margin-left: 30px;
+  margin-top: 3%;
+  font-size: 12px;
+}
+
 </style>
