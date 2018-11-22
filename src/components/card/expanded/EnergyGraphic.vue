@@ -49,7 +49,7 @@ export default {
     },
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
-    },  
+    },
     tendenciaColor () {
       if (this.energias.length > 1) {
         if (this.coeficiente <= 0) {
