@@ -40,6 +40,9 @@ export default {
       selectedFase: 0
     }
   },
+  mounted () {
+    this.selectedFase = this.indexOfFaseAtual
+  },
   methods: {
     styleFase (fase, i) {
       return {
@@ -86,6 +89,17 @@ export default {
         let indexB = b.local + ' - ' + b.fase_global
         return (sortOrder[indexA] - sortOrder[indexB])
       })
+    },
+    indexOfFaseAtual () {
+      const fases = this.sortedFases
+      let result = 0
+      while (result !== fases.length) {
+        if (this.isFuture(fases[result])) {
+          break
+        }
+        result++
+      }
+      return --result
     }
   }
 }
@@ -120,7 +134,7 @@ export default {
       background-size: cover;
       transition: transform .2s;
       border-style: solid;
-      border-width: 0.5px;
+      border-width: 1px;
       border-color: white;
       border-radius: 50%;
   }

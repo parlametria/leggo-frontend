@@ -23,9 +23,8 @@ export default {
       }
     },
     isFaseConcluida (fase) {
-      return fase.data_fim
+      return !(fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase))
     },
-
     isJumpedFase (fase) {
       return fase.pulou
     }
