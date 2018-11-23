@@ -47,15 +47,14 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          if (this.energias[b.lastEtapa.id_ext] && this.energias[a.lastEtapa.id_ext] &&
-              this.energias[b.lastEtapa.id_ext].length > 0 && this.energias[a.lastEtapa.id_ext].length > 0) {
-            if (this.filter.energyOrder === 'desc') {
-              return this.energias[b.lastEtapa.id_ext][0].energia_recente - this.energias[a.lastEtapa.id_ext][0].energia_recente
-            } else {
-              return this.energias[a.lastEtapa.id_ext][0].energia_recente - this.energias[b.lastEtapa.id_ext][0].energia_recente
-            }
+          let n = b.lastEtapa.em_pauta - a.lastEtapa.em_pauta
+          if (n !== 0) {
+            return n
+          }
+          if (this.filter.energyOrder === 'desc') {
+            return b.lastEtapa.energia - a.lastEtapa.energia
           } else {
-            return 0
+            return a.lastEtapa.energia - b.lastEtapa.energia
           }
         })
       } else {
