@@ -30,7 +30,7 @@
       <el-menu-item index="4">
         <i class="el-icon-sort"/>
         <template slot="title">
-          <energy-sort/>
+          <pressure-sort/>
         </template>
       </el-menu-item>
 
@@ -42,7 +42,7 @@
         </template>
         <el-menu-item
           v-for="(opcao, i) in emPautaFilter"
-          :index="'1-' + (i+1)" :key="i">
+          :index="'1-' + (i+1)" :key="i" @click="propagateClick">
           <el-checkbox
             @change="filtraEmPauta(emPautaFilter)"
             v-model="opcao.status">
@@ -70,7 +70,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import EnergySort from '@/components/card/expanded/EnergySort'
+import PressureSort from '@/components/card/expanded/PressureSort'
 import store from '@/stores/store'
 
 function generateFilterModels () {
@@ -92,7 +92,7 @@ function generateFilterModels () {
 export default {
   name: 'FilterMenu',
   components: {
-    EnergySort
+    PressureSort
   },
   data () {
     let self = this

@@ -14,15 +14,14 @@
           <p class = "small-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
             Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
           </p>
-          <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: XX/XX/XXXX</p>
+          <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ dataLocalAtual }}</p>
           <el-row>
             <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
           </el-row>
           <el-row>
             <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
             <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
-            <!-- TODO: Mudar o relator. -->
-            <p class = "medium-text-field" style = "margin-top: 0px">Nome do relator</p>
+            <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
           </el-row>
 
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
@@ -51,6 +50,7 @@ import FasesProgress from './expanded/FasesProgress'
 import ListaPauta from './expanded/ListaPauta'
 import PressureBar from './collapsed/PressureBar'
 import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'proposicaoitem',
@@ -72,6 +72,10 @@ export default {
   computed: {
     emPauta () {
       return this.pautas[this.prop.id]
+    },
+    dataLocalAtual () {
+      const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
+      return moment(data).format('DD/MM/YYYY')
     },
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao

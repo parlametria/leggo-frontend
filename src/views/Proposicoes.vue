@@ -47,7 +47,7 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          var n = b.lastEtapa.em_pauta - a.lastEtapa.em_pauta
+          let n = b.lastEtapa.em_pauta - a.lastEtapa.em_pauta
           if (n !== 0) {
             return n
           }
@@ -65,7 +65,8 @@ export default {
       proposicoes: state => state.proposicoes.proposicoes,
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
-      filter: state => state.filter
+      filter: state => state.filter,
+      energias: state => state.proposicoes.energias
     }),
     ...mapGetters(['perFilterOptions'])
   },

@@ -7,6 +7,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import EnergyGraphicModel from './EnergyGraphicModel.js'
+import moment from 'moment'
 
 export default {
   name: 'EnergyGraphic',
@@ -47,20 +48,15 @@ export default {
       return this.listaCoeficientes[this.id] || 0
     },
     formattedDate () {
-      let month = '' + (this.date.getMonth() + 1)
-      let day = '' + this.date.getDate()
-      let year = this.date.getFullYear()
-      if (month.length < 2) month = '0' + month
-      if (day.length < 2) day = '0' + day
-      return [year, month, day].join('-')
+      return moment(this.date).format('YYYY-MM-DD')
     },
     tendenciaColor () {
       if (this.energias.length > 1) {
         if (this.coeficiente <= 0) {
-          return '#ef8a62'
+          return '#67a9cf'
         }
       }
-      return '#67a9cf'
+      return '#ef8a62'
     },
     compoundWatch () {
       return [this.date, this.id, this.casa].join()

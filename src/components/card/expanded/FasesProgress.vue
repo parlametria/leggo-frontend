@@ -40,6 +40,9 @@ export default {
       selectedFase: 0
     }
   },
+  mounted () {
+    this.selectedFase = this.indexOfFaseAtual
+  },
   methods: {
     styleFase (fase, i) {
       return {
@@ -49,7 +52,7 @@ export default {
         'inProgress': this.isInProgress(fase),
         'senado': fase.local_casa === 'senado',
         'camara': fase.local_casa === 'camara',
-        'planalto': fase.local === 'Plenário' && fase.local_casa === 'congresso',
+        'planalto': fase.local_casa === 'presidência da república' || fase.local_casa === 'congresso',
         'selectedFase': i === this.selectedFase
       }
     },
@@ -64,18 +67,11 @@ export default {
     },
 
     isJumpedFase (fase) {
-      const numberOfFases = this.sortedFases.length
-      let index = this.sortedFases.indexOf(fase)
-      if (this.isFinished(fase)) { return false }
-      for (let j = index + 1; j < numberOfFases; j++) {
-        if (this.isFinished(this.sortedFases[j])) { return true }
-      }
-
-      return false
+      return fase.pulou
     },
 
     isFuture (fase) {
-      return fase.data_fim == null && fase.data_inicio == null
+      return fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase)
     }
   },
   computed: {
@@ -93,6 +89,17 @@ export default {
         let indexB = b.local + ' - ' + b.fase_global
         return (sortOrder[indexA] - sortOrder[indexB])
       })
+    },
+    indexOfFaseAtual () {
+      const fases = this.sortedFases
+      let result = 0
+      while (result !== fases.length) {
+        if (this.isFuture(fases[result])) {
+          break
+        }
+        result++
+      }
+      return --result
     }
   }
 }
@@ -113,7 +120,7 @@ export default {
       text-transform: uppercase;
       color: black;
   }
-  // os before fazem as linhas, e os after os circulos
+  // --- os before fazem as linhas, e os after os circulo ---
 
   .progressbar li:before {
       width: 30px;
@@ -126,6 +133,10 @@ export default {
       background-position: left;
       background-size: cover;
       transition: transform .2s;
+      border-style: solid;
+      border-width: 1px;
+      border-color: white;
+      border-radius: 50%;
   }
 
   .progressbar li:after { //linha
@@ -151,7 +162,8 @@ export default {
   }
 
   .future:before {
-    background-image: url('../../../assets/vazio.png');
+    opacity: 0.5;
+    filter: alpha(opacity=50);
   }
 
   .planalto:before {

@@ -18,15 +18,15 @@ export default {
   methods: {
     geraEstilo (fase) {
       return {
-        'faseConcluida': this.isFaseConcluida(fase)
+        'faseConcluida': this.isFaseConcluida(fase),
+        'jumpedFase': this.isJumpedFase(fase)
       }
     },
     isFaseConcluida (fase) {
-      return fase.data_fim
+      return !(fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase))
     },
-    jumpedFase (fase) {
-      const now = Date.now()
-      return new Date(fase.data_fim) < now
+    isJumpedFase (fase) {
+      return fase.pulou
     }
   },
   computed: {
@@ -63,9 +63,13 @@ export default {
     position: relative;
 }
 
-.cerrilhado {
-    background: repeating-linear-gradient(-45deg, white, white 2px, tomato 0, tomato 4px);
-    display: block;
+.jumpedFase {
+  background: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #DC6060;
+  width: 10px;
+  height: 10px;
 }
 
 .faseConcluida {
