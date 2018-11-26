@@ -8,8 +8,8 @@
         <span>{{prop.apelido}}</span>
       </div>
       <div class="tags">
-        <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
-        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
+        <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
+        <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
       </div>
     </div>
     <div class="selector">
@@ -89,6 +89,11 @@ export default {
     font-size: 8pt;
     user-select: none;
     text-transform: uppercase;
+    margin: 0 3px;
+    color: #FFF;
+    border-color: #FFF;
+    width: 85px;
+    text-align: center;
 }
 
 .tags {
