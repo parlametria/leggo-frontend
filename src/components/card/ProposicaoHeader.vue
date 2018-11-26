@@ -57,7 +57,7 @@ export default {
 }
 .fases {
   justify-self: end;
-  margin: .3rem 1rem;
+  margin: .7rem 1rem;
 }
 .pressao {
   grid-column: 1/2;
