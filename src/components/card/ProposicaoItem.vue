@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     emPauta () {
-      return this.pautas[this.prop.id]
+      return this.prop.lastEtapa.emPauta
     },
     dataLocalAtual () {
       const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data

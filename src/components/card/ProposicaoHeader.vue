@@ -2,12 +2,12 @@
   <div class="container">
     <pressure-bar :id="prop.lastEtapa.id_ext"/>
     <div class="content">
-      <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
       <fases :fases="prop.resumo_progresso"/>
       <div>
         <span>{{prop.apelido}}</span>
       </div>
       <div class="tags">
+        <el-tag :class="styleEmPautaTag()" size="small">{{prop.lastEtapa.em_pauta}}</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
       </div>
@@ -38,6 +38,13 @@ export default {
     FaseAtualBlock,
     Fases,
     PressureBar
+  },
+  methods: {
+    styleEmPautaTag () {
+      return {
+        'emPauta': this.emPauta
+      }
+    },
   },
   computed: {
     eventos () {
@@ -72,6 +79,11 @@ export default {
 
 .content .tags * {
   margin-bottom: 3px;
+}
+
+.emPauta {
+  background-color: white;
+  color:red;
 }
 
 .emPautaTag {
