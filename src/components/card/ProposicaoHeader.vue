@@ -4,8 +4,9 @@
     <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
-      <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
-      <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
+      <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
+      <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
+      <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
     </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
@@ -76,6 +77,11 @@ export default {
   font-size: 8pt;
   user-select: none;
   text-transform: uppercase;
+  margin: 0 3px;
+  color: #FFF;
+  border-color: #FFF;
+  width: 85px;
+  text-align: center;
 }
 .selector {
   grid-column: 3/4;

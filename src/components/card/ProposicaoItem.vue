@@ -8,12 +8,9 @@
         <div shadow="hover" class="prop-item">
           <div class ="informations">
           <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
-          <p class = "big-text-field">{{ casa }}</p>
-          <p class = "medium-text-field" style="margin-top: 0px"> {{ autor  }}</p>
+          <p class = "big-text-field">{{ autor }}</p>
+          <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
           <hr class = "divider">
-          <p class = "small-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
-            Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
-          </p>
           <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ dataLocalAtual }}</p>
           <el-row>
             <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
@@ -26,7 +23,7 @@
 
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
           <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
-          <div class="pressureArea" style="display: flex;">
+          <div class="pressure-area">
             <energy-graphic
               :date="dateRef"
               :id="prop.lastEtapa.id_ext"
@@ -34,7 +31,10 @@
               style="margin-bottom: 10 px"/>
             <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
           </div>
-
+          <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
+          <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
+            Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+          </p>
           </div>
         </div>
       </div>
@@ -191,6 +191,11 @@ export default {
   margin-left: 30px;
   margin-top: 3%;
   font-size: 12px;
+}
+
+.pressure-area {
+  display: flex;
+  margin-bottom: 20px;
 }
 
 </style>
