@@ -1,16 +1,11 @@
 <template>
   <div class="container">
-    <pressure-bar :id="prop.lastEtapa.id_ext"/>
-    <div class="content">
-      <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
-      <fases :fases="prop.resumo_progresso"/>
-      <div>
-        <span>{{prop.apelido}}</span>
-      </div>
-      <div class="tags">
-        <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
-        <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
-      </div>
+    <fases class="fases" :fases="prop.resumo_progresso"/>
+    <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
+    <span class="prop-apelido">{{prop.apelido}}</span>
+    <div class="tags">
+      <div class="tag">{{prop.lastEtapa.regime_tramitacao}}</div>
+      <div class="tag">{{prop.lastEtapa.forma_apreciacao}}</div>
     </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
@@ -52,70 +47,52 @@ export default {
 
 <style scoped>
 .container {
-    display: flex;
-    background: #000;
+  display: grid;
+  grid-template-columns: 41px auto 30px;
+  grid-template-rows: 25px auto auto;
+  background: #000;
+  color: #fff;
+  grid-row-gap: .3rem;
 }
-
-.content {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    margin: 0px;
-    color: white;
-    font-size: 16pt;
+.fases {
+  justify-self: end;
+  margin: .3rem 1rem;
 }
-
-.content > * {
-    margin: 3px 0;
+.pressao {
+  grid-column: 1/2;
+  grid-row: 1/4;
 }
-
-.content .tags * {
-  margin-bottom: 3px;
+.prop-apelido {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  margin: 0 .5rem;
 }
-
-.emPautaTag {
-    background-color: white;
-    color:black;
-    text-decoration: underline;
-    font-style: italic;
-    font-size: 9pt;
-    padding: 2px;
-    user-select: none;
-    width: 55px;
-}
-
-.tag {
-    font-size: 8pt;
-    user-select: none;
-    text-transform: uppercase;
-}
-
 .tags {
-    margin-top: 5px;
-    color: #ffdf
+  grid-column: 2/3;
+  grid-row: 3/4;
+  margin: .5rem;
 }
-
+.tag {
+  font-size: 8pt;
+  user-select: none;
+  text-transform: uppercase;
+}
 .selector {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+  grid-column: 3/4;
+  grid-row: 1/4;
+  display: flex;
+  align-items: center;
 }
-
 .arrow {
-    margin: auto 1rem;
-    height: 10px;
-    width: 10px;
-    border: solid #fff;
-    border-width: 0px 4px 4px 0;
-    transform: rotate(-45deg);
-    transition: transform .5s;
-    border-radius: 1px;
+  height: 10px;
+  width: 10px;
+  border: solid #fff;
+  border-width: 0px 4px 4px 0;
+  transform: rotate(-45deg);
+  transition: transform .5s;
+  border-radius: 1px;
 }
-
 .arrow-down {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
-
 </style>
