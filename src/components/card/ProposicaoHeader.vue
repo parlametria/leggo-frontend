@@ -45,25 +45,25 @@ export default {
       id: this.prop.lastEtapa.id_ext,
       casa: this.prop.lastEtapa.casa,
       date: this.dateRef
-    }})
+    } })
   },
   methods: {
-    ...mapActions(['getStatusPauta'])  
+    ...mapActions(['getStatusPauta'])
   },
   computed: {
     ...mapState({
       pautas: state => state.proposicoes.pautas
     }),
     na_pauta () {
-      let id = this.prop.lastEtapa.id_ext;
-      //console.log(this.pautas[345311]);
-      
+      let id = this.prop.lastEtapa.id_ext
+      // console.log(this.pautas[345311]);
+
       if (this.pautas[id] !== undefined) {
-        return true;
+        return true
       }
-      return false;
-      //console.log(this.pautas[id][0]);
-      //return (this.pautas.length > 0);
+      return false
+      // console.log(this.pautas[id][0]);
+      // return (this.pautas.length > 0);
     },
     eventos () {
       return [
@@ -71,7 +71,7 @@ export default {
         { data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR' }
       ]
     }
-  },
+  }
   // watch: {
   //   dateRef () {
   //     this.getStatusPauta({ params: {
