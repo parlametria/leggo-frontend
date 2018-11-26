@@ -7,7 +7,7 @@
         <span>{{prop.apelido}}</span>
       </div>
       <div class="tags">
-        <el-tag :class="styleEmPautaTag()" size="small">{{prop.lastEtapa.em_pauta}}</el-tag>
+        <el-tag class='emPautaTag' v-bind:class="{'emPauta':na_pauta}" size="small">NA PAUTA</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
       </div>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
@@ -29,8 +30,8 @@ export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    emPauta: Array,
-    clicked: Boolean
+    clicked: Boolean,
+    dateRef: Date
   },
   components: {
     RegimeTramitacao,
@@ -39,21 +40,47 @@ export default {
     Fases,
     PressureBar
   },
+  async mounted () {
+    this.getStatusPauta({ params: {
+      id: this.prop.lastEtapa.id_ext,
+      casa: this.prop.lastEtapa.casa,
+      date: this.dateRef
+    }})
+  },
   methods: {
-    styleEmPautaTag () {
-      return {
-        'emPauta': this.emPauta
-      }
-    }
+    ...mapActions(['getStatusPauta'])  
   },
   computed: {
+    ...mapState({
+      pautas: state => state.proposicoes.pautas
+    }),
+    na_pauta () {
+      let id = this.prop.lastEtapa.id_ext;
+      //console.log(this.pautas[345311]);
+      
+      if (this.pautas[id] !== undefined) {
+        return true;
+      }
+      return false;
+      //console.log(this.pautas[id][0]);
+      //return (this.pautas.length > 0);
+    },
     eventos () {
       return [
         { data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ' },
         { data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR' }
       ]
     }
-  }
+  },
+  // watch: {
+  //   dateRef () {
+  //     this.getStatusPauta({ params: {
+  //       id: this.prop.lastEtapa.id_ext,
+  //       casa: this.prop.lastEtapa.casa,
+  //       date: this.dateRef
+  //     }})
+  //   }
+  // }
 }
 </script>
 
@@ -86,15 +113,16 @@ export default {
   color:red;
 }
 
+.foraPauta {
+  background-color: white;
+  color:grey;
+}
+
 .emPautaTag {
     background-color: white;
-    color:black;
-    text-decoration: underline;
-    font-style: italic;
-    font-size: 9pt;
-    padding: 2px;
-    user-select: none;
-    width: 55px;
+    color:grey;
+    width: 80px;
+    text-align: center;
 }
 
 .tag {

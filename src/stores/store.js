@@ -11,19 +11,8 @@ const proposicoes = new Vapi({
     proposicoes: [],
     tramitacoes: new Set(),
     energias: {},
+    pautas: {},
     coeficiente: {},
-    pautas: {
-      4: [
-        { data: new Date('2018-10-20'), local: 'CCJ' },
-        { data: new Date('2018-11-04'), local: 'CAPADR' },
-        { data: new Date('2018-11-10'), local: 'CMADS' }
-      ],
-      9: [
-        { data: new Date('2018-10-20'), local: 'CAPADR' },
-        { data: new Date('2018-11-07'), local: 'CAPADR' },
-        { data: new Date('2018-11-20'), local: 'CMADS' }
-      ]
-    },
     maxEnergia: 0
   } }).get({
   action: 'getProposicao',
@@ -55,6 +44,14 @@ const proposicoes = new Vapi({
 
     Vue.set(state.coeficiente, params.id, coeficiente)
     Vue.set(state.energias, params.id, pressoes)
+  }
+}).get({
+  action: 'getStatusPauta',
+  property: 'pautas',
+  path: ({ casa, id, date }) =>
+    `pauta/${casa}/${id}?data_referencia=${date}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    Vue.set(state.pautas, params.id, data)
   }
 }).getStore()
 
