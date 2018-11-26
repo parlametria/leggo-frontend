@@ -8,8 +8,8 @@
         <div shadow="hover" class="prop-item">
           <div class ="informations">
           <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
-          <p class = "big-text-field">{{ casa }}</p>
-          <p class = "medium-text-field" style="margin-top: 0px"> {{ autor  }}</p>
+          <p class = "big-text-field">{{ autor }}</p>
+          <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
           <hr class = "divider">
           <p class = "small-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
             Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
