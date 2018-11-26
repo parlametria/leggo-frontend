@@ -44,7 +44,7 @@ export default {
       return {
         'emPauta': this.emPauta
       }
-    },
+    }
   },
   computed: {
     eventos () {
