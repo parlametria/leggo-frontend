@@ -61,7 +61,7 @@ export default {
     },
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
-    },
+    }
   }),
   methods: {
     ...mapActions(['getEnergiaRecente']),
