@@ -2,17 +2,14 @@
   <div>
     <ul class="progressbar">
       <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase, i)" v-on:click="tooltip(i)">
-        <span class="tooltip">
-          <el-row>
-            {{fase.local}} - {{fase.fase_global}}
-          </el-row>
-          <el-row>
-            Local: {{fase.local_casa}}
-          </el-row>
-          <el-row>
-            {{fase.data_inicio}} - {{fase.data_fim}}
-          </el-row>
-        </span>
+         <el-popover
+          placement="top-start"
+          title="Title"
+          width="200"
+          trigger="hover"
+          content="this is content, this is content, this is content"
+          class="popover">
+          </el-popover>
       </li>
     </ul>
   </div>
@@ -162,6 +159,12 @@ export default {
     margin-left: -50px;
     z-index: 1;
     font-size: 10px;
+  }
+
+  .progressbar li .popover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
   
   .progressbar li.selectedFase .tooltip {
