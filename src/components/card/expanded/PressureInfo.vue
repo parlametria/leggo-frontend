@@ -1,8 +1,8 @@
 <template>
     <div class="info">
-      A pressão nos últimos 3 meses
-      <span v-if="this.pressureInfo === 'subiu'" style="color: #E55C61">{{this.pressureInfo}}</span>
-      <span v-else style="color: #44C8DA">{{this.pressureInfo}}</span>
+      A Temperatura nos últimos 3 meses
+      <span v-if="this.pressureInfo === 'subiu'" style="color: #dc6060; font-weight: bold">{{this.pressureInfo}}</span>
+      <span v-else style="color: #60C7DC; font-weight: bold">{{this.pressureInfo}}</span>
     </div>
 </template>
 
