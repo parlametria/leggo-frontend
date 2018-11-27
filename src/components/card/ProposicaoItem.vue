@@ -1,5 +1,5 @@
 <template>
-  <div class="proposicao-card">
+  <div ref="card" class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
       <proposicao-header :prop="prop" :emPauta="emPauta" :clicked="dropShow"/>
     </div>
@@ -20,6 +20,7 @@
                 :date="dateRef"
                 :id="prop.lastEtapa.id_ext"
                 :casa="prop.lastEtapa.casa"
+                :cardWidth="cardWidth"
                 style="margin-bottom: 10 px"/>
               <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
             </div>
@@ -65,7 +66,8 @@ export default {
   name: 'proposicaoitem',
   data () {
     return {
-      dropShow: false
+      dropShow: false,
+      cardWidth: 0
     }
   },
   components: {
@@ -115,6 +117,17 @@ export default {
     ...mapState({
       dateRef: state => state.filter.dateRef,
       pautas: state => state.proposicoes.pautas
+    })
+  },
+  methods: {
+    getCardWidth () {
+      this.cardWidth = this.$refs.card.offsetWidth
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.getCardWidth)
+      this.getCardWidth()
     })
   },
   props: {

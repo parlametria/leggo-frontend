@@ -19,7 +19,8 @@ export default {
   props: {
     id: Number,
     casa: String,
-    date: Date
+    date: Date,
+    cardWidth: Number
   },
   async mounted () {
     this.getEnergiaRecente({ params: {
@@ -69,7 +70,7 @@ export default {
         this.energias[0].energia_dia = this.energias[0].energia_recente
       }
 
-      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor)
+      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
@@ -97,6 +98,14 @@ export default {
         )})
       },
       deep: true
+    },
+    cardWidth () {
+      setTimeout(() => this.mountGraphic(
+        this.id,
+        this.casa,
+        this.semanas,
+        this.formattedDate
+      ), 2000)
     }
   }
 }
