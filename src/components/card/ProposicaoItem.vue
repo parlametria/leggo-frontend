@@ -16,6 +16,7 @@
           <hr class = "divider">
 
             <div class="pressure-area">
+              <p>Temperatura</p>
               <energy-graphic
                 :date="dateRef"
                 :id="prop.lastEtapa.id_ext"
