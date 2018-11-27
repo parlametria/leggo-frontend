@@ -1,7 +1,7 @@
 <template>
   <div ref="card" class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop" :emPauta="emPauta" :clicked="dropShow"/>
+      <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     emPauta () {
-      return this.pautas[this.prop.id]
+      return this.prop.lastEtapa.emPauta
     },
     dataLocalAtual () {
       const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
