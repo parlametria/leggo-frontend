@@ -1,7 +1,7 @@
 <template>
   <div ref="card" class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop" :emPauta="emPauta" :clicked="dropShow"/>
+      <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
@@ -31,7 +31,7 @@
             <div>
               <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
               <el-row>
-                <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ dataLocalAtual }}</p>
+                <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
                 <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
                 <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
                 <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     emPauta () {
-      return this.pautas[this.prop.id]
+      return this.prop.lastEtapa.emPauta
     },
     dataLocalAtual () {
       const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
