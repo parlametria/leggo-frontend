@@ -1,6 +1,6 @@
 <template>
-    <span>A pressão nos últimos 3 meses <spam v-if="this.pressureInfo === 'subiu'" style="color: #E55C61">{{this.pressureInfo}}</spam>
-      <spam v-else style="color: #44C8DA">{{this.pressureInfo}}</spam>.
+    <span>A pressão nos últimos 3 meses <span v-if="this.pressureInfo === 'subiu'" style="color: #E55C61">{{this.pressureInfo}}</span>
+      <span v-else style="color: #44C8DA">{{this.pressureInfo}}</span>.
     </span>
 </template>
 

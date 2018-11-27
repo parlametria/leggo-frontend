@@ -13,8 +13,7 @@ export default {
   name: 'EnergyGraphic',
   data () {
     return {
-      semanas: 12,
-      windowWidth: window.innerWidth
+      semanas: 12
     }
   },
   props: {
@@ -61,7 +60,7 @@ export default {
       return '#ef8a62'
     },
     compoundWatch () {
-      return [this.date, this.id, this.casa, this.cardWidth].join()
+      return [this.date, this.id, this.casa].join()
     },
   }),
   methods: {
@@ -99,6 +98,14 @@ export default {
         )})
       },
       deep: true
+    },
+    cardWidth () {
+      setTimeout(() => this.mountGraphic(
+        this.id,
+        this.casa,
+        this.semanas,
+        this.formattedDate
+      ), 2000)
     }
   }
 }
