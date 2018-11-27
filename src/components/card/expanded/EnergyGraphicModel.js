@@ -47,7 +47,7 @@ export default class EnergyGraphicModel {
       layer: [
         {
           mark: {
-            type: 'point',
+            type: 'bar',
             color: color,
             fillOpacity: 0.5
           },
