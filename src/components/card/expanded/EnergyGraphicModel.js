@@ -1,5 +1,5 @@
 export default class EnergyGraphicModel {
-  constructor (energias, maxEnergia, color) {
+  constructor (energias, maxEnergia, color, width) {
     const encoding = {
       x: {
         field: 'periodo',
@@ -39,7 +39,7 @@ export default class EnergyGraphicModel {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
       height: 50,
-      width: 150,
+      width: width * 0.8,
       title: '',
       data: {
         name: 'energia'
