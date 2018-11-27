@@ -12,9 +12,8 @@
               <p class = "big-text-field">{{ autor }}</p>
               <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
             </div>
-
+          
           <hr class = "divider">
-
             <div class="pressure-area">
               <energy-graphic
                 :date="dateRef"
@@ -23,24 +22,26 @@
                 style="margin-bottom: 10 px"/>
               <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
             </div>
-
-          <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
-
-            <div>
+          
+          <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
+          <div> 
+            <el-row>
               <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
-              <el-row>
-                <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ dataLocalAtual }}</p>
-                <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
-                <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
-                <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
-              </el-row>
-            </div>
+            </el-row>
+            <el-row>
+              <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ dataLocalAtual }}</p>
+              <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
+              <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
+              <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
+            </el-row>
+          </div>
             <div>
               <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
               <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
                 Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
               </p>
             </div>
+          
           </div>
         </div>
       </div>
@@ -196,8 +197,8 @@ export default {
   font-size: 12px;
 }
 
-.pressure-area {
-  margin-bottom: 20px;
-}
+// .pressure-area {
+//   margin-bottom: 20px;
+// }
 
 </style>

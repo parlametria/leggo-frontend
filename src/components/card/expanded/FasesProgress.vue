@@ -1,32 +1,21 @@
 <template>
   <div>
-    <el-row justify="center">
-        <div>
-          <ul class="progressbar">
-              <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase, i)"/>
-          </ul>
-        </div>
-    </el-row>
-    <el-row type="flex" justify="space-around" style="text-align: center">
-        <el-col :span="6">
-          <el-button :disabled="this.selectedFase == 0"
-                    round
-                    class="el-icon-arrow-left"
-                    size="mini"
-                    @click="selectedFase--"></el-button>
-        </el-col>
-        <el-col :span="10" :style="{ 'text-align': 'center' }">
-           {{ sortedFases[selectedFase].local }} - {{ sortedFases[selectedFase].fase_global }}
-        </el-col>
-        <el-col :span="6">
-          <el-button :disabled="this.selectedFase == this.sortedFases.length - 1"
-            round
-            class="el-icon-arrow-right"
-            size="mini"
-            @click="selectedFase++"></el-button>
-        </el-col>
-      </el-row>
-    </div>
+    <ul class="progressbar">
+      <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase, i)" v-on:click="tooltip(i)">
+        <span class="tooltip">
+          <el-row>
+            {{fase.local}} - {{fase.fase_global}}
+          </el-row>
+          <el-row>
+            Local: {{fase.local_casa}}
+          </el-row>
+          <el-row>
+            {{fase.data_inicio}} - {{fase.data_fim}}
+          </el-row>
+        </span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -41,15 +30,17 @@ export default {
     }
   },
   mounted () {
-    this.selectedFase = this.indexOfFaseAtual
+    this.selectedFase = this.indexOfFaseAtual,
+    this.inProgressFase =  this.indexOfFaseAtual
   },
+
   methods: {
     styleFase (fase, i) {
       return {
         'active': this.isFinished(fase),
         'future': this.isFuture(fase),
         'jumped': this.isJumpedFase(fase),
-        'inProgress': this.isInProgress(fase),
+        'inProgress': i === this.inProgressFase,
         'senado': fase.local_casa === 'senado',
         'camara': fase.local_casa === 'camara',
         'planalto': fase.local_casa === 'presidência da república' || fase.local_casa === 'congresso',
@@ -72,6 +63,10 @@ export default {
 
     isFuture (fase) {
       return fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase)
+    },
+
+    tooltip (i) {
+      this.selectedFase = i
     }
   },
   computed: {
@@ -120,7 +115,7 @@ export default {
       text-transform: uppercase;
       color: black;
   }
-  // --- os before fazem as linhas, e os after os circulo ---
+  // --- os before fazem os circulos, e os after as linhas ---
 
   .progressbar li:before {
       width: 30px;
@@ -137,6 +132,7 @@ export default {
       border-width: 1px;
       border-color: white;
       border-radius: 50%;
+      cursor: pointer;
   }
 
   .progressbar li:after { //linha
@@ -149,6 +145,42 @@ export default {
       left: -50%;
       z-index: -1;
   }
+
+  .progressbar li .tooltip{
+    visibility: hidden;
+    background: white;
+    border: 1px solid #cecece;
+    color: #484848;
+    border-radius: 3px;
+    font-weight: 500;
+    box-shadow: 0 2px 1px #bcbcbc;
+    min-width: 200px;
+    transition: all .200s cubic-bezier(0, 0, 0.2, 1);
+    padding: 5px 0px;
+    margin-top: 10px;
+    position: absolute;
+    margin-left: -50px;
+    z-index: 1;
+    font-size: 10px;
+  }
+  
+  .progressbar li.selectedFase .tooltip {
+    visibility: visible;
+    transform: translate3d(0, -50%, 0);
+    top: calc(100% + 1em);
+    left: 50%; 
+  }
+
+   .progressbar li.selectedFase .tooltip:before {
+    content: '';
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 5px solid #bcbcbc; 
+    position: absolute;
+    top: -5px;
+    left: 40px;
+   }
+
   .progressbar li:first-child:after {
       content: none;
   }
@@ -173,7 +205,8 @@ export default {
   .jumped:before {
     background-image: url('../../../assets/vazio.png');
   }
-  .selectedFase::before {
+
+  .selectedFase:before {
     transform: scale(1.7);
     z-index: 1;
   }
