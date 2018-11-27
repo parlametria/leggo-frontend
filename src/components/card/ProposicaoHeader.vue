@@ -2,9 +2,9 @@
   <div class="container">
     <fases class="fases" :fases="prop.resumo_progresso"/>
     <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
+    <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
-        <el-tag :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small">NA PAUTA</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
     </div>
@@ -85,43 +85,60 @@ export default {
   grid-template-rows: 25px auto auto;
   background: #000;
   color: #fff;
-  grid-row-gap: .3rem;
+  grid-row-gap: 1.5rem;
 }
 .fases {
+  grid-column: 3/3;
+  grid-row: 1/3;
   justify-self: end;
-  margin: .7rem 1rem;
+  margin-top: .9rem;
+  margin-right: 1.5rem;
 }
 .pressao {
   grid-column: 1/2;
   grid-row: 1/4;
 }
+
+.na_pauta {
+  grid-column: 2/3;
+  grid-row: 1/3;
+  margin-left: .6rem;
+  margin-top: .7rem;
+}
+
 .prop-apelido {
   grid-column: 2/3;
   grid-row: 2/3;
-  margin: 0 .5rem;
+  margin-left: .6rem;
+  font-size: 16pt;
+}
+
+.tags {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  margin-bottom: .5rem;
+  margin-left: .5rem;
 }
 
 .emPauta {
-  background-color: white;
-  color:red;
+  color:#dc6060 !important;
+  border-color: #dc6060 !important;
+  font-weight: bolder;
+  opacity: 1 !important;
 }
 
-.foraPauta {
-  background-color: white;
-  color:grey;
+.emPauta span {
+  animation: blinker 2s linear infinite;
 }
 
 .emPautaTag {
     color:grey;
-    width: 80px;
+    opacity: 0.4;
+    width: 85px;
     text-align: center;
+    border-color: white;
 }
-.tags {
-  grid-column: 2/3;
-  grid-row: 3/4;
-  margin: .5rem;
 
-}
 .tag {
   font-size: 8pt;
   user-select: none;
@@ -149,5 +166,26 @@ export default {
 }
 .arrow-down {
   transform: rotate(45deg);
+}
+
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+        transform: translatey(-3px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+  }
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
 }
 </style>
