@@ -13,13 +13,15 @@ export default {
   name: 'EnergyGraphic',
   data () {
     return {
-      semanas: 12
+      semanas: 12,
+      windowWidth: window.innerWidth
     }
   },
   props: {
     id: Number,
     casa: String,
-    date: Date
+    date: Date,
+    cardWidth: Number
   },
   async mounted () {
     this.getEnergiaRecente({ params: {
@@ -59,8 +61,8 @@ export default {
       return '#ef8a62'
     },
     compoundWatch () {
-      return [this.date, this.id, this.casa].join()
-    }
+      return [this.date, this.id, this.casa, this.cardWidth].join()
+    },
   }),
   methods: {
     ...mapActions(['getEnergiaRecente']),
@@ -69,7 +71,7 @@ export default {
         this.energias[0].energia_dia = this.energias[0].energia_recente
       }
 
-      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor)
+      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
