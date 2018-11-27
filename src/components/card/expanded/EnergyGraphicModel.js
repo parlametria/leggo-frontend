@@ -3,7 +3,7 @@ export default class EnergyGraphicModel {
     const encoding = {
       x: {
         field: 'periodo',
-        type: 'temporal',
+        type: 'ordinal',
         format: '%Y-%m-%d',
         scale: {
           type: 'utc'
