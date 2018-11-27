@@ -59,7 +59,8 @@ export default class EnergyGraphicModel {
           stroke: 'transparent'
         },
         axisY: {
-          minExtent: 0
+          minExtent: 0,
+          domain: false
         }
       }
     }

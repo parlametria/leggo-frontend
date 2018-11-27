@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="graphic">
     <div :id="`${casa}-${id}`"></div>
   </div>
 </template>
@@ -114,5 +114,8 @@ export default {
 <style>
 .vega-actions {
   display: none;
+}
+.graphic {
+  text-align: center;
 }
 </style>
