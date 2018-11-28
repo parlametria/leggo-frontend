@@ -1,40 +1,49 @@
 <template>
-  <div class="proposicao-card">
+  <div ref="card" class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop" :emPauta="emPauta" :clicked="dropShow"/>
+      <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
           <div class ="informations">
-          <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
-          <p class = "big-text-field">{{ autor }}</p>
-          <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
-          <hr class = "divider">
-          <p class = "small-text-field" style = "margin-top: 3px;">Local Atual: {{ dataLocalAtual }}</p>
-          <el-row>
-            <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
-          </el-row>
-          <el-row>
-            <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
-            <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
-            <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
-          </el-row>
+            <div>
+              <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
+              <p class = "big-text-field">{{ autor }}</p>
+              <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
+            </div>
 
-          <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
-          <p class = "small-text-field" style = "margin-bottom: 0px;">Pressão:</p>
-          <div class="pressure-area">
-            <energy-graphic
-              :date="dateRef"
-              :id="prop.lastEtapa.id_ext"
-              :casa="prop.lastEtapa.casa"
-              style="margin-bottom: 10 px"/>
-            <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
-          </div>
-          <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
-          <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
-            Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
-          </p>
+          <hr class = "divider">
+            <div class="pressure-area">
+              <p>Temperatura</p>
+              <energy-graphic
+                :date="dateRef"
+                :id="prop.lastEtapa.id_ext"
+                :casa="prop.lastEtapa.casa"
+                :cardWidth="cardWidth"
+                style="margin-bottom: 10 px"/>
+              <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
+            </div>
+
+          <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
+          <div>
+            <el-row>
+              <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+            </el-row>
+              <el-row>
+                <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
+                <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
+                <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
+                <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
+              </el-row>
+            </div>
+            <div>
+              <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
+              <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
+                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+              </p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -59,7 +68,8 @@ export default {
   name: 'proposicaoitem',
   data () {
     return {
-      dropShow: false
+      dropShow: false,
+      cardWidth: 0
     }
   },
   components: {
@@ -75,7 +85,7 @@ export default {
   },
   computed: {
     emPauta () {
-      return this.pautas[this.prop.id]
+      return this.prop.lastEtapa.emPauta
     },
     dataLocalAtual () {
       const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
@@ -109,6 +119,17 @@ export default {
     ...mapState({
       dateRef: state => state.filter.dateRef,
       pautas: state => state.proposicoes.pautas
+    })
+  },
+  methods: {
+    getCardWidth () {
+      this.cardWidth = this.$refs.card.offsetWidth
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.getCardWidth)
+      this.getCardWidth()
     })
   },
   props: {
@@ -163,11 +184,11 @@ export default {
   margin-left: 30px;
 }
 
-.small-text-field{
-  font-size: 12px;
-  text-decoration-color: #000000;
-  opacity: 0.5;
-}
+  .small-text-field{
+    font-size: 12px;
+    text-decoration-color: #000000;
+    opacity: 0.5;
+  }
 
 .big-text-field{
   margin-top: 0px;
@@ -187,14 +208,10 @@ export default {
 }
 
 .pressure-info {
-  float: left;
-  margin-left: 30px;
-  margin-top: 3%;
   font-size: 12px;
 }
 
 .pressure-area {
-  display: flex;
   margin-bottom: 20px;
 }
 

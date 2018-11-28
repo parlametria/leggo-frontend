@@ -1,32 +1,29 @@
 <template>
   <div>
-    <el-row justify="center">
-        <div>
-          <ul class="progressbar">
-              <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase, i)"/>
-          </ul>
+    <ul class="progressbar">
+      <el-tooltip
+        placement="bottom"
+        :value="tooltip(i)"
+        v-for="(fase, i) in sortedFases"
+        :key="i"
+        effect="light">
+        <div slot="content">
+          <span class="title-text-field">Fase: </span>
+          {{fase.fase_global}} - {{fase.local}}
+
+          <br/>
+          <span class="title-text-field">Casa: </span>
+          <span class="casa-text-field">{{fase.local_casa}}</span>
+          <br/>
+
+          <span class="title-text-field" v-if="fase.data_inicio">Início: {{fase.data_inicio}}</span>
+          <br/>
+          <span class="title-text-field" v-if="fase.data_fim">Fim: {{fase.data_fim}}</span>
         </div>
-    </el-row>
-    <el-row type="flex" justify="space-around" style="text-align: center">
-        <el-col :span="6">
-          <el-button :disabled="this.selectedFase == 0"
-                    round
-                    class="el-icon-arrow-left"
-                    size="mini"
-                    @click="selectedFase--"></el-button>
-        </el-col>
-        <el-col :span="10" :style="{ 'text-align': 'center' }">
-           {{ sortedFases[selectedFase].local }} - {{ sortedFases[selectedFase].fase_global }}
-        </el-col>
-        <el-col :span="6">
-          <el-button :disabled="this.selectedFase == this.sortedFases.length - 1"
-            round
-            class="el-icon-arrow-right"
-            size="mini"
-            @click="selectedFase++"></el-button>
-        </el-col>
-      </el-row>
-    </div>
+        <li :class="styleFase(fase, i)"/>
+      </el-tooltip>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -42,14 +39,16 @@ export default {
   },
   mounted () {
     this.selectedFase = this.indexOfFaseAtual
+    this.inProgressFase = this.indexOfFaseAtual
   },
+
   methods: {
     styleFase (fase, i) {
       return {
         'active': this.isFinished(fase),
         'future': this.isFuture(fase),
         'jumped': this.isJumpedFase(fase),
-        'inProgress': this.isInProgress(fase),
+        'inProgress': i === this.inProgressFase,
         'senado': fase.local_casa === 'senado',
         'camara': fase.local_casa === 'camara',
         'planalto': fase.local_casa === 'presidência da república' || fase.local_casa === 'congresso',
@@ -72,6 +71,10 @@ export default {
 
     isFuture (fase) {
       return fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase)
+    },
+
+    tooltip (i) {
+      return this.indexOfFaseAtual === i
     }
   },
   computed: {
@@ -120,7 +123,7 @@ export default {
       text-transform: uppercase;
       color: black;
   }
-  // --- os before fazem as linhas, e os after os circulo ---
+  // --- os before fazem os circulos, e os after as linhas ---
 
   .progressbar li:before {
       width: 30px;
@@ -137,6 +140,7 @@ export default {
       border-width: 1px;
       border-color: white;
       border-radius: 50%;
+      cursor: pointer;
   }
 
   .progressbar li:after { //linha
@@ -173,9 +177,18 @@ export default {
   .jumped:before {
     background-image: url('../../../assets/colored_vazio.png');
   }
-  .selectedFase::before {
+
+  .selectedFase:before {
     transform: scale(1.7);
     z-index: 1;
+  }
+  .title-text-field{
+    font-size: 12px;
+    text-decoration-color: #000000;
+    opacity: 0.5;
+  }
+  .casa-text-field{
+    text-transform: uppercase;
   }
 
 </style>

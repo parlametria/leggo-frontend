@@ -1,16 +1,12 @@
 <template>
   <div class="container">
-    <pressure-bar :id="prop.lastEtapa.id_ext"/>
-    <div class="content">
-      <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
-      <fases :fases="prop.resumo_progresso"/>
-      <div>
-        <span>{{prop.apelido}}</span>
-      </div>
-      <div class="tags">
+    <fases class="fases" :fases="prop.resumo_progresso"/>
+    <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
+    <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
+    <span class="prop-apelido">{{prop.apelido}}</span>
+    <div class="tags">
         <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
         <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
-      </div>
     </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
@@ -19,18 +15,20 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 import Fases from './collapsed/Fases.vue'
 import PressureBar from './collapsed/PressureBar.vue'
+import moment from 'moment'
 
 export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    emPauta: Array,
-    clicked: Boolean
+    clicked: Boolean,
+    dateRef: Date
   },
   components: {
     RegimeTramitacao,
@@ -39,12 +37,41 @@ export default {
     Fases,
     PressureBar
   },
+  async mounted () {
+    this.getStatusPauta({ params: {
+      id: this.prop.lastEtapa.id_ext,
+      casa: this.prop.lastEtapa.casa,
+      date: this.formattedDate
+    } })
+  },
+  methods: {
+    ...mapActions(['getStatusPauta'])
+  },
   computed: {
+    ...mapState({
+      pautas: state => state.proposicoes.pautas
+    }),
+    na_pauta () {
+      let id = this.prop.lastEtapa.id_ext
+      return this.pautas && this.pautas[id] !== undefined && this.pautas[id].length > 0
+    },
     eventos () {
       return [
         { data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ' },
         { data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR' }
       ]
+    },
+    formattedDate () {
+      return moment(this.dateRef).format('YYYY-MM-DD')
+    }
+  },
+  watch: {
+    dateRef () {
+      this.getStatusPauta({ params: {
+        id: this.prop.lastEtapa.id_ext,
+        casa: this.prop.lastEtapa.casa,
+        date: this.formattedDate
+      } })
     }
   }
 }
@@ -52,75 +79,112 @@ export default {
 
 <style scoped>
 .container {
-    display: flex;
-    background: #000;
+  display: grid;
+  grid-template-columns: 41px auto 30px;
+  grid-template-rows: 25px auto auto;
+  background: #000;
+  color: #fff;
+  grid-row-gap: 1.5rem;
+}
+.fases {
+  grid-column: 3/3;
+  grid-row: 1/3;
+  justify-self: end;
+  margin-top: .9rem;
+  margin-right: 1.5rem;
+}
+.pressao {
+  grid-column: 1/2;
+  grid-row: 1/4;
 }
 
-.content {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    margin: 0px;
-    color: white;
-    font-size: 16pt;
+.na_pauta {
+  grid-column: 2/3;
+  grid-row: 1/3;
+  margin-left: .6rem;
+  margin-top: .7rem;
 }
 
-.content > * {
-    margin: 3px 0;
-}
-
-.content .tags * {
-  margin-bottom: 3px;
-}
-
-.emPautaTag {
-    background-color: white;
-    color:black;
-    text-decoration: underline;
-    font-style: italic;
-    font-size: 9pt;
-    padding: 2px;
-    user-select: none;
-    width: 55px;
-}
-
-.tag {
-    font-size: 8pt;
-    user-select: none;
-    text-transform: uppercase;
-    margin: 0 3px;
-    color: #FFF;
-    border-color: #FFF;
-    width: 85px;
-    text-align: center;
+.prop-apelido {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  margin-left: .6rem;
+  font-size: 16pt;
 }
 
 .tags {
-    margin-top: 5px;
-    color: #ffdf
+  grid-column: 2/3;
+  grid-row: 3/4;
+  margin-bottom: .5rem;
+  margin-left: .5rem;
 }
 
+.emPauta {
+  color:#dc6060 !important;
+  border-color: #dc6060 !important;
+  font-weight: bolder;
+  opacity: 1 !important;
+}
+
+.emPauta span {
+  animation: blinker 2s linear infinite;
+}
+
+.emPautaTag {
+    color:grey;
+    opacity: 0.4;
+    width: 85px;
+    text-align: center;
+    border-color: white;
+}
+
+.tag {
+  font-size: 8pt;
+  user-select: none;
+  text-transform: uppercase;
+  margin: 0 3px;
+  color: #FFF;
+  border-color: #FFF;
+  width: 85px;
+  text-align: center;
+}
 .selector {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
+  grid-column: 3/4;
+  grid-row: 1/4;
+  display: flex;
+  align-items: center;
 }
-
 .arrow {
-    margin: auto 1rem;
-    height: 10px;
-    width: 10px;
-    border: solid #fff;
-    border-width: 0px 4px 4px 0;
-    transform: rotate(-45deg);
-    transition: transform .5s;
-    border-radius: 1px;
+  height: 10px;
+  width: 10px;
+  border: solid #fff;
+  border-width: 0px 4px 4px 0;
+  transform: rotate(-45deg);
+  transition: transform .5s;
+  border-radius: 1px;
 }
-
 .arrow-down {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+        transform: translatey(-3px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+  }
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
 </style>
