@@ -2,7 +2,7 @@
   <div align="left">
     <h1>Cases</h1>
     <h2>PL do Veneno</h2>
-    <h4>Subidas Bruscas na Pressão</h4>
+    <h4>Subidas Bruscas na Temperatura</h4>
     <ul>
       <li>
         <a>14/05/2018</a>
@@ -69,7 +69,7 @@
       </li>
     </ul>
     <h2>Programa Nacional de Redução de Agrotóxicos (PNARA)</h2>
-    <h4>Subidas Bruscas na Pressão</h4>
+    <h4>Subidas Bruscas na Temperatura</h4>
     <ul>
       <li>
         <a>28/05/2018</a>
