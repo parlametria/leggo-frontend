@@ -85,14 +85,17 @@ export default {
     },
     checkPautaFilter (prop) {
       return this.filter.emPautaFilter.some(options => {
-        return ((options.tipo === 'Sim' && prop.em_pauta) ||
-            (options.tipo === 'Não' && !prop.em_pauta)) && options.status
+        const propId = prop.id_ext
+        const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+
+        return options.status &&
+               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))       
       })
     },
     checkApelidoFilter (prop) {
-      let apelido = prop.apelido.toLowerCase()
-      let filtro = this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase()
-      
+      const apelido = prop.apelido.toLowerCase()
+      const filtro = this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase()
+
       return apelido.match(filtro)
     },
     checkPropMatchesFilter (prop) {
