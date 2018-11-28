@@ -14,7 +14,6 @@
             </div>
 
           <hr class = "divider">
-
             <div class="pressure-area">
               <p>Temperatura</p>
               <energy-graphic
@@ -26,10 +25,11 @@
               <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
             </div>
 
-          <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px">
-
-            <div>
+          <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
+          <div>
+            <el-row>
               <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+            </el-row>
               <el-row>
                 <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
                 <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
@@ -43,6 +43,7 @@
                 Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
               </p>
             </div>
+
           </div>
         </div>
       </div>
@@ -183,11 +184,11 @@ export default {
   margin-left: 30px;
 }
 
-.small-text-field{
-  font-size: 12px;
-  text-decoration-color: #000000;
-  opacity: 0.5;
-}
+  .small-text-field{
+    font-size: 12px;
+    text-decoration-color: #000000;
+    opacity: 0.5;
+  }
 
 .big-text-field{
   margin-top: 0px;
