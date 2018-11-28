@@ -89,7 +89,7 @@ export default {
         const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
 
         return options.status &&
-               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))       
+               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))
       })
     },
     checkApelidoFilter (prop) {
