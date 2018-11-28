@@ -53,7 +53,6 @@ export default {
     }),
     na_pauta () {
       let id = this.prop.lastEtapa.id_ext
-      console.log(this.pautas && this.pautas[id] !== undefined && this.pautas[id].length > 0)
       return this.pautas && this.pautas[id] !== undefined && this.pautas[id].length > 0
     },
     eventos () {

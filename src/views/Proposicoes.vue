@@ -47,7 +47,11 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          let n = b.lastEtapa.em_pauta - a.lastEtapa.em_pauta
+          let idA = a.lastEtapa.id_ext
+          let idB = b.lastEtapa.id_ext
+          let pautaA = this.pautas && this.pautas[idA] !== undefined && this.pautas[idA].length > 0
+          let pautaB = this.pautas && this.pautas[idB] !== undefined && this.pautas[idB].length > 0
+          let n = pautaB - pautaA
           if (n !== 0) {
             return n
           }
@@ -66,7 +70,8 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
-      energias: state => state.proposicoes.energias
+      energias: state => state.proposicoes.energias,
+      pautas: state => state.proposicoes.pautas
     }),
     ...mapGetters(['perFilterOptions'])
   },
