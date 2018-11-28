@@ -7,7 +7,6 @@
         v-for="(fase, i) in sortedFases"
         :key="i"
         effect="light">
-
         <div slot="content">
           <span class="title-text-field">Fase: </span>
           {{fase.fase_global}} - {{fase.local}}
@@ -21,7 +20,6 @@
           <br/>
           <span class="title-text-field" v-if="fase.data_fim">Fim: {{fase.data_fim}}</span>
         </div>
-
         <li :class="styleFase(fase, i)"/>
       </el-tooltip>
     </ul>
