@@ -78,17 +78,27 @@ export default {
   methods: {
     ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
-    checkPropMatchesFilter (prop) {
+    checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.filter.current[filter].includes(prop[filter])) &&
-        this.filter.emPautaFilter.some(
-          // TODO: usar nova estrutura do emPauta
-          options =>
-            ((options.tipo === 'Sim' && prop.em_pauta) ||
-              (options.tipo === 'Não' && !prop.em_pauta)) && options.status
-        ) &&
-        prop.apelido.toLowerCase().match(
-          this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+        filter => this.filter.current[filter].includes(prop[filter])
+      )
+    },
+    checkPautaFilter (prop) {
+      return this.filter.emPautaFilter.some(options => {
+        return ((options.tipo === 'Sim' && prop.em_pauta) ||
+            (options.tipo === 'Não' && !prop.em_pauta)) && options.status
+      })
+    },
+    checkApelidoFilter (prop) {
+      let apelido = prop.apelido.toLowerCase()
+      let filtro = this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase()
+      
+      return apelido.match(filtro)
+    },
+    checkPropMatchesFilter (prop) {
+      return this.checkCategoricalFilters(prop) &&
+             this.checkPautaFilter(prop) &&
+             this.checkApelidoFilter(prop)
     }
   }
 }
