@@ -45,7 +45,7 @@
           :index="'1-' + (i+1)" :key="i">
           <el-checkbox
             v-model="opcao.status">
-            {{ opcao.tipo }}  
+            {{ opcao.tipo }}
           </el-checkbox>
         </el-menu-item>
       </el-submenu>
