@@ -148,7 +148,7 @@ export default {
       height: 2px;
       content: '';
       position: absolute;
-      background-color: #DC6060;
+      background-color: #999999;
       top: 15px;
       left: -50%;
       z-index: -1;
@@ -157,12 +157,12 @@ export default {
       content: none;
   }
   .camara:before {
-    background-image: url('../../../assets/camara.png');
+    background-image: url('../../../assets/colored_camara.png');
     background-position: left;
     background-size: cover;
   }
   .senado:before {
-    background-image: url('../../../assets/senado.png');
+    background-image: url('../../../assets/colored_senado.png');
   }
 
   .future:before {
@@ -171,11 +171,11 @@ export default {
   }
 
   .planalto:before {
-    background-image: url('../../../assets/planalto.png');
+    background-image: url('../../../assets/colored_planalto.png');
   }
 
   .jumped:before {
-    background-image: url('../../../assets/vazio.png');
+    background-image: url('../../../assets/colored_vazio.png');
   }
 
   .selectedFase:before {

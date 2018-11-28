@@ -82,7 +82,7 @@ export default {
   display: grid;
   grid-template-columns: 41px auto 30px;
   grid-template-rows: 25px auto auto;
-  background: #000;
+  background: #444444;
   color: #fff;
   grid-row-gap: 1.5rem;
 }
