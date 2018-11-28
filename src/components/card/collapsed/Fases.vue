@@ -85,7 +85,7 @@ export default {
   width: 11px;
   height: 11px;
   background-color: transparent;
-  border:1px solid white;
+  border:0.05px solid gray;
 }
 
 </style>
