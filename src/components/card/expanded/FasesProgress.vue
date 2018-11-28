@@ -1,17 +1,17 @@
 <template>
   <div>
     <ul class="progressbar">
-      <el-tooltip 
-        placement="bottom" 
-        :value="tooltip(i)" 
-        v-for="(fase, i) in sortedFases" 
+      <el-tooltip
+        placement="bottom"
+        :value="tooltip(i)"
+        v-for="(fase, i) in sortedFases"
         :key="i"
         effect="light">
 
         <div slot="content">
           <span class="title-text-field">Fase: </span>
-          {{fase.fase_global}} - {{fase.local}} 
-         
+          {{fase.fase_global}} - {{fase.local}}
+
           <br/>
           <span class="title-text-field">Casa: </span>
           <span class="casa-text-field">{{fase.local_casa}}</span>
@@ -40,8 +40,8 @@ export default {
     }
   },
   mounted () {
-    this.selectedFase = this.indexOfFaseAtual,
-    this.inProgressFase =  this.indexOfFaseAtual
+    this.selectedFase = this.indexOfFaseAtual
+    this.inProgressFase = this.indexOfFaseAtual
   },
 
   methods: {
@@ -77,7 +77,7 @@ export default {
 
     tooltip (i) {
       return this.indexOfFaseAtual === i
-    },
+    }
   },
   computed: {
     sortedFases () {
