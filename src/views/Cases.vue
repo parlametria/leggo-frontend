@@ -106,3 +106,9 @@
     </ul>
   </div>
 </template>
+
+<style lang="scss">
+a {
+    color: #000;
+}
+</style>
