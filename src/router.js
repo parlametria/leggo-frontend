@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Proposicoes from '@/views/Proposicoes.vue'
 import Sobre from '@/views/Sobre.vue'
+import Cases from '@/views/Cases.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 
 Vue.use(Router)
@@ -25,6 +26,11 @@ export default new Router({
         default: Proposicoes,
         menu: FilterMenu
       }
+    },
+    {
+      path: '/cases',
+      name: 'cases',
+      component: Cases
     }
   ]
 })
