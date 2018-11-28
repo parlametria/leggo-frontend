@@ -1,11 +1,29 @@
 <template>
   <div>
     <ul class="progressbar">
-      <li v-for="(fase, i) in sortedFases" :key="i" :class="styleFase(fase, i)" v-on:click="tooltip(i)">
-        <span class="tooltip">
-          {{fase.local_casa}}
-        </span>
-      </li>
+      <el-tooltip 
+        placement="bottom" 
+        :value="tooltip(i)" 
+        v-for="(fase, i) in sortedFases" 
+        :key="i"
+        effect="light">
+
+        <div slot="content">
+          <span class="title-text-field">Fase: </span>
+          {{fase.fase_global}} - {{fase.local}} 
+         
+          <br/>
+          <span class="title-text-field">Casa: </span>
+          <span class="casa-text-field">{{fase.local_casa}}</span>
+          <br/>
+
+          <span class="title-text-field" v-if="fase.data_inicio">Início: {{fase.data_inicio}}</span>
+          <br/>
+          <span class="title-text-field" v-if="fase.data_fim">Fim: {{fase.data_fim}}</span>
+        </div>
+
+        <li :class="styleFase(fase, i)"/>
+      </el-tooltip>
     </ul>
   </div>
 </template>
@@ -58,8 +76,8 @@ export default {
     },
 
     tooltip (i) {
-      this.selectedFase = i
-    }
+      return this.indexOfFaseAtual === i
+    },
   },
   computed: {
     sortedFases () {
@@ -137,42 +155,6 @@ export default {
       left: -50%;
       z-index: -1;
   }
-
-  .progressbar li .tooltip{
-    visibility: hidden;
-    background: white;
-    border: 1px solid #cecece;
-    color: #484848;
-    border-radius: 3px;
-    font-weight: 500;
-    box-shadow: 0 2px 1px #bcbcbc;
-    min-width: 100px;
-    transition: all .200s cubic-bezier(0, 0, 0.2, 1);
-    padding: 5px 0px;
-    margin-top: 10px;
-    position: absolute;
-    margin-left: -50px;
-    z-index: 1;
-    font-size: 10px;
-  }
-  
-  .progressbar li.selectedFase .tooltip {
-    visibility: visible;
-    transform: translate3d(0, -50%, 0);
-    top: calc(100% + 1em);
-    left: 50%; 
-  }
-
-   .progressbar li.selectedFase .tooltip:before {
-    content: '';
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 5px solid #bcbcbc; 
-    position: absolute;
-    top: -5px;
-    left: 40px;
-   }
-
   .progressbar li:first-child:after {
       content: none;
   }
@@ -201,6 +183,14 @@ export default {
   .selectedFase:before {
     transform: scale(1.7);
     z-index: 1;
+  }
+  .title-text-field{
+    font-size: 12px;
+    text-decoration-color: #000000;
+    opacity: 0.5;
+  }
+  .casa-text-field{
+    text-transform: uppercase;
   }
 
 </style>

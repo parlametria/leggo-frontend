@@ -184,11 +184,11 @@ export default {
   margin-left: 30px;
 }
 
-.small-text-field{
-  font-size: 12px;
-  text-decoration-color: #000000;
-  opacity: 0.5;
-}
+  .small-text-field{
+    font-size: 12px;
+    text-decoration-color: #000000;
+    opacity: 0.5;
+  }
 
 .big-text-field{
   margin-top: 0px;
