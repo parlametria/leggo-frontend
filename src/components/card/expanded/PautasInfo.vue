@@ -46,7 +46,7 @@ export default {
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
-    },
+    }
   },
   methods: {
     ...mapActions(['getPautas']),
