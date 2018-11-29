@@ -1,7 +1,5 @@
 <template>
   <div class="pressure-bar">
-    <img src="../../../assets/arrow.svg" alt=""
-    class="arrow" :style="arrowStyle">
     <div :style="barStyle"></div>
   </div>
 </template>
@@ -36,11 +34,6 @@ export default {
         background: (this.coeficiente >= 0 ? '#dc6060' : '#60C7DC'),
         height: `${this.porcentagem}%`
       }
-    },
-    arrowStyle () {
-      return {
-        transform: (this.coeficiente < 0 ? 'rotate(180deg)' : '')
-      }
     }
   }
 }
@@ -53,13 +46,5 @@ export default {
   min-width: 41px;
   display: flex;
   flex-direction: column-reverse;
-}
-.arrow {
-  position: absolute;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 </style>
