@@ -1,13 +1,15 @@
 <template>
   <div class="container">
-    <fases class="fases" :fases="prop.resumo_progresso"/>
     <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
-    <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
-    <span class="prop-apelido">{{prop.apelido}}</span>
-    <div class="tags">
-        <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
-        <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
-    </div>
+    <div class="informations">
+      <el-tag class="na_pauta emPautaTag" :class="{'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
+      <span class="prop-apelido">{{prop.apelido}}</span>
+      <div>
+          <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
+          <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
+      </div>
+      <fases :fases="prop.resumo_progresso"/>
+    </div>  
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
     </div>
@@ -77,67 +79,49 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   display: grid;
   grid-template-columns: 41px auto 30px;
-  grid-template-rows: 25px auto auto;
-  background: #444444;
+  background: #444;
   color: #fff;
-  grid-row-gap: 1.5rem;
-}
-.fases {
-  grid-column: 3/3;
-  grid-row: 1/3;
-  justify-self: end;
-  margin-top: .9rem;
-  margin-right: 1.5rem;
 }
 .pressao {
   grid-column: 1/2;
-  grid-row: 1/4;
 }
-
-.na_pauta {
+.informations {
   grid-column: 2/3;
-  grid-row: 1/3;
-  margin-left: .6rem;
-  margin-top: .7rem;
+  display: flex;
+  flex-direction: column;
+  padding: .1rem .5rem;
+  & > * {
+    margin: .3rem 0;
+  }
 }
-
+.selector {
+  grid-column: 3/4;
+  display: flex;
+  align-items: center;
+}
 .prop-apelido {
-  grid-column: 2/3;
-  grid-row: 2/3;
-  margin-left: .6rem;
   font-size: 16pt;
 }
-
-.tags {
-  grid-column: 2/3;
-  grid-row: 3/4;
-  margin-bottom: .5rem;
-  margin-left: .5rem;
-}
-
 .emPauta {
   color:#dc6060 !important;
   border-color: #dc6060 !important;
   font-weight: bolder;
   opacity: 1 !important;
+  span {
+    animation: blinker 2s linear infinite;
+  }
 }
-
-.emPauta span {
-  animation: blinker 2s linear infinite;
-}
-
 .emPautaTag {
-    color:grey;
-    opacity: 0.4;
-    width: 85px;
-    text-align: center;
-    border-color: white;
+  color:grey;
+  opacity: 0.4;
+  width: 85px;
+  text-align: center;
+  border-color: white;
 }
-
 .tag {
   font-size: 8pt;
   user-select: none;
@@ -147,12 +131,6 @@ export default {
   border-color: #FFF;
   width: 85px;
   text-align: center;
-}
-.selector {
-  grid-column: 3/4;
-  grid-row: 1/4;
-  display: flex;
-  align-items: center;
 }
 .arrow {
   height: 10px;
@@ -166,21 +144,6 @@ export default {
 .arrow-down {
   transform: rotate(45deg);
 }
-
-@keyframes float {
-    0% {
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-    }
-    50% {
-        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-        transform: translatey(-3px);
-    }
-    100% {
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-    }
-  }
 
 @keyframes blinker {
   50% {
