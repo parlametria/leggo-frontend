@@ -28,7 +28,7 @@
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
           <div>
             <el-row>
-              <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+              <fases-progress class="fases-progress" :class="{'visible': dropShow}" style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
             </el-row>
               <el-row>
                 <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
@@ -213,6 +213,17 @@ export default {
 
 .pressure-area {
   margin-bottom: 20px;
+}
+
+.fases-progress {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s linear;
 }
 
 </style>
