@@ -7,6 +7,7 @@
     </el-row>
     <el-row type="flex" justify="space-around">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+      <!-- <h3>O congresso, dados de {{this.dataAtualFormatada()}}</h3> -->
       <p v-if="pending.proposicoes">loading posts...</p>
       <p v-if="error.proposicoes">loading failed</p>
       <transition name="el-fade-in" mode="out-in">
@@ -82,6 +83,15 @@ export default {
       return this.filter.filters.every(
         filter => this.filter.current[filter].includes(prop[filter])
       )
+    },
+        dataAtualFormatada(){
+    var data = new Date(),
+        dia  = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0'+dia : dia,
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    return diaF+"/"+mesF+"/"+anoF;
     },
     checkPautaFilter (prop) {
       return this.filter.emPautaFilter.some(options => {
