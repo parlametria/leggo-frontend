@@ -1,11 +1,11 @@
 <template>
-    <div class="pautas">
+    <div >
         <div v-if="id in pautas">
             <p class="descricao">Próximas pautas</p>
-            <table>
+            <table class="pautas">
                 <tr v-for="(pauta, key) in propPautas" :key="key">
-                    <td>{{formatDate(pauta.data)}}</td>
-                    <td>{{pauta.local}}</td>
+                    <td><p>{{formatDate(pauta.data)}}</p></td>
+                    <td><p>{{pauta.local}}</p></td>
                 </tr>
             </table>
         </div>
@@ -39,28 +39,28 @@ export default {
   },
   computed: {
     propPautas () {
-      let now = Date.now()
-      return this.pautas[this.id].filter(pauta => pauta.data >= now)
+      return this.pautas[this.id]
     },
     ...mapState({
       pautas: state => state.pautas.pautasDic
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
-    }
+    },
   },
   methods: {
-    ...mapActions(['getPautas'])
+    ...mapActions(['getPautas']),
+    formatDate: date => moment(date).format('DD/MM/YYYY')
   }
 }
 </script>
 
 <style scoped>
 .pautas {
+    font-size: 12px;
     text-align: center;
 }
 .descricao {
-    font-weight: bold;
 }
 .empty-pautas {
     color: #999;
