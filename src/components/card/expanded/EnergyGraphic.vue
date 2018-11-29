@@ -70,7 +70,8 @@ export default {
         this.energias[0].energia_dia = this.energias[0].energia_recente
       }
 
-      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor, this.cardWidth)
+      let model = new EnergyGraphicModel(
+        this.energias, this.maxEnergia, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {

@@ -1,6 +1,6 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in sortedFases" :key="i">
+    <div v-for="(fase,i) in fasesResumidas" :key="i">
       <el-tooltip :content="fase.local + '-' + fase.fase_global">
         <div class="fase" :class="geraEstilo(fase)"/>
       </el-tooltip>
@@ -9,12 +9,17 @@
 </template>
 
 <script>
+import { resumirFases } from '@/utils'
 export default {
   name: 'Fases',
   props: {
     fases: Array
   },
-
+  computed: {
+    fasesResumidas () {
+      return resumirFases(this.fases)
+    }
+  },
   methods: {
     geraEstilo (fase) {
       if (fase.pulou) {
@@ -29,23 +34,6 @@ export default {
       } else {
         return 'naoRealizada'
       }
-    }
-  },
-  computed: {
-    sortedFases () {
-      let sortOrder = { 'Comissões - Construção': '1',
-        'Plenário - Construção': '2',
-        'Comissões - Revisão I': '3',
-        'Plenário - Revisão I': '4',
-        'Comissões - Revisão II': '5',
-        'Plenário - Revisão II': '6',
-        'Presidência da República - Sansão/Veto': '7',
-        'Congresso - Avaliação dos Vetos': '8' }
-      return this.fases.slice().sort((a, b) => {
-        let indexA = a.local + ' - ' + a.fase_global
-        let indexB = b.local + ' - ' + b.fase_global
-        return (sortOrder[indexA] - sortOrder[indexB])
-      })
     }
   }
 }

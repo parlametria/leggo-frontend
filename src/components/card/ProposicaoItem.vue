@@ -172,11 +172,11 @@ export default {
   margin-left: 30px;
 }
 
-  .small-text-field{
+.small-text-field {
     font-size: 12px;
-    text-decoration-color: #000000;
+    text-decoration-color: #000;
     opacity: 0.5;
-  }
+}
 
 .big-text-field{
   margin-top: 0px;
@@ -189,10 +189,10 @@ export default {
   max-width: 70%;
 }
 
-.divider{
+.divider {
   margin-right: 15px;
   margin-left: -15px;
-  color: #000000;
+  color: #000;
 }
 
 .pressure-info {
