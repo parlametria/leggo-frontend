@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
+import pautas from './pautas'
 
 Vue.use(Vuex)
 
@@ -12,18 +13,7 @@ const proposicoes = new Vapi({
     tramitacoes: new Set(),
     energias: {},
     coeficiente: {},
-    pautas: {
-      4: [
-        { data: new Date('2018-10-20'), local: 'CCJ' },
-        { data: new Date('2018-11-04'), local: 'CAPADR' },
-        { data: new Date('2018-11-10'), local: 'CMADS' }
-      ],
-      9: [
-        { data: new Date('2018-10-20'), local: 'CAPADR' },
-        { data: new Date('2018-11-07'), local: 'CAPADR' },
-        { data: new Date('2018-11-20'), local: 'CMADS' }
-      ]
-    },
+    pautas: {},
     maxEnergia: 0
   } }).get({
   action: 'getProposicao',
@@ -88,6 +78,7 @@ proposicoes.getters = {
 export default new Vuex.Store({
   modules: {
     proposicoes,
-    filter: filterStore
+    filter: filterStore,
+    pautas: pautas
   }
 })
