@@ -71,7 +71,7 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       energias: state => state.proposicoes.energias,
-      pautas: state => state.proposicoes.pautas
+      pautas: state => state.pautas.pautasDic
     }),
     ...mapGetters(['perFilterOptions'])
   },

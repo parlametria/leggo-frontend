@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
+import pautas from './pautas'
 
 Vue.use(Vuex)
 
@@ -85,6 +86,7 @@ proposicoes.getters = {
 export default new Vuex.Store({
   modules: {
     proposicoes,
-    filter: filterStore
+    filter: filterStore,
+    pautas: pautas
   }
 })

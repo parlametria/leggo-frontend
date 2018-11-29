@@ -49,7 +49,7 @@ export default {
   },
   computed: {
     ...mapState({
-      pautas: state => state.proposicoes.pautas
+      pautas: state => state.pautas.pautasDic
     }),
     na_pauta () {
       let id = this.prop.lastEtapa.id_ext
