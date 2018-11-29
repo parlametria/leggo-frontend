@@ -9,7 +9,7 @@
           <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
       </div>
       <fases :fases="prop.resumo_progresso"/>
-    </div>  
+    </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
     </div>
