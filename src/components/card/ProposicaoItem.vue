@@ -1,5 +1,5 @@
 <template>
-  <div ref="card" class="proposicao-card">
+  <div class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
       <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
     </div>
@@ -20,9 +20,9 @@
                 :date="dateRef"
                 :id="prop.lastEtapa.id_ext"
                 :casa="prop.lastEtapa.casa"
-                :cardWidth="cardWidth"
                 style="margin-bottom: 10 px"/>
               <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
+              <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
             </div>
 
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
@@ -58,7 +58,7 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import EnergyGraphic from './expanded/EnergyGraphic'
 import FasesBar from './expanded/FasesBar'
 import FasesProgress from './expanded/FasesProgress'
-import ListaPauta from './expanded/ListaPauta'
+import PautasInfo from './expanded/PautasInfo'
 import PressureBar from './collapsed/PressureBar'
 import PressureInfo from './expanded/PressureInfo'
 import { mapState } from 'vuex'
@@ -68,8 +68,7 @@ export default {
   name: 'proposicaoitem',
   data () {
     return {
-      dropShow: false,
-      cardWidth: 0
+      dropShow: false
     }
   },
   components: {
@@ -78,7 +77,7 @@ export default {
     EnergyGraphic,
     FasesBar,
     ProposicaoHeader,
-    ListaPauta,
+    PautasInfo,
     FasesProgress,
     PressureBar,
     PressureInfo
@@ -118,18 +117,7 @@ export default {
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
-      pautas: state => state.proposicoes.pautas
-    })
-  },
-  methods: {
-    getCardWidth () {
-      this.cardWidth = this.$refs.card.offsetWidth
-    }
-  },
-  mounted () {
-    this.$nextTick(() => {
-      window.addEventListener('resize', this.getCardWidth)
-      this.getCardWidth()
+      pautas: state => state.pautas.pautasDic
     })
   },
   props: {
