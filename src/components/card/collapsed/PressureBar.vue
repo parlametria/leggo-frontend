@@ -1,7 +1,5 @@
 <template>
   <div class="pressure-bar">
-    <img src="../../../assets/arrow.svg" alt=""
-    class="arrow" :style="arrowStyle">
     <div :style="barStyle"></div>
   </div>
 </template>
