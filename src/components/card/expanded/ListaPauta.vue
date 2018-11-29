@@ -27,7 +27,7 @@ export default {
       return this.pautas[this.id].filter(pauta => pauta.data >= now)
     },
     ...mapState({
-      pautas: state => state.proposicoes.pautas
+      pautas: state => state.pautas.pautasDic
     })
   },
   methods: {

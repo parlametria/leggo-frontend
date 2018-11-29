@@ -2,11 +2,11 @@
   <div class="container">
     <fases class="fases" :fases="prop.resumo_progresso"/>
     <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
+    <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
-      <span v-if="prop.lastEtapa.em_pauta" class="emPautaTag">em pauta</span>
-      <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
-      <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
+        <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
+        <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
     </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
@@ -15,18 +15,20 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 import Fases from './collapsed/Fases.vue'
 import PressureBar from './collapsed/PressureBar.vue'
+import moment from 'moment'
 
 export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    emPauta: Array,
-    clicked: Boolean
+    clicked: Boolean,
+    dateRef: Date
   },
   components: {
     RegimeTramitacao,
@@ -35,12 +37,41 @@ export default {
     Fases,
     PressureBar
   },
+  async mounted () {
+    this.getStatusPauta({ params: {
+      id: this.prop.lastEtapa.id_ext,
+      casa: this.prop.lastEtapa.casa,
+      date: this.formattedDate
+    } })
+  },
+  methods: {
+    ...mapActions(['getStatusPauta'])
+  },
   computed: {
+    ...mapState({
+      pautas: state => state.pautas.pautasDic
+    }),
+    na_pauta () {
+      let id = this.prop.lastEtapa.id_ext
+      return this.pautas && this.pautas[id] !== undefined && this.pautas[id].length > 0
+    },
     eventos () {
       return [
         { data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ' },
         { data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR' }
       ]
+    },
+    formattedDate () {
+      return moment(this.dateRef).format('YYYY-MM-DD')
+    }
+  },
+  watch: {
+    dateRef () {
+      this.getStatusPauta({ params: {
+        id: this.prop.lastEtapa.id_ext,
+        casa: this.prop.lastEtapa.casa,
+        date: this.formattedDate
+      } })
     }
   }
 }
@@ -51,28 +82,62 @@ export default {
   display: grid;
   grid-template-columns: 41px auto 30px;
   grid-template-rows: 25px auto auto;
-  background: #000;
+  background: #444444;
   color: #fff;
-  grid-row-gap: .3rem;
+  grid-row-gap: 1.5rem;
 }
 .fases {
+  grid-column: 3/3;
+  grid-row: 1/3;
   justify-self: end;
-  margin: .7rem 1rem;
+  margin-top: .9rem;
+  margin-right: 1.5rem;
 }
 .pressao {
   grid-column: 1/2;
   grid-row: 1/4;
 }
+
+.na_pauta {
+  grid-column: 2/3;
+  grid-row: 1/3;
+  margin-left: .6rem;
+  margin-top: .7rem;
+}
+
 .prop-apelido {
   grid-column: 2/3;
   grid-row: 2/3;
-  margin: 0 .5rem;
+  margin-left: .6rem;
+  font-size: 16pt;
 }
+
 .tags {
   grid-column: 2/3;
   grid-row: 3/4;
-  margin: .5rem;
+  margin-bottom: .5rem;
+  margin-left: .5rem;
 }
+
+.emPauta {
+  color:#dc6060 !important;
+  border-color: #dc6060 !important;
+  font-weight: bolder;
+  opacity: 1 !important;
+}
+
+.emPauta span {
+  animation: blinker 2s linear infinite;
+}
+
+.emPautaTag {
+    color:grey;
+    opacity: 0.4;
+    width: 85px;
+    text-align: center;
+    border-color: white;
+}
+
 .tag {
   font-size: 8pt;
   user-select: none;
@@ -100,5 +165,26 @@ export default {
 }
 .arrow-down {
   transform: rotate(45deg);
+}
+
+@keyframes float {
+    0% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+    50% {
+        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+        transform: translatey(-3px);
+    }
+    100% {
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+    }
+  }
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
 }
 </style>

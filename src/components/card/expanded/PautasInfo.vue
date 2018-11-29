@@ -23,19 +23,19 @@ export default {
     id: Number,
     casa: String,
     date: {
-        type: Date,
-        default: function () {
-            return new Date()
-        }
+      type: Date,
+      default: function () {
+        return new Date()
+      }
     }
   },
-  mounted() {
-      const query = {
-        'casa': this.casa,
-        'id': this.id,
-        'date': this.formattedDate
-      }
-      this.getPautas(query);
+  mounted () {
+    const query = {
+      'casa': this.casa,
+      'id': this.id,
+      'date': this.formattedDate
+    }
+    this.getPautas(query)
   },
   computed: {
     propPautas () {
@@ -43,14 +43,14 @@ export default {
       return this.pautas[this.id].filter(pauta => pauta.data >= now)
     },
     ...mapState({
-      pautas: state => state.proposicoes.pautas
+      pautas: state => state.pautas.pautasDic
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
-    },
+    }
   },
   methods: {
-    ...mapActions(['getPautas']),
+    ...mapActions(['getPautas'])
   }
 }
 </script>

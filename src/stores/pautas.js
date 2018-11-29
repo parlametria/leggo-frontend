@@ -12,7 +12,7 @@ const pautas = {
   },
   actions: {
       getPautas({ commit }, { casa, id, date }){
-        api.get(`/pauta/${casa}/${id}`)
+        api.get(`/pauta/${casa}/${id}?data_referencia=${date}`)
         .then((response) => {
             const pautasDic = {
               'id': id,

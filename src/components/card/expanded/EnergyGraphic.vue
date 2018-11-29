@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="graphic">
     <div :id="`${casa}-${id}`"></div>
   </div>
 </template>
@@ -54,10 +54,10 @@ export default {
     tendenciaColor () {
       if (this.energias.length > 1) {
         if (this.coeficiente <= 0) {
-          return '#67a9cf'
+          return '#60C7DC'
         }
       }
-      return '#ef8a62'
+      return '#dc6060'
     },
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
@@ -114,5 +114,8 @@ export default {
 <style>
 .vega-actions {
   display: none;
+}
+.graphic {
+  text-align: center;
 }
 </style>

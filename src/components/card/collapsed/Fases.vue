@@ -17,16 +17,18 @@ export default {
 
   methods: {
     geraEstilo (fase) {
-      return {
-        'faseConcluida': this.isFaseConcluida(fase),
-        'jumpedFase': this.isJumpedFase(fase)
+      if (fase.pulou) {
+        return 'pulou'
       }
-    },
-    isFaseConcluida (fase) {
-      return !(fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase))
-    },
-    isJumpedFase (fase) {
-      return fase.pulou
+      if (fase.data_inicio !== null) {
+        if (fase.local_casa === 'camara' || fase.local_casa === 'senado') {
+          return fase.local_casa
+        } else {
+          return 'plenario'
+        }
+      } else {
+        return 'naoRealizada'
+      }
     }
   },
   computed: {
@@ -63,17 +65,27 @@ export default {
     position: relative;
 }
 
-.jumpedFase {
-  background: none;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #DC6060;
-  width: 10px;
-  height: 10px;
+.camara {
+    background-color: #4EB65F;
 }
 
-.faseConcluida {
-    background-color: #DC6060;
+.senado {
+    background-color: #4E8CB6;
+}
+
+.plenario {
+  background-color: #B6AF4E;
+}
+
+.naoRealizada {
+  background-color: #a1a2a3;
+}
+
+.pulou {
+  width: 11px;
+  height: 11px;
+  background-color: transparent;
+  border:0.05px solid gray;
 }
 
 </style>
