@@ -7,6 +7,7 @@
     </el-row>
     <el-row type="flex" justify="space-around">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+      <h3>O congresso, dados de {{this.dataAtualFormatada()}}</h3>
       <p v-if="pending.proposicoes">loading posts...</p>
       <p v-if="error.proposicoes">loading failed</p>
       <transition name="el-fade-in" mode="out-in">
@@ -25,6 +26,8 @@
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import moment from 'moment'
+
 export default {
   name: 'proposicoes',
   components: {
@@ -82,6 +85,9 @@ export default {
       return this.filter.filters.every(
         filter => this.filter.current[filter].includes(prop[filter])
       )
+    },
+    dataAtualFormatada () {
+      return moment().format('DD/MM/YYYY')
     },
     checkPautaFilter (prop) {
       return this.filter.emPautaFilter.some(options => {
