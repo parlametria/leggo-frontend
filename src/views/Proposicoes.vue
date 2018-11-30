@@ -26,6 +26,8 @@
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import moment from 'moment'
+
 export default {
   name: 'proposicoes',
   components: {
@@ -85,13 +87,7 @@ export default {
       )
     },
     dataAtualFormatada () {
-      const data = new Date()
-      const dia = data.getDate().toString()
-      const diaF = (dia.length === 1) ? '0' + dia : dia
-      const mes = (data.getMonth() + 1).toString() // +1 pois no getMonth Janeiro começa com zero.
-      const mesF = (mes.length === 1) ? '0' + mes : mes
-      const anoF = data.getFullYear()
-      return diaF + '/' + mesF + '/' + anoF
+      return moment().format('DD/MM/YYYY')
     },
     checkPautaFilter (prop) {
       return this.filter.emPautaFilter.some(options => {
