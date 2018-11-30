@@ -12,7 +12,7 @@
           <p v-if="fase.data_inicio">Início: {{fase.data_inicio}}</p>
           <p v-if="fase.data_fim">Fim: {{fase.data_fim}}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
-          <p v-if="isInProgress(fase)">Esta é a fase atual desta proposição.</p>
+          <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
         </div>
         <li :class="styleFase(fase)"/>
