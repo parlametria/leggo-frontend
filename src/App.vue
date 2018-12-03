@@ -24,10 +24,10 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "@/vars.scss";
+@import "@/base.scss";
 
 .el-container > .el-main {
-  padding: 0px;
+    padding: 0px;
 }
 
 body {
@@ -44,7 +44,7 @@ body {
     }
 }
 a {
-    color: #098484;
+    color: $--color-primary;
     text-decoration: none;
 }
 </style>
