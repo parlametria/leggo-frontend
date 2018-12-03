@@ -8,8 +8,8 @@
     <el-row type="flex" justify="space-around">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
       <h3>O congresso, dados de {{this.dataAtualFormatada()}}</h3>
-      <p v-if="pending.proposicoes">loading posts...</p>
-      <p v-if="error.proposicoes">loading failed</p>
+      <p v-if="pending.proposicoes">Carregando projetos...</p>
+      <p v-if="error.proposicoes">Falha no carregamento</p>
       <transition name="el-fade-in" mode="out-in">
         <div v-if="filteredProps.length">
           <transition-group name="el-fade-in" tag="div">
