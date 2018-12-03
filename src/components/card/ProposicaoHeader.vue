@@ -5,8 +5,8 @@
     <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
-        <el-tag class="tag" size="small">{{prop.lastEtapa.regime_tramitacao}}</el-tag>
-        <el-tag class="tag" size="small">{{prop.lastEtapa.forma_apreciacao}}</el-tag>
+        <spam class="tag">{{prop.lastEtapa.regime_tramitacao}}</spam>
+        <spam class="tag">{{prop.lastEtapa.forma_apreciacao}}</spam>
     </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>
@@ -113,7 +113,7 @@ export default {
 .tags {
   grid-column: 2/3;
   grid-row: 3/4;
-  margin-bottom: .5rem;
+  margin-bottom: .9rem;
   margin-left: .5rem;
 }
 
@@ -144,6 +144,8 @@ export default {
   color: #FFF;
   border-color: #FFF;
   width: 85px;
+  margin-bottom: 20px;
+  margin-right: 20px;
   text-align: center;
 }
 .selector {
