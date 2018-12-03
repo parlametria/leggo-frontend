@@ -56,7 +56,6 @@ import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import EnergyGraphic from './expanded/EnergyGraphic'
-import FasesBar from './expanded/FasesBar'
 import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import PressureBar from './collapsed/PressureBar'
@@ -75,7 +74,6 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     EnergyGraphic,
-    FasesBar,
     ProposicaoHeader,
     PautasInfo,
     FasesProgress,

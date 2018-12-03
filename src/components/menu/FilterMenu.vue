@@ -69,7 +69,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import PressureSort from '@/components/card/expanded/PressureSort'
+import PressureSort from '@/components/menu/PressureSort'
 import store from '@/stores/store'
 
 function generateFilterModels () {

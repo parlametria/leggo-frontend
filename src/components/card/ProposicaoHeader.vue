@@ -18,7 +18,6 @@
 import { mapState, mapActions } from 'vuex'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 import Fases from './collapsed/Fases.vue'
 import PressureBar from './collapsed/PressureBar.vue'
 import moment from 'moment'
@@ -33,7 +32,6 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
-    FaseAtualBlock,
     Fases,
     PressureBar
   },
