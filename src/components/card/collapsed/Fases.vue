@@ -70,10 +70,12 @@ export default {
 }
 
 .pulou {
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
   background-color: transparent;
-  border:0.05px solid gray;
+  border: 2px solid gray;
+  border-radius: 50%;
+
 }
 
 </style>

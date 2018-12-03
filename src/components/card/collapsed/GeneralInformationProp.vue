@@ -35,7 +35,7 @@
             </tr>
         </table>
 
-        <p class="text item"><a :href='proposicao.url'>Link no site oficial</a></p>
+        <p class="text item"><a :href='proposicao.url' target="_blank">Link no site oficial</a></p>
     </el-card>
 </template>
 

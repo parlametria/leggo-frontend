@@ -9,13 +9,13 @@
     <h2>Contribua com o Ágora Digital</h2>
     <ul>
       <li>
-        <a href="https://github.com/analytics-ufcg/agora-digital">Pacote R</a>
+        <a href="https://github.com/analytics-ufcg/agora-digital" target="_blank">Pacote R</a>
       </li>
       <li>
-        <a href="https://github.com/analytics-ufcg/agora-digital-frontend">Ágora-Frontend</a>
+        <a href="https://github.com/analytics-ufcg/agora-digital-frontend" target="_blank">Ágora-Frontend</a>
       </li>
       <li>
-        <a href="https://github.com/analytics-ufcg/agora-digital-backend">Ágora-Backend</a>
+        <a href="https://github.com/analytics-ufcg/agora-digital-backend" target="_blank">Ágora-Backend</a>
       </li>
     </ul>
   </div>

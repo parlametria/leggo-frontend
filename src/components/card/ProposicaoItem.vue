@@ -28,7 +28,7 @@
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
           <div>
             <el-row>
-              <fases-progress style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+              <fases-progress class="fases-progress" :class="{'visible': dropShow}" style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
             </el-row>
               <el-row>
                 <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
@@ -40,7 +40,7 @@
             <div>
               <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
               <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
-                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
               </p>
             </div>
 
@@ -56,7 +56,6 @@ import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import TemperatureGraphic from './expanded/TemperatureGraphic'
-import FasesBar from './expanded/FasesBar'
 import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
@@ -75,7 +74,6 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     TemperatureGraphic,
-    FasesBar,
     ProposicaoHeader,
     PautasInfo,
     FasesProgress,
@@ -201,6 +199,17 @@ export default {
 
 .temperature-area {
   margin-bottom: 20px;
+}
+
+.fases-progress {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s linear;
 }
 
 </style>
