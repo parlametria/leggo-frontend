@@ -59,9 +59,9 @@ export default {
             return n
           }
           if (this.filter.temperatureOrder === 'desc') {
-            return b.lastEtapa.temperatura - a.lastEtapa.energia
+            return b.lastEtapa.temperatura - a.lastEtapa.temperatura
           } else {
-            return a.lastEtapa.energia - b.lastEtapa.energia
+            return a.lastEtapa.temperatura - b.lastEtapa.temperatura
           }
         })
       } else {
