@@ -1,5 +1,5 @@
 export default class TemperatureGraphicModel {
-  constructor (temperatures, maxTemperature, color, width) {
+  constructor (temperaturas, maxTemperatura, color, width) {
     const encoding = {
       x: {
         field: 'periodo',
@@ -25,7 +25,7 @@ export default class TemperatureGraphicModel {
           ticks: false
         },
         scale: {
-          domain: [0, maxTemperature]
+          domain: [0, maxTemperatura]
         }
       },
       tooltip: [

@@ -23,7 +23,7 @@ export default {
     cardWidth: Number
   },
   async mounted () {
-    this.getTempRecente({ params: {
+    this.getTemperaturaRecente({ params: {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
@@ -43,7 +43,9 @@ export default {
     listaCoeficientes: state => state.proposicoes.coeficiente,
 
     temperaturas () {
-      return this.listaTemperaturas[this.id]
+      if (this.listaTemperaturas[this.id]) {
+        return this.listaTemperaturas[this.id]
+      }
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
@@ -71,7 +73,7 @@ export default {
       }
 
       let model = new TemperatureGraphicModel(
-        this.temperaturas, this.maxTemperature, this.tendenciaColor, this.cardWidth)
+        this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
