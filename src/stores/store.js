@@ -11,10 +11,10 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    energias: {},
+    temperaturas: {},
     pautas: {},
     coeficiente: {},
-    maxEnergia: 0
+    maxTemperatura: 0
   } }).get({
   action: 'getProposicao',
   property: 'proposicao',
@@ -30,21 +30,21 @@ const proposicoes = new Vapi({
     })
   }
 }).get({
-  action: 'getEnergiaRecente',
-  property: 'energias',
+  action: 'getTemperaturaRecente',
+  property: 'temperaturas',
   path: ({ casa, id, semanas, date }) =>
-    `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
+    `temperatura/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    const pressoes = data.pressoes
+    const temperaturas = data.temperaturas
     const coeficiente = data.coeficiente
-    const maxEnergia = Math.max(...pressoes.map(x => x.energia_recente))
+    const maxTemperatura = Math.max(...temperaturas.map(x => x.temperatura_recente))
 
-    if (maxEnergia > state.maxEnergia) {
-      state.maxEnergia = maxEnergia
+    if (maxTemperatura > state.maxTemperatura) {
+      state.maxTemperatura = maxTemperatura
     }
 
     Vue.set(state.coeficiente, params.id, coeficiente)
-    Vue.set(state.energias, params.id, pressoes)
+    Vue.set(state.temperaturas, params.id, temperaturas)
   }
 }).get({
   action: 'getStatusPauta',
@@ -70,16 +70,16 @@ proposicoes.getters = {
     }
     return options
   },
-  maxPressao (state) {
-    const energias = state.energias
-    let maxEnergia = 0
-    Object.keys(energias).forEach(function (key) {
-      if (energias[key][0] != null && energias[key][0].energia_recente > maxEnergia) {
-        maxEnergia = energias[key][0].energia_recente + 5
+  maxTemperatura (state) {
+    const temperaturas = state.temperaturas
+    let maxTemperatura = 0
+    Object.keys(temperaturas).forEach(function (key) {
+      if (temperaturas[key][0] != null && temperaturas[key][0].temperatura_recente > maxTemperatura) {
+        maxTemperatura = temperaturas[key][0].temperatura_recente + 5
       }
     })
 
-    return maxEnergia
+    return maxTemperatura
   }
 }
 

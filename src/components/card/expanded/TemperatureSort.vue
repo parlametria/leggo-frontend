@@ -1,5 +1,5 @@
 <template>
-  <el-select v-model="energyOrder" clearable placeholder="Ordenar por" size="large">
+  <el-select v-model="temperatureOrder" clearable placeholder="Ordenar por" size="large">
     <el-option
         v-for="item in options"
         :key="item.value"
@@ -10,28 +10,28 @@
 </template>
 <script>
 export default {
-  name: 'PressureSort',
+  name: 'TemperatureSort',
   data () {
     return {
       options: [
         {
           value: 'asc',
-          label: 'Pressão Baixa'
+          label: 'Temperatura Baixa'
         },
         {
           value: 'desc',
-          label: 'Pressão Alta'
+          label: 'Temperatura Alta'
         }
       ]
     }
   },
   computed: {
-    energyOrder: {
+    temperatureOrder: {
       get () {
-        return this.$store.state.filter.energyOrder
+        return this.$store.state.filter.temperatureOrder
       },
       set (value) {
-        this.$store.commit('updateEnergyOrder', value)
+        this.$store.commit('updateTemperatureOrder', value)
       }
     }
   }

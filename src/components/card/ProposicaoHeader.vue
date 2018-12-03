@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <fases class="fases" :fases="prop.resumo_progresso"/>
-    <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
+    <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
     <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
@@ -20,7 +20,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FaseAtualBlock from './collapsed/FaseAtualBlock.vue'
 import Fases from './collapsed/Fases.vue'
-import PressureBar from './collapsed/PressureBar.vue'
+import TemperatureBar from './collapsed/TemperatureBar.vue'
 import moment from 'moment'
 
 export default {
@@ -35,7 +35,7 @@ export default {
     FormaApreciacao,
     FaseAtualBlock,
     Fases,
-    PressureBar
+    TemperatureBar
   },
   async mounted () {
     this.getStatusPauta({ params: {
@@ -93,7 +93,7 @@ export default {
   margin-top: .9rem;
   margin-right: 1.5rem;
 }
-.pressao {
+.temperatura {
   grid-column: 1/2;
   grid-row: 1/4;
 }

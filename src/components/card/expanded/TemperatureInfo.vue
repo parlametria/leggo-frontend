@@ -1,8 +1,8 @@
 <template>
     <div class="info">
       A Temperatura nos últimos 3 meses
-      <span v-if="this.pressureInfo === 'subiu'" style="color: #dc6060; font-weight: bold">{{this.pressureInfo}}</span>
-      <span v-else style="color: #60C7DC; font-weight: bold">{{this.pressureInfo}}</span>
+      <span v-if="this.temperatureInfo === 'subiu'" style="color: #dc6060; font-weight: bold">{{this.temperatureInfo}}</span>
+      <span v-else style="color: #60C7DC; font-weight: bold">{{this.temperatureInfo}}</span>
     </div>
 </template>
 
@@ -10,14 +10,14 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'PressureInfo',
+  name: 'TemperatureInfo',
   props: ['id'],
   computed: mapState({
     coefficients: state => state.proposicoes.coeficiente,
     coefficient () {
       return this.coefficients[this.id] || 0
     },
-    pressureInfo () {
+    temperatureInfo () {
       if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient >= 0) { return 'subiu' } else { return 'se manteve constante' }
     }
   })
