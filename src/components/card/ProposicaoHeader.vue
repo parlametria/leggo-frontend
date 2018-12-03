@@ -32,7 +32,6 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
-    FaseAtualBlock,
     Fases,
     PressureBar
   },

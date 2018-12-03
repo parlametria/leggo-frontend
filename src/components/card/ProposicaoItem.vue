@@ -74,7 +74,6 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     EnergyGraphic,
-    FasesBar,
     ProposicaoHeader,
     PautasInfo,
     FasesProgress,
