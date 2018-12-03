@@ -35,7 +35,7 @@ export default {
       this.casa,
       this.semanas,
       this.formattedDate
-    ), 2000)
+    ), 5000)
   },
   computed: mapState({
     listaTemperaturas: state => state.proposicoes.temperaturas,
