@@ -40,7 +40,7 @@
             <div>
               <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
               <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
-                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
+                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
               </p>
             </div>
 
