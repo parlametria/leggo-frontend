@@ -14,14 +14,14 @@
             </div>
 
           <hr class = "divider">
-            <div class="pressure-area">
+            <div class="temperature-area">
               <p>Temperatura</p>
-              <energy-graphic
+              <temperature-graphic
                 :date="dateRef"
                 :id="prop.lastEtapa.id_ext"
                 :casa="prop.lastEtapa.casa"
                 style="margin-bottom: 10 px"/>
-              <pressure-info :id="prop.lastEtapa.id_ext" class="pressure-info"/>
+              <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
               <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
             </div>
 
@@ -55,11 +55,11 @@
 import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import EnergyGraphic from './expanded/EnergyGraphic'
+import TemperatureGraphic from './expanded/TemperatureGraphic'
 import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
-import PressureBar from './collapsed/PressureBar'
-import PressureInfo from './expanded/PressureInfo'
+import TemperatureBar from './collapsed/TemperatureBar'
+import TemperatureInfo from './expanded/TemperatureInfo'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -73,12 +73,12 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
-    EnergyGraphic,
+    TemperatureGraphic,
     ProposicaoHeader,
     PautasInfo,
     FasesProgress,
-    PressureBar,
-    PressureInfo
+    TemperatureBar,
+    TemperatureInfo
   },
   computed: {
     emPauta () {
@@ -193,11 +193,11 @@ export default {
   color: #000;
 }
 
-.pressure-info {
+.temperature-info {
   font-size: 12px;
 }
 
-.pressure-area {
+.temperature-area {
   margin-bottom: 20px;
 }
 

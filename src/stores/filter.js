@@ -19,8 +19,8 @@ const filtro = {
       }
     ],
     dateRef: new Date(),
-    energyOrder: 'desc',
-    energias: {}
+    temperatureOrder: 'desc',
+    temperaturas: {}
   },
   mutations: {
     filtraNomeProposicao (state, nomeProposicao) {
@@ -32,11 +32,11 @@ const filtro = {
     updateDateRef (state, date) {
       state.dateRef = date
     },
-    updateEnergyOrder (state, order) {
-      state.energyOrder = order
+    updateTemperatureOrder (state, order) {
+      state.temperatureOrder = order
     },
-    updateEnergias (state, payload) {
-      state.energias[payload.id] = payload.energia
+    updateTemperaturas (state, payload) {
+      state.temperaturas[payload.id] = payload.temperatura
     },
     setFilter (state, payload) {
       // Se payload é no formato { filter, value }, seta filter como value,

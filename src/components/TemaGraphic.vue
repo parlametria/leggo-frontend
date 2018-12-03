@@ -34,7 +34,7 @@ export default {
         description: 'Area chart showing weight of cars over time.',
         width: this.width * 0.8,
         height: 300,
-        data: { values: this.formatEnergias },
+        data: { values: this.formatTemperaturas },
         mark: 'area',
         config: {
           autosize: {
@@ -53,9 +53,9 @@ export default {
           },
           y: {
             aggregate: 'sum',
-            field: 'energia_recente',
+            field: 'temperatura_recente',
             type: 'quantitative',
-            axis: { title: 'Pressão', 'titlePadding': -7 }
+            axis: { title: 'Temperatura', 'titlePadding': -7 }
           },
           color: {
             field: 'apelido',
@@ -81,24 +81,24 @@ export default {
       }
       return result
     },
-    formatEnergias () {
+    formatTemperaturas () {
       let result = []
       this.proposicoes.forEach((prop) => {
-        const energias = this.energias[prop.lastEtapa.id_ext]
-        if (energias) {
-          energias.forEach((energia) => {
-            result.push({ ...energia, apelido: prop.lastEtapa.apelido })
+        const temperaturas = this.temperaturas[prop.lastEtapa.id_ext]
+        if (temperaturas) {
+          temperaturas.forEach((temperatura) => {
+            result.push({ ...temperatura, apelido: prop.lastEtapa.apelido })
           })
         }
       })
       return result
     },
     ...mapState({
-      energias: state => state.proposicoes.energias
+      temperaturas: state => state.proposicoes.temperaturas
     })
   },
   watch: {
-    energias: {
+    temperaturas: {
       handler (val, oldVal) {
         this.criaGrafico()
       },
