@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <fases class="fases" :fases="prop.resumo_progresso"/>
+    <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <pressure-bar class="pressao" :id="prop.lastEtapa.id_ext"/>
     <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
     <span class="prop-apelido">{{prop.apelido}}</span>
@@ -91,6 +91,19 @@ export default {
   margin-top: .9rem;
   margin-right: 1.5rem;
 }
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 0.5s linear;
+}
+
 .pressao {
   grid-column: 1/2;
   grid-row: 1/4;
