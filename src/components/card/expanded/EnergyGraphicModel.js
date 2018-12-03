@@ -29,8 +29,8 @@ export default class EnergyGraphicModel {
         }
       },
       tooltip: [
-        { 'field': 'energia_periodo', 'type': 'Number', 'title': 'pressao_semana' },
-        { 'field': 'energia_recente', 'type': 'Number', 'title': 'pressao_acumulada' },
+        { 'field': 'energia_periodo', 'type': 'Number', 'title': 'temp_semana' },
+        { 'field': 'energia_recente', 'type': 'Number', 'title': 'temp_acumulada' },
         { 'field': 'periodo', 'type': 'temporal', format: '%d-%m-%Y', scale: { type: 'utc' }, 'title': 'semana' }
       ]
     }
