@@ -1,5 +1,5 @@
 <template>
-  <div class="temperature-bar">
+  <div class="pressure-bar">
     <div :style="barStyle"></div>
   </div>
 </template>
@@ -8,17 +8,17 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  name: 'TemperatureBar',
+  name: 'PressureBar',
   props: ['id'],
   computed: {
     ...mapState({
-      listaTemperaturas: state => state.proposicoes.temperaturas,
+      listaEnergias: state => state.proposicoes.energias,
       listaCoeficientes: state => state.proposicoes.coeficiente
     }),
-    ...mapGetters(['maxTemperatura']),
-    temperatura () {
-      if (this.listaTemperaturas[this.id]) {
-        return this.listaTemperaturas[this.id][0].temperatura_recente
+    ...mapGetters(['maxPressao']),
+    energia () {
+      if (this.listaEnergias[this.id]) {
+        return this.listaEnergias[this.id][0].energia_recente
       } else {
         return 0
       }
@@ -27,7 +27,7 @@ export default {
       return this.listaCoeficientes[this.id] || 0
     },
     porcentagem () {
-      return (this.temperatura * 100) / this.maxTemperatura
+      return (this.energia * 100) / this.maxPressao
     },
     barStyle () {
       return {
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.temperature-bar {
+.pressure-bar {
   background: #4e4e4e;
   position: relative;
   min-width: 41px;
