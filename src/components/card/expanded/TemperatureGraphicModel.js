@@ -1,9 +1,9 @@
-export default class EnergyGraphicModel {
-  constructor (energias, maxEnergia, color) {
+export default class TemperatureGraphicModel {
+  constructor (temperaturas, maxTemperatura, color, width) {
     const encoding = {
       x: {
         field: 'periodo',
-        type: 'temporal',
+        type: 'ordinal',
         format: '%Y-%m-%d',
         scale: {
           type: 'utc'
@@ -16,7 +16,7 @@ export default class EnergyGraphicModel {
         }
       },
       y: {
-        field: 'energia_recente',
+        field: 'temperatura_recente',
         type: 'quantitative',
         axis: {
           title: '',
@@ -25,12 +25,12 @@ export default class EnergyGraphicModel {
           ticks: false
         },
         scale: {
-          domain: [0, maxEnergia]
+          domain: [0, maxTemperatura]
         }
       },
       tooltip: [
-        { 'field': 'energia_periodo', 'type': 'Number', 'title': 'pressao_semana' },
-        { 'field': 'energia_recente', 'type': 'Number', 'title': 'pressao_acumulada' },
+        { 'field': 'temperatura_periodo', 'type': 'Number', 'title': 'temp_semana' },
+        { 'field': 'temperatura_recente', 'type': 'Number', 'title': 'temp_acumulada' },
         { 'field': 'periodo', 'type': 'temporal', format: '%d-%m-%Y', scale: { type: 'utc' }, 'title': 'semana' }
       ]
     }
@@ -39,15 +39,15 @@ export default class EnergyGraphicModel {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
       height: 50,
-      width: 150,
-      title: 'Pressão Acumulada',
+      width: width * 0.8,
+      title: '',
       data: {
-        name: 'energia'
+        name: 'temperatura'
       },
       layer: [
         {
           mark: {
-            type: 'point',
+            type: 'bar',
             color: color,
             fillOpacity: 0.5
           },
@@ -59,7 +59,8 @@ export default class EnergyGraphicModel {
           stroke: 'transparent'
         },
         axisY: {
-          minExtent: 0
+          minExtent: 0,
+          domain: false
         }
       }
     }

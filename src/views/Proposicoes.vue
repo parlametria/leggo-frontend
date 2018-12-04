@@ -1,21 +1,33 @@
 <template>
-  <div>
-    <p v-if="pending.proposicoes">loading posts...</p>
-    <p v-if="error.proposicoes">loading failed</p>
-    <transition name="el-fade-in" mode="out-in">
-      <div v-if="filteredProps.length">
-        <transition-group name="el-fade-in" tag="div">
-          <proposicao-item :key="prop.apelido" v-for="prop in filteredProps" :prop="prop"/>
-        </transition-group>
-      </div>
-      <p v-else>Nenhuma proposição para mostrar...</p>
-    </transition>
+  <div class="content">
+    <el-row type="flex" justify="space-around" class="logo-container">
+      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+        <img src="../assets/logoweb.png" class="logo" width="100%" />
+      </el-col>
+    </el-row>
+    <el-row type="flex" justify="space-around">
+      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+      <h3>O congresso, dados de {{this.dataAtualFormatada()}}</h3>
+      <p v-if="pending.proposicoes">Carregando projetos...</p>
+      <p v-if="error.proposicoes">Falha no carregamento</p>
+      <transition name="el-fade-in" mode="out-in">
+        <div v-if="filteredProps.length">
+          <transition-group name="el-fade-in" tag="div">
+            <proposicao-item :key="prop.apelido" v-for="prop in filteredProps" :prop="prop"/>
+          </transition-group>
+        </div>
+        <p v-else>Nenhuma proposição para mostrar...</p>
+      </transition>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import moment from 'moment'
+
 export default {
   name: 'proposicoes',
   components: {
@@ -38,10 +50,18 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          if (this.filter.energyOrder === 'desc') {
-            return b.lastEtapa.energia - a.lastEtapa.energia
+          let idA = a.lastEtapa.id_ext
+          let idB = b.lastEtapa.id_ext
+          let pautaA = this.pautas && this.pautas[idA] !== undefined && this.pautas[idA].length > 0
+          let pautaB = this.pautas && this.pautas[idB] !== undefined && this.pautas[idB].length > 0
+          let n = pautaB - pautaA
+          if (n !== 0) {
+            return n
+          }
+          if (this.filter.temperatureOrder === 'desc') {
+            return b.lastEtapa.temperatura - a.lastEtapa.temperatura
           } else {
-            return a.lastEtapa.energia - b.lastEtapa.energia
+            return a.lastEtapa.temperatura - b.lastEtapa.temperatura
           }
         })
       } else {
@@ -52,24 +72,42 @@ export default {
       proposicoes: state => state.proposicoes.proposicoes,
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
-      filter: state => state.filter
+      filter: state => state.filter,
+      temperaturas: state => state.proposicoes.temperaturas,
+      pautas: state => state.pautas.pautasDic
     }),
     ...mapGetters(['perFilterOptions'])
   },
   methods: {
     ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
-    checkPropMatchesFilter (prop) {
+    checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.filter.current[filter].includes(prop[filter])) &&
-        this.filter.emPautaFilter.some(
-          // TODO: usar nova estrutura do emPauta
-          options =>
-            ((options.tipo === 'Sim' && prop.em_pauta) ||
-              (options.tipo === 'Não' && !prop.em_pauta)) && options.status
-        ) &&
-        prop.apelido.toLowerCase().match(
-          this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+        filter => this.filter.current[filter].includes(prop[filter])
+      )
+    },
+    dataAtualFormatada () {
+      return moment().format('DD/MM/YYYY')
+    },
+    checkPautaFilter (prop) {
+      return this.filter.emPautaFilter.some(options => {
+        const propId = prop.id_ext
+        const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+
+        return options.status &&
+               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))
+      })
+    },
+    checkApelidoFilter (prop) {
+      const apelido = prop.apelido.toLowerCase()
+      const filtro = this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase()
+
+      return apelido.match(filtro)
+    },
+    checkPropMatchesFilter (prop) {
+      return this.checkCategoricalFilters(prop) &&
+             this.checkPautaFilter(prop) &&
+             this.checkApelidoFilter(prop)
     }
   }
 }
@@ -79,5 +117,17 @@ export default {
 .flex {
     display: flex;
     flex-wrap: wrap;
+}
+.content {
+   display: block;
+   margin:auto;
+}
+.logo-container {
+  background-color: #000000;
+  margin-bottom: 2rem;
+}
+ .logo {
+  max-width: 100%;
+  height: auto;
 }
 </style>

@@ -1,15 +1,16 @@
 <template>
-  <div>
+  <div class="graphic">
     <div :id="`${casa}-${id}`"></div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import EnergyGraphicModel from './EnergyGraphicModel.js'
+import TemperatureGraphicModel from './TemperatureGraphicModel.js'
+import moment from 'moment'
 
 export default {
-  name: 'EnergyGraphic',
+  name: 'TemperatureGraphic',
   data () {
     return {
       semanas: 12
@@ -18,10 +19,11 @@ export default {
   props: {
     id: Number,
     casa: String,
-    date: Date
+    date: Date,
+    cardWidth: Number
   },
   async mounted () {
-    this.getEnergiaRecente({ params: {
+    this.getTemperaturaRecente({ params: {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
@@ -33,53 +35,51 @@ export default {
       this.casa,
       this.semanas,
       this.formattedDate
-    ), 2000)
+    ), 5000)
   },
   computed: mapState({
-    listaEnergias: state => state.proposicoes.energias,
-    maxEnergia: state => state.proposicoes.maxEnergia,
+    listaTemperaturas: state => state.proposicoes.temperaturas,
+    maxTemperatura: state => state.proposicoes.maxTemperatura,
     listaCoeficientes: state => state.proposicoes.coeficiente,
 
-    energias () {
-      return this.listaEnergias[this.id]
+    temperaturas () {
+      if (this.listaTemperaturas[this.id]) {
+        return this.listaTemperaturas[this.id]
+      }
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
     },
     formattedDate () {
-      let month = '' + (this.date.getMonth() + 1)
-      let day = '' + this.date.getDate()
-      let year = this.date.getFullYear()
-      if (month.length < 2) month = '0' + month
-      if (day.length < 2) day = '0' + day
-      return [year, month, day].join('-')
+      return moment(this.date).format('YYYY-MM-DD')
     },
     tendenciaColor () {
-      if (this.energias.length > 1) {
+      if (this.temperaturas.length > 1) {
         if (this.coeficiente <= 0) {
-          return '#ef8a62'
+          return '#60C7DC'
         }
       }
-      return '#67a9cf'
+      return '#dc6060'
     },
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
     }
   }),
   methods: {
-    ...mapActions(['getEnergiaRecente']),
+    ...mapActions(['getTemperaturaRecente']),
     async mountGraphic (id, casa, semanas, date) {
-      if (this.energias.length > 0) {
-        this.energias[0].energia_dia = this.energias[0].energia_recente
+      if (this.temperaturas.length > 0) {
+        this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
       }
 
-      let model = new EnergyGraphicModel(this.energias, this.maxEnergia, this.tendenciaColor)
+      let model = new TemperatureGraphicModel(
+        this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
         res.view /* eslint-disable */
-          .change('energia', vega.changeset().remove('energia', d => true))
-          .insert('energia', this.energias)
+          .change('temperatura', vega.changeset().remove('temperatura', d => true))
+          .insert('temperatura', this.temperaturas)
           .run()
       })
     }
@@ -87,7 +87,7 @@ export default {
   watch: {
     compoundWatch: {
       handler: function (val, oldVal) {
-        this.getEnergiaRecente({ params: {
+        this.getTemperaturaRecente({ params: {
           id: this.id,
           casa: this.casa,
           semanas: this.semanas,
@@ -101,6 +101,14 @@ export default {
         )})
       },
       deep: true
+    },
+    cardWidth () {
+      setTimeout(() => this.mountGraphic(
+        this.id,
+        this.casa,
+        this.semanas,
+        this.formattedDate
+      ), 2000)
     }
   }
 }
@@ -109,5 +117,8 @@ export default {
 <style>
 .vega-actions {
   display: none;
+}
+.graphic {
+  text-align: center;
 }
 </style>

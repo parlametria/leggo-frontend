@@ -20,7 +20,7 @@
         <template slot="title">
           <el-date-picker
             v-model="dateRef"
-            type="date" placeholder="Data de referência"
+            type="date" placeholder="Data de referência" format="dd/MM/yyyy"
             :picker-options="datePickerOptions">
           </el-date-picker>
         </template>
@@ -30,7 +30,7 @@
       <el-menu-item index="4">
         <i class="el-icon-sort"/>
         <template slot="title">
-          <energy-sort/>
+          <temperature-sort/>
         </template>
       </el-menu-item>
 
@@ -42,10 +42,8 @@
         </template>
         <el-menu-item
           v-for="(opcao, i) in emPautaFilter"
-          @click="propagateClick"
           :index="'1-' + (i+1)" :key="i">
           <el-checkbox
-            @change="filtraEmPauta(emPautaFilter)"
             v-model="opcao.status">
             {{ opcao.tipo }}
           </el-checkbox>
@@ -71,7 +69,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import EnergySort from '@/components/card/expanded/EnergySort'
+import TemperatureSort from '@/components/card/expanded/TemperatureSort'
 import store from '@/stores/store'
 
 function generateFilterModels () {
@@ -93,7 +91,7 @@ function generateFilterModels () {
 export default {
   name: 'FilterMenu',
   components: {
-    EnergySort
+    TemperatureSort
   },
   data () {
     let self = this

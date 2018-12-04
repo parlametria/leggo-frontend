@@ -23,6 +23,10 @@
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
 
+        <el-menu-item index="3" @click="propagateClick" class="menu-route-link">
+          <router-link :to="{ name: 'cases' }">Exemplos</router-link>
+        </el-menu-item>
+
         <!-- <el-menu-item index="2" @click="propagateClick" class="menu-route-link"> -->
           <!-- <router-link tag="el-menu-item" index="3" :to="{ name: 'proposicoes' }">Proproposições</router-link> -->
         <!-- </el-menu-item> -->
@@ -53,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss" scopped>
-@import "@/vars.scss";
+@import "@/base.scss";
 .close-btn, .open-btn {
   display: none;
 }
@@ -109,12 +113,10 @@ export default {
 .menu-route-link {
   a {
     outline: none;
-    color: #303133;
     transition: all .3s;
     font-size: 14pt;
   }
   .router-link-active {
-    color: #098484;
     padding-left: 1em;
   }
 }

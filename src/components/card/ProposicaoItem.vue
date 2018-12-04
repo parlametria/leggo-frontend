@@ -1,32 +1,53 @@
 <template>
   <div class="proposicao-card">
-    <img src="@/assets/pauta.png" v-if="emPauta" class="pauta-label" alt="Label da pauta">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop"/>
+      <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
     </div>
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
-          <div class="flex">
-            <fases-bar :fases="prop.resumo_progresso"/>
-            <energy-graphic
-              :date="dateRef"
-              :id="prop.lastEtapa.id_ext"
-              :casa="prop.lastEtapa.casa"/>
-            <lista-pauta :id="prop.id"></lista-pauta>
+          <div class ="informations">
+            <div>
+              <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
+              <p class = "big-text-field">{{ autor }}</p>
+              <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
+            </div>
+
+          <hr class = "divider">
+            <div class="temperature-area">
+              <p>Temperatura</p>
+              <temperature-graphic
+                :date="dateRef"
+                :id="prop.lastEtapa.id_ext"
+                :casa="prop.lastEtapa.casa"
+                style="margin-bottom: 10 px"/>
+              <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
+              <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
+            </div>
+
+          <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
+          <div>
+            <el-row>
+              <fases-progress class="fases-progress" :class="{'visible': dropShow}" style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
+            </el-row>
+              <el-row>
+                <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
+                <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
+                <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
+                <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
+              </el-row>
+            </div>
+            <div>
+              <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
+              <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
+                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
+              </p>
+            </div>
+
           </div>
-          <p style = "font-size:14px">Informações Gerais:</p>
-          <ul style = "font-size:13px">
-            <li v-for="(etapa,i) in prop.etapas" :key="i">
-              Etapa {{i+1}} ({{$t(etapa.casa)}}): <a class="sigla" :href="etapa.url">{{ etapa.sigla }}</a>
-            </li>
-            <li> Autor: {{ prop.lastEtapa.autor_nome }} </li>
-            <li> Local Atual: {{ localAtual }} </li>
-          </ul>
         </div>
       </div>
     </el-collapse-transition>
-    <pressure-bar :id="prop.lastEtapa.id_ext"></pressure-bar>
   </div>
 </template>
 
@@ -34,11 +55,13 @@
 import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import EnergyGraphic from './expanded/EnergyGraphic'
-import FasesBar from './expanded/FasesBar'
-import ListaPauta from './expanded/ListaPauta'
-import PressureBar from './collapsed/PressureBar'
+import TemperatureGraphic from './expanded/TemperatureGraphic'
+import FasesProgress from './expanded/FasesProgress'
+import PautasInfo from './expanded/PautasInfo'
+import TemperatureBar from './collapsed/TemperatureBar'
+import TemperatureInfo from './expanded/TemperatureInfo'
 import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'proposicaoitem',
@@ -50,15 +73,20 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
-    EnergyGraphic,
-    FasesBar,
+    TemperatureGraphic,
     ProposicaoHeader,
-    ListaPauta,
-    PressureBar
+    PautasInfo,
+    FasesProgress,
+    TemperatureBar,
+    TemperatureInfo
   },
   computed: {
     emPauta () {
-      return this.pautas[this.prop.id]
+      return this.prop.lastEtapa.emPauta
+    },
+    dataLocalAtual () {
+      const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
+      return moment(data).format('DD/MM/YYYY')
     },
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao
@@ -68,9 +96,26 @@ export default {
       }
       return localAtual
     },
+    casa () {
+      let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
+      let casa = ''
+      if (autores.length > 1) {
+        casa = autores[0]
+      } else {
+        casa = 'Câmara dos Deputados'
+      }
+      return casa
+    },
+    autor () {
+      let autor = (this.prop.lastEtapa.autor_nome).split(' - ')
+      if (autor.length > 1) {
+        autor = autor[autor.length - 1].toString()
+      }
+      return autor.toString()
+    },
     ...mapState({
       dateRef: state => state.filter.dateRef,
-      pautas: state => state.proposicoes.pautas
+      pautas: state => state.pautas.pautasDic
     })
   },
   props: {
@@ -96,7 +141,7 @@ export default {
 .proposicao-card {
   position: relative;
   margin-bottom: 0.5rem;
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding-top: 0.5rem;
   border-bottom: solid 1px #e9e9e9;
   &:hover {
     box-shadow: 0 5px 5px #c6c6c6;
@@ -120,4 +165,51 @@ export default {
   top: 2px;
   left: 2px;
 }
+
+.informations{
+  margin-left: 30px;
+}
+
+.small-text-field {
+    font-size: 12px;
+    text-decoration-color: #000;
+    opacity: 0.5;
+}
+
+.big-text-field{
+  margin-top: 0px;
+  font-size: 22px;
+  margin-bottom: 0px;
+}
+
+.medium-text-field{
+  font-size: 15px;
+  max-width: 70%;
+}
+
+.divider {
+  margin-right: 15px;
+  margin-left: -15px;
+  color: #000;
+}
+
+.temperature-info {
+  font-size: 12px;
+}
+
+.temperature-area {
+  margin-bottom: 20px;
+}
+
+.fases-progress {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s linear;
+}
+
 </style>
