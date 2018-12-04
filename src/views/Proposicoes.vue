@@ -2,12 +2,11 @@
   <div class="content">
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <img src="../assets/logoweb.png" class="logo" width="100%" />
+        <h1><span>Á</span>gora <span>D</span>igital</h1>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-around">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-      <h3>O congresso, dados de {{this.dataAtualFormatada()}}</h3>
       <p v-if="pending.proposicoes">Carregando projetos...</p>
       <p v-if="error.proposicoes">Falha no carregamento</p>
       <transition name="el-fade-in" mode="out-in">
@@ -86,9 +85,6 @@ export default {
         filter => this.filter.current[filter].includes(prop[filter])
       )
     },
-    dataAtualFormatada () {
-      return moment().format('DD/MM/YYYY')
-    },
     checkPautaFilter (prop) {
       return this.filter.emPautaFilter.some(options => {
         const propId = prop.id_ext
@@ -119,12 +115,26 @@ export default {
     flex-wrap: wrap;
 }
 .content {
-   display: block;
-   margin:auto;
+    display: block;
+    margin:auto;
 }
 .logo-container {
-  background-color: #000000;
-  margin-bottom: 2rem;
+    /* background-color: #000000; */
+    margin-bottom: 2rem;
+    h1 {
+        font-family: 'Rajdhani', sans-serif;
+        border-bottom: solid 2px #dc6060;
+        line-height: 50pt;
+        font-size: 50pt;
+        text-align: center;
+        font-weight: normal;
+        
+        /* border-left: solid 20px #dc6060; */
+        /* line-height: 70pt; */
+        /* font-size: 50pt; */
+        /* background-color: #444; */
+        /* color: white; */
+    }
 }
  .logo {
   max-width: 100%;
