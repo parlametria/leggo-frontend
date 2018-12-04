@@ -12,7 +12,6 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    energias: {},
     pautas: {}
   } }).get({
   action: 'getProposicao',
@@ -27,18 +26,6 @@ const proposicoes = new Vapi({
       // TODO: por enquanto usa apenas a última etapa
       prop.lastEtapa = prop.etapas.slice(-1)[0]
     })
-  }
-}).get({
-  action: 'getEnergiaRecente',
-  property: 'energias',
-  path: ({ casa, id, semanas, date }) =>
-    `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
-  onSuccess: (state, { data }, axios, { params }) => {
-    const pressoes = data.pressoes
-    const coeficiente = data.coeficiente
-  
-    Vue.set(state.coeficiente, params.id, coeficiente)
-    Vue.set(state.energias, params.id, pressoes)
   }
 }).get({
   action: 'getStatusPauta',
@@ -62,17 +49,6 @@ proposicoes.getters = {
       ).values()]
     }
     return options
-  },
-  maxPressao (state) {
-    const energias = state.energias
-    let maxEnergia = 0
-    Object.keys(energias).forEach(function (key) {
-      if (energias[key][0] != null && energias[key][0].energia_recente > maxEnergia) {
-        maxEnergia = energias[key][0].energia_recente + 5
-      }
-    })
-
-    return maxEnergia
   }
 }
 

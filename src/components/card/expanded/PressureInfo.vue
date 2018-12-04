@@ -13,7 +13,7 @@ export default {
   name: 'PressureInfo',
   props: ['id'],
   computed: mapState({
-    coefficients: state => state.proposicoes.coeficiente,
+    coefficients: state => state.temperaturas.coeficienteDic,
     coefficient () {
       return this.coefficients[this.id] || 0
     },

@@ -12,10 +12,10 @@ export default {
   props: ['id'],
   computed: {
     ...mapState({
-      listaEnergias: state => state.proposicoes.energias,
-      listaCoeficientes: state => state.proposicoes.coeficiente
+      listaEnergias: state => state.temperaturas.temperaturaDic,
+      listaCoeficientes: state => state.temperaturas.coeficienteDic
     }),
-    ...mapGetters(['maxPressao']),
+    ...mapGetters(['maxTemperatura']),
     energia () {
       if (this.listaEnergias[this.id]) {
         return this.listaEnergias[this.id][0].energia_recente
@@ -27,7 +27,7 @@ export default {
       return this.listaCoeficientes[this.id] || 0
     },
     porcentagem () {
-      return (this.energia * 100) / this.maxPressao
+      return (this.energia * 100) / this.maxTemperatura
     },
     barStyle () {
       return {
