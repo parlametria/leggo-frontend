@@ -25,7 +25,6 @@
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
-import moment from 'moment'
 
 export default {
   name: 'proposicoes',
@@ -128,7 +127,7 @@ export default {
         font-size: 50pt;
         text-align: center;
         font-weight: normal;
-        
+
         /* border-left: solid 20px #dc6060; */
         /* line-height: 70pt; */
         /* font-size: 50pt; */
