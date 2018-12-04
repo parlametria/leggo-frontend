@@ -12,9 +12,8 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    temperaturas: {},
-    pautas: {},
-    coeficiente: {}
+    energias: {},
+    pautas: {}
   } }).get({
   action: 'getProposicao',
   property: 'proposicao',
@@ -30,15 +29,16 @@ const proposicoes = new Vapi({
     })
   }
 }).get({
-  action: 'getTemperaturaRecente',
+  action: 'getEnergiaRecente',
+  property: 'energias',
   path: ({ casa, id, semanas, date }) =>
-    `temperatura/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
+    `energia/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    const temperaturas = data.temperaturas
+    const pressoes = data.pressoes
     const coeficiente = data.coeficiente
   
     Vue.set(state.coeficiente, params.id, coeficiente)
-    Vue.set(state.temperaturas, params.id, temperaturas)
+    Vue.set(state.energias, params.id, pressoes)
   }
 }).get({
   action: 'getStatusPauta',
@@ -63,16 +63,16 @@ proposicoes.getters = {
     }
     return options
   },
-  maxTemperatura (state) {
-    const temperaturas = state.temperaturas
-    let maxTemperatura = 0
-    Object.keys(temperaturas).forEach(function (key) {
-      if (temperaturas[key][0] != null && temperaturas[key][0].temperatura_recente > maxTemperatura) {
-        maxTemperatura = temperaturas[key][0].temperatura_recente + 5
+  maxPressao (state) {
+    const energias = state.energias
+    let maxEnergia = 0
+    Object.keys(energias).forEach(function (key) {
+      if (energias[key][0] != null && energias[key][0].energia_recente > maxEnergia) {
+        maxEnergia = energias[key][0].energia_recente + 5
       }
     })
 
-    return maxTemperatura
+    return maxEnergia
   }
 }
 

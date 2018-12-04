@@ -30,7 +30,7 @@
       <el-menu-item index="4">
         <i class="el-icon-sort"/>
         <template slot="title">
-          <temperature-sort/>
+          <pressure-sort/>
         </template>
       </el-menu-item>
 
@@ -69,7 +69,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import TemperatureSort from '@/components/card/expanded/TemperatureSort'
+import PressureSort from '@/components/menu/PressureSort'
 import store from '@/stores/store'
 
 function generateFilterModels () {
@@ -91,7 +91,7 @@ function generateFilterModels () {
 export default {
   name: 'FilterMenu',
   components: {
-    TemperatureSort
+    PressureSort
   },
   data () {
     let self = this

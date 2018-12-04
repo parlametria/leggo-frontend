@@ -58,10 +58,10 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.filter.temperatureOrder === 'desc') {
-            return b.lastEtapa.temperatura - a.lastEtapa.temperatura
+          if (this.filter.energyOrder === 'desc') {
+            return b.lastEtapa.energia - a.lastEtapa.energia
           } else {
-            return a.lastEtapa.temperatura - b.lastEtapa.temperatura
+            return a.lastEtapa.energia - b.lastEtapa.energia
           }
         })
       } else {
@@ -73,7 +73,7 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
-      temperaturas: state => state.proposicoes.temperaturas,
+      energias: state => state.proposicoes.energias,
       pautas: state => state.pautas.pautasDic
     }),
     ...mapGetters(['perFilterOptions'])

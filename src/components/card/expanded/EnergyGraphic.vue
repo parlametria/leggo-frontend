@@ -6,11 +6,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import TemperatureGraphicModel from './TemperatureGraphicModel.js'
+import EnergyGraphicModel from './EnergyGraphicModel.js'
 import moment from 'moment'
 
 export default {
-  name: 'TemperatureGraphic',
+  name: 'EnergyGraphic',
   data () {
     return {
       semanas: 12
@@ -35,7 +35,7 @@ export default {
       this.casa,
       this.semanas,
       this.formattedDate
-    ), 5000)
+    ), 2000)
   },
   computed: {
     ...mapState({
@@ -55,7 +55,7 @@ export default {
       return moment(this.date).format('YYYY-MM-DD')
     },
     tendenciaColor () {
-      if (this.temperaturas.length > 1) {
+      if (this.energias.length > 1) {
         if (this.coeficiente <= 0) {
           return '#60C7DC'
         }
@@ -69,18 +69,18 @@ export default {
   methods: {
     ...mapActions(['getTemperatura']),
     async mountGraphic (id, casa, semanas, date) {
-      if (this.temperaturas.length > 0) {
-        this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
+      if (this.energias.length > 0) {
+        this.energias[0].energia_dia = this.energias[0].energia_recente
       }
 
-      let model = new TemperatureGraphicModel(
-        this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
+      let model = new EnergyGraphicModel(
+        this.energias, this.maxEnergia, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
         res.view /* eslint-disable */
-          .change('temperatura', vega.changeset().remove('temperatura', d => true))
-          .insert('temperatura', this.temperaturas)
+          .change('energia', vega.changeset().remove('energia', d => true))
+          .insert('energia', this.energias)
           .run()
       })
     }

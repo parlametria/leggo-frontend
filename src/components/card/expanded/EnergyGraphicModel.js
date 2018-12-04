@@ -1,5 +1,5 @@
-export default class TemperatureGraphicModel {
-  constructor (temperaturas, maxTemperatura, color, width) {
+export default class EnergyGraphicModel {
+  constructor (energias, maxEnergia, color, width) {
     const encoding = {
       x: {
         field: 'periodo',
@@ -16,7 +16,7 @@ export default class TemperatureGraphicModel {
         }
       },
       y: {
-        field: 'temperatura_recente',
+        field: 'energia_recente',
         type: 'quantitative',
         axis: {
           title: '',
@@ -25,12 +25,12 @@ export default class TemperatureGraphicModel {
           ticks: false
         },
         scale: {
-          domain: [0, maxTemperatura]
+          domain: [0, maxEnergia]
         }
       },
       tooltip: [
-        { 'field': 'temperatura_periodo', 'type': 'Number', 'title': 'temp_semana' },
-        { 'field': 'temperatura_recente', 'type': 'Number', 'title': 'temp_acumulada' },
+        { 'field': 'energia_periodo', 'type': 'Number', 'title': 'temp_semana' },
+        { 'field': 'energia_recente', 'type': 'Number', 'title': 'temp_acumulada' },
         { 'field': 'periodo', 'type': 'temporal', format: '%d-%m-%Y', scale: { type: 'utc' }, 'title': 'semana' }
       ]
     }
@@ -42,7 +42,7 @@ export default class TemperatureGraphicModel {
       width: width * 0.8,
       title: '',
       data: {
-        name: 'temperatura'
+        name: 'energia'
       },
       layer: [
         {
