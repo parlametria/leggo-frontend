@@ -23,7 +23,7 @@ export default {
     cardWidth: Number
   },
   async mounted () {
-    this.getTemperaturaRecente({ params: {
+    this.getTemperatura({ params: {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
@@ -37,11 +37,12 @@ export default {
       this.formattedDate
     ), 5000)
   },
-  computed: mapState({
-    listaTemperaturas: state => state.proposicoes.temperaturas,
-    maxTemperatura: state => state.proposicoes.maxTemperatura,
-    listaCoeficientes: state => state.proposicoes.coeficiente,
-
+  computed: {
+    ...mapState({
+      listaTemperaturas: state => state.temperaturas.temperaturaDic,
+      maxTemperatura: state => state.temperaturas.maxTemperatura,
+      listaCoeficientes: state => state.temperaturas.coeficienteDic
+    }),
     temperaturas () {
       if (this.listaTemperaturas[this.id]) {
         return this.listaTemperaturas[this.id]
@@ -64,9 +65,9 @@ export default {
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
     }
-  }),
+  },
   methods: {
-    ...mapActions(['getTemperaturaRecente']),
+    ...mapActions(['getTemperatura']),
     async mountGraphic (id, casa, semanas, date) {
       if (this.temperaturas.length > 0) {
         this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
@@ -87,7 +88,7 @@ export default {
   watch: {
     compoundWatch: {
       handler: function (val, oldVal) {
-        this.getTemperaturaRecente({ params: {
+        this.getTemperatura({ params: {
           id: this.id,
           casa: this.casa,
           semanas: this.semanas,

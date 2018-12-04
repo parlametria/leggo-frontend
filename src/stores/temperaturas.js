@@ -1,28 +1,50 @@
-const temperaturas = {
+import Vue from 'vue'
+import Vapi from 'vuex-rest-api'
+
+const temperaturas = new Vapi({
+  baseURL: process.env.VUE_APP_API_URL,
   state: {
-    temperaturas: {}
+    temperaturaDic: {},
+    coeficienteDic: {},
+    maxTemperatura: 0
   },
   mutations: {
-    filtraApreciacao (state, apreciacoes) {
-      state.apreciacaoFilter = apreciacoes
+    setTemperatura (state, { id, temperaturas }) {
+      Vue.set(state.temperaturaDic, id, temperaturas)
     },
-    filtraRegime (state, regimes) {
-      state.regimeFilter = regimes
-    },
-    filtraCasa (state, casas) {
-      state.casaFilter = casas
-    },
-    filtraEmPauta (state, pautas) {
-      state.emPautaFilter = pautas
-    },
-    updateDate (state, date) {
-      state.dateFilter = date
-    },
-    updateTemperaturas (state, payload) {
-      state.temperaturas[payload.id] = payload.temperatura
+    setCoeficiente (state, { id, coeficiente }) {
+      Vue.set(state.coeficiente, id, coeficiente)
     }
   },
-  actions: {
+  getters: {
+    maxTemperatura (state) {
+      const temperaturas = state.temperaturaDic
+      let maxTemperatura = 0
+      Object.keys(temperaturas).forEach(function (key) {
+        if (temperaturas[key][0] != null && temperaturas[key][0].energia_recente > maxTemperatura) {
+          maxTemperatura = temperaturas[key][0].temperatura_recente + 5
+        }
+      })
+
+      return maxTemperatura
+    }
   }
-}
-export default temperaturas
+}).get({
+  action: 'getTemperatura',
+  path: ({ casa, id, semanas, date }) =>
+    `temperatura/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    const temperaturas = data.temperaturas
+    const coeficiente = data.coeficiente
+    const maxTemperatura = Math.max(...temperaturas.map(x => x.temperatura_recente))
+
+    if (maxTemperatura > state.maxTemperatura) {
+      state.maxTemperatura = maxTemperatura
+    }
+
+    Vue.set(state.coeficienteDic, params.id, coeficiente)
+    Vue.set(state.temperaturaDic, params.id, temperaturas)
+  }
+})
+
+export default temperaturas.getStore()

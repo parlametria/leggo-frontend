@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import pautas from './pautas'
+import temperaturas from './temperaturas'
 
 Vue.use(Vuex)
 
@@ -13,8 +14,7 @@ const proposicoes = new Vapi({
     tramitacoes: new Set(),
     temperaturas: {},
     pautas: {},
-    coeficiente: {},
-    maxTemperatura: 0
+    coeficiente: {}
   } }).get({
   action: 'getProposicao',
   property: 'proposicao',
@@ -31,26 +31,19 @@ const proposicoes = new Vapi({
   }
 }).get({
   action: 'getTemperaturaRecente',
-  property: 'temperaturas',
   path: ({ casa, id, semanas, date }) =>
     `temperatura/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
     const temperaturas = data.temperaturas
     const coeficiente = data.coeficiente
-    const maxTemperatura = Math.max(...temperaturas.map(x => x.temperatura_recente))
-
-    if (maxTemperatura > state.maxTemperatura) {
-      state.maxTemperatura = maxTemperatura
-    }
-
+  
     Vue.set(state.coeficiente, params.id, coeficiente)
     Vue.set(state.temperaturas, params.id, temperaturas)
   }
 }).get({
   action: 'getStatusPauta',
   property: 'pautas',
-  path: ({ casa, id, date }) =>
-    `pauta/${casa}/${id}?data_referencia=${date}`,
+  path: ({ casa, id, date }) => `pauta/${casa}/${id}?data_referencia=${date}`,
   onSuccess: (state, { data }, axios, { params }) => {
     Vue.set(state.pautas, params.id, data)
   }
@@ -87,6 +80,7 @@ export default new Vuex.Store({
   modules: {
     proposicoes,
     filter: filterStore,
-    pautas: pautas
+    pautas: pautas,
+    temperaturas: temperaturas
   }
 })
