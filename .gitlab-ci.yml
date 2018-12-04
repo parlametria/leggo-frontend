@@ -12,12 +12,12 @@ stages:
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
-  CANDIDATE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev-development
-  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-development
+  CANDIDATE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
+  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
   COMPOSE_BUILDER_CMD: docker-compose -f docker_extra/builder.yml
   COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
-  FRONTEND_BUILDER_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-builder-development
-  FRONTEND_TEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-test-development
+  FRONTEND_BUILDER_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-builder
+  FRONTEND_TEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-test
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -56,6 +56,6 @@ release-image:
 deploy:
   stage: deploy
   script:
-    - curl --fail -XPOST "$DEPLOY_WEBHOOK_DEVELOPMENT"
+    - curl --fail -XPOST "$DEPLOY_WEBHOOK"
   only:
     - production
