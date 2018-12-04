@@ -3,7 +3,7 @@
     <h1>Sobre</h1>
     <ul>
       <li>
-        <a href="https://analytics-ufcg.github.io/agora-digital/public/articles/tutorial_4_relatorio_temperatura.html">Entenda a Temperatura de um PL</a>
+        <a href="https://analytics-ufcg.github.io/agora-digital/public/articles/tutorial_4_relatorio_energia.html" target="_blank">Entenda a Pressão de um PL</a>
       </li>
     </ul>
     <h2>Contribua com o Ágora Digital</h2>

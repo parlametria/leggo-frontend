@@ -6,11 +6,11 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import TemperatureGraphicModel from './TemperatureGraphicModel.js'
+import EnergyGraphicModel from './EnergyGraphicModel.js'
 import moment from 'moment'
 
 export default {
-  name: 'TemperatureGraphic',
+  name: 'EnergyGraphic',
   data () {
     return {
       semanas: 12
@@ -23,7 +23,7 @@ export default {
     cardWidth: Number
   },
   async mounted () {
-    this.getTemperaturaRecente({ params: {
+    this.getEnergiaRecente({ params: {
       id: this.id,
       casa: this.casa,
       semanas: this.semanas,
@@ -35,17 +35,15 @@ export default {
       this.casa,
       this.semanas,
       this.formattedDate
-    ), 5000)
+    ), 2000)
   },
   computed: mapState({
-    listaTemperaturas: state => state.proposicoes.temperaturas,
-    maxTemperatura: state => state.proposicoes.maxTemperatura,
+    listaEnergias: state => state.proposicoes.energias,
+    maxEnergia: state => state.proposicoes.maxEnergia,
     listaCoeficientes: state => state.proposicoes.coeficiente,
 
-    temperaturas () {
-      if (this.listaTemperaturas[this.id]) {
-        return this.listaTemperaturas[this.id]
-      }
+    energias () {
+      return this.listaEnergias[this.id]
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
@@ -54,7 +52,7 @@ export default {
       return moment(this.date).format('YYYY-MM-DD')
     },
     tendenciaColor () {
-      if (this.temperaturas.length > 1) {
+      if (this.energias.length > 1) {
         if (this.coeficiente <= 0) {
           return '#60C7DC'
         }
@@ -66,20 +64,20 @@ export default {
     }
   }),
   methods: {
-    ...mapActions(['getTemperaturaRecente']),
+    ...mapActions(['getEnergiaRecente']),
     async mountGraphic (id, casa, semanas, date) {
-      if (this.temperaturas.length > 0) {
-        this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
+      if (this.energias.length > 0) {
+        this.energias[0].energia_dia = this.energias[0].energia_recente
       }
 
-      let model = new TemperatureGraphicModel(
-        this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
+      let model = new EnergyGraphicModel(
+        this.energias, this.maxEnergia, this.tendenciaColor, this.cardWidth)
 
       // eslint-disable-next-line
       vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
         res.view /* eslint-disable */
-          .change('temperatura', vega.changeset().remove('temperatura', d => true))
-          .insert('temperatura', this.temperaturas)
+          .change('energia', vega.changeset().remove('energia', d => true))
+          .insert('energia', this.energias)
           .run()
       })
     }
@@ -87,7 +85,7 @@ export default {
   watch: {
     compoundWatch: {
       handler: function (val, oldVal) {
-        this.getTemperaturaRecente({ params: {
+        this.getEnergiaRecente({ params: {
           id: this.id,
           casa: this.casa,
           semanas: this.semanas,
