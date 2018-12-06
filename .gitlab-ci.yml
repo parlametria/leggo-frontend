@@ -27,6 +27,8 @@ before_script:
 build:
   stage: build
   script:
+    - export GIT_HASH=$(git rev-parse --short=1 HEAD)
+    - echo $GIT_HASH
     - $COMPOSE_BUILDER_CMD pull || true
     - $COMPOSE_BUILDER_CMD build
     - $COMPOSE_BUILDER_CMD push
