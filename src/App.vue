@@ -16,7 +16,7 @@
       <el-footer class="footer">
         <p>
           <span v-if="commitHash">versão <a :href="`https://github.com/analytics-ufcg/agora-digital-frontend/commit/${commitHash}`" target="_blank">{{ commitHash }}</a></span>
-          <span v-if="buildDate">compilada em {{ buildDate }}</span>
+          <span v-if="buildDate"> compilada em {{ buildDate }}</span>
         </p>
       </el-footer>
     </el-container>
