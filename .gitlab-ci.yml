@@ -29,10 +29,10 @@ build:
   script:
     - export GIT_COMMIT_HASH=$(git rev-parse --short=1 HEAD)
     - $COMPOSE_BUILDER_CMD pull || true
-    - $COMPOSE_BUILDER_CMD build
+    - $COMPOSE_BUILDER_CMD build --build-arg commit_hash=$GIT_COMMIT_HASH
     - $COMPOSE_BUILDER_CMD push
     - $COMPOSE_CMD pull || true
-    - $COMPOSE_CMD build
+    - $COMPOSE_CMD build --build-arg commit_hash=$GIT_COMMIT_HASH
     - $COMPOSE_CMD push
 
 tests:

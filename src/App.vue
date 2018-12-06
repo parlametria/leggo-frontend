@@ -14,7 +14,10 @@
         </transition>
       </el-main>
       <el-footer class="footer">
-        <p v-if="commitHash">commit hash: {{ commitHash }}</p>
+        <p>
+          <span v-if="commitHash">versão {{ commitHash }}</span>
+          <span v-if="buildDate">compilada em {{ buildDate }}</span>
+        </p>
       </el-footer>
     </el-container>
   </el-container>
@@ -28,7 +31,8 @@ export default {
   },
   data () {
     return {
-      commitHash: process.env.VUE_APP_COMMIT_HASH
+      commitHash: process.env.VUE_APP_COMMIT_HASH,
+      buildDate: process.env.VUE_APP_BUILD_DATE
     }
   }
 }
