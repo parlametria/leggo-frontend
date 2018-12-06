@@ -52,7 +52,9 @@ tests:
 deploy_dev:
   stage: deploy
   script:
-    - $RELEASE_CMD
+    - docker pull $CANDIDATE_IMAGE
+    - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
+    - docker push $RELEASE_IMAGE
     - curl --fail -XPOST "$DEPLOY_WEBHOOK_DEVELOPMENT"
   only:
     - master
