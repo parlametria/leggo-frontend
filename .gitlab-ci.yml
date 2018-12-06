@@ -44,22 +44,24 @@ tests:
     - $COMPOSE_CMD down
     - docker push $FRONTEND_TEST_IMAGE_TAG
 
-deploy_dev:
+.release_and_deploy: &rd
   stage: deploy
   script:
     - docker pull $CANDIDATE_IMAGE
     - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
-    - curl --fail -XPOST "$DEPLOY_WEBHOOK_DEVELOPMENT"
+    - curl --fail -XPOST "$WEBHOOK"
+
+deploy_dev:
+  <<: *rd
+  variables:
+    WEBHOOK: $DEPLOY_WEBHOOK_DEVELOPMENT
   only:
     - master
 
 deploy_prod:
-  stage: deploy
-  script:
-    - docker pull $CANDIDATE_IMAGE
-    - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
-    - docker push $RELEASE_IMAGE
-    - curl --fail -XPOST "$DEPLOY_WEBHOOK"
+  <<: *rd
+  variables:
+    WEBHOOK: $DEPLOY_WEBHOOK
   only:
     - production
