@@ -25,7 +25,8 @@
               <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
             </div>
 
-          <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
+          <hr class = "divider" style="margin-top: 35px; margin-bottom: 20px;">
+          <span>Fases da tramitação</span>
           <div>
             <el-row>
               <fases-progress class="fases-progress" :class="{'visible': dropShow}" style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
