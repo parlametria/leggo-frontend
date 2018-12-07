@@ -1,5 +1,5 @@
 <template>
-    <div v-if="id in pautas">
+    <div v-if="propPautas && propPautas.length">
         <h3 class="descricao">Próximas pautas</h3>
         <table class="pautas">
             <tr v-for="(pauta, key) in propPautas" :key="key">

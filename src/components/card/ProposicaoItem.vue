@@ -13,13 +13,11 @@
           </p>
 
           <p class="small-text-field small-margin-top">Autor</p>
-          <p class="big-text-field">{{ autor }}</p>
-          <p class="medium-text-field"> {{ casa }}</p>
+          <p class="medium-text-field">{{ autor }}</p>
+          <p class="small-text-field"> {{ casa }}</p>
 
           <p class="small-text-field small-margin-top">Relator(a):</p>
           <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
-
-          <hr class="divider">
 
           <h3>Temperatura</h3>
           <temperature-graphic
@@ -29,11 +27,7 @@
             />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
-          <hr class="divider">
-
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
-
-          <hr class="divider">
 
           <h3>Progresso da Tramitação</h3>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
@@ -161,14 +155,7 @@ export default {
 }
 .medium-text-field{
     font-size: 12pt;
-    max-width: 70%;
     margin: 0;
-}
-
-.divider {
-  color: #000;
-  border: none;
-  border-top: solid 1px;
 }
 
 .temperature-info {
