@@ -26,6 +26,7 @@
             </div>
 
           <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
+          <span>Fases da tramitação</span>
           <div>
             <el-row>
               <fases-progress class="fases-progress" :class="{'visible': dropShow}" style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
