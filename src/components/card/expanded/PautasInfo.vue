@@ -1,6 +1,6 @@
 <template>
     <div v-if="propPautas && propPautas.length">
-        <h3 class="descricao">Próximas pautas</h3>
+        <h4 class="descricao">Próximas pautas</h4>
         <table class="pautas">
             <tr v-for="(pauta, key) in propPautas" :key="key">
                 <td><p>{{formatDate(pauta.data)}}</p></td>

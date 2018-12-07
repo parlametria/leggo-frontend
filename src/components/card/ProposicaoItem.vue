@@ -19,7 +19,7 @@
           <p class="small-text-field small-margin-top">Relator(a):</p>
           <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
 
-          <h3>Temperatura</h3>
+          <h4>Temperatura</h4>
           <temperature-graphic
             :date="dateRef"
             :id="prop.lastEtapa.id_ext"
@@ -29,7 +29,7 @@
 
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
 
-          <h3>Progresso da Tramitação</h3>
+          <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
           <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
 
