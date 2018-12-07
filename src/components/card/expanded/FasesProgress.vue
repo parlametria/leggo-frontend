@@ -17,6 +17,7 @@
         </div>
         <li :class="styleFase(fase)"/>
       </el-tooltip>
+      <hr class="linhas"/>
     </ul>
   </div>
 </template>
@@ -76,15 +77,15 @@ strong {
 }
 .progressbar {
     padding: 0;
+    display: flex;
+    justify-content: space-between;
 }
 .progressbar li {
     list-style-type: none;
-    width: 16.5%;
-    float: left;
     position: relative;
 }
 
-/* os before fazem os circulos, e os after as linhas*/
+/* os before fazem os circulos */
 
 .progressbar li:before {
     width: 30px;
@@ -99,18 +100,14 @@ strong {
 }
 
 /* linhas */
-.progressbar li:after {
+.linhas {
     width: 100%;
     height: 2px;
-    content: '';
     position: absolute;
-    background-color: #999999;
-    top: 15px;
-    left: -50%;
+    background-color: grey;
+    top: 25px;
     z-index: -1;
-}
-.progressbar li:first-child:after {
-    content: none;
+    border: none;
 }
 .camara:before {
     background-image: url('../../../assets/colored_camara.png');

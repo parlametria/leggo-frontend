@@ -5,7 +5,10 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run check-lint
-RUN npm run build
+ARG commit_hash
+ENV VUE_APP_COMMIT_HASH $commit_hash
+RUN export VUE_APP_BUILD_DATE=$(date -Is) &&\
+    npm run build
 
 # production stage
 FROM nginx:1.15-alpine as production-stage

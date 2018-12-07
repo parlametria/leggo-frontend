@@ -6,31 +6,33 @@ services:
 stages:
   - build
   - test
-  - release
   - deploy
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
-  CANDIDATE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci-dev
-  RELEASE_IMAGE: $CI_REGISTRY_IMAGE:gitlab-ci
-  COMPOSE_BUILDER_CMD: docker-compose -f docker_extra/builder.yml
   COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
-  FRONTEND_BUILDER_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-builder
-  FRONTEND_TEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:gitlab-ci-test
+  COMPOSE_BUILDER_CMD: docker-compose -f docker_extra/builder.yml
+  FRONTEND_ADDR: "http://frontend:80"  # usada pelo compose de test
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  - export FRONTEND_IMAGE_TAG=$CANDIDATE_IMAGE
+  - if [ "$CI_COMMIT_REF_NAME" = "production" ]; then export SUFIX="prod"; else export SUFIX="dev"; fi
+  - export CANDIDATE_IMAGE="$CI_REGISTRY_IMAGE:cadidate-$SUFIX"
+  - export FRONTEND_IMAGE_TAG="$CANDIDATE_IMAGE"  # usada pelo compose de prod
+  - export FRONTEND_BUILDER_IMAGE_TAG="$CI_REGISTRY_IMAGE:builder-$SUFIX"
+  - export FRONTEND_TEST_IMAGE_TAG="$CI_REGISTRY_IMAGE:test-$SUFIX"
+  - export RELEASE_IMAGE="$CI_REGISTRY_IMAGE:release-$SUFIX"
 
 build:
   stage: build
   script:
+    - export GIT_COMMIT_HASH=$(git rev-parse --short=1 HEAD)
     - $COMPOSE_BUILDER_CMD pull || true
-    - $COMPOSE_BUILDER_CMD build
+    - $COMPOSE_BUILDER_CMD build --build-arg commit_hash=$GIT_COMMIT_HASH
     - $COMPOSE_BUILDER_CMD push
     - $COMPOSE_CMD pull || true
-    - $COMPOSE_CMD build
+    - $COMPOSE_CMD build --build-arg commit_hash=$GIT_COMMIT_HASH
     - $COMPOSE_CMD push
 
 tests:
@@ -38,24 +40,29 @@ tests:
   script:
     - $COMPOSE_CMD pull
     - $COMPOSE_CMD up -d
-    - export FRONTEND_ADDR="http://frontend:80"
     - docker pull $FRONTEND_TEST_IMAGE_TAG || true
     - npm run docker_test
     - $COMPOSE_CMD down
     - docker push $FRONTEND_TEST_IMAGE_TAG
 
-release-image:
-  stage: release
+.release_and_deploy: &rd
+  stage: deploy
   script:
     - docker pull $CANDIDATE_IMAGE
     - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
     - docker push $RELEASE_IMAGE
+    - curl --fail -XPOST "$WEBHOOK"
+
+deploy_dev:
+  <<: *rd
+  variables:
+    WEBHOOK: $DEPLOY_WEBHOOK_DEVELOPMENT
   only:
     - production
 
-deploy:
-  stage: deploy
-  script:
-    - curl --fail -XPOST "$DEPLOY_WEBHOOK"
+deploy_prod:
+  <<: *rd
+  variables:
+    WEBHOOK: $DEPLOY_WEBHOOK
   only:
     - production
