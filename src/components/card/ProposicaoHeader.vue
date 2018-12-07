@@ -5,8 +5,8 @@
     <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
-        <spam class="tag">{{prop.lastEtapa.regime_tramitacao}}</spam>
-        <spam class="tag">{{prop.lastEtapa.forma_apreciacao}}</spam>
+        <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
+        <span class="tag">{{prop.lastEtapa.forma_apreciacao}}</span>
     </div>
     <div class="selector">
       <span class="arrow" :class="{'arrow-down': clicked}"/>

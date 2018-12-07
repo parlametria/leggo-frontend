@@ -7,11 +7,19 @@
         </el-collapse-transition>
       </nav-menu>
     </el-aside>
-    <el-main>
-      <transition name="el-fade-in" mode="out-in">
-        <router-view/>
-      </transition>
-    </el-main>
+    <el-container>
+      <el-main>
+        <transition name="el-fade-in" mode="out-in">
+          <router-view/>
+        </transition>
+      </el-main>
+      <el-footer class="footer">
+        <p>
+          <span v-if="commitHash">versão <a :href="`https://github.com/analytics-ufcg/agora-digital-frontend/commit/${commitHash}`" target="_blank">{{ commitHash }}</a></span>
+          <span v-if="buildDate"> compilada em {{ buildDate }}</span>
+        </p>
+      </el-footer>
+    </el-container>
   </el-container>
 </template>
 
@@ -20,6 +28,12 @@ import NavMenu from '@/components/menu/NavMenu.vue'
 export default {
   components: {
     NavMenu
+  },
+  data () {
+    return {
+      commitHash: process.env.VUE_APP_COMMIT_HASH,
+      buildDate: process.env.VUE_APP_BUILD_DATE
+    }
   }
 }
 </script>
@@ -46,5 +60,10 @@ body {
 a {
     color: $--color-primary;
     text-decoration: none;
+}
+.footer {
+    text-align: center;
+    font-size: 10pt;
+    color: grey;
 }
 </style>

@@ -126,48 +126,48 @@ export default {
 
 <style lang="scss" scoped>
 .sigla {
-  font-size: 12px;
+    font-size: 12px;
 }
 .flex-between {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 .prop-item {
-  margin: 10px;
+    margin: 10px;
 }
 .el-badge {
-  margin: 10px;
+    margin: 10px;
 }
 .proposicao-card {
-  position: relative;
-  margin-bottom: 0.5rem;
-  padding-top: 0.5rem;
-  border-bottom: solid 1px #e9e9e9;
-  &:hover {
-    box-shadow: 0 5px 5px #c6c6c6;
-  }
-  .card-header {
-    cursor: pointer;
-  }
+    position: relative;
+    margin-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    border-bottom: solid 1px #e9e9e9;
+    &:hover {
+        box-shadow: 0 5px 5px #c6c6c6;
+    }
+    .card-header {
+        cursor: pointer;
+    }
 }
 
 .border-pauta {
-  border-left: 5px solid #f56c6c;
+    border-left: 5px solid #f56c6c;
 }
 
 .flex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 .pauta-label {
-  position: absolute;
-  top: 2px;
-  left: 2px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
 }
 
 .informations{
-  margin-left: 30px;
+    margin-left: 30px;
 }
 
 .small-text-field {
@@ -177,20 +177,20 @@ export default {
 }
 
 .big-text-field{
-  margin-top: 0px;
-  font-size: 22px;
-  margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 22px;
+    margin-bottom: 0px;
 }
 
 .medium-text-field{
-  font-size: 15px;
-  max-width: 70%;
+    font-size: 15px;
+    max-width: 70%;
 }
 
 .divider {
-  margin-right: 15px;
-  margin-left: -15px;
   color: #000;
+  border: none;
+  border-top: solid 1px;
 }
 
 .pressure-info {
