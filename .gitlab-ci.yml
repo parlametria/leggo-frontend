@@ -58,7 +58,7 @@ deploy_dev:
   variables:
     WEBHOOK: $DEPLOY_WEBHOOK_DEVELOPMENT
   only:
-    - production
+    - master
 
 deploy_prod:
   <<: *rd
