@@ -1,15 +1,12 @@
 <template>
-    <div >
-        <div v-if="id in pautas">
-            <p class="descricao">Próximas pautas</p>
-            <table class="pautas">
-                <tr v-for="(pauta, key) in propPautas" :key="key">
-                    <td><p>{{formatDate(pauta.data)}}</p></td>
-                    <td><p>{{pauta.local}}</p></td>
-                </tr>
-            </table>
-        </div>
-        <div class="empty-pautas" v-else></div>
+    <div v-if="propPautas && propPautas.length">
+        <h4 class="descricao">Próximas pautas</h4>
+        <table class="pautas">
+            <tr v-for="(pauta, key) in propPautas" :key="key">
+                <td><p>{{formatDate(pauta.data)}}</p></td>
+                <td><p>{{pauta.local}}</p></td>
+            </tr>
+        </table>
     </div>
 </template>
 
@@ -57,21 +54,15 @@ export default {
 
 <style scoped>
 .pautas {
-    font-size: 12px;
+    font-size: 10pt;
     text-align: center;
-}
-.descricao {
-}
-.empty-pautas {
-    color: #999;
 }
 table {
     border-collapse: collapse;
     width: 100%;
 }
 th, td {
-    padding: 1rem;
+    padding: .5rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
 }
 </style>

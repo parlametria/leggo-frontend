@@ -17,7 +17,7 @@
         </div>
         <li :class="styleFase(fase)"/>
       </el-tooltip>
-      <hr class="linhas"/>
+      <hr class="linha"/>
     </ul>
   </div>
 </template>
@@ -79,6 +79,7 @@ strong {
     padding: 0;
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 .progressbar li {
     list-style-type: none;
@@ -100,12 +101,13 @@ strong {
 }
 
 /* linhas */
-.linhas {
-    width: 100%;
+.linha {
+    width: 99%;
     height: 2px;
     position: absolute;
     background-color: grey;
-    top: 25px;
+    top: 5px;
+    left: 1%;
     z-index: -1;
     border: none;
 }
