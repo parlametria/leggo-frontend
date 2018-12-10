@@ -96,8 +96,6 @@ strong {
     display: block;
     margin: 0 auto 10px auto;
     background-size: cover;
-    /* border: solid 1px #bbb; */
-    /* border-radius: 50%; */
 }
 
 /* linhas */
