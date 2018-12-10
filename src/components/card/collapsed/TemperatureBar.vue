@@ -12,8 +12,8 @@ export default {
   props: ['id'],
   computed: {
     ...mapState({
-      listaTemperaturas: state => state.proposicoes.temperaturas,
-      listaCoeficientes: state => state.proposicoes.coeficiente
+      listaTemperaturas: state => state.temperaturas.temperaturas,
+      listaCoeficientes: state => state.temperaturas.coeficiente
     }),
     ...mapGetters(['maxTemperatura']),
     temperatura () {
