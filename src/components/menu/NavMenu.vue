@@ -12,9 +12,6 @@
         <i class="el-dialog__close el-icon el-icon-close"></i>
       </button>
       <el-menu mode="vertical">
-        <!-- <el-menu-item index="/sobre">Sobre</el-menu-item> -->
-        <!-- <el-menu-item index="/proposicoes">Proposições</el-menu-item> -->
-
         <el-menu-item index="1" @click="propagateClick" class="menu-route-link">
           <router-link :to="{ name: 'sobre' }">Sobre</router-link>
         </el-menu-item>
@@ -26,10 +23,6 @@
         <el-menu-item index="3" @click="propagateClick" class="menu-route-link">
           <router-link :to="{ name: 'cases' }">Exemplos</router-link>
         </el-menu-item>
-
-        <!-- <el-menu-item index="2" @click="propagateClick" class="menu-route-link"> -->
-          <!-- <router-link tag="el-menu-item" index="3" :to="{ name: 'proposicoes' }">Proproposições</router-link> -->
-        <!-- </el-menu-item> -->
 
       </el-menu>
       <slot/>

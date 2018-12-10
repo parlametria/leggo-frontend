@@ -69,7 +69,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import TemperatureSort from '@/components/card/expanded/TemperatureSort'
+import TemperatureSort from '@/components/menu/TemperatureSort'
 import store from '@/stores/store'
 
 function generateFilterModels () {
