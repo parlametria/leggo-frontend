@@ -36,18 +36,19 @@ export default {
     TemperatureBar
   },
   async mounted () {
-    this.getStatusPauta({ params: {
+    const params = {
       id: this.prop.lastEtapa.id_ext,
       casa: this.prop.lastEtapa.casa,
       date: this.formattedDate
-    } })
+    }
+    this.getPautas({ params })
   },
   methods: {
-    ...mapActions(['getStatusPauta'])
+    ...mapActions(['getPautas'])
   },
   computed: {
     ...mapState({
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     na_pauta () {
       let id = this.prop.lastEtapa.id_ext

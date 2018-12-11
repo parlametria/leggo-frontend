@@ -26,20 +26,20 @@ export default {
       }
     }
   },
-  mounted () {
-    const query = {
-      'casa': this.casa,
-      'id': this.id,
-      'date': this.formattedDate
+  async mounted () {
+    const params = {
+      id: this.id,
+      casa: this.casa,
+      date: this.date
     }
-    this.getPautas(query)
+    this.getPautas({ params })
   },
   computed: {
     propPautas () {
       return this.pautas[this.id]
     },
     ...mapState({
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
