@@ -1,6 +1,7 @@
 <template>
   <div class="graphic">
-    <div :id="`${casa}-${id}`"></div>
+    <div :id="`${casa}-${id}`">
+    </div>
   </div>
 </template>
 
@@ -38,9 +39,9 @@ export default {
     ), 5000)
   },
   computed: mapState({
-    listaTemperaturas: state => state.proposicoes.temperaturas,
-    maxTemperatura: state => state.proposicoes.maxTemperatura,
-    listaCoeficientes: state => state.proposicoes.coeficiente,
+    listaTemperaturas: state => state.temperaturas.temperaturas,
+    maxTemperatura: state => state.temperaturas.maxTemperatura,
+    listaCoeficientes: state => state.temperaturas.coeficiente,
 
     temperaturas () {
       if (this.listaTemperaturas[this.id]) {

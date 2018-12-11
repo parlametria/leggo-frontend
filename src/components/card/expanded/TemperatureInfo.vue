@@ -21,7 +21,7 @@ export default {
   name: 'TemperatureInfo',
   props: ['id'],
   computed: mapState({
-    coefficients: state => state.proposicoes.coeficiente,
+    coefficients: state => state.temperaturas.coeficiente,
     coefficient () {
       return this.coefficients[this.id] || 0
     },
