@@ -12,11 +12,11 @@
       <transition name="el-fade-in" mode="out-in">
         <div v-if="filteredProps.length">
           <div class="session" ref="emPautaSession">
-            <header ref="emPautaHeader"><h2 :class="{disabled: emPauta.length === 0}">Em pauta</h2></header>
+            <header ref="emPautaHeader"><h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2></header>
             <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
           </div>
           <div class="session" ref="notEmPautaSession">
-            <header ref="notEmPautaHeader"><h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta</h2></header>
+            <header ref="notEmPautaHeader"><h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2></header>
             <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
           </div>
         </div>
