@@ -1,6 +1,7 @@
 <template>
   <div class="graphic">
-    <div :id="`${casa}-${id}`"></div>
+    <div :id="`${casa}-${id}`">
+    </div>
   </div>
 </template>
 
