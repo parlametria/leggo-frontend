@@ -66,7 +66,7 @@ export default {
   },
   watch: {
     dateRef () {
-      this.getStatusPauta({ params: {
+      this.getPautas({ params: {
         id: this.prop.lastEtapa.id_ext,
         casa: this.prop.lastEtapa.casa,
         date: this.formattedDate
