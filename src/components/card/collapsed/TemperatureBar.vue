@@ -17,7 +17,7 @@ export default {
     }),
     ...mapGetters(['maxTemperatura']),
     temperatura () {
-      if (this.listaTemperaturas[this.id]) {
+      if (this.listaTemperaturas[this.id] && this.listaTemperaturas[this.id][0]) {
         return this.listaTemperaturas[this.id][0].temperatura_recente
       } else {
         return 0
