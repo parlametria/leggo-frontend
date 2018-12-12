@@ -27,12 +27,7 @@ export default {
     }
   },
   mounted () {
-    const query = {
-      'casa': this.casa,
-      'id': this.id,
-      'date': this.formattedDate
-    }
-    this.getPautas(query)
+    this.getPautas(this.query)
   },
   computed: {
     propPautas () {
@@ -43,11 +38,25 @@ export default {
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
+    },
+    query () {
+      return {
+        casa: this.casa,
+        id: this.id,
+        date: this.formattedDate
+      }
     }
   },
   methods: {
     ...mapActions(['getPautas']),
-    formatDate: date => moment(date).format('DD/MM/YYYY')
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY')
+    }
+  },
+  watch: {
+    date () {
+      this.getPautas(this.query)
+    }
   }
 }
 </script>
