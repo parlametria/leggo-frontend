@@ -78,7 +78,7 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       temperaturas: state => state.proposicoes.temperaturas,
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     ...mapGetters(['perFilterOptions']),
     emPauta () {

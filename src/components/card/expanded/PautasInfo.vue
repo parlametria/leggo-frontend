@@ -30,7 +30,7 @@ export default {
     const params = {
       id: this.id,
       casa: this.casa,
-      date: this.date
+      date: this.formattedDate()
     }
     this.getPautas({ params })
   },
