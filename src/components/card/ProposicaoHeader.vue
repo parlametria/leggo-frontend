@@ -2,7 +2,7 @@
   <div class="container">
     <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
-    <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
+    <span v-if="na_pauta" class="na-pauta" size="small">discussão quinta-feira</span>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
@@ -109,11 +109,30 @@ export default {
   grid-row: 1/4;
 }
 
-.na_pauta {
+.na-pauta {
   grid-column: 2/3;
-  grid-row: 1/3;
+  grid-row: 1/2;
   margin-left: .6rem;
-  margin-top: .7rem;
+  margin-top: .8rem;
+  color: #d65858;
+  font-size: .9rem;
+  width: 165px;
+  background: #3b3b3b;
+  height: 26px;
+  line-height: 26px;
+  position: relative;
+  padding-left: 13px;
+}
+
+.na-pauta::after {
+  background: #444;
+  border-bottom: 13px solid transparent;
+  border-left: 10px solid #3b3b3b;
+  border-top: 13px solid transparent;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .prop-apelido {
@@ -128,25 +147,6 @@ export default {
   grid-row: 3/4;
   margin-bottom: .9rem;
   margin-left: .5rem;
-}
-
-.emPauta {
-  color:#dc6060 !important;
-  border-color: #dc6060 !important;
-  font-weight: bolder;
-  opacity: 1 !important;
-}
-
-.emPauta span {
-  animation: blinker 2s linear infinite;
-}
-
-.emPautaTag {
-    color:grey;
-    opacity: 0.4;
-    width: 85px;
-    text-align: center;
-    border-color: white;
 }
 
 .tag {
@@ -195,9 +195,4 @@ export default {
     }
   }
 
-@keyframes blinker {
-  50% {
-    opacity: 0.5;
-  }
-}
 </style>
