@@ -125,7 +125,7 @@ export default {
     sticky () {
       const emPautaHeader = this.$refs.emPautaHeader
       const emPautaSession = this.$refs.emPautaSession
-      if (emPautaHeader){
+      if (emPautaHeader) {
         emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
         if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
         else emPautaHeader.classList.remove('sticky')
@@ -134,7 +134,7 @@ export default {
       const notEmPautaheader = this.$refs.notEmPautaHeader
       const notEmPautaSession = this.$refs.notEmPautaSession
 
-      if (notEmPautaheader){
+      if (notEmPautaheader) {
         notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
 
         if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
