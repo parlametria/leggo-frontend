@@ -26,18 +26,15 @@ export default {
       }
     }
   },
-  async mounted () {
-    if(!this.pautas){
-      this.getPautas({ query })
-    }
-
+  mounted () {
+    this.getPautas(this.query)
   },
   computed: {
     propPautas () {
       return this.pautas[this.id]
     },
     ...mapState({
-      pautas: state => state.pautas.pautas
+      pautas: state => state.pautas.pautasDic
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
