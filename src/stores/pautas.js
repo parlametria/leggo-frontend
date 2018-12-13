@@ -1,27 +1,18 @@
 import Vue from 'vue'
-import api from './axios'
+import Vapi from 'vuex-rest-api'
 
-const pautas = {
+const pautas = new Vapi({
+  baseURL: process.env.VUE_APP_API_URL,
   state: {
-    pautasDic: {}
-  },
-  mutations: {
-    getPautas (state, { id, pautas }) {
-      Vue.set(state.pautasDic, id, pautas)
-    }
-  },
-  actions: {
-    getPautas ({ commit }, { casa, id, date }) {
-      api.get(`/pauta/${casa}/${id}?data_referencia=${date}`)
-        .then((response) => {
-          const pautasDic = {
-            'id': id,
-            'pautas': response.data
-          }
-          commit('getPautas', pautasDic)
-        })
-    }
+    pautas: {}
+  } }).get({
+  action: 'getPautas',
+  property: 'pautas',
+  path: ({ casa, id, date }) =>
+    `pauta/${casa}/${id}?data_referencia=${date}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    Vue.set(state.pautas, params.id, data)
   }
-}
+}).getStore()
 
 export default pautas

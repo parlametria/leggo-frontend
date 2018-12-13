@@ -78,7 +78,7 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       temperaturas: state => state.proposicoes.temperaturas,
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     ...mapGetters(['perFilterOptions']),
     emPauta () {
@@ -125,17 +125,21 @@ export default {
     sticky () {
       const emPautaHeader = this.$refs.emPautaHeader
       const emPautaSession = this.$refs.emPautaSession
-      emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
-
-      if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
-      else emPautaHeader.classList.remove('sticky')
+      if (emPautaHeader) {
+        emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
+        if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
+        else emPautaHeader.classList.remove('sticky')
+      }
 
       const notEmPautaheader = this.$refs.notEmPautaHeader
       const notEmPautaSession = this.$refs.notEmPautaSession
-      notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
 
-      if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
-      else notEmPautaheader.classList.remove('sticky')
+      if (notEmPautaheader) {
+        notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
+
+        if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
+        else notEmPautaheader.classList.remove('sticky')
+      }
     }
   }
 }

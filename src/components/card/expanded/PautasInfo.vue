@@ -41,9 +41,11 @@ export default {
     },
     query () {
       return {
-        casa: this.casa,
-        id: this.id,
-        date: this.formattedDate
+        params: {
+          casa: this.casa,
+          id: this.id,
+          date: this.formattedDate
+        }
       }
     }
   },
