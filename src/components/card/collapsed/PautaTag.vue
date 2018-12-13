@@ -3,21 +3,21 @@
 </template>
 
 <script>
-  import moment from 'moment'
+import moment from 'moment'
 
-  export default {
-    name: 'PautaTag',
-    props: {
-      proximaPauta: Object
-    },
-    computed: {
-      day () {
-        const days = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado']
-        const dayNumber = moment(this.proximaPauta.data).day()
-        return days[dayNumber]
-      }
+export default {
+  name: 'PautaTag',
+  props: {
+    proximaPauta: Object
+  },
+  computed: {
+    day () {
+      const days = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado']
+      const dayNumber = moment(this.proximaPauta.data).day()
+      return days[dayNumber]
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
