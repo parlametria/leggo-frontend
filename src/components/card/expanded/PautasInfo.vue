@@ -31,7 +31,8 @@ export default {
   },
   computed: {
     propPautas () {
-      return this.pautas[this.id]
+      if(this.pautas)
+        return this.pautas[this.id]
     },
     ...mapState({
       pautas: state => state.pautas.pautasDic
