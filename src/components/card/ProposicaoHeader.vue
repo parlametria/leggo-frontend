@@ -2,7 +2,7 @@
   <div class="container">
     <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
-    <span v-if="na_pauta" class="na-pauta" size="small">discussão quinta-feira</span>
+    <pauta-tag v-if="na_pauta" :proximaPauta="pautas[prop.lastEtapa.id_ext][0]"/>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
@@ -20,6 +20,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
+import PautaTag from './collapsed/PautaTag'
 import moment from 'moment'
 
 export default {
@@ -33,7 +34,8 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     Fases,
-    TemperatureBar
+    TemperatureBar,
+    PautaTag
   },
   async mounted () {
     this.getStatusPauta({ params: {
@@ -107,32 +109,6 @@ export default {
 .temperatura {
   grid-column: 1/2;
   grid-row: 1/4;
-}
-
-.na-pauta {
-  grid-column: 2/3;
-  grid-row: 1/2;
-  margin-left: .6rem;
-  margin-top: .8rem;
-  color: #d65858;
-  font-size: .9rem;
-  width: 165px;
-  background: #3b3b3b;
-  height: 26px;
-  line-height: 26px;
-  position: relative;
-  padding-left: 13px;
-}
-
-.na-pauta::after {
-  background: #444;
-  border-bottom: 13px solid transparent;
-  border-left: 10px solid #3b3b3b;
-  border-top: 13px solid transparent;
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
 }
 
 .prop-apelido {
