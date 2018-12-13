@@ -27,7 +27,7 @@
             />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
-          <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
+          <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>

@@ -28,12 +28,7 @@ export default {
   },
   async mounted () {
     if(!this.pautas){
-      const params = {
-        id: this.id,
-        casa: this.casa,
-        date: this.formattedDate
-      }
-      this.getPautas({ params })
+      this.getPautas({ query })
     }
 
   },
@@ -46,11 +41,27 @@ export default {
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
+    },
+    query () {
+      return {
+        params: {
+          casa: this.casa,
+          id: this.id,
+          date: this.formattedDate
+        }
+      }
     }
   },
   methods: {
     ...mapActions(['getPautas']),
-    formatDate: date => moment(date).format('DD/MM/YYYY')
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY')
+    }
+  },
+  watch: {
+    date () {
+      this.getPautas(this.query)
+    }
   }
 }
 </script>
