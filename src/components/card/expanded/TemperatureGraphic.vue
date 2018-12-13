@@ -69,7 +69,7 @@ export default {
   methods: {
     ...mapActions(['getTemperaturaRecente']),
     async mountGraphic (id, casa, semanas, date) {
-      if(id & casa){
+      if (id & casa) {
         if (this.temperaturas.length > 0) {
           this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
         }
