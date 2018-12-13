@@ -27,12 +27,15 @@ export default {
     }
   },
   async mounted () {
-    const params = {
-      id: this.id,
-      casa: this.casa,
-      date: this.formattedDate()
+    if(!this.pautas){
+      const params = {
+        id: this.id,
+        casa: this.casa,
+        date: this.formattedDate
+      }
+      this.getPautas({ params })
     }
-    this.getPautas({ params })
+
   },
   computed: {
     propPautas () {
