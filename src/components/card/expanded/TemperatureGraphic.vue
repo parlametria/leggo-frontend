@@ -69,20 +69,22 @@ export default {
   methods: {
     ...mapActions(['getTemperaturaRecente']),
     async mountGraphic (id, casa, semanas, date) {
-      if (this.temperaturas.length > 0) {
-        this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
+      if (id & casa) {
+        if (this.temperaturas.length > 0) {
+          this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
+        }
+
+        let model = new TemperatureGraphicModel(
+          this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
+
+        // eslint-disable-next-line
+        vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
+          res.view /* eslint-disable */
+            .change('temperatura', vega.changeset().remove('temperatura', d => true))
+            .insert('temperatura', this.temperaturas)
+            .run()
+        })
       }
-
-      let model = new TemperatureGraphicModel(
-        this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
-
-      // eslint-disable-next-line
-      vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
-        res.view /* eslint-disable */
-          .change('temperatura', vega.changeset().remove('temperatura', d => true))
-          .insert('temperatura', this.temperaturas)
-          .run()
-      })
     }
   },
   watch: {
