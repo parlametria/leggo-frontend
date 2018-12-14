@@ -29,13 +29,13 @@ export default {
       casa: this.casa,
       semanas: this.semanas,
       date: this.formattedDate
-    }}).then(() => 
+    } }).then(() =>
       this.mountGraphic(
         this.id,
         this.casa,
         this.semanas,
         this.formattedDate
-    ))
+      ))
   },
   computed: mapState({
     listaTemperaturas: state => state.temperaturas.temperaturas,
