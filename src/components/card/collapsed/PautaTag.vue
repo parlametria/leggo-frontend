@@ -1,5 +1,5 @@
 <template>
-  <span  class="pauta">discussão {{day}}</span>
+  <span  class="pauta">{{day}} - {{proximaPauta.local}}</span>
 </template>
 
 <script>
@@ -26,16 +26,16 @@ export default {
   grid-row: 1/2;
   margin-left: .6rem;
   margin-top: .8rem;
-  color: #d65858;
-  font-size: .9rem;
-  width: 165px;
+  color: #dbd936;
+  font-size: .8rem;
+  width: 230px;
   background: #3b3b3b;
   height: 26px;
   line-height: 26px;
   position: relative;
-  padding-left: 13px;
+  padding-left: 7px;
+  text-transform: uppercase;
 }
-
 .pauta::after {
   background: #444;
   border-bottom: 13px solid transparent;

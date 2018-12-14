@@ -2,7 +2,7 @@
   <div class="container">
     <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
-    <pauta-tag v-if="na_pauta" :proximaPauta="pautas[prop.lastEtapa.id_ext][0]"/>
+    <pauta-tag v-if="na_pauta" :proximaPauta="pautas[prop.lastEtapa.id_ext].slice(-1).pop()"/>
     <span class="prop-apelido">{{prop.apelido}}</span>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
