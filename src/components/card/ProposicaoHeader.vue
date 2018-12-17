@@ -173,12 +173,12 @@ export default {
   width: 10px;
   border: solid #fff;
   border-width: 0px 4px 4px 0;
-  transform: rotate(-45deg);
+  transform: rotate(45deg);
   transition: transform .5s;
   border-radius: 1px;
 }
 .arrow-down {
-  transform: rotate(45deg);
+  transform: rotate(225deg);
 }
 
 @keyframes float {
