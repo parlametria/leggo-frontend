@@ -20,7 +20,6 @@ export default {
   name: 'EventosInfo',
   props: {
     id: Number,
-    casa: String,
     date: {
       type: Date,
       default: function () {
