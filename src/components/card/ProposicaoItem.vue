@@ -27,6 +27,8 @@
             />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
+          <eventos-info :id="prop.lastEtapa.id_ext" :date="dateRef"/>
+
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <h4>Progresso da Tramitação</h4>
@@ -48,6 +50,7 @@ import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
 import TemperatureInfo from './expanded/TemperatureInfo'
+import EventosInfo from './expanded/EventosInfo'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -78,7 +81,7 @@ export default {
     },
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao
-      let localAtual = locais[locais.length - 1].nome
+      let localAtual = locais[locais.length - 1].local 
       if (localAtual.startsWith('PL')) {
         localAtual = 'Comissão Especial - ' + localAtual
       }
