@@ -78,7 +78,7 @@ export default {
     },
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao
-      let localAtual = locais[locais.length - 1].nome
+      let localAtual = locais[locais.length - 1].local
       if (localAtual.startsWith('PL')) {
         localAtual = 'Comissão Especial - ' + localAtual
       }
