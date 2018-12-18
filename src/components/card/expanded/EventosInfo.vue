@@ -2,11 +2,11 @@
     <div v-if="propEventosTram && propEventosTram.length">
         <h4 class="descricao">Últimos eventos</h4>
         <table class="eventos_tram">
-            <tr v-for="(evento_tram, key) in propEventosTram" :key="key">
-                <td><p>{{formatDate(evento_tram.data)}}</p></td>
-                <td><p>{{evento_tram.local}}</p></td>
-                <td><p>{{evento_tram.evento}}</p></td>
-                <td><p>{{evento_tram.texto_tramitacao}}</p></td>
+            <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
+                <td><p>{{formatDate(eventoTram.data)}}</p></td>
+                <td><p>{{eventoTram.local}}</p></td>
+                <td><p>{{eventoTram.evento}}</p></td>
+                <td><p>{{eventoTram.texto_tramitacao}}</p></td>
             </tr>
         </table>
     </div>
@@ -33,20 +33,21 @@ export default {
   },
   computed: {
     propEventosTram () {
-      return this.eventos_tramitacao[this.id]
+      return this.eventosTramitacao[this.id]
     },
     ...mapState({
-      eventos_tramitacao: state => state.eventos_tramitacao.eventosDict
+      eventosTramitacao: state => state.eventosTramitacao.eventosDict
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
     },
     query () {
-      return {
+      return { params: {
         casa: this.casa,
         id: this.id,
-        data_fim: this.formattedDate,
-        ultimos_n: 3
+        dataFim: this.formattedDate,
+        ultimosN: 3
+      }
       }
     }
   },

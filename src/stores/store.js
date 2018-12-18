@@ -4,7 +4,7 @@ import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import pautas from './pautas'
 import temperaturas from './temperaturas'
-import eventos_tramitacao from './eventos_tramitacao'
+import eventosTramitacaoStore from './eventos_tramitacao'
 
 Vue.use(Vuex)
 
@@ -49,6 +49,6 @@ export default new Vuex.Store({
     filter: filterStore,
     pautas: pautas,
     temperaturas: temperaturas,
-    eventos_tramitacao: eventos_tramitacao
+    eventosTramitacao: eventosTramitacaoStore
   }
 })
