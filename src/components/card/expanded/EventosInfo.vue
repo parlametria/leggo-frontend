@@ -1,12 +1,12 @@
 <template>
-    <div v-if="propEventos && propEventos.length">
+    <div v-if="propEventosTram && propEventosTram.length">
         <h4 class="descricao">Últimos eventos</h4>
-        <table class="pautas">
-            <tr v-for="(evento, key) in propEventos" :key="key">
-                <td><p>{{formatDate(evento.data)}}</p></td>
-                <td><p>{{evento.local}}</p></td>
-                <td><p>{{evento.evento}}</p></td>
-                <td><p>{{evento.texto_tramitacao}}</p></td>
+        <table class="eventos_tram">
+            <tr v-for="(evento_tram, key) in propEventosTram" :key="key">
+                <td><p>{{formatDate(evento_tram.data)}}</p></td>
+                <td><p>{{evento_tram.local}}</p></td>
+                <td><p>{{evento_tram.evento}}</p></td>
+                <td><p>{{evento_tram.texto_tramitacao}}</p></td>
             </tr>
         </table>
     </div>
@@ -20,6 +20,7 @@ export default {
   name: 'EventosInfo',
   props: {
     id: Number,
+    casa: String,
     date: {
       type: Date,
       default: function () {
@@ -28,14 +29,14 @@ export default {
     }
   },
   mounted () {
-    this.getPautas(this.query)
+    this.getEventosTramitacao(this.query)
   },
   computed: {
-    propPautas () {
-      return this.pautas[this.id]
+    propEventosTram () {
+      return this.eventos_tramitacao[this.id]
     },
     ...mapState({
-      pautas: state => state.pautas.pautasDic
+      eventos_tramitacao: state => state.eventos_tramitacao.eventosDict
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
@@ -44,26 +45,27 @@ export default {
       return {
         casa: this.casa,
         id: this.id,
-        date: this.formattedDate
+        data_fim: this.formattedDate,
+        ultimos_n: 3
       }
     }
   },
   methods: {
-    ...mapActions(['getPautas']),
+    ...mapActions(['getEventosTramitacao']),
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
     }
   },
   watch: {
     date () {
-      this.getPautas(this.query)
+      this.getEventosTramitacao(this.query)
     }
   }
 }
 </script>
 
 <style scoped>
-.pautas {
+.eventos_tram {
     font-size: 10pt;
     text-align: center;
 }

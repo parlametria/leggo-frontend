@@ -4,6 +4,7 @@ import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import pautas from './pautas'
 import temperaturas from './temperaturas'
+import eventos_tramitacao from './eventos_tramitacao'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    pautas: {}
+    pautas: {},
+    eventos_tramitacao: {}
   } }).get({
   action: 'getProposicao',
   property: 'proposicao',
@@ -58,6 +60,7 @@ export default new Vuex.Store({
     proposicoes,
     filter: filterStore,
     pautas: pautas,
-    temperaturas: temperaturas
+    temperaturas: temperaturas,
+    eventos_tramitacao: eventos_tramitacao
   }
 })

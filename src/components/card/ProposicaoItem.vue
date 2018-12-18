@@ -27,7 +27,7 @@
             />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
-          <eventos-info :id="prop.lastEtapa.id_ext" :date="dateRef"/>
+          <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
@@ -69,7 +69,8 @@ export default {
     PautasInfo,
     FasesProgress,
     TemperatureBar,
-    TemperatureInfo
+    TemperatureInfo,
+    EventosInfo
   },
   computed: {
     emPauta () {

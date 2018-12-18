@@ -1,27 +1,48 @@
 import Vue from 'vue'
 import api from './axios'
 
-const eventos = {
+const eventos_tramitacao = {
   state: {
     eventosDict: {}
   },
   mutations: {
-    getEventos (state, { id, eventos }) {
-      Vue.set(state.eventosDict, id, eventos)
+    getEventosTramitacao (state, { id, eventos_tram }) {
+      Vue.set(state.eventosDict, id, eventos_tram)
     }
   },
   actions: {
-    getEventos ({ commit }, { casa, id, date }) {
-      api.get(`/pauta/${casa}/${id}?data_referencia=${date}`)
+    getEventosTramitacao ({ commit }, { casa, id, data_fim, ultimos_n }) {
+      api.get(`/eventos_tramitacao/${casa}/${id}?data_fim=${data_fim}&ultimos_n=${ultimos_n}`)
         .then((response) => {
           const eventosDict = {
             'id': id,
-            'pautas': response.data
+            'eventos_tramitacao': response.data
           }
-          commit('getEventos', eventosDict)
+          commit('getEventosTramitacao', eventosDict)
         })
     }
   }
 }
 
-export default pautas
+export default eventos_tramitacao
+
+// import Vue from 'vue'
+// import Vapi from 'vuex-rest-api'
+
+// const eventos_tramitacao = new Vapi({
+//   baseURL: process.env.VUE_APP_API_URL,
+//   state: {
+//     eventos_tramitacao: {},
+//   }}).get({
+//   action: 'getEventosTramitacao',
+//   property: 'eventos_tramitacao',
+//   path: ({ casa, id, data_fim, ultimos_n }) =>
+//     `eventos_tramitacao/${casa}/${id}?data_fim=${data_fim}&ultimos_n=${ultimos_n}`,
+//   onSuccess: (state, { data_fim }, axios, { params }) => {
+//     const eventos_tram = data
+    
+//     Vue.set(state.eventos_tramitacao, params.id, eventos_tram)
+//   }
+// }).getStore()
+
+// export default eventos_tramitacao
