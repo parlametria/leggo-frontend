@@ -71,7 +71,7 @@ export default {
     FasesProgress,
     TemperatureBar,
     TemperatureInfo,
-    EventosInfo
+    EventosInfo,
     AuthorName
   },
   computed: {
