@@ -13,7 +13,7 @@
           </p>
 
           <p class="small-text-field small-margin-top">Autor</p>
-          <p class="medium-text-field">{{ autor }}</p>
+          <author-name :author="prop.lastEtapa.autor_nome"/>
           <p class="small-text-field"> {{ casa }}</p>
 
           <p class="small-text-field small-margin-top">Relator(a):</p>
@@ -43,11 +43,12 @@
 import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import TemperatureGraphic from './expanded/TemperatureGraphic'
+import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
 import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
-import TemperatureInfo from './expanded/TemperatureInfo'
+import TemperatureInfo from './expanded/temperature/TemperatureInfo'
+import AuthorName from './expanded/AuthorName'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -66,7 +67,8 @@ export default {
     PautasInfo,
     FasesProgress,
     TemperatureBar,
-    TemperatureInfo
+    TemperatureInfo,
+    AuthorName
   },
   computed: {
     emPauta () {
@@ -93,13 +95,6 @@ export default {
         casa = 'Câmara dos Deputados'
       }
       return casa
-    },
-    autor () {
-      let autor = (this.prop.lastEtapa.autor_nome).split(' - ')
-      if (autor.length > 1) {
-        autor = autor[autor.length - 1].toString()
-      }
-      return autor.toString()
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
