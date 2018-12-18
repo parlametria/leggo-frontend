@@ -4,6 +4,7 @@ import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import pautas from './pautas'
 import temperaturas from './temperaturas'
+import eventosTramitacaoStore from './eventos_tramitacao'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,9 @@ const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
   state: {
     proposicoes: [],
-    tramitacoes: new Set()
+    tramitacoes: new Set(),
+    pautas: {},
+    eventos_tramitacao: {}
   } }).get({
   action: 'listProposicoes',
   path: '/proposicoes',
@@ -45,6 +48,7 @@ export default new Vuex.Store({
     proposicoes,
     filter: filterStore,
     pautas: pautas,
-    temperaturas: temperaturas
+    temperaturas: temperaturas,
+    eventosTramitacao: eventosTramitacaoStore
   }
 })

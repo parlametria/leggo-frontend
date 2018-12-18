@@ -27,6 +27,8 @@
             />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
+          <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
+
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <h4>Progresso da Tramitação</h4>
@@ -49,6 +51,7 @@ import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
 import TemperatureInfo from './expanded/temperature/TemperatureInfo'
 import AuthorName from './expanded/AuthorName'
+import EventosInfo from './expanded/EventosInfo'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -68,6 +71,7 @@ export default {
     FasesProgress,
     TemperatureBar,
     TemperatureInfo,
+    EventosInfo,
     AuthorName
   },
   computed: {
