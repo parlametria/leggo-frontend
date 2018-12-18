@@ -107,7 +107,7 @@ export default {
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     })
   },
   props: {

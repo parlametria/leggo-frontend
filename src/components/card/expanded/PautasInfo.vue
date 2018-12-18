@@ -31,19 +31,21 @@ export default {
   },
   computed: {
     propPautas () {
-      return this.pautas[this.id]
+      if (this.pautas) { return this.pautas[this.id] }
     },
     ...mapState({
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
     },
     query () {
       return {
-        casa: this.casa,
-        id: this.id,
-        date: this.formattedDate
+        params: {
+          casa: this.casa,
+          id: this.id,
+          date: this.formattedDate
+        }
       }
     }
   },
