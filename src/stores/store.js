@@ -2,14 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-<<<<<<< HEAD
 import pautasStore from './pautas'
 import temperaturasStore from './temperaturas'
-=======
-import pautas from './pautas'
-import temperaturas from './temperaturas'
 import eventosTramitacaoStore from './eventos_tramitacao'
->>>>>>> 140da72ad53f0418e7e58efbb2ab372bcdcf3cc0
 
 Vue.use(Vuex)
 
@@ -52,13 +47,8 @@ export default new Vuex.Store({
   modules: {
     proposicoes,
     filter: filterStore,
-<<<<<<< HEAD
     pautas: pautasStore,
-    temperaturas: temperaturasStore
-=======
-    pautas: pautas,
-    temperaturas: temperaturas,
+    temperaturas: temperaturasStore,
     eventosTramitacao: eventosTramitacaoStore
->>>>>>> 140da72ad53f0418e7e58efbb2ab372bcdcf3cc0
   }
 })
