@@ -1,5 +1,5 @@
 <template>
-  <span  class="pauta">{{day}} - {{proximaPauta.local}}</span>
+  <span  class="pauta">{{day}} - {{proximaPauta.local === "Local não informado" ? "não informado" : proximaPauta.local }}</span>
 </template>
 
 <script>
