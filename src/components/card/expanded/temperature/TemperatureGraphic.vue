@@ -24,18 +24,20 @@ export default {
     cardWidth: Number
   },
   async mounted () {
-    this.getTemperaturaRecente({ params: {
-      id: this.id,
-      casa: this.casa,
-      semanas: this.semanas,
-      date: this.formattedDate
-    } }).then(() =>
-      this.mountGraphic(
-        this.id,
-        this.casa,
-        this.semanas,
-        this.formattedDate
-      ))
+    if (Object.keys(this.listaTemperaturas).length === 0) {
+      this.getTemperaturaRecente({ params: {
+        id: this.id,
+        casa: this.casa,
+        semanas: this.semanas,
+        date: this.formattedDate
+      } }).then(() =>
+        this.mountGraphic(
+          this.id,
+          this.casa,
+          this.semanas,
+          this.formattedDate
+        ))
+    }
   },
   computed: mapState({
     listaTemperaturas: state => state.temperaturas.temperaturas,
