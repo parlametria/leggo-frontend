@@ -1,13 +1,17 @@
 <template>
-    <div v-if="propPautas && propPautas.length">
-        <h4 class="descricao">Próximas pautas</h4>
+    <el-collapse v-if="propPautas && propPautas.length">
+      <el-collapse-item>
+        <template slot="title">
+          <span class="title">Próximas Pautas</span>
+        </template>
         <table class="pautas">
-            <tr v-for="(pauta, key) in propPautas" :key="key">
-                <td><p>{{formatDate(pauta.data)}}</p></td>
-                <td><p>{{pauta.local}}</p></td>
-            </tr>
+          <tr v-for="(pauta, key) in propPautas" :key="key">
+            <td><p>{{formatDate(pauta.data)}}</p></td>
+            <td><p>{{pauta.local}}</p></td>
+          </tr>
         </table>
-    </div>
+      </el-collapse-item>
+    </el-collapse>
 </template>
 
 <script>
@@ -66,6 +70,12 @@ export default {
 </script>
 
 <style scoped>
+.el-collapse {
+  margin-top: 1rem
+}
+.title {
+  font-size: .97rem;
+}
 .pautas {
     font-size: 10pt;
     text-align: center;
