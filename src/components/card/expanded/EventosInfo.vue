@@ -1,15 +1,19 @@
 <template>
-    <div v-if="propEventosTram && propEventosTram.length">
-        <h4 class="descricao">Últimos eventos</h4>
+    <el-collapse v-if="propEventosTram && propEventosTram.length">
+      <el-collapse-item>
+        <template slot="title">
+          <span class="title">Últimos Eventos</span>
+        </template>
         <table class="eventos_tram">
-            <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
-                <td><p>{{formatDate(eventoTram.data)}}</p></td>
-                <td><p>{{eventoTram.local}}</p></td>
-                <td><p>{{eventoTram.evento}}</p></td>
-                <td><p>{{eventoTram.texto_tramitacao}}</p></td>
-            </tr>
+          <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
+            <td><p>{{formatDate(eventoTram.data)}}</p></td>
+            <td><p>{{eventoTram.local}}</p></td>
+            <td><p>{{eventoTram.evento}}</p></td>
+            <td><p>{{eventoTram.texto_tramitacao}}</p></td>
+          </tr>
         </table>
-    </div>
+      </el-collapse-item>
+    </el-collapse>
 </template>
 
 <script>
@@ -68,6 +72,12 @@ export default {
 </script>
 
 <style scoped>
+.el-collapse {
+  margin-top: 1rem
+}
+.title {
+  font-size: .97rem;
+}
 .eventos_tram {
     font-size: 10pt;
     text-align: center;
