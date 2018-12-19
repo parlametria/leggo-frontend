@@ -30,7 +30,6 @@ export default {
   },
   mounted () {
     if (Object.keys(this.eventosTramitacao).length === 0) {
-
       this.getEventosTramitacao(this.query)
     }
   },
