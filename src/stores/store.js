@@ -5,7 +5,7 @@ import filterStore from './filter'
 import pautasStore from './pautas'
 import temperaturasStore from './temperaturas'
 import eventosTramitacaoStore from './eventos_tramitacao'
-import emendas from './emendas'
+import emendasStore from './emendas'
 
 Vue.use(Vuex)
 
@@ -51,6 +51,6 @@ export default new Vuex.Store({
     pautas: pautasStore,
     temperaturas: temperaturasStore,
     eventosTramitacao: eventosTramitacaoStore,
-    emendas
+    emendas: emendasStore
   }
 })

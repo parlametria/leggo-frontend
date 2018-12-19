@@ -41,7 +41,7 @@ export default {
       return moment(this.date).format('YYYY-MM-DD')
     },
     query () {
-      return { 
+      return {
         params: {
           casa: this.casa,
           id: this.id,
