@@ -42,11 +42,13 @@ export default {
   computed: {
     ...mapState({
       metaInfo: state => state.proposicoes.metaInfo
-    }),
+    })
+  },
+  methods: {
     ...mapActions(['getMetaInfo'])
   },
-  async mounted () {
-    await this.getMetaInfo()
+  mounted () {
+    this.getMetaInfo()
   }
 }
 </script>
