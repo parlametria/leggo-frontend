@@ -41,7 +41,9 @@ export default {
       casa: this.prop.lastEtapa.casa,
       date: this.formattedDate
     }
-    this.getPautas({ params })
+    if (Object.keys(this.pautas).length === 0) {
+      this.getPautas({ params })
+    }
   },
   methods: {
     ...mapActions(['getPautas'])
