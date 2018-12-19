@@ -24,16 +24,14 @@ export default {
 .pauta {
   grid-column: 2/3;
   grid-row: 1/2;
-  margin-left: .6rem;
-  margin-top: .8rem;
   color: #dbd936;
   font-size: .8rem;
-  width: 230px;
   background: #3b3b3b;
   height: 26px;
   line-height: 26px;
   position: relative;
   padding-left: 7px;
+  padding-right: 13px;
   text-transform: uppercase;
 }
 .pauta::after {
