@@ -18,6 +18,9 @@
           <span v-if="commitHash">versão <a :href="`https://github.com/analytics-ufcg/agora-digital-frontend/commit/${commitHash}`" target="_blank">{{ commitHash }}</a></span>
           <span v-if="buildDate"> compilada em {{ buildDate }}</span>
         </p>
+        <p v-if="metaInfo && metaInfo.last_update_trams">
+          dados de {{ metaInfo.last_update_trams }}
+        </p>
       </el-footer>
     </el-container>
   </el-container>
@@ -25,6 +28,7 @@
 
 <script>
 import NavMenu from '@/components/menu/NavMenu.vue'
+import { mapState, mapActions } from 'vuex'
 export default {
   components: {
     NavMenu
@@ -34,6 +38,15 @@ export default {
       commitHash: process.env.VUE_APP_COMMIT_HASH,
       buildDate: process.env.VUE_APP_BUILD_DATE
     }
+  },
+  computed: {
+    ...mapState({
+      metaInfo: state => state.proposicoes.metaInfo
+    }),
+    ...mapActions(['getMetaInfo'])
+  },
+  async mounted () {
+    await this.getMetaInfo()
   }
 }
 </script>
