@@ -29,7 +29,10 @@ export default {
     }
   },
   mounted () {
-    this.getEventosTramitacao(this.query)
+    if (Object.keys(this.eventosTramitacao).length === 0) {
+
+      this.getEventosTramitacao(this.query)
+    }
   },
   computed: {
     propEventosTram () {
