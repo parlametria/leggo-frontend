@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-import pautas from './pautas'
-import temperaturas from './temperaturas'
+import pautasStore from './pautas'
+import temperaturasStore from './temperaturas'
+import eventosTramitacaoStore from './eventos_tramitacao'
 
 Vue.use(Vuex)
 
@@ -12,12 +13,9 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    pautas: {}
+    pautas: {},
+    eventos_tramitacao: {}
   } }).get({
-  action: 'getProposicao',
-  property: 'proposicao',
-  path: ({ casa, idExt }) => `/proposicoes/${casa}/${idExt}`
-}).get({
   action: 'listProposicoes',
   path: '/proposicoes',
   onSuccess: (state, { data }) => {
@@ -26,14 +24,6 @@ const proposicoes = new Vapi({
       // TODO: por enquanto usa apenas a última etapa
       prop.lastEtapa = prop.etapas.slice(-1)[0]
     })
-  }
-}).get({
-  action: 'getStatusPauta',
-  property: 'pautas',
-  path: ({ casa, id, date }) =>
-    `pauta/${casa}/${id}?data_referencia=${date}`,
-  onSuccess: (state, { data }, axios, { params }) => {
-    Vue.set(state.pautas, params.id, data)
   }
 }).getStore()
 
@@ -57,7 +47,8 @@ export default new Vuex.Store({
   modules: {
     proposicoes,
     filter: filterStore,
-    pautas: pautas,
-    temperaturas: temperaturas
+    pautas: pautasStore,
+    temperaturas: temperaturasStore,
+    eventosTramitacao: eventosTramitacaoStore
   }
 })

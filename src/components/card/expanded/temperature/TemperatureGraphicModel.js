@@ -29,9 +29,9 @@ export default class TemperatureGraphicModel {
         }
       },
       tooltip: [
-        { 'field': 'temperatura_periodo', 'type': 'Number', 'title': 'temp_semana' },
-        { 'field': 'temperatura_recente', 'type': 'Number', 'title': 'temp_acumulada' },
-        { 'field': 'periodo', 'type': 'temporal', format: '%d-%m-%Y', scale: { type: 'band' }, 'title': 'semana' }
+        { 'field': 'temperatura_periodo', 'type': 'Number', 'title': 'Temperatura da Semana' },
+        { 'field': 'temperatura_recente', 'type': 'Number', 'title': 'Temperatura Acumulada' },
+        { 'field': 'periodo', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
       ]
     }
 

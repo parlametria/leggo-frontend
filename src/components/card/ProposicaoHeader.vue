@@ -38,18 +38,21 @@ export default {
     PautaTag
   },
   async mounted () {
-    this.getStatusPauta({ params: {
+    const params = {
       id: this.prop.lastEtapa.id_ext,
       casa: this.prop.lastEtapa.casa,
       date: this.formattedDate
-    } })
+    }
+    if (Object.keys(this.pautas).length === 0) {
+      this.getPautas({ params })
+    }
   },
   methods: {
-    ...mapActions(['getStatusPauta'])
+    ...mapActions(['getPautas'])
   },
   computed: {
     ...mapState({
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     na_pauta () {
       let id = this.prop.lastEtapa.id_ext
@@ -67,7 +70,7 @@ export default {
   },
   watch: {
     dateRef () {
-      this.getStatusPauta({ params: {
+      this.getPautas({ params: {
         id: this.prop.lastEtapa.id_ext,
         casa: this.prop.lastEtapa.casa,
         date: this.formattedDate
@@ -148,12 +151,12 @@ export default {
   width: 10px;
   border: solid #fff;
   border-width: 0px 4px 4px 0;
-  transform: rotate(-45deg);
+  transform: rotate(45deg);
   transition: transform .5s;
   border-radius: 1px;
 }
 .arrow-down {
-  transform: rotate(45deg);
+  transform: rotate(225deg);
 }
 
 @keyframes float {

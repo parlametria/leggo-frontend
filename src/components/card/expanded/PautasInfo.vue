@@ -27,23 +27,27 @@ export default {
     }
   },
   mounted () {
-    this.getPautas(this.query)
+    if (Object.keys(this.pautas).length === 0) {
+      this.getPautas(this.query)
+    }
   },
   computed: {
     propPautas () {
-      return this.pautas[this.id]
+      if (this.pautas) { return this.pautas[this.id] }
     },
     ...mapState({
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
     },
     query () {
       return {
-        casa: this.casa,
-        id: this.id,
-        date: this.formattedDate
+        params: {
+          casa: this.casa,
+          id: this.id,
+          date: this.formattedDate
+        }
       }
     }
   },
