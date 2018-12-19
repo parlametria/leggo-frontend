@@ -27,7 +27,9 @@ export default {
     }
   },
   mounted () {
-    this.getPautas(this.query)
+    if (Object.keys(this.pautas).length === 0) {
+      this.getPautas(this.query)
+    }
   },
   computed: {
     propPautas () {
