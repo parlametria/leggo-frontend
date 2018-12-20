@@ -1,9 +1,11 @@
 <template>
   <div class="container">
-    <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
+    <div class="head" :class="{ headPauta: na_pauta }">
+      <pauta-tag class="tag-pauta" v-if="na_pauta" :proximaPauta="pautas[prop.lastEtapa.id_ext].slice(-1).pop()"/>
+      <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
+    </div>
     <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
-    <el-tag class="na_pauta" :class="{'emPautaTag': true, 'emPauta': na_pauta}" size="small"><span>NA PAUTA</span></el-tag>
-    <span class="prop-apelido">{{prop.apelido}}</span>
+    <span class="prop-apelido">{{prop .apelido}}</span>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
         <span class="tag">{{prop.lastEtapa.forma_apreciacao}}</span>
@@ -20,6 +22,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
+import PautaTag from './collapsed/PautaTag'
 import moment from 'moment'
 
 export default {
@@ -33,7 +36,8 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     Fases,
-    TemperatureBar
+    TemperatureBar,
+    PautaTag
   },
   async mounted () {
     const params = {
@@ -78,21 +82,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
   display: grid;
   grid-template-columns: 41px auto 30px;
-  grid-template-rows: 25px auto auto;
+  grid-template-rows: auto auto auto;
   background: #444444;
   color: #fff;
   grid-row-gap: 1.5rem;
 }
-.fases {
-  grid-column: 3/3;
-  grid-row: 1/3;
-  justify-self: end;
-  margin-top: .9rem;
-  margin-right: 1.5rem;
+.head {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  padding-left: .5rem;
+  padding-top: .4rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.headPauta {
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap-reverse;
 }
 
 .visible {
@@ -112,13 +123,6 @@ export default {
   grid-row: 1/4;
 }
 
-.na_pauta {
-  grid-column: 2/3;
-  grid-row: 1/3;
-  margin-left: .6rem;
-  margin-top: .7rem;
-}
-
 .prop-apelido {
   grid-column: 2/3;
   grid-row: 2/3;
@@ -131,25 +135,6 @@ export default {
   grid-row: 3/4;
   margin-bottom: .9rem;
   margin-left: .5rem;
-}
-
-.emPauta {
-  color:#dc6060 !important;
-  border-color: #dc6060 !important;
-  font-weight: bolder;
-  opacity: 1 !important;
-}
-
-.emPauta span {
-  animation: blinker 2s linear infinite;
-}
-
-.emPautaTag {
-    color:grey;
-    opacity: 0.4;
-    width: 85px;
-    text-align: center;
-    border-color: white;
 }
 
 .tag {
@@ -198,9 +183,35 @@ export default {
     }
   }
 
-@keyframes blinker {
-  50% {
-    opacity: 0.5;
+@media screen and (max-width: 1115px) {
+  .headPauta {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    .fases {
+      align-self: flex-start;
+      margin: .3rem 0;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .headPauta {
+    flex-direction: row;
+    align-items: center;
+    .fases {
+      align-self: flex-end;
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .headPauta {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      .fases {
+        align-self: flex-start;
+        margin: .3rem 0;
+      }
   }
 }
 </style>
