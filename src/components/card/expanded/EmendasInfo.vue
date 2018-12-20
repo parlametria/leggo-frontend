@@ -1,14 +1,18 @@
 <template>
-    <div v-if="propEmendas && propEmendas.length">
-        <h4 class="descricao">Últimas emendas</h4>
+    <el-collapse v-if="propEmendas && propEmendas.length">
+      <el-collapse-item>
+        <template slot="title">
+          <span class="title">Últimas Emendas</span>
+        </template>
         <table class="emendas">
             <tr v-for="(emenda, key) in propEmendas.slice(0, 3)" :key="key">
-                <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
-                <td><p>{{emenda.local}}</p></td>
-                <td><p>{{emenda.autor}}</p></td>
+              <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
+              <td><p>{{emenda.local}}</p></td>
+              <td><p>{{emenda.autor}}</p></td>
             </tr>
         </table>
-    </div>
+      </el-collapse-item>
+    </el-collapse>
 </template>
 
 <script>
@@ -65,6 +69,9 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  font-size: .97rem;
+}
 .emendas {
     font-size: 10pt;
     text-align: center;
