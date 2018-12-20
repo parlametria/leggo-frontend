@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="head" :class="{ headPauta: na_pauta }">
-      <pauta-tag class="tag-pauta" v-if="na_pauta" :proximaPauta="pautas[prop.lastEtapa.id_ext].slice(-1).pop()"/>
+    <div class="head">
+      <pauta-tag class="tag-pauta" :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date_reference="dateRef"/>
       <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     </div>
     <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
@@ -38,46 +37,6 @@ export default {
     Fases,
     TemperatureBar,
     PautaTag
-  },
-  async mounted () {
-    const params = {
-      id: this.prop.lastEtapa.id_ext,
-      casa: this.prop.lastEtapa.casa,
-      date: this.formattedDate
-    }
-    if (Object.keys(this.pautas).length === 0) {
-      this.getPautas({ params })
-    }
-  },
-  methods: {
-    ...mapActions(['getPautas'])
-  },
-  computed: {
-    ...mapState({
-      pautas: state => state.pautas.pautas
-    }),
-    na_pauta () {
-      let id = this.prop.lastEtapa.id_ext
-      return this.pautas && this.pautas[id] !== undefined && this.pautas[id].length > 0
-    },
-    eventos () {
-      return [
-        { data: '10-10-2010', evento: 'Audiência pública', local: 'CCJ' },
-        { data: '12-10-2010', evento: 'Outro evento', local: 'CAPADR' }
-      ]
-    },
-    formattedDate () {
-      return moment(this.dateRef).format('YYYY-MM-DD')
-    }
-  },
-  watch: {
-    dateRef () {
-      this.getPautas({ params: {
-        id: this.prop.lastEtapa.id_ext,
-        casa: this.prop.lastEtapa.casa,
-        date: this.formattedDate
-      } })
-    }
   }
 }
 </script>
@@ -91,31 +50,23 @@ export default {
   color: #fff;
   grid-row-gap: 1.5rem;
 }
+
 .head {
   grid-column: 2/3;
   grid-row: 1/2;
   padding-left: .5rem;
   padding-top: .4rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.headPauta {
+  display: grid;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap-reverse;
-}
 
-.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.5s linear;
-}
+  .pauta-tag {
+    grid-column: 1;
+  }
 
-.hidden {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 2s, opacity 0.5s linear;
+  .fases {
+    grid-column: 2;
+  }
 }
 
 .temperatura {
@@ -183,35 +134,35 @@ export default {
     }
   }
 
-@media screen and (max-width: 1115px) {
-  .headPauta {
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    .fases {
-      align-self: flex-start;
-      margin: .3rem 0;
-    }
-  }
-}
+// @media screen and (max-width: 1115px) {
+//   .headPauta {
+//     flex-direction: column-reverse;
+//     align-items: flex-end;
+//     .fases {
+//       align-self: flex-start;
+//       margin: .3rem 0;
+//     }
+//   }
+// }
 
-@media screen and (max-width: 800px) {
-  .headPauta {
-    flex-direction: row;
-    align-items: center;
-    .fases {
-      align-self: flex-end;
-    }
-  }
-}
+// @media screen and (max-width: 800px) {
+//   .headPauta {
+//     flex-direction: row;
+//     align-items: center;
+//     .fases {
+//       align-self: flex-end;
+//     }
+//   }
+// }
 
-@media screen and (max-width: 420px) {
-  .headPauta {
-      flex-direction: column-reverse;
-      align-items: flex-end;
-      .fases {
-        align-self: flex-start;
-        margin: .3rem 0;
-      }
-  }
-}
+// @media screen and (max-width: 420px) {
+//   .headPauta {
+//       flex-direction: column-reverse;
+//       align-items: flex-end;
+//       .fases {
+//         align-self: flex-start;
+//         margin: .3rem 0;
+//       }
+//   }
+// }
 </style>
