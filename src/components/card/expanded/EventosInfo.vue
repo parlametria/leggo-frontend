@@ -63,10 +63,10 @@ export default {
       return moment(date).format('DD/MM/YYYY')
     },
     formatEvento (evento) {
-      return evento === 'nan' ? '' : evento.split("_").join(" ")
+      return evento === 'nan' ? '' : evento.split('_').join(' ')
     },
     formatTextoTramitacao (texto) {
-      return texto.length > 61 ? `${texto.substring(0,62)}...` : texto
+      return texto.length > 61 ? `${texto.substring(0, 62)}...` : texto
     }
   },
   watch: {
