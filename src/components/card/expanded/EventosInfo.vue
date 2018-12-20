@@ -6,10 +6,10 @@
         </template>
         <table class="eventos_tram">
           <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
-            <td><p>{{formatDate(eventoTram.data)}}</p></td>
-            <td><p>{{eventoTram.local}}</p></td>
-            <td><p>{{eventoTram.evento}}</p></td>
-            <td><p>{{eventoTram.texto_tramitacao}}</p></td>
+            <td class="nowrap">{{ formatDate(eventoTram.data) }}</td>
+            <td class="nowrap">{{ eventoTram.sigla_local }}</td>
+            <td class="capitalize nowrap">{{ formatEvento(eventoTram.evento) }}</td>
+            <td :title="eventoTram.texto_tramitacao">{{ formatTextoTramitacao(eventoTram.texto_tramitacao) }}</td>
           </tr>
         </table>
       </el-collapse-item>
@@ -61,6 +61,12 @@ export default {
     ...mapActions(['getEventosTramitacao']),
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
+    },
+    formatEvento (evento) {
+      return evento === 'nan' ? '' : evento.split("_").join(" ")
+    },
+    formatTextoTramitacao (texto) {
+      return texto.length > 61 ? `${texto.substring(0,62)}...` : texto
     }
   },
   watch: {
@@ -87,7 +93,14 @@ table {
     width: 100%;
 }
 th, td {
-    padding: .5rem;
-    text-align: left;
+  padding: .5rem 1rem;
+  text-align: left;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+.nowrap {
+  width:1%;
+  white-space: nowrap;
 }
 </style>
