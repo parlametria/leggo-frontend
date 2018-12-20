@@ -1,5 +1,5 @@
 <template>
-  <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
+  <el-menu mode="vertical" :collapse="false" :collapse-transition="false" @select="handleSelect">
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
@@ -35,20 +35,12 @@
       </el-menu-item>
 
       <!-- Pauta -->
-      <el-submenu index="5">
-        <template slot="title">
-          <i class="el-icon-edit-outline"></i>
-          <span slot="title">Em pauta</span>
-        </template>
-        <el-menu-item
-          v-for="(opcao, i) in emPautaFilter"
-          :index="'1-' + (i+1)" :key="i">
-          <el-checkbox
-            v-model="opcao.status">
-            {{ opcao.tipo }}
-          </el-checkbox>
-        </el-menu-item>
-      </el-submenu>
+      <el-menu-item index="5">
+        <el-checkbox
+          v-model="emPautaFilter[0].status">
+          {{ emPautaFilter[0].tipo }}
+        </el-checkbox>
+      </el-menu-item>
 
       <!-- Vários Filtros -->
       <el-submenu v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
@@ -136,6 +128,11 @@ export default {
     ]),
     propagateClick (el) {
       el.$children.forEach(x => x.$el.click())
+    },
+    handleSelect (key, keyPath) {
+      if (key === '5') {
+        this.emPautaFilter[0].status = !this.emPautaFilter[0].status
+      }
     }
   }
 }

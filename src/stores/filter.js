@@ -11,16 +11,12 @@ const filtro = {
     },
     emPautaFilter: [
       {
-        'tipo': 'Sim',
-        'status': true
-      }, {
-        'tipo': 'Não',
+        'tipo': 'Na Pauta',
         'status': true
       }
     ],
     dateRef: new Date(),
-    temperatureOrder: 'desc',
-    temperaturas: {}
+    temperatureOrder: 'desc'
   },
   mutations: {
     filtraNomeProposicao (state, nomeProposicao) {
@@ -34,9 +30,6 @@ const filtro = {
     },
     updateTemperatureOrder (state, order) {
       state.temperatureOrder = order
-    },
-    updateTemperaturas (state, payload) {
-      state.temperaturas[payload.id] = payload.temperatura
     },
     setFilter (state, payload) {
       // Se payload é no formato { filter, value }, seta filter como value,

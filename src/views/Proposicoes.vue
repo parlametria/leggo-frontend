@@ -103,13 +103,9 @@ export default {
       )
     },
     checkPautaFilter (prop) {
-      return this.filter.emPautaFilter.some(options => {
-        const propId = prop.id_ext
-        const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
-
-        return options.status &&
-               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))
-      })
+      const propId = prop.id_ext
+      const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+      return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
     },
     checkApelidoFilter (prop) {
       const apelido = prop.apelido.toLowerCase()
