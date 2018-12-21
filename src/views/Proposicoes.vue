@@ -62,10 +62,15 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.filter.temperatureOrder === 'desc') {
-            return b.lastEtapa.temperatura - a.lastEtapa.temperatura
+          if (this.temperaturas && this.temperaturas[idA] && this.temperaturas[idA][0] &&
+              this.temperaturas[idB] && this.temperaturas[idB][0]) {
+            if (this.filter.temperatureOrder === 'desc') {
+              return this.temperaturas[idB][0].temperatura_recente - this.temperaturas[idA][0].temperatura_recente
+            } else {
+              return this.temperaturas[idA][0].temperatura_recente - this.temperaturas[idB][0].temperatura_recente
+            }
           } else {
-            return a.lastEtapa.temperatura - b.lastEtapa.temperatura
+            return 0
           }
         })
       } else {
@@ -77,7 +82,7 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
-      temperaturas: state => state.proposicoes.temperaturas,
+      temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas
     }),
     ...mapGetters(['perFilterOptions']),
