@@ -15,8 +15,10 @@ const proposicoes = new Vapi({
     proposicoes: [],
     tramitacoes: new Set(),
     pautas: {},
-    eventos_tramitacao: {}
-  } }).get({
+    eventos_tramitacao: {},
+    metaInfo: {}
+  }
+}).get({
   action: 'listProposicoes',
   path: '/proposicoes',
   onSuccess: (state, { data }) => {
@@ -26,6 +28,10 @@ const proposicoes = new Vapi({
       prop.lastEtapa = prop.etapas.slice(-1)[0]
     })
   }
+}).get({
+  action: 'getMetaInfo',
+  path: '/info',
+  property: 'metaInfo'
 }).getStore()
 
 proposicoes.getters = {
