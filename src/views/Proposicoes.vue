@@ -11,9 +11,14 @@
       <p v-if="error.proposicoes">Falha no carregamento</p>
       <transition name="el-fade-in" mode="out-in">
         <div v-if="filteredProps.length">
-          <transition-group name="el-fade-in" tag="div">
-            <proposicao-item :key="prop.apelido" v-for="prop in filteredProps" :prop="prop"/>
-          </transition-group>
+          <div class="session" ref="emPautaSession">
+            <header ref="emPautaHeader"><h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2></header>
+            <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+          </div>
+          <div class="session" ref="notEmPautaSession">
+            <header ref="notEmPautaHeader"><h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2></header>
+            <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+          </div>
         </div>
         <p v-else>Nenhuma proposição para mostrar...</p>
       </transition>
@@ -40,6 +45,7 @@ export default {
     await this.listProposicoes()
     // Deep clone o obj para que não seja modificado quando so filtros forem.
     this.setFilter(JSON.parse(JSON.stringify(this.perFilterOptions)))
+    window.addEventListener('scroll', this.sticky)
   },
   computed: {
     filteredProps () {
@@ -56,10 +62,15 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.filter.temperatureOrder === 'desc') {
-            return b.lastEtapa.temperatura - a.lastEtapa.temperatura
+          if (this.temperaturas && this.temperaturas[idA] && this.temperaturas[idA][0] &&
+              this.temperaturas[idB] && this.temperaturas[idB][0]) {
+            if (this.filter.temperatureOrder === 'desc') {
+              return this.temperaturas[idB][0].temperatura_recente - this.temperaturas[idA][0].temperatura_recente
+            } else {
+              return this.temperaturas[idA][0].temperatura_recente - this.temperaturas[idB][0].temperatura_recente
+            }
           } else {
-            return a.lastEtapa.temperatura - b.lastEtapa.temperatura
+            return 0
           }
         })
       } else {
@@ -71,10 +82,22 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
-      temperaturas: state => state.proposicoes.temperaturas,
-      pautas: state => state.pautas.pautasDic
+      temperaturas: state => state.temperaturas.temperaturas,
+      pautas: state => state.pautas.pautas
     }),
-    ...mapGetters(['perFilterOptions'])
+    ...mapGetters(['perFilterOptions']),
+    emPauta () {
+      return this.filteredProps.filter(prop => {
+        const propId = prop.lastEtapa.id_ext
+        return this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+      })
+    },
+    notEmPauta () {
+      return this.filteredProps.filter(prop => {
+        const propId = prop.lastEtapa.id_ext
+        return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
+      })
+    }
   },
   methods: {
     ...mapActions(['listProposicoes']),
@@ -85,13 +108,9 @@ export default {
       )
     },
     checkPautaFilter (prop) {
-      return this.filter.emPautaFilter.some(options => {
-        const propId = prop.id_ext
-        const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
-
-        return options.status &&
-               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))
-      })
+      const propId = prop.id_ext
+      const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+      return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
     },
     checkApelidoFilter (prop) {
       const apelido = prop.apelido.toLowerCase()
@@ -103,6 +122,25 @@ export default {
       return this.checkCategoricalFilters(prop) &&
              this.checkPautaFilter(prop) &&
              this.checkApelidoFilter(prop)
+    },
+    sticky () {
+      const emPautaHeader = this.$refs.emPautaHeader
+      const emPautaSession = this.$refs.emPautaSession
+      if (emPautaHeader) {
+        emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
+        if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
+        else emPautaHeader.classList.remove('sticky')
+      }
+
+      const notEmPautaheader = this.$refs.notEmPautaHeader
+      const notEmPautaSession = this.$refs.notEmPautaSession
+
+      if (notEmPautaheader) {
+        notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
+
+        if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
+        else notEmPautaheader.classList.remove('sticky')
+      }
     }
   }
 }
@@ -118,7 +156,6 @@ export default {
     margin:auto;
 }
 .logo-container {
-    /* background-color: #000000; */
     margin-bottom: 2rem;
     h1 {
         font-family: 'Rajdhani', sans-serif;
@@ -127,16 +164,38 @@ export default {
         font-size: 50pt;
         text-align: center;
         font-weight: normal;
-
-        /* border-left: solid 20px #dc6060; */
-        /* line-height: 70pt; */
-        /* font-size: 50pt; */
-        /* background-color: #444; */
-        /* color: white; */
     }
 }
  .logo {
   max-width: 100%;
   height: auto;
+}
+.session {
+  position: relative;
+  padding-top: 4rem;
+  &:first-child {
+    padding-top: 0;
+  }
+  header {
+    box-shadow: 0 2px 5px #999;
+    padding: 1.5rem 0;
+  }
+  h2 {
+    font-weight: normal;
+    font-size: 1.6rem;
+    margin: 0;
+    padding-left: 1rem;
+    color: #656565;
+  }
+  .disabled {
+    color: #bbb;
+  }
+}
+.sticky {
+  display: block;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
 }
 </style>

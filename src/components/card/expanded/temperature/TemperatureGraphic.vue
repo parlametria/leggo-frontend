@@ -1,6 +1,7 @@
 <template>
   <div class="graphic">
-    <div :id="`${casa}-${id}`"></div>
+    <div :id="`${casa}-${id}`">
+    </div>
   </div>
 </template>
 
@@ -23,24 +24,25 @@ export default {
     cardWidth: Number
   },
   async mounted () {
-    this.getTemperaturaRecente({ params: {
-      id: this.id,
-      casa: this.casa,
-      semanas: this.semanas,
-      date: this.formattedDate
-    } })
-
-    setTimeout(() => this.mountGraphic(
-      this.id,
-      this.casa,
-      this.semanas,
-      this.formattedDate
-    ), 5000)
+    if (Object.keys(this.listaTemperaturas).length === 0) {
+      this.getTemperaturaRecente({ params: {
+        id: this.id,
+        casa: this.casa,
+        semanas: this.semanas,
+        date: this.formattedDate
+      } }).then(() =>
+        this.mountGraphic(
+          this.id,
+          this.casa,
+          this.semanas,
+          this.formattedDate
+        ))
+    }
   },
   computed: mapState({
-    listaTemperaturas: state => state.proposicoes.temperaturas,
-    maxTemperatura: state => state.proposicoes.maxTemperatura,
-    listaCoeficientes: state => state.proposicoes.coeficiente,
+    listaTemperaturas: state => state.temperaturas.temperaturas,
+    maxTemperatura: state => state.temperaturas.maxTemperatura,
+    listaCoeficientes: state => state.temperaturas.coeficiente,
 
     temperaturas () {
       if (this.listaTemperaturas[this.id]) {
@@ -68,20 +70,22 @@ export default {
   methods: {
     ...mapActions(['getTemperaturaRecente']),
     async mountGraphic (id, casa, semanas, date) {
-      if (this.temperaturas.length > 0) {
-        this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
+      if (id && casa) {
+        if (this.temperaturas.length > 0) {
+          this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
+        }
+
+        let model = new TemperatureGraphicModel(
+          this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
+
+        // eslint-disable-next-line
+        vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
+          res.view /* eslint-disable */
+            .change('temperatura', vega.changeset().remove('temperatura', d => true))
+            .insert('temperatura', this.temperaturas)
+            .run()
+        })
       }
-
-      let model = new TemperatureGraphicModel(
-        this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
-
-      // eslint-disable-next-line
-      vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
-        res.view /* eslint-disable */
-          .change('temperatura', vega.changeset().remove('temperatura', d => true))
-          .insert('temperatura', this.temperaturas)
-          .run()
-      })
     }
   },
   watch: {

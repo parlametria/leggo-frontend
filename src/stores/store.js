@@ -2,7 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-import pautas from './pautas'
+import pautasStore from './pautas'
+import temperaturasStore from './temperaturas'
+import eventosTramitacaoStore from './eventos_tramitacao'
+import emendasStore from './emendas'
 
 Vue.use(Vuex)
 
@@ -11,14 +14,10 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    temperaturas: {},
     pautas: {},
-    coeficiente: {},
-    maxTemperatura: 0
-  } }).get({
-  action: 'getProposicao',
-  property: 'proposicao',
-  path: ({ casa, idExt }) => `/proposicoes/${casa}/${idExt}`
+    eventos_tramitacao: {},
+    metaInfo: {}
+  }
 }).get({
   action: 'listProposicoes',
   path: '/proposicoes',
@@ -30,30 +29,9 @@ const proposicoes = new Vapi({
     })
   }
 }).get({
-  action: 'getTemperaturaRecente',
-  property: 'temperaturas',
-  path: ({ casa, id, semanas, date }) =>
-    `temperatura/${casa}/${id}?semanas_anteriores=${semanas}&data_referencia=${date}`,
-  onSuccess: (state, { data }, axios, { params }) => {
-    const temperaturas = data.temperaturas
-    const coeficiente = data.coeficiente
-    const maxTemperatura = Math.max(...temperaturas.map(x => x.temperatura_recente))
-
-    if (maxTemperatura > state.maxTemperatura) {
-      state.maxTemperatura = maxTemperatura
-    }
-
-    Vue.set(state.coeficiente, params.id, coeficiente)
-    Vue.set(state.temperaturas, params.id, temperaturas)
-  }
-}).get({
-  action: 'getStatusPauta',
-  property: 'pautas',
-  path: ({ casa, id, date }) =>
-    `pauta/${casa}/${id}?data_referencia=${date}`,
-  onSuccess: (state, { data }, axios, { params }) => {
-    Vue.set(state.pautas, params.id, data)
-  }
+  action: 'getMetaInfo',
+  path: '/info',
+  property: 'metaInfo'
 }).getStore()
 
 proposicoes.getters = {
@@ -69,17 +47,6 @@ proposicoes.getters = {
       ).values()]
     }
     return options
-  },
-  maxTemperatura (state) {
-    const temperaturas = state.temperaturas
-    let maxTemperatura = 0
-    Object.keys(temperaturas).forEach(function (key) {
-      if (temperaturas[key][0] != null && temperaturas[key][0].temperatura_recente > maxTemperatura) {
-        maxTemperatura = temperaturas[key][0].temperatura_recente + 5
-      }
-    })
-
-    return maxTemperatura
   }
 }
 
@@ -87,6 +54,9 @@ export default new Vuex.Store({
   modules: {
     proposicoes,
     filter: filterStore,
-    pautas: pautas
+    pautas: pautasStore,
+    temperaturas: temperaturasStore,
+    eventosTramitacao: eventosTramitacaoStore,
+    emendas: emendasStore
   }
 })

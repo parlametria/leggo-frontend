@@ -6,45 +6,36 @@
     <el-collapse-transition>
       <div v-show="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
-          <div class ="informations">
-            <div>
-              <p class = "small-text-field" style="margin-bottom: 0px">Autor</p>
-              <p class = "big-text-field">{{ autor }}</p>
-              <p class = "medium-text-field" style="margin-top: 0px"> {{ casa }}</p>
-            </div>
 
-          <hr class = "divider">
-            <div class="temperature-area">
-              <p>Temperatura</p>
-              <temperature-graphic
-                :date="dateRef"
-                :id="prop.lastEtapa.id_ext"
-                :casa="prop.lastEtapa.casa"
-                style="margin-bottom: 10 px"/>
-              <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
-              <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa"/>
-            </div>
+          <p class = "medium-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
+            <a class="sigla medium-text-field" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
+            - {{ $t(etapa.casa) }}
+          </p>
 
-          <hr class = "divider" style="margin-top: 35px; margin-bottom: 0px;">
-          <div>
-            <el-row>
-              <fases-progress class="fases-progress" :class="{'visible': dropShow}" style="margin-bottom: 8px" :fases="prop.resumo_progresso"/>
-            </el-row>
-              <el-row>
-                <p class = "small-text-field" style = "margin-top: 3px;">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
-                <p class = "medium-text-field" style = "margin-top: 0px; margin-bottom: 0px">{{ localAtual }}</p>
-                <p class = "small-text-field" style = "opacity: 1; margin-top: 0px; margin-bottom: 0px;">Relator:</p>
-                <p class = "medium-text-field" style = "margin-top: 0px">{{ prop.lastEtapa.relator_nome }}</p>
-              </el-row>
-            </div>
-            <div>
-              <p class = "small-text-field" style="margin-bottom: 0px;">Informações Gerais</p>
-              <p class = "medium-text-field" style="margin-top: 0px; margin-bottom: 0px;" v-for="(etapa,i) in prop.etapas" :key="i">
-                Link da proposição ({{ etapa.casa }}): <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
-              </p>
-            </div>
+          <p class="small-text-field small-margin-top">Autor</p>
+          <author-name :author="prop.lastEtapa.autor_nome"/>
+          <p class="small-text-field"> {{ casa }}</p>
 
-          </div>
+          <p class="small-text-field small-margin-top">Relator(a):</p>
+          <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
+
+          <h4>Temperatura</h4>
+          <temperature-graphic
+            :date="dateRef"
+            :id="prop.lastEtapa.id_ext"
+            :casa="prop.lastEtapa.casa"
+            />
+          <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
+
+          <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
+
+          <emendas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
+
+          <h4>Progresso da Tramitação</h4>
+          <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
+          <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
+          <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
+
         </div>
       </div>
     </el-collapse-transition>
@@ -55,11 +46,14 @@
 import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import TemperatureGraphic from './expanded/TemperatureGraphic'
+import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
 import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
-import TemperatureInfo from './expanded/TemperatureInfo'
+import TemperatureInfo from './expanded/temperature/TemperatureInfo'
+import AuthorName from './expanded/AuthorName'
+import EventosInfo from './expanded/EventosInfo'
+import EmendasInfo from './expanded/EmendasInfo'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -78,7 +72,10 @@ export default {
     PautasInfo,
     FasesProgress,
     TemperatureBar,
-    TemperatureInfo
+    TemperatureInfo,
+    EventosInfo,
+    EmendasInfo,
+    AuthorName
   },
   computed: {
     emPauta () {
@@ -106,16 +103,9 @@ export default {
       }
       return casa
     },
-    autor () {
-      let autor = (this.prop.lastEtapa.autor_nome).split(' - ')
-      if (autor.length > 1) {
-        autor = autor[autor.length - 1].toString()
-      }
-      return autor.toString()
-    },
     ...mapState({
       dateRef: state => state.filter.dateRef,
-      pautas: state => state.pautas.pautasDic
+      pautas: state => state.pautas.pautas
     })
   },
   props: {
@@ -133,7 +123,7 @@ export default {
     justify-content: space-between;
 }
 .prop-item {
-    margin: 10px;
+    padding: 1rem;
 }
 .el-badge {
     margin: 10px;
@@ -150,47 +140,24 @@ export default {
         cursor: pointer;
     }
 }
-
-.border-pauta {
-    border-left: 5px solid #f56c6c;
-}
-
 .flex {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
-.pauta-label {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-}
-
-.informations{
-    margin-left: 30px;
-}
-
 .small-text-field {
-    font-size: 12px;
-    text-decoration-color: #000;
-    opacity: 0.5;
+    font-size: 10pt;
+    color: gray;
+    margin: 0;
 }
-
 .big-text-field{
     margin-top: 0px;
     font-size: 22px;
     margin-bottom: 0px;
 }
-
 .medium-text-field{
-    font-size: 15px;
-    max-width: 70%;
-}
-
-.divider {
-  color: #000;
-  border: none;
-  border-top: solid 1px;
+    font-size: 12pt;
+    margin: 0;
 }
 
 .temperature-info {
@@ -205,11 +172,12 @@ export default {
   visibility: hidden;
   opacity: 0;
 }
-
+.small-margin-top {
+    margin-top: 10px;
+}
 .visible {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
 }
-
 </style>

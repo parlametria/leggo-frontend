@@ -1,14 +1,15 @@
 <template>
-    <el-collapse v-if="propPautas && propPautas.length">
+    <el-collapse v-if="propEmendas && propEmendas.length">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Próximas Pautas</span>
+          <span class="title">Últimas Emendas</span>
         </template>
-        <table class="pautas">
-          <tr v-for="(pauta, key) in propPautas" :key="key">
-            <td><p>{{formatDate(pauta.data)}}</p></td>
-            <td><p>{{pauta.local}}</p></td>
-          </tr>
+        <table class="emendas">
+            <tr v-for="(emenda, key) in propEmendas.slice(0, 3)" :key="key">
+              <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
+              <td><p>{{emenda.local}}</p></td>
+              <td><p>{{emenda.autor}}</p></td>
+            </tr>
         </table>
       </el-collapse-item>
     </el-collapse>
@@ -19,28 +20,26 @@ import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
 
 export default {
-  name: 'PautasInfo',
+  name: 'EmendasInfo',
   props: {
     id: Number,
     casa: String,
     date: {
       type: Date,
       default: function () {
-        return new Date()
+        return moment()
       }
     }
   },
   mounted () {
-    if (Object.keys(this.pautas).length === 0) {
-      this.getPautas(this.query)
-    }
+    this.getEmendas(this.query)
   },
   computed: {
-    propPautas () {
-      if (this.pautas) { return this.pautas[this.id] }
+    propEmendas () {
+      return this.emendas[this.id]
     },
     ...mapState({
-      pautas: state => state.pautas.pautas
+      emendas: state => state.emendas.emendasDict
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
@@ -50,33 +49,30 @@ export default {
         params: {
           casa: this.casa,
           id: this.id,
-          date: this.formattedDate
+          dataFim: this.formattedDate
         }
       }
     }
   },
   methods: {
-    ...mapActions(['getPautas']),
+    ...mapActions(['getEmendas']),
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
     }
   },
   watch: {
     date () {
-      this.getPautas(this.query)
+      this.getEmendas(this.query)
     }
   }
 }
 </script>
 
 <style scoped>
-.el-collapse {
-  margin-top: 1rem
-}
 .title {
   font-size: .97rem;
 }
-.pautas {
+.emendas {
     font-size: 10pt;
     text-align: center;
 }

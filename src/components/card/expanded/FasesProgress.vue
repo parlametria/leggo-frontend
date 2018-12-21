@@ -9,21 +9,23 @@
         <div class="tooltip-content" slot="content">
           <p>Fase: <strong>{{fase.fase_global}} - {{fase.local}}</strong></p>
           <p>Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
-          <p v-if="fase.data_inicio">Início: {{fase.data_inicio}}</p>
-          <p v-if="fase.data_fim">Fim: {{fase.data_fim}}</p>
+          <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
+          <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
         </div>
         <li :class="styleFase(fase)"/>
       </el-tooltip>
-      <hr class="linhas"/>
+      <hr class="linha"/>
     </ul>
   </div>
 </template>
 
 <script>
 import { resumirFases } from '@/utils'
+import moment from 'moment'
+
 export default {
   name: 'FasesProgress',
   props: {
@@ -59,6 +61,9 @@ export default {
     },
     isFuture (fase) {
       return fase.data_fim == null && fase.data_inicio == null && !this.isJumpedFase(fase)
+    },
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY')
     }
   }
 }
@@ -79,6 +84,7 @@ strong {
     padding: 0;
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
 .progressbar li {
     list-style-type: none;
@@ -95,17 +101,16 @@ strong {
     display: block;
     margin: 0 auto 10px auto;
     background-size: cover;
-    /* border: solid 1px #bbb; */
-    /* border-radius: 50%; */
 }
 
 /* linhas */
-.linhas {
-    width: 100%;
+.linha {
+    width: 99%;
     height: 2px;
     position: absolute;
     background-color: grey;
-    top: 25px;
+    top: 5px;
+    left: 1%;
     z-index: -1;
     border: none;
 }
