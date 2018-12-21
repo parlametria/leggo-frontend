@@ -22,14 +22,13 @@ export default {
     ...mapState({
       pautas: state => state.pautas.pautas
     }),
-    pauta() {
-      if(this.pautas && this.pautas[this.id] && this.pautas[this.id].length > 0)
-        return this.pautas[this.id].slice(-1).pop()
+    pauta () {
+      if (this.pautas && this.pautas[this.id] && this.pautas[this.id].length > 0) { return this.pautas[this.id].slice(-1).pop() }
 
       return null
     },
     day () {
-      moment.locale('pt-BR');
+      moment.locale('pt-BR')
       return moment(this.pauta.data).format('dddd')
     }
   }

@@ -22,7 +22,6 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
 import PautaTag from './collapsed/PautaTag'
-import moment from 'moment'
 
 export default {
   name: 'proposicaoheader',
@@ -132,37 +131,5 @@ export default {
         box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
         transform: translatey(0px);
     }
-  }
-
-// @media screen and (max-width: 1115px) {
-//   .headPauta {
-//     flex-direction: column-reverse;
-//     align-items: flex-end;
-//     .fases {
-//       align-self: flex-start;
-//       margin: .3rem 0;
-//     }
-//   }
-// }
-
-// @media screen and (max-width: 800px) {
-//   .headPauta {
-//     flex-direction: row;
-//     align-items: center;
-//     .fases {
-//       align-self: flex-end;
-//     }
-//   }
-// }
-
-// @media screen and (max-width: 420px) {
-//   .headPauta {
-//       flex-direction: column-reverse;
-//       align-items: flex-end;
-//       .fases {
-//         align-self: flex-start;
-//         margin: .3rem 0;
-//       }
-//   }
-// }
+}
 </style>
