@@ -19,7 +19,7 @@
           <span v-if="buildDate"> compilada em {{ buildDate }}</span>
         </p>
         <p v-if="metaInfo && metaInfo.last_update_trams">
-          dados de {{ metaInfo.last_update_trams }}
+          dados de {{ moment(metaInfo.last_update_trams).format('DD/MM/YYYY') }}
         </p>
       </el-footer>
     </el-container>
@@ -29,6 +29,8 @@
 <script>
 import NavMenu from '@/components/menu/NavMenu.vue'
 import { mapState, mapActions } from 'vuex'
+import moment from 'moment'
+
 export default {
   components: {
     NavMenu
@@ -45,7 +47,8 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getMetaInfo'])
+    ...mapActions(['getMetaInfo']),
+    moment
   },
   mounted () {
     this.getMetaInfo()
