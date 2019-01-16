@@ -30,6 +30,7 @@
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import { removeAcentos } from '@/utils'
 
 export default {
   name: 'proposicoes',
@@ -113,9 +114,8 @@ export default {
       return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
     },
     checkApelidoFilter (prop) {
-      const apelido = prop.apelido.toLowerCase()
-      const filtro = this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase()
-
+      const apelido = removeAcentos(prop.apelido.toLowerCase())
+      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
       return apelido.match(filtro)
     },
     checkPropMatchesFilter (prop) {
