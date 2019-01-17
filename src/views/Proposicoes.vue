@@ -2,7 +2,7 @@
   <div class="content">
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <h1><span>Á</span>gora <span>D</span>igital</h1>
+        <h1><span>L</span>eggo</h1>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-around">
