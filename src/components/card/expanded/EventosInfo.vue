@@ -6,10 +6,16 @@
         </template>
         <table class="eventos_tram">
           <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
-            <td><p>{{formatDate(eventoTram.data)}}</p></td>
-            <td><p>{{eventoTram.local}}</p></td>
-            <td><p>{{eventoTram.evento}}</p></td>
-            <td><p>{{eventoTram.texto_tramitacao}}</p></td>
+            <td class="date-field">
+              <el-tooltip :content="formatDate(eventoTram.data)" placement="top">
+                <div>{{formatDateDifference(eventoTram.data)}}</div>
+              </el-tooltip>
+              <div class="sigla-local">{{eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local}}</div>
+            </td>
+            <td>
+              <div class="evento-title">{{formatEventoTitle(eventoTram.evento)}}</div>
+              <div>{{formatTextoTramitacao(eventoTram.texto_tramitacao)}}</div>
+            </td>
           </tr>
         </table>
       </el-collapse-item>
@@ -59,8 +65,34 @@ export default {
   },
   methods: {
     ...mapActions(['getEventosTramitacao']),
+    formatDateDifference (date) {
+      const differenceInDays = moment().diff(moment(date), 'days')
+      let dateInTextFormat = `Há ${differenceInDays} dias`
+
+      if (differenceInDays > 365) {
+        const differenceInYears = Math.floor(differenceInDays / 365)
+        dateInTextFormat = differenceInYears === 1 ? 'Há ± 1 ano' : `Há ± ${differenceInYears} anos`
+      } else if (differenceInDays > 30) {
+        const differenceInMonths = Math.floor(differenceInDays / 30)
+        dateInTextFormat = differenceInMonths === 1 ? 'Há ± 1 mês' : `Há ± ${differenceInMonths} meses`
+      } else if (differenceInDays === 0) {
+        dateInTextFormat = `Hoje`
+      } else if (differenceInDays === 1) {
+        dateInTextFormat = `Ontem`
+      }
+      
+      return dateInTextFormat
+    },
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
+    },
+    formatTextoTramitacao (textoTramitacao) {
+      const MAX_TEXT_LENGTH = 120
+      return textoTramitacao.length > MAX_TEXT_LENGTH ? `${textoTramitacao.substring(0, MAX_TEXT_LENGTH)}...` : textoTramitacao
+    },
+    formatEventoTitle (evento) {
+      let formattedEvento = evento.split('_').join(' ')
+      return formattedEvento === 'nan' ? '' : formattedEvento
     }
   },
   watch: {
@@ -89,5 +121,16 @@ table {
 th, td {
     padding: .5rem;
     text-align: left;
+    vertical-align: top; 
+}
+.date-field {
+  white-space: nowrap;
+}
+.evento-title {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.sigla-local {
+  color: #999;
 }
 </style>
