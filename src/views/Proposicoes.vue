@@ -2,7 +2,7 @@
   <div class="content">
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <h1><span>Á</span>gora <span>D</span>igital</h1>
+        <h1><span>L</span>eggo</h1>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-around">
@@ -30,6 +30,7 @@
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import { removeAcentos } from '@/utils'
 
 export default {
   name: 'proposicoes',
@@ -62,10 +63,15 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.filter.temperatureOrder === 'desc') {
-            return b.lastEtapa.temperatura - a.lastEtapa.temperatura
+          if (this.temperaturas && this.temperaturas[idA] && this.temperaturas[idA][0] &&
+              this.temperaturas[idB] && this.temperaturas[idB][0]) {
+            if (this.filter.temperatureOrder === 'desc') {
+              return this.temperaturas[idB][0].temperatura_recente - this.temperaturas[idA][0].temperatura_recente
+            } else {
+              return this.temperaturas[idA][0].temperatura_recente - this.temperaturas[idB][0].temperatura_recente
+            }
           } else {
-            return a.lastEtapa.temperatura - b.lastEtapa.temperatura
+            return 0
           }
         })
       } else {
@@ -77,7 +83,7 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
-      temperaturas: state => state.proposicoes.temperaturas,
+      temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas
     }),
     ...mapGetters(['perFilterOptions']),
@@ -103,18 +109,13 @@ export default {
       )
     },
     checkPautaFilter (prop) {
-      return this.filter.emPautaFilter.some(options => {
-        const propId = prop.id_ext
-        const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
-
-        return options.status &&
-               ((options.tipo === 'Sim' && emPauta) || (options.tipo === 'Não' && !emPauta))
-      })
+      const propId = prop.id_ext
+      const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+      return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
     },
     checkApelidoFilter (prop) {
-      const apelido = prop.apelido.toLowerCase()
-      const filtro = this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase()
-
+      const apelido = removeAcentos(prop.apelido.toLowerCase())
+      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
       return apelido.match(filtro)
     },
     checkPropMatchesFilter (prop) {
