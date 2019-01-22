@@ -80,7 +80,7 @@ export default {
       } else if (differenceInDays === 1) {
         dateInTextFormat = `Ontem`
       }
-      
+
       return dateInTextFormat
     },
     formatDate (date) {
@@ -121,7 +121,7 @@ table {
 th, td {
     padding: .5rem;
     text-align: left;
-    vertical-align: top; 
+    vertical-align: top;
 }
 .date-field {
   white-space: nowrap;
