@@ -118,9 +118,11 @@ export default {
 }
 </script>
 
-<style>
-.vega-actions {
-  display: none;
+<style lang="scss">
+.graphic {
+  details {
+    display: none;
+  }
 }
 .graphic {
   text-align: center;
