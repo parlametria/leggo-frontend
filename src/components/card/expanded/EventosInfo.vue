@@ -7,7 +7,7 @@
         <table class="eventos_tram">
           <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
             <td class="date-field">
-              <el-tooltip :content="formatDate(eventoTram.data)" placement="top">
+              <el-tooltip :content="formatDate(eventoTram.data)" placement="bottom">
                 <div>{{formatDateDifference(eventoTram.data)}}</div>
               </el-tooltip>
               <div class="sigla-local">{{eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local}}</div>
@@ -50,14 +50,11 @@ export default {
     ...mapState({
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
     }),
-    formattedDate () {
-      return moment(this.date).format('YYYY-MM-DD')
-    },
     query () {
       return { params: {
         casa: this.casa,
         id: this.id,
-        dataFim: this.formattedDate,
+        dataFim: moment(this.date).format('YYYY-MM-DD'),
         ultimosN: 3
       }
       }
@@ -76,9 +73,9 @@ export default {
         const differenceInMonths = Math.floor(differenceInDays / 30)
         dateInTextFormat = differenceInMonths === 1 ? 'Há ± 1 mês' : `Há ± ${differenceInMonths} meses`
       } else if (differenceInDays === 0) {
-        dateInTextFormat = `Hoje`
+        dateInTextFormat = 'Hoje'
       } else if (differenceInDays === 1) {
-        dateInTextFormat = `Ontem`
+        dateInTextFormat = 'Ontem'
       }
 
       return dateInTextFormat
@@ -111,20 +108,21 @@ export default {
   font-size: .97rem;
 }
 .eventos_tram {
-    font-size: 10pt;
-    text-align: center;
+  font-size: 10pt;
+  text-align: center;
 }
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 th, td {
-    padding: .5rem;
-    text-align: left;
-    vertical-align: top;
+  padding: .5rem;
+  text-align: left;
+  vertical-align: top;
 }
 .date-field {
   white-space: nowrap;
+  padding-right: 2rem;
 }
 .evento-title {
   font-weight: bold;
