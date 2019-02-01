@@ -6,10 +6,16 @@
         </template>
         <table class="eventos_tram">
           <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
-            <td class="nowrap">{{ formatDate(eventoTram.data) }}</td>
-            <td class="nowrap">{{ eventoTram.sigla_local }}</td>
-            <td class="capitalize nowrap">{{ formatEvento(eventoTram.evento) }}</td>
-            <td :title="eventoTram.texto_tramitacao">{{ formatTextoTramitacao(eventoTram.texto_tramitacao) }}</td>
+            <td class="date-field">
+              <el-tooltip :content="formatDate(eventoTram.data)" placement="bottom">
+                <div>{{formatDateDifference(eventoTram.data)}}</div>
+              </el-tooltip>
+              <div class="sigla-local">{{eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local}}</div>
+            </td>
+            <td>
+              <div class="evento-title">{{formatEventoTitle(eventoTram.evento)}}</div>
+              <div>{{formatTextoTramitacao(eventoTram.texto_tramitacao)}}</div>
+            </td>
           </tr>
         </table>
       </el-collapse-item>
@@ -44,14 +50,11 @@ export default {
     ...mapState({
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
     }),
-    formattedDate () {
-      return moment(this.date).format('YYYY-MM-DD')
-    },
     query () {
       return { params: {
         casa: this.casa,
         id: this.id,
-        dataFim: this.formattedDate,
+        dataFim: moment(this.date).format('YYYY-MM-DD'),
         ultimosN: 3
       }
       }
@@ -59,14 +62,34 @@ export default {
   },
   methods: {
     ...mapActions(['getEventosTramitacao']),
+    formatDateDifference (date) {
+      const differenceInDays = moment().diff(moment(date), 'days')
+      let dateInTextFormat = `Há ${differenceInDays} dias`
+
+      if (differenceInDays > 365) {
+        const differenceInYears = Math.floor(differenceInDays / 365)
+        dateInTextFormat = differenceInYears === 1 ? 'Há ± 1 ano' : `Há ± ${differenceInYears} anos`
+      } else if (differenceInDays > 30) {
+        const differenceInMonths = Math.floor(differenceInDays / 30)
+        dateInTextFormat = differenceInMonths === 1 ? 'Há ± 1 mês' : `Há ± ${differenceInMonths} meses`
+      } else if (differenceInDays === 0) {
+        dateInTextFormat = 'Hoje'
+      } else if (differenceInDays === 1) {
+        dateInTextFormat = 'Ontem'
+      }
+
+      return dateInTextFormat
+    },
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
     },
-    formatEvento (evento) {
-      return evento === 'nan' ? '' : evento.split('_').join(' ')
+    formatTextoTramitacao (textoTramitacao) {
+      const MAX_TEXT_LENGTH = 120
+      return textoTramitacao.length > MAX_TEXT_LENGTH ? `${textoTramitacao.substring(0, MAX_TEXT_LENGTH)}...` : textoTramitacao
     },
-    formatTextoTramitacao (texto) {
-      return texto.length > 61 ? `${texto.substring(0, 62)}...` : texto
+    formatEventoTitle (evento) {
+      let formattedEvento = evento.split('_').join(' ')
+      return formattedEvento === 'nan' ? '' : formattedEvento
     }
   },
   watch: {
@@ -85,22 +108,27 @@ export default {
   font-size: .97rem;
 }
 .eventos_tram {
-    font-size: 10pt;
-    text-align: center;
+  font-size: 10pt;
+  text-align: center;
 }
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 th, td {
-  padding: .5rem 1rem;
+  padding: .5rem;
   text-align: left;
+  vertical-align: top;
 }
-.capitalize {
+.date-field {
+  white-space: nowrap;
+  padding-right: 2rem;
+}
+.evento-title {
+  font-weight: bold;
   text-transform: capitalize;
 }
-.nowrap {
-  width:1%;
-  white-space: nowrap;
+.sigla-local {
+  color: #999;
 }
 </style>
