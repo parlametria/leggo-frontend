@@ -4,7 +4,7 @@
       <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
     </div>
     <el-collapse-transition>
-      <div v-show="dropShow" class="card-body">
+      <div v-if="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
 
           <p class = "medium-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
