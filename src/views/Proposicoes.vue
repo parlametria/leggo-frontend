@@ -55,8 +55,8 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          let idA = a.lastEtapa.id_ext
-          let idB = b.lastEtapa.id_ext
+          let idA = a.lastEtapa.id
+          let idB = b.lastEtapa.id
           let pautaA = this.pautas && this.pautas[idA] !== undefined && this.pautas[idA].length > 0
           let pautaB = this.pautas && this.pautas[idB] !== undefined && this.pautas[idB].length > 0
           let n = pautaB - pautaA
@@ -89,13 +89,13 @@ export default {
     ...mapGetters(['perFilterOptions']),
     emPauta () {
       return this.filteredProps.filter(prop => {
-        const propId = prop.lastEtapa.id_ext
+        const propId = prop.lastEtapa.id
         return this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
       })
     },
     notEmPauta () {
       return this.filteredProps.filter(prop => {
-        const propId = prop.lastEtapa.id_ext
+        const propId = prop.lastEtapa.id
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
     }
@@ -109,7 +109,7 @@ export default {
       )
     },
     checkPautaFilter (prop) {
-      const propId = prop.id_ext
+      const propId = prop.id
       const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
       return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
     },
