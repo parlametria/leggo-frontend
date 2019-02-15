@@ -1,5 +1,8 @@
+import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
+import temps from './temperaturas'
+import pautas from './pautas'
 
 const proposicoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
@@ -15,10 +18,19 @@ const proposicoes = new Vapi({
   path: '/proposicoes',
   onSuccess: (state, { data }) => {
     state.proposicoes = data
+    var temperaturas = {}
+    var coeficientes = {}
+    var pautasTmp = {}
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
       prop.lastEtapa = prop.etapas.slice(-1)[0]
+      temperaturas[prop.lastEtapa.id] = prop.lastEtapa.temperatura_historico
+      coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente
+      pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
+    Vue.set(temps.state, 'temperaturas', temperaturas)
+    Vue.set(temps.state, 'coeficiente', coeficientes)
+    Vue.set(pautas.state, 'pautas', pautasTmp)
   }
 }).get({
   action: 'getMetaInfo',
