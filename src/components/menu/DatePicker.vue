@@ -17,7 +17,6 @@ export default {
   components: {
     Datepicker
   },
-
   data () {
     return {
       state: {

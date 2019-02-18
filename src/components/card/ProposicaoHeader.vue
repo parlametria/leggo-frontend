@@ -28,7 +28,6 @@ export default {
   props: {
     prop: Object,
     clicked: Boolean,
-    dateRef: Date
   },
   components: {
     RegimeTramitacao,

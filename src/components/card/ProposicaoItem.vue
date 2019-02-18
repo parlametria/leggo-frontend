@@ -1,7 +1,7 @@
 <template>
   <div class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
+      <proposicao-header :prop="prop" :clicked="dropShow"/>
     </div>
     <el-collapse-transition>
       <div v-if="dropShow" class="card-body">
