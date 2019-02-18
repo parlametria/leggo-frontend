@@ -6,17 +6,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
-import moment from 'moment'
 
 export default {
   name: 'TemperatureGraphic',
-  data () {
-    return {
-      semanas: 12
-    }
-  },
   props: {
     id: Number,
     casa: String,
@@ -31,19 +25,22 @@ export default {
         semanas: this.semanas,
         date: this.formattedDate
       } }).then(() =>
-        this.mountGraphic(
-          this.id,
-          this.casa,
-          this.semanas,
-          this.formattedDate
-        ))
+                this.mountGraphic(
+                  this.id,
+                  this.casa,
+                  this.semanas,
+                  this.formattedDate
+                ))
     }
   },
-  computed: mapState({
-    listaTemperaturas: state => state.temperaturas.temperaturas,
-    maxTemperatura: state => state.temperaturas.maxTemperatura,
-    listaCoeficientes: state => state.temperaturas.coeficiente,
-
+  computed: {
+    ...mapState({
+      listaTemperaturas: state => state.temperaturas.temperaturas,
+      maxTemperatura: state => state.temperaturas.maxTemperatura,
+      listaCoeficientes: state => state.temperaturas.coeficiente,
+      semanas: state => state.filter.semanas
+    }),
+    ...mapGetters(['getTemperaturaRecente', 'formattedDateRef']),
     temperaturas () {
       if (this.listaTemperaturas[this.id]) {
         return this.listaTemperaturas[this.id]
@@ -51,9 +48,6 @@ export default {
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
-    },
-    formattedDate () {
-      return moment(this.date).format('YYYY-MM-DD')
     },
     tendenciaColor () {
       if (this.temperaturas.length > 1) {
@@ -66,9 +60,8 @@ export default {
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
     }
-  }),
+  },
   methods: {
-    ...mapActions(['getTemperaturaRecente']),
     async mountGraphic (id, casa, semanas, date) {
       if (id && casa) {
         if (this.temperaturas.length > 0) {

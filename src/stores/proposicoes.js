@@ -9,13 +9,14 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    pautas: {},
+    // pautas: {},
     eventos_tramitacao: {},
     metaInfo: {}
   }
 }).get({
   action: 'listProposicoes',
-  path: '/proposicoes',
+  path: ({ semanas, date }) =>
+    `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }) => {
     state.proposicoes = data
     var temperaturas = {}

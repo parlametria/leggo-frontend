@@ -30,11 +30,6 @@ export default {
       }
     }
   },
-  mounted () {
-    if (Object.keys(this.pautas).length === 0) {
-      this.getPautas(this.query)
-    }
-  },
   computed: {
     propPautas () {
       if (this.pautas) { return this.pautas[this.id] }
@@ -44,26 +39,12 @@ export default {
     }),
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
-    },
-    query () {
-      return {
-        params: {
-          casa: this.casa,
-          id: this.id,
-          date: this.formattedDate
-        }
-      }
     }
   },
   methods: {
     ...mapActions(['getPautas']),
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
-    }
-  },
-  watch: {
-    date () {
-      this.getPautas(this.query)
     }
   }
 }
