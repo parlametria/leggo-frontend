@@ -27,7 +27,7 @@ export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    clicked: Boolean,
+    clicked: Boolean
   },
   components: {
     RegimeTramitacao,
