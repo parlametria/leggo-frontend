@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
 
 export default {
@@ -24,13 +24,12 @@ export default {
         casa: this.casa,
         semanas: this.semanas,
         date: this.formattedDate
-      } }).then(() =>
-                this.mountGraphic(
-                  this.id,
-                  this.casa,
-                  this.semanas,
-                  this.formattedDate
-                ))
+      } }).then(() => this.mountGraphic(
+        this.id,
+        this.casa,
+        this.semanas,
+        this.formattedDate
+      ))
     }
   },
   computed: {
