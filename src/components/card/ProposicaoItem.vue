@@ -20,11 +20,7 @@
           <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
 
           <h4>Temperatura</h4>
-          <temperature-graphic
-            :date="dateRef"
-            :id="prop.lastEtapa.id_ext"
-            :casa="prop.lastEtapa.casa"
-            />
+          <temperature-graphic :id="prop.lastEtapa.id" />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>

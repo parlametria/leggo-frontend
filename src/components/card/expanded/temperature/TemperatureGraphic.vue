@@ -1,6 +1,6 @@
 <template>
   <div class="graphic">
-    <div :id="`${casa}-${id}`">
+    <div ref="anchor">
     </div>
   </div>
 </template>
@@ -13,33 +13,14 @@ export default {
   name: 'TemperatureGraphic',
   props: {
     id: Number,
-    casa: String,
-    date: Date,
     cardWidth: Number
-  },
-  async mounted () {
-    if (Object.keys(this.listaTemperaturas).length === 0) {
-      this.getTemperaturaRecente({ params: {
-        id: this.id,
-        casa: this.casa,
-        semanas: this.semanas,
-        date: this.formattedDate
-      } }).then(() => this.mountGraphic(
-        this.id,
-        this.casa,
-        this.semanas,
-        this.formattedDate
-      ))
-    }
   },
   computed: {
     ...mapState({
       listaTemperaturas: state => state.temperaturas.temperaturas,
-      maxTemperatura: state => state.temperaturas.maxTemperatura,
-      listaCoeficientes: state => state.temperaturas.coeficiente,
-      semanas: state => state.filter.semanas
+      listaCoeficientes: state => state.temperaturas.coeficiente
     }),
-    ...mapGetters(['getTemperaturaRecente', 'formattedDateRef']),
+    ...mapGetters(['maxTemperatura']),
     temperaturas () {
       if (this.listaTemperaturas[this.id]) {
         return this.listaTemperaturas[this.id]
@@ -55,57 +36,26 @@ export default {
         }
       }
       return '#dc6060'
-    },
-    compoundWatch () {
-      return [this.date, this.id, this.casa].join()
     }
   },
   methods: {
-    async mountGraphic (id, casa, semanas, date) {
-      if (id && casa) {
-        if (this.temperaturas.length > 0) {
-          this.temperaturas[0].temperatura_dia = this.temperaturas[0].temperatura_recente
-        }
-
+    async mountGraphic () {
+      if (this.temperaturas && this.temperaturas.length) {
         let model = new TemperatureGraphicModel(
           this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
-
-        // eslint-disable-next-line
-        vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
-          res.view /* eslint-disable */
+        await (
+          // eslint-disable-next-line
+          (await vegaEmbed(this.$refs.anchor, model.vsSpec))
+            .view
+            // eslint-disable-next-line
             .change('temperatura', vega.changeset().remove('temperatura', d => true))
-            .insert('temperatura', this.temperaturas)
-            .run()
-        })
+            .insert('temperatura', this.temperaturas).run())
       }
     }
   },
-  watch: {
-    compoundWatch: {
-      handler: function (val, oldVal) {
-        this.getTemperaturaRecente({ params: {
-          id: this.id,
-          casa: this.casa,
-          semanas: this.semanas,
-          date: this.formattedDate
-        }}).then(() => {
-          this.mountGraphic(
-            this.id,
-            this.casa,
-            this.semanas,
-            this.formattedDate
-        )})
-      },
-      deep: true
-    },
-    cardWidth () {
-      setTimeout(() => this.mountGraphic(
-        this.id,
-        this.casa,
-        this.semanas,
-        this.formattedDate
-      ), 2000)
-    }
+  mounted () {
+    this.$watch('temperaturas', this.mountGraphic, { immediate: true, deep: true })
+    this.$watch('cardWidth', this.mountGraphic)
   }
 }
 </script>
