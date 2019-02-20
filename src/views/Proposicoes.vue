@@ -4,7 +4,7 @@
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
         <h1>Leggo</h1>
         <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
-          Dados de {{ formattedLastUpdateDate }}
+          Atualizado em {{ formattedLastUpdateDate }}
         </p>
       </el-col>
     </el-row>
@@ -196,6 +196,12 @@ export default {
         font-size: 50pt;
         text-align: center;
         font-weight: normal;
+        margin-bottom: 0;
+    }
+    .last-update-date {
+      color: grey;
+      text-align: right;
+      margin-right: 1rem;
     }
 }
  .logo {
@@ -229,13 +235,5 @@ export default {
   top: 0;
   z-index: 1000;
   background: #fff;
-}
-.last-update-date {
-  color: grey
-}
-@media (max-width: $nav-menu-break-width) {
-  .last-update-date {
-    text-align: center;
-  }
 }
 </style>
