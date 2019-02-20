@@ -55,14 +55,6 @@ export default {
     formattedDate () {
       return moment(this.date).format('YYYY-MM-DD')
     },
-    tendenciaColor () {
-      if (this.temperaturas.length > 1) {
-        if (this.coeficiente <= 0) {
-          return '#60C7DC'
-        }
-      }
-      return '#dc6060'
-    },
     compoundWatch () {
       return [this.date, this.id, this.casa].join()
     }
@@ -76,7 +68,7 @@ export default {
         }
 
         let model = new TemperatureGraphicModel(
-          this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
+          this.temperaturas, this.maxTemperatura, this.cardWidth)
 
         // eslint-disable-next-line
         vegaEmbed(`#${casa}-${id}`, model.vsSpec).then(res => {
