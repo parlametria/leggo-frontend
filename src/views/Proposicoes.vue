@@ -3,6 +3,9 @@
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
         <h1><span>L</span>eggo</h1>
+        <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
+          Dados de {{ formattedLastUpdateDate }}
+        </p>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-around">
@@ -31,6 +34,7 @@
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
+import moment from 'moment'
 
 export default {
   name: 'proposicoes',
@@ -44,6 +48,7 @@ export default {
   },
   async mounted () {
     await this.listProposicoes()
+    await this.getMetaInfo()
     // Deep clone o obj para que não seja modificado quando so filtros forem.
     this.setFilter(JSON.parse(JSON.stringify(this.perFilterOptions)))
     window.addEventListener('scroll', this.sticky)
@@ -84,7 +89,8 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       temperaturas: state => state.temperaturas.temperaturas,
-      pautas: state => state.pautas.pautas
+      pautas: state => state.pautas.pautas,
+      metaInfo: state => state.proposicoes.metaInfo
     }),
     ...mapGetters(['perFilterOptions']),
     emPauta () {
@@ -98,10 +104,13 @@ export default {
         const propId = prop.lastEtapa.id_ext
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
+    },
+    formattedLastUpdateDate () {
+      return moment(this.metaInfo.last_update_trams).format('DD/MM/YYYY')
     }
   },
   methods: {
-    ...mapActions(['listProposicoes']),
+    ...mapActions(['listProposicoes', 'getMetaInfo']),
     ...mapMutations(['setFilter']),
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
@@ -147,6 +156,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
+
 .flex {
     display: flex;
     flex-wrap: wrap;
@@ -197,5 +208,13 @@ export default {
   top: 0;
   z-index: 1000;
   background: #fff;
+}
+.last-update-date {
+  color: grey
+}
+@media (max-width: $nav-menu-break-width) {
+  .last-update-date {
+    text-align: center;
+  }
 }
 </style>
