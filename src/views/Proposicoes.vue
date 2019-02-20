@@ -163,6 +163,7 @@ export default {
   },
   async mounted () {
     window.addEventListener('scroll', this.sticky)
+    window.addEventListener('resize', this.sticky)
   }
 }
 </script>
@@ -198,7 +199,7 @@ export default {
     padding-top: 0;
   }
   header {
-    box-shadow: 0 2px 5px #999;
+    box-shadow: 0 0px 1px #999;
     padding: 1.5rem 0;
   }
   h2 {
