@@ -120,9 +120,6 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'filtraApreciacao',
-      'filtraRegime',
-      'filtraCasa',
       'filtraEmPauta',
       'filtraNomeProposicao'
     ]),
