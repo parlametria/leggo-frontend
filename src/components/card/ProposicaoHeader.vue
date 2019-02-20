@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="head">
-      <pauta-tag class="tag-pauta" :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date_reference="dateRef"/>
+      <pauta-tag class="tag-pauta" :id="prop.lastEtapa.id"/>
       <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     </div>
-    <temperature-bar class="temperatura" :id="prop.lastEtapa.id_ext"/>
+    <temperature-bar class="temperatura" :id="prop.lastEtapa.id"/>
     <span class="prop-apelido">{{prop .apelido}}</span>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
@@ -27,8 +27,7 @@ export default {
   name: 'proposicaoheader',
   props: {
     prop: Object,
-    clicked: Boolean,
-    dateRef: Date
+    clicked: Boolean
   },
   components: {
     RegimeTramitacao,

@@ -2,7 +2,7 @@
   <div class="content">
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <h1><span>L</span>eggo</h1>
+        <h1>Leggo</h1>
         <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
           Dados de {{ formattedLastUpdateDate }}
         </p>
@@ -15,11 +15,15 @@
       <transition name="el-fade-in" mode="out-in">
         <div v-if="filteredProps.length">
           <div class="session" ref="emPautaSession">
-            <header ref="emPautaHeader"><h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2></header>
+            <header ref="emPautaHeader">
+              <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+            </header>
             <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
           </div>
           <div class="session" ref="notEmPautaSession">
-            <header ref="notEmPautaHeader"><h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2></header>
+            <header ref="notEmPautaHeader">
+              <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+            </header>
             <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
           </div>
         </div>
@@ -46,12 +50,48 @@ export default {
       activeNames: []
     }
   },
-  async mounted () {
-    await this.listProposicoes()
-    await this.getMetaInfo()
-    // Deep clone o obj para que não seja modificado quando so filtros forem.
-    this.setFilter(JSON.parse(JSON.stringify(this.perFilterOptions)))
-    window.addEventListener('scroll', this.sticky)
+  methods: {
+    ...mapActions(['listProposicoes', 'getMetaInfo']),
+    ...mapMutations(['setFilter']),
+    checkCategoricalFilters (prop) {
+      return this.filter.filters.every(
+        filter => this.filter.current[filter].includes(prop[filter])
+      )
+    },
+    checkPautaFilter (prop) {
+      const propId = prop.id
+      const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
+      return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
+    },
+    checkApelidoFilter (prop) {
+      const apelido = removeAcentos(prop.apelido.toLowerCase())
+      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+      return apelido.match(filtro)
+    },
+    checkPropMatchesFilter (prop) {
+      return this.checkCategoricalFilters(prop) &&
+        this.checkPautaFilter(prop) &&
+        this.checkApelidoFilter(prop)
+    },
+    sticky () {
+      const emPautaHeader = this.$refs.emPautaHeader
+      const emPautaSession = this.$refs.emPautaSession
+      if (emPautaHeader) {
+        emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
+        if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
+        else emPautaHeader.classList.remove('sticky')
+      }
+
+      const notEmPautaheader = this.$refs.notEmPautaHeader
+      const notEmPautaSession = this.$refs.notEmPautaSession
+
+      if (notEmPautaheader) {
+        notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
+
+        if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
+        else notEmPautaheader.classList.remove('sticky')
+      }
+    }
   },
   computed: {
     filteredProps () {
@@ -60,8 +100,8 @@ export default {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
-          let idA = a.lastEtapa.id_ext
-          let idB = b.lastEtapa.id_ext
+          let idA = a.lastEtapa.id
+          let idB = b.lastEtapa.id
           let pautaA = this.pautas && this.pautas[idA] !== undefined && this.pautas[idA].length > 0
           let pautaB = this.pautas && this.pautas[idB] !== undefined && this.pautas[idB].length > 0
           let n = pautaB - pautaA
@@ -92,65 +132,46 @@ export default {
       pautas: state => state.pautas.pautas,
       metaInfo: state => state.proposicoes.metaInfo
     }),
-    ...mapGetters(['perFilterOptions']),
+    ...mapGetters(['perFilterOptions', 'formattedDateRef']),
     emPauta () {
       return this.filteredProps.filter(prop => {
-        const propId = prop.lastEtapa.id_ext
+        const propId = prop.lastEtapa.id
         return this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
       })
     },
     notEmPauta () {
       return this.filteredProps.filter(prop => {
-        const propId = prop.lastEtapa.id_ext
+        const propId = prop.lastEtapa.id
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
     },
     formattedLastUpdateDate () {
       return moment(this.metaInfo.last_update_trams).format('DD/MM/YYYY')
+    },
+    compoundWatch () {
+      return [this.formattedDateRef, this.filter.semanas].join()
+    }   
+  },
+  watch: {
+    compoundWatch: {
+      async handler (newValue, oldValue) {
+        await this.listProposicoes({
+          params: {
+            semanas: this.filter.semanas,
+            date: this.formattedDateRef
+          }
+        })
+        if (!oldValue) {
+          // Deep clone o obj para que não seja modificado quando só os filtros forem.
+          this.setFilter(JSON.parse(JSON.stringify(this.perFilterOptions)))
+        }
+      },
+      immediate: true
     }
   },
-  methods: {
-    ...mapActions(['listProposicoes', 'getMetaInfo']),
-    ...mapMutations(['setFilter']),
-    checkCategoricalFilters (prop) {
-      return this.filter.filters.every(
-        filter => this.filter.current[filter].includes(prop[filter])
-      )
-    },
-    checkPautaFilter (prop) {
-      const propId = prop.id_ext
-      const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
-      return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
-    },
-    checkApelidoFilter (prop) {
-      const apelido = removeAcentos(prop.apelido.toLowerCase())
-      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
-      return apelido.match(filtro)
-    },
-    checkPropMatchesFilter (prop) {
-      return this.checkCategoricalFilters(prop) &&
-             this.checkPautaFilter(prop) &&
-             this.checkApelidoFilter(prop)
-    },
-    sticky () {
-      const emPautaHeader = this.$refs.emPautaHeader
-      const emPautaSession = this.$refs.emPautaSession
-      if (emPautaHeader) {
-        emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
-        if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
-        else emPautaHeader.classList.remove('sticky')
-      }
-
-      const notEmPautaheader = this.$refs.notEmPautaHeader
-      const notEmPautaSession = this.$refs.notEmPautaSession
-
-      if (notEmPautaheader) {
-        notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
-
-        if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
-        else notEmPautaheader.classList.remove('sticky')
-      }
-    }
+  async mounted () {
+    await this.getMetaInfo()
+    window.addEventListener('scroll', this.sticky)
   }
 }
 </script>

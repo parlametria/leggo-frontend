@@ -1,10 +1,13 @@
 import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
 import App from '@/App.vue'
 import router from '@/router'
 import store from '@/stores/store'
 import './plugins/element.js'
 
 Vue.config.productionTip = false
+
+sync(store, router)
 
 // plugin de tradução extremamente simples
 let texts = {
