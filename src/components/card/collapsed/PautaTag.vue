@@ -11,9 +11,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'PautaTag',
   props: {
-    id: Number,
-    casa: String,
-    date_reference: Date
+    id: Number
   },
   methods: {
     ...mapActions(['getPautas'])
@@ -23,8 +21,9 @@ export default {
       pautas: state => state.pautas.pautas
     }),
     pauta () {
-      if (this.pautas && this.pautas[this.id] && this.pautas[this.id].length > 0) { return this.pautas[this.id].slice(-1).pop() }
-
+      if (this.pautas && this.pautas[this.id] && this.pautas[this.id].length > 0) {
+        return this.pautas[this.id].slice(-1).pop()
+      }
       return null
     },
     day () {

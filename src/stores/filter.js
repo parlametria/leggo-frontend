@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from 'moment'
 
 const filtro = {
   state: {
@@ -16,6 +17,7 @@ const filtro = {
       }
     ],
     dateRef: new Date(),
+    semanas: 12,
     temperatureOrder: 'desc'
   },
   mutations: {
@@ -41,7 +43,10 @@ const filtro = {
       }
     }
   },
-  actions: {
+  getters: {
+    formattedDateRef (state) {
+      return moment(state.dateRef).format('YYYY-MM-DD')
+    }
   }
 }
 export default filtro
