@@ -150,7 +150,7 @@ export default {
     },
     compoundWatch () {
       return [this.formattedDateRef, this.filter.semanas].join()
-    }   
+    }
   },
   watch: {
     compoundWatch: {
