@@ -1,5 +1,5 @@
 export default class TemperatureGraphicModel {
-  constructor (temperaturas, maxTemperatura, color, width) {
+  constructor (temperaturas, maxTemperatura, width) {
     const encoding = {
       x: {
         field: 'periodo',
@@ -48,7 +48,7 @@ export default class TemperatureGraphicModel {
         {
           mark: {
             type: 'bar',
-            color: color,
+            color: '#dc6060',
             fillOpacity: 0.5
           },
           encoding: encoding

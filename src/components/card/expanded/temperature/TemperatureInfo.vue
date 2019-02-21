@@ -8,8 +8,7 @@
       </div>
       <div class="info">
         A Temperatura nos últimos 3 meses
-        <span v-if="this.temperatureInfo === 'subiu'" style="color: #dc6060; font-weight: bold">{{this.temperatureInfo}}</span>
-        <span v-else style="color: #60C7DC; font-weight: bold">{{this.temperatureInfo}}</span>
+        <span class="temperatura-tendencia">{{this.temperatureInfo}}</span>
       </div>
     </el-tooltip>
 </template>
@@ -37,11 +36,13 @@ export default {
   color: #555;
   text-align: center;
 }
-
 .tooltip-content {
-    p {
-        margin: 0;
-        color: gray;
-    }
+  p {
+      margin: 0;
+      color: gray;
+  }
+}
+.temperatura-tendencia {
+  font-weight: bold;
 }
 </style>

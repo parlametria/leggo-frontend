@@ -28,21 +28,13 @@ export default {
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
-    },
-    tendenciaColor () {
-      if (this.temperaturas.length > 1) {
-        if (this.coeficiente <= 0) {
-          return '#60C7DC'
-        }
-      }
-      return '#dc6060'
     }
   },
   methods: {
     async mountGraphic () {
       if (this.temperaturas && this.temperaturas.length) {
         let model = new TemperatureGraphicModel(
-          this.temperaturas, this.maxTemperatura, this.tendenciaColor, this.cardWidth)
+          this.temperaturas, this.maxTemperatura, this.cardWidth)
         await (
           // eslint-disable-next-line
           (await vegaEmbed(this.$refs.anchor, model.vsSpec))
