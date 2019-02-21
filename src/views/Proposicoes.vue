@@ -3,6 +3,9 @@
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
         <h1>Leggo</h1>
+        <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
+          Atualizado em {{ formattedLastUpdateDate }}
+        </p>
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-around">
@@ -15,13 +18,17 @@
             <header ref="emPautaHeader">
               <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
             </header>
-            <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            <div>
+              <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            </div>
           </div>
           <div class="session" ref="notEmPautaSession">
             <header ref="notEmPautaHeader">
               <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
             </header>
-            <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            <div>
+              <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            </div>
           </div>
         </div>
         <p v-else>Nenhuma proposição para mostrar...</p>
@@ -35,6 +42,7 @@
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
+import moment from 'moment'
 
 export default {
   name: 'proposicoes',
@@ -47,7 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['listProposicoes']),
+    ...mapActions(['listProposicoes', 'getMetaInfo']),
     ...mapMutations(['setFilter']),
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
@@ -125,7 +133,8 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       temperaturas: state => state.temperaturas.temperaturas,
-      pautas: state => state.pautas.pautas
+      pautas: state => state.pautas.pautas,
+      metaInfo: state => state.proposicoes.metaInfo
     }),
     ...mapGetters(['perFilterOptions', 'formattedDateRef']),
     emPauta () {
@@ -139,6 +148,9 @@ export default {
         const propId = prop.lastEtapa.id
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
+    },
+    formattedLastUpdateDate () {
+      return moment(this.metaInfo.last_update_trams).format('DD/MM/YYYY')
     },
     compoundWatch () {
       return [this.formattedDateRef, this.filter.semanas].join()
@@ -162,12 +174,16 @@ export default {
     }
   },
   async mounted () {
+    await this.getMetaInfo()
     window.addEventListener('scroll', this.sticky)
+    window.addEventListener('resize', this.sticky)
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
+
 .flex {
     display: flex;
     flex-wrap: wrap;
@@ -185,6 +201,12 @@ export default {
         font-size: 50pt;
         text-align: center;
         font-weight: normal;
+        margin-bottom: 0;
+    }
+    .last-update-date {
+      color: grey;
+      text-align: right;
+      margin-right: 1rem;
     }
 }
  .logo {
@@ -198,7 +220,7 @@ export default {
     padding-top: 0;
   }
   header {
-    box-shadow: 0 2px 5px #999;
+    box-shadow: 0 0px 1px #999;
     padding: 1.5rem 0;
   }
   h2 {
@@ -210,6 +232,11 @@ export default {
   }
   .disabled {
     color: #bbb;
+  }
+  @media (max-width: $nav-menu-break-width) {
+    div {
+      margin: 0 4px;
+    }
   }
 }
 .sticky {

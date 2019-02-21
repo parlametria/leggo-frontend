@@ -1,6 +1,6 @@
 <template>
   <div class="temperature-bar">
-    <div :style="barStyle"></div>
+    <div :style="barStyle" class="filled-bar"></div>
   </div>
 </template>
 
@@ -31,7 +31,6 @@ export default {
     },
     barStyle () {
       return {
-        background: (this.coeficiente >= 0 ? '#dc6060' : '#60C7DC'),
         height: `${this.porcentagem}%`
       }
     }
@@ -46,5 +45,9 @@ export default {
   min-width: 41px;
   display: flex;
   flex-direction: column-reverse;
+}
+
+.filled-bar {
+  background: #dc6060;
 }
 </style>
