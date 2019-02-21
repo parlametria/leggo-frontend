@@ -18,13 +18,17 @@
             <header ref="emPautaHeader">
               <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
             </header>
-            <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            <div>
+              <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            </div>
           </div>
           <div class="session" ref="notEmPautaSession">
             <header ref="notEmPautaHeader">
               <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
             </header>
-            <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            <div>
+              <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            </div>
           </div>
         </div>
         <p v-else>Nenhuma proposição para mostrar...</p>
@@ -228,6 +232,11 @@ export default {
   }
   .disabled {
     color: #bbb;
+  }
+  @media (max-width: $nav-menu-break-width) {
+    div {
+      margin: 0 4px;
+    }
   }
 }
 .sticky {
