@@ -6,7 +6,7 @@
         <a href="https://analytics-ufcg.github.io/agora-digital/public/articles/tutorial_4_relatorio_temperatura.html">Entenda a Temperatura de um PL</a>
       </li>
     </ul>
-    <h2>Contribua com o Ágora Digital</h2>
+    <h2>Contribua com o Leg.go</h2>
     <ul>
       <li>
         <a href="https://github.com/analytics-ufcg/agora-digital" target="_blank">Pacote R</a>

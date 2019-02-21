@@ -9,3 +9,8 @@ export function resumirFases (fases) {
     return fases.filter(fase => fase.fase_global.indexOf('II') === -1)
   }
 }
+
+// Remove os acentos de uma palavra de entrada e retorna o resultado (palavra sem acentos)
+export function removeAcentos (word) {
+  return word.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}

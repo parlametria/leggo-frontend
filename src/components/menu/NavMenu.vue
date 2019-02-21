@@ -20,9 +20,9 @@
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
 
-        <el-menu-item index="3" @click="propagateClick" class="menu-route-link">
+        <!-- <el-menu-item index="3" @click="propagateClick" class="menu-route-link">
           <router-link :to="{ name: 'cases' }">Exemplos</router-link>
-        </el-menu-item>
+        </el-menu-item> -->
 
       </el-menu>
       <slot/>

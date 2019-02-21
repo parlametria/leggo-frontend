@@ -1,10 +1,10 @@
 <template>
   <div class="proposicao-card">
     <div @click="dropShow = !dropShow" class="card-header">
-      <proposicao-header :prop="prop" :clicked="dropShow" :dateRef="dateRef"/>
+      <proposicao-header :prop="prop" :clicked="dropShow"/>
     </div>
     <el-collapse-transition>
-      <div v-show="dropShow" class="card-body">
+      <div v-if="dropShow" class="card-body">
         <div shadow="hover" class="prop-item">
 
           <p class = "medium-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
@@ -20,11 +20,7 @@
           <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
 
           <h4>Temperatura</h4>
-          <temperature-graphic
-            :date="dateRef"
-            :id="prop.lastEtapa.id_ext"
-            :casa="prop.lastEtapa.casa"
-            />
+          <temperature-graphic :id="prop.lastEtapa.id" />
           <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
 
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>

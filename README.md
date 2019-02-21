@@ -1,8 +1,6 @@
 [![pipeline status](https://gitlab.com/analytics-ufcg/agora-digital-frontend/badges/master/pipeline.svg)](https://gitlab.com/analytics-ufcg/agora-digital-frontend/commits/master)
 
-# Ágora Digital Frontend
-
-Código do frontend do projeto Ágora Digital.
+# Leg.go Frontend
 
 ## Docker
 
