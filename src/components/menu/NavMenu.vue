@@ -1,6 +1,6 @@
 <template>
   <div v-click-outside="hide">
-    <button type="button" class="open-btn" @click="open = true">
+    <button type="button" v-show="!open" class="open-btn" @click="open = true">
       <i class="el-icon el-icon-menu"></i>
     </button>
     <div :class="{ collapsed: !open }" class="collapsable-menu">
@@ -19,11 +19,6 @@
         <el-menu-item index="2" @click="propagateClick" class="menu-route-link">
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
-
-        <!-- <el-menu-item index="3" @click="propagateClick" class="menu-route-link">
-          <router-link :to="{ name: 'cases' }">Exemplos</router-link>
-        </el-menu-item> -->
-
       </el-menu>
       <slot/>
     </div>
@@ -51,6 +46,7 @@ export default {
 
 <style lang="scss" scopped>
 @import "@/base.scss";
+
 .close-btn, .open-btn {
   display: none;
 }
@@ -90,6 +86,7 @@ export default {
   .open-btn {
     display: block;
     position: fixed;
+    right: 0;
     width: 40px;
     height: 40px;
     padding: 0;
@@ -98,9 +95,7 @@ export default {
     font-size: 30px;
     z-index: 90;
     cursor: pointer;
-    &:hover {
-      background: white;
-    }
+    background: white;
   }
 }
 .menu-route-link {
