@@ -90,6 +90,7 @@ export default {
     return {
       isCollapse: true,
       windowWidth: 0,
+      checkList: [],
       datePickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now()
