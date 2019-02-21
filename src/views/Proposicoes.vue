@@ -59,13 +59,14 @@ export default {
     ...mapMutations(['setFilter']),
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.filter.current[filter].includes(prop[filter])
+        filter => this.filter.current[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
       )
     },
     checkPautaFilter (prop) {
       const propId = prop.id
       const emPauta = this.pautas && this.pautas[propId] && this.pautas[propId].length > 0
-      return emPauta ? this.filter.emPautaFilter.some(options => options.status) : true
+
+      return (!this.filter.emPautaFilter.some(options => options.status) ? true : emPauta)
     },
     checkApelidoFilter (prop) {
       const apelido = removeAcentos(prop.apelido.toLowerCase())
@@ -136,7 +137,7 @@ export default {
       pautas: state => state.pautas.pautas,
       metaInfo: state => state.proposicoes.metaInfo
     }),
-    ...mapGetters(['perFilterOptions', 'formattedDateRef']),
+    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'createfilterOptionObjectEmpty']),
     emPauta () {
       return this.filteredProps.filter(prop => {
         const propId = prop.lastEtapa.id
@@ -167,7 +168,7 @@ export default {
         })
         if (!oldValue) {
           // Deep clone o obj para que não seja modificado quando só os filtros forem.
-          this.setFilter(JSON.parse(JSON.stringify(this.perFilterOptions)))
+          this.setFilter(JSON.parse(JSON.stringify(this.createfilterOptionObjectEmpty)))
         }
       },
       immediate: true
