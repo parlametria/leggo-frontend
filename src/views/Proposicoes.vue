@@ -2,7 +2,7 @@
   <div class="content">
     <el-row type="flex" justify="space-around" class="logo-container">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <h1>Leggo</h1>
+        <h1>Leg<span class="dot">.</span>go</h1>
         <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
           Atualizado em {{ formattedLastUpdateDate }}
         </p>
@@ -245,5 +245,9 @@ export default {
   top: 0;
   z-index: 1000;
   background: #fff;
+}
+.dot {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.4rem;
 }
 </style>
