@@ -34,9 +34,6 @@ export default {
         height: `${this.porcentagem > 3 ? this.porcentagem : 3}%`
       }
     }
-  },
-  mounted () {
-    console.log(this.porcentagem)
   }
 }
 </script>
