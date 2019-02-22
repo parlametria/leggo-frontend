@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <p v-else>Nenhuma proposição para mostrar...</p>
+        <p v-else>Carregando proposições...</p>
       </transition>
       </el-col>
     </el-row>
