@@ -10,29 +10,29 @@
     </el-row>
     <el-row type="flex" justify="space-around">
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-      <p v-if="pending.proposicoes">Carregando projetos...</p>
-      <p v-if="error.proposicoes">Falha no carregamento</p>
-      <transition name="el-fade-in" mode="out-in">
-        <div v-if="filteredProps.length">
-          <div class="session" ref="emPautaSession">
-            <header ref="emPautaHeader">
-              <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
-            </header>
-            <div>
-              <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+        <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
+        <p v-else-if="error.proposicoes">Falha no carregamento</p>
+        <transition v-else name="el-fade-in" mode="out-in">
+          <div v-if="filteredProps.length">
+            <div class="session" ref="emPautaSession">
+              <header ref="emPautaHeader">
+                <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+              </header>
+              <div>
+                <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+              </div>
+            </div>
+            <div class="session" ref="notEmPautaSession">
+              <header ref="notEmPautaHeader">
+                <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+              </header>
+              <div>
+                <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+              </div>
             </div>
           </div>
-          <div class="session" ref="notEmPautaSession">
-            <header ref="notEmPautaHeader">
-              <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
-            </header>
-            <div>
-              <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
-            </div>
-          </div>
-        </div>
-        <p v-else>Nenhuma proposição para mostrar...</p>
-      </transition>
+          <p v-else>Nenhuma proposição para mostrar...</p>
+        </transition>
       </el-col>
     </el-row>
   </div>
@@ -243,7 +243,7 @@ export default {
   display: block;
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 20;
   background: #fff;
 }
 .dot {
