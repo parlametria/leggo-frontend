@@ -22,7 +22,7 @@
               <temperature-graphic :id="prop.lastEtapa.id" />
               <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
             </el-col>
-          </el-row>         
+          </el-row>
 
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
