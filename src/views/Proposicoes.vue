@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <p v-else>Nenhuma proposição para mostrar...</p>
+        <p v-else>Carregando proposições <i class="el-icon-loading"></i></p>
       </transition>
       </el-col>
     </el-row>
@@ -243,7 +243,7 @@ export default {
   display: block;
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 20;
   background: #fff;
 }
 .dot {
