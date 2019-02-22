@@ -66,16 +66,15 @@ export default {
 }
 
 .naoRealizada {
-  background-color: #a1a2a3;
-}
-
-.pulou {
   width: 9px;
   height: 9px;
   background-color: transparent;
-  border: 2px solid gray;
+  border: 2px solid #a1a2a3;
   border-radius: 50%;
+}
 
+.pulou {
+  background-color: #a1a2a3;
 }
 
 </style>
