@@ -92,7 +92,7 @@ export default {
     casa () {
       let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
       let casa = ''
-      if (autores.length > 1 || this.prop.lastEtapa.casa == 'senado') {
+      if (autores.length > 1 || this.prop.lastEtapa.casa === 'senado') {
         casa = 'Senado Federal'
       } else {
         casa = 'Câmara dos Deputados'
