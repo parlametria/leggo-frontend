@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted () {
-    if (Object.keys(this.eventosTramitacao).length === 0) {
+    if (!this.propEventosTram) {
       this.getEventosTramitacao(this.query)
     }
   },
