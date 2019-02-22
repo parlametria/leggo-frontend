@@ -46,11 +46,7 @@ export default {
     formatTooltip (data) {
       return data.replace(/,/g, '\n')
     }
-  },
-  mounted () {
-    console.log(this.casa)
   }
-
 }
 </script>
 
