@@ -45,32 +45,32 @@ export default {
     padding: 3px;
 }
 .fase {
-    width: 12px;
-    height: 12px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background-color: #723234;
     margin-right: 3px;
+    border: 2px solid #a1a2a3;
     position: relative;
 }
 
 .camara {
     background-color: #4EB65F;
+    border-color: #4EB65F;
 }
 
 .senado {
     background-color: #4E8CB6;
+    border-color: #4E8CB6;
 }
 
 .plenario {
   background-color: #B6AF4E;
+  border-color: #B6AF4E;
 }
 
 .naoRealizada {
-  width: 9px;
-  height: 9px;
   background-color: transparent;
-  border: 2px solid #a1a2a3;
-  border-radius: 50%;
 }
 
 .pulou {
