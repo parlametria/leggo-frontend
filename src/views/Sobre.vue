@@ -82,7 +82,7 @@
 @import "@/base.scss";
 
 .sobre {
-  margin: 0 30rem;
+  margin: 0 15rem;
 }
 .center {
   text-align: center;
@@ -113,7 +113,15 @@ h3 {
   justify-content: space-between;
   flex-wrap: wrap
 }
-@media (max-width: $nav-menu-break-width) {
+@media screen and (max-width: 1270px) {
+  .sobre {
+    margin: 0 8rem;
+  }
+  .equipe {
+    display: block;
+  }
+}
+@media screen and (max-width: $nav-menu-break-width) {
   .sobre {
     margin: 0 2rem;
   }
@@ -121,9 +129,4 @@ h3 {
     display: block;
   }
 }
-// @media (max-width: '900px') {
-//   .sobre {
-//     margin: 0 2rem;
-//   }
-// }
 </style>
