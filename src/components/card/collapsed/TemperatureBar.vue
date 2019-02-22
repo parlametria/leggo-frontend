@@ -31,7 +31,7 @@ export default {
     },
     barStyle () {
       return {
-        height: `${ this.porcentagem > 3 ? this.porcentagem : 3}%`
+        height: `${this.porcentagem > 3 ? this.porcentagem : 3}%`
       }
     }
   },
