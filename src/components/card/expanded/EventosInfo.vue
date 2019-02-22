@@ -1,6 +1,6 @@
 <template>
-    <el-collapse v-if="propEventosTram && propEventosTram.length">
-      <el-collapse-item>
+    <el-collapse v-if="propEventosTram && propEventosTram.length" v-model="activeNames">
+      <el-collapse-item name="1">
         <template slot="title">
           <span class="title">Últimos Eventos</span>
         </template>
@@ -28,6 +28,11 @@ import moment from 'moment'
 
 export default {
   name: 'EventosInfo',
+  data () {
+    return {
+      activeNames: ['1']
+    }
+  },
   props: {
     id: Number,
     casa: String,

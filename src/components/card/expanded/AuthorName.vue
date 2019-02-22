@@ -11,7 +11,7 @@
          </el-popover>
 
         <div v-else class="author">
-            {{normalizedAuthor}}
+            {{normalizedAuthor}} <span class="casa"> {{ casa }} </span>
         </div>
     </div>
 </template>
@@ -26,7 +26,8 @@ export default {
       validator: value => {
         return value != null
       }
-    }
+    },
+    casa: String
   },
   computed: {
     normalizedAuthor () {
@@ -46,15 +47,19 @@ export default {
       return data.replace(/,/g, '\n')
     }
   }
-
 }
 </script>
 
 <style lang="scss" scoped>
-.authors{
+.authors {
   white-space: pre-line;
   word-spacing: 1px;
   font-size: 12px;
+}
+.casa {
+  font-size: 10pt;
+  color: gray;
+  margin: 0;
 }
 .author {
     font-size: 15px;

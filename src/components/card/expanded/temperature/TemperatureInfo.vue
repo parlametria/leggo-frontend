@@ -3,12 +3,13 @@
     placement="bottom"
         effect="light">
       <div class="tooltip-content" slot="content">
-        <p v-if="this.temperatureInfo === 'subiu'">A temperatura subiu por causa dos eventos ocorridos nas últimas semanas.</p>
-        <p v-else>A temperatura  desceu porque não houveram (muitos) eventos nas últimas semanas.</p>
+        <p v-if="this.temperatureInfo === 'subiu'">
+          A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
+        </p>
+        <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
       </div>
       <div class="info">
-        A Temperatura nos últimos 3 meses
-        <span class="temperatura-tendencia">{{this.temperatureInfo}}</span>
+        Temperatura dos últimos 3 meses
       </div>
     </el-tooltip>
 </template>
