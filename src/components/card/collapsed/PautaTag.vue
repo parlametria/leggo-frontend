@@ -36,13 +36,6 @@ export default {
 
 <style lang="scss" scoped>
 .pauta {
-  color: #dbd936;
-  font-size: .8rem;
-  height: 26px;
-  line-height: 26px;
-  position: relative;
-  padding-left: 7px;
-  padding-right: 13px;
-  text-transform: uppercase;
+  font-size: 9pt;
 }
 </style>

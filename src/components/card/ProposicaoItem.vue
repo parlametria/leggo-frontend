@@ -5,7 +5,7 @@
     </div>
     <el-collapse-transition>
       <div v-if="dropShow" class="card-body">
-        <div shadow="hover" class="prop-item">
+        <div class="prop-item">
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
@@ -134,13 +134,13 @@ export default {
     position: relative;
     margin-bottom: 0.5rem;
     padding-top: 0.5rem;
-    border-bottom: solid 1px #e9e9e9;
-    &:hover {
-        box-shadow: 0 5px 5px #c6c6c6;
-    }
     .card-header {
         cursor: pointer;
     }
+}
+.card-body {
+  border: 1px solid #222;
+  border-top: none;
 }
 .flex {
     display: flex;
