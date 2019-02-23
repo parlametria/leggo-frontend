@@ -1,18 +1,14 @@
 <template>
   <div class="container">
-    <div class="head">
-      <pauta-tag class="tag-pauta" :id="prop.lastEtapa.id"/>
-      <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
-    </div>
-    <temperature-bar class="temperatura" :id="prop.lastEtapa.id"/>
+    <div class="em-pauta-tag"><pauta-tag :id="prop.lastEtapa.id"/></div>
+    <div class="tema"><span class="tag">{{prop.tema}}</span></div>
     <span class="prop-apelido">{{prop .apelido}}</span>
+    <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
         <span class="tag">{{prop.lastEtapa.forma_apreciacao}}</span>
     </div>
-    <div class="selector">
-      <span class="arrow" :class="{'arrow-down': clicked}"/>
-    </div>
+    <temperature-bar class="temperatura" :id="prop.lastEtapa.id"/>
   </div>
 </template>
 
@@ -42,93 +38,47 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: grid;
-  grid-template-columns: 41px auto 30px;
-  grid-template-rows: auto auto auto;
-  background: #444444;
-  color: #fff;
-  grid-row-gap: 1.5rem;
-}
-
-.head {
-  grid-column: 2/3;
-  grid-row: 1/2;
+  grid-template-columns: auto 41px;
+  grid-template-rows: auto 16px auto 16px 16px;
+  color: #222;
+  border: 1px solid #222;
   padding-left: .5rem;
-  padding-top: .4rem;
-  display: grid;
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
-
-  .pauta-tag {
-    grid-column: 1;
-  }
-
-  .fases {
-    grid-column: 2;
-  }
+  grid-column-gap: 3rem;
+  grid-row-gap: .5rem;
 }
-
 .temperatura {
-  grid-column: 1/2;
-  grid-row: 1/4;
-}
-
-.prop-apelido {
   grid-column: 2/3;
-  grid-row: 2/3;
-  margin-left: .6rem;
-  font-size: 16pt;
+  grid-row: 1/6;
+  border-left: 1px solid #222;
+  border-right: 1px solid #222;
 }
-
 .tags {
-  grid-column: 2/3;
+  grid-column: 1/2;
+  grid-row: 5/6;
+  margin-top: -6px;
+  .tag {
+    font-size: 9pt;
+    user-select: none;
+    color: #222;
+    border-color: #222;
+    width: 85px;
+    text-align: center;
+    margin-right: 1rem;
+  }
+}
+.fases {
+  grid-column: 1/2;
+  grid-row: 4/5;
+}
+.prop-apelido {
+  grid-column: 1/2;
   grid-row: 3/4;
-  margin-bottom: .9rem;
-  margin-left: .5rem;
+  font-size: 14pt;
+  margin: .2rem 0;
 }
-
-.tag {
-  font-size: 8pt;
-  user-select: none;
-  text-transform: uppercase;
-  margin: 0 3px;
-  color: #FFF;
-  border-color: #FFF;
-  width: 85px;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  text-align: center;
-}
-.selector {
-  grid-column: 3/4;
-  grid-row: 1/4;
-  display: flex;
-  align-items: center;
-}
-.arrow {
-  height: 10px;
-  width: 10px;
-  border: solid #fff;
-  border-width: 0px 4px 4px 0;
-  transform: rotate(45deg);
-  transition: transform .5s;
-  border-radius: 1px;
-}
-.arrow-down {
-  transform: rotate(225deg);
-}
-
-@keyframes float {
-    0% {
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-    }
-    50% {
-        box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-        transform: translatey(-3px);
-    }
-    100% {
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-    }
+.tema {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  font-size: 9pt;
 }
 </style>
