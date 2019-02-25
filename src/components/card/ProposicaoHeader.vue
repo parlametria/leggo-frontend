@@ -46,15 +46,15 @@ export default {
   grid-template-columns: auto 41px;
   grid-template-rows: auto 16px auto 16px 16px;
   color: #222;
-  border: 1px solid #222;
-  padding-left: .5rem;
+  border: 3px solid #dadada;
+  padding: 1rem;
   grid-column-gap: 3rem;
   grid-row-gap: .5rem;
 }
 .temperatura {
   grid-column: 2/3;
   grid-row: 1/6;
-  border-left: 1px solid #222;
+  border: 2px solid #dadada;
 }
 .tags {
   grid-column: 1/2;
@@ -79,6 +79,11 @@ export default {
   grid-row: 3/4;
   font-size: 14pt;
   margin: .2rem 0;
+}
+@media (min-width: 768px) {
+  .prop-apelido {
+    font-size: 17pt;
+  }
 }
 .tema {
   grid-column: 1/2;
