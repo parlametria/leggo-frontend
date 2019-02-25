@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="em-pauta-tag"><pauta-tag :id="prop.lastEtapa.id"/></div>
+    <div class="em-pauta-tag">
+      <pauta-tag :id="prop.lastEtapa.id"/>
+      <arquivada-tag :status="prop.lastEtapa.status"/>
+    </div>
     <div class="tema"><span class="tag">{{prop.tema}}</span></div>
     <span class="prop-apelido">{{prop .apelido}}</span>
     <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
@@ -18,6 +21,7 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
 import PautaTag from './collapsed/PautaTag'
+import ArquivadaTag from './collapsed/ArquivadaTag'
 
 export default {
   name: 'proposicaoheader',
@@ -30,7 +34,8 @@ export default {
     FormaApreciacao,
     Fases,
     TemperatureBar,
-    PautaTag
+    PautaTag,
+    ArquivadaTag
   }
 }
 </script>
