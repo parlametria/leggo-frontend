@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Proposicoes from '@/views/Proposicoes.vue'
 import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
+import Ajuda from '@/views/Ajuda.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 
 Vue.use(Router)
@@ -18,6 +19,11 @@ export default new Router({
       path: '/sobre',
       name: 'sobre',
       component: Sobre
+    },
+    {
+      path: '/ajuda',
+      name: 'ajuda',
+      component: Ajuda
     },
     {
       path: '/proposicoes',
