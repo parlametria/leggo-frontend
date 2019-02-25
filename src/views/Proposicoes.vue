@@ -219,14 +219,14 @@ export default {
     padding-top: 0;
   }
   header {
-    box-shadow: 0 0px 1px #999;
-    padding: 1.5rem 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   h2 {
     font-weight: normal;
     font-size: 1.6rem;
     margin: 0;
-    padding-left: 1rem;
+    padding: 0;
     color: #656565;
   }
   .disabled {
@@ -244,6 +244,7 @@ export default {
   top: 0;
   z-index: 20;
   background: #fff;
+  border-bottom: solid 3px #dadada;
 }
 .dot {
   font-family: Arial, Helvetica, sans-serif;
