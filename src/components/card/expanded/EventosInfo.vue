@@ -63,6 +63,7 @@ export default {
         casa: this.casa,
         id: this.id,
         dataFim: moment(this.date).format('YYYY-MM-DD'),
+        apenas_importantes: 'true',
         ultimosN: 3
       }
       }
