@@ -19,7 +19,7 @@
                 <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
               </header>
               <div ref="emPautaSession">
-                <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+                <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
               </div>
             </div>
             <div class="session">
