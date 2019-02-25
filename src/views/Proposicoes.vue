@@ -14,19 +14,19 @@
         <p v-else-if="error.proposicoes">Falha no carregamento</p>
         <transition v-else name="el-fade-in" mode="out-in">
           <div v-if="filteredProps.length">
-            <div class="session" ref="emPautaSession">
+            <div class="session">
               <header ref="emPautaHeader">
                 <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
               </header>
-              <div>
-                <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+              <div ref="emPautaSession">
+                <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
               </div>
             </div>
-            <div class="session" ref="notEmPautaSession">
+            <div class="session">
               <header ref="notEmPautaHeader">
                 <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
               </header>
-              <div>
+              <div ref="notEmPautaSession">
                 <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
               </div>
             </div>
@@ -78,24 +78,22 @@ export default {
         this.checkPautaFilter(prop) &&
         this.checkApelidoFilter(prop)
     },
+    updateSticky (refHeader, refSession) {
+      // Faz com que o tamanho da barra seja redimensionado conforme o tamanho da janela
+      refHeader.style.width = `${refSession.getBoundingClientRect().width}px`
+
+      if (refSession.getBoundingClientRect().top > 0) {
+        refSession.style.paddingTop = '0px'
+        refHeader.classList.remove('sticky')
+      }
+      if (refHeader.getBoundingClientRect().top <= 0) {
+        refSession.style.paddingTop = `${refHeader.getBoundingClientRect().height}px`
+        refHeader.classList.add('sticky')
+      }
+    },
     sticky () {
-      const emPautaHeader = this.$refs.emPautaHeader
-      const emPautaSession = this.$refs.emPautaSession
-      if (emPautaHeader) {
-        emPautaHeader.style.width = `${emPautaSession.getBoundingClientRect().width}px`
-        if (emPautaSession.getBoundingClientRect().top <= 0) emPautaHeader.classList.add('sticky')
-        else emPautaHeader.classList.remove('sticky')
-      }
-
-      const notEmPautaheader = this.$refs.notEmPautaHeader
-      const notEmPautaSession = this.$refs.notEmPautaSession
-
-      if (notEmPautaheader) {
-        notEmPautaheader.style.width = `${notEmPautaSession.getBoundingClientRect().width}px`
-
-        if (notEmPautaSession.getBoundingClientRect().top - 60 <= 0) notEmPautaheader.classList.add('sticky')
-        else notEmPautaheader.classList.remove('sticky')
-      }
+      this.updateSticky(this.$refs.emPautaHeader, this.$refs.emPautaSession)
+      this.updateSticky(this.$refs.notEmPautaHeader, this.$refs.notEmPautaSession)
     }
   },
   computed: {
