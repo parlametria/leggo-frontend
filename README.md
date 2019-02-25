@@ -1,6 +1,6 @@
 [![pipeline status](https://gitlab.com/analytics-ufcg/agora-digital-frontend/badges/master/pipeline.svg)](https://gitlab.com/analytics-ufcg/agora-digital-frontend/commits/master)
 
-# Leggo Frontend
+# Leg.go Frontend
 
 ## Docker
 
