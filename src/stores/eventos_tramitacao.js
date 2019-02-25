@@ -8,8 +8,8 @@ const eventosTramitacao = new Vapi({
   } }).get({
   action: 'getEventosTramitacao',
   property: 'eventos_tramitacao',
-  path: ({ casa, id, dataFim, ultimosN }) =>
-    `eventos_tramitacao/${casa}/${id}?data_fim=${dataFim}&ultimos_n=${ultimosN}`,
+  path: ({ casa, id, dataFim, apenasImportantes, ultimosN }) =>
+    `eventos_tramitacao/${casa}/${id}?data_fim=${dataFim}&apenas_importantes=${apenasImportantes}&ultimos_n=${ultimosN}`,
   onSuccess: (state, { data }, axios, { params }) => {
     const eventosTramitacao = data
 
