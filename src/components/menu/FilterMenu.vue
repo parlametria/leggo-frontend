@@ -10,7 +10,8 @@
             @change="filtraNomeProposicao(nomeProposicaoFilter)"
             id="el-input"
             placeholder="Pesquisar Projeto"
-            v-model="nomeProposicaoFilter.nomeProposicao"/>
+            v-model="nomeProposicaoFilter.nomeProposicao"
+            @keyup.enter="this.focus = false"/>
         </template>
       </el-menu-item>
 
