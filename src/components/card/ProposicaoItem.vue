@@ -100,6 +100,8 @@ export default {
       let casa = ''
       if (autores.length > 1 || this.prop.lastEtapa.casa === 'senado') {
         casa = 'Senado Federal'
+      } else if (autores[0] === 'Poder Executivo') {
+        casa = ''
       } else {
         casa = 'Câmara dos Deputados'
       }
