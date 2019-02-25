@@ -1,7 +1,7 @@
 <template>
   <div class="ajuda">
     <h1>Ajuda</h1>
-    <img :src="require(`@/assets/explicacao_card.png`)" class="responsive" alt="">
+      <img :src="require(`@/assets/explicao_card_mobile.png`)" class="responsive" alt="">
   </div>
 </template>
 
