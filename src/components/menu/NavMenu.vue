@@ -12,11 +12,11 @@
         <i class="el-dialog__close el-icon el-icon-close"></i>
       </button>
       <el-menu mode="vertical">
-        <el-menu-item index="1" @click="propagateClick" class="menu-route-link">
+        <el-menu-item index="1" class="menu-route-link">
           <router-link :to="{ name: 'sobre' }">Sobre</router-link>
         </el-menu-item>
 
-        <el-menu-item index="2" @click="propagateClick" class="menu-route-link">
+        <el-menu-item index="2" class="menu-route-link">
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
       </el-menu>
@@ -36,9 +36,6 @@ export default {
   methods: {
     hide () {
       this.open = false
-    },
-    propagateClick (el) {
-      el.$children.forEach(x => x.$el.click())
     }
   }
 }

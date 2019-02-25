@@ -50,7 +50,9 @@ export default {
   },
   computed: {
     propEventosTram () {
-      return this.eventosTramitacao[this.id]
+      let events = this.eventosTramitacao[this.id]
+      if (events) events = events.filter(e => e.evento !== 'nan')
+      return events
     },
     ...mapState({
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
