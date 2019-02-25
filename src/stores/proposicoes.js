@@ -53,10 +53,10 @@ proposicoes.getters = {
       ).values()]
     }
     return options
-  }, 
+  },
   createfilterOptionObjectEmpty (state) {
     let options = {}
-    filterStore.state.filters.map(filter => options[filter] = [])
+    filterStore.state.filters.map(filter => { options[filter] = [] })
     return options
   }
 }

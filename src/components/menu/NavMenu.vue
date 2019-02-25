@@ -36,7 +36,7 @@ export default {
   methods: {
     hide () {
       this.open = false
-    },
+    }
   }
 }
 </script>
