@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .temperature-bar {
-  background: #4e4e4e;
+  background: #f5f5f5;
   position: relative;
   min-width: 41px;
   display: flex;
