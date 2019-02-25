@@ -13,7 +13,7 @@ const filtro = {
     emPautaFilter: [
       {
         'tipo': 'Na Pauta',
-        'status': true
+        'status': false
       }
     ],
     dateRef: new Date(),

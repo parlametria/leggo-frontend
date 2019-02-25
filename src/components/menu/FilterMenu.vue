@@ -1,5 +1,5 @@
 <template>
-  <el-menu mode="vertical" :collapse="false" :collapse-transition="false" @select="handleSelect">
+  <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
@@ -10,7 +10,8 @@
             @change="filtraNomeProposicao(nomeProposicaoFilter)"
             id="el-input"
             placeholder="Pesquisar Projeto"
-            v-model="nomeProposicaoFilter.nomeProposicao"/>
+            v-model="nomeProposicaoFilter.nomeProposicao"
+            @keyup.enter="this.focus = false"/>
         </template>
       </el-menu-item>
 
@@ -37,7 +38,7 @@
       <!-- Pauta -->
       <el-menu-item index="5">
         <el-checkbox
-          v-model="emPautaFilter[0].status">
+          v-model="emPautaFilter[0].status" class="filterMenus">
           {{ emPautaFilter[0].tipo }}
         </el-checkbox>
       </el-menu-item>
@@ -50,8 +51,8 @@
         </template>
         <el-checkbox-group v-model="self[filterName]">
           <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]"
-                        :key="j" index="j" @click="propagateClick">
-            <el-checkbox :label="opcao">{{ $t(opcao) }}</el-checkbox>
+                        :key="j" index="j">
+            <el-checkbox class="filterMenus" :label="opcao">{{ $t(opcao) }}</el-checkbox>
           </el-menu-item>
         </el-checkbox-group>
       </el-submenu>
@@ -120,20 +121,9 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'filtraApreciacao',
-      'filtraRegime',
-      'filtraCasa',
       'filtraEmPauta',
       'filtraNomeProposicao'
-    ]),
-    propagateClick (el) {
-      el.$children.forEach(x => x.$el.click())
-    },
-    handleSelect (key, keyPath) {
-      if (key === '5') {
-        this.emPautaFilter[0].status = !this.emPautaFilter[0].status
-      }
-    }
+    ])
   }
 }
 </script>
@@ -147,4 +137,15 @@ export default {
     font-weight: normal;
     margin-bottom: .5em;
 }
+
+.filterMenus {
+  width: 500px;
+}
+
+@media only screen and (max-width: 800px) {
+  .filterMenus {
+    width: 250px;
+  }
+}
+
 </style>

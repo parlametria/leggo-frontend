@@ -5,7 +5,14 @@
     </div>
     <el-collapse-transition>
       <div v-if="dropShow" class="card-body">
-        <div shadow="hover" class="prop-item">
+        <div class="prop-item">
+
+          <div class="links">
+            <p class="small-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
+              <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
+              - {{ $t(etapa.casa) }}
+            </p>
+          </div>
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
@@ -27,13 +34,6 @@
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <emendas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
-
-          <div class="links">
-            <p class = "medium-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
-              <a class="sigla medium-text-field" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
-              - {{ $t(etapa.casa) }}
-            </p>
-          </div>
 
           <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
@@ -118,7 +118,7 @@ export default {
 
 <style lang="scss" scoped>
 .sigla {
-    font-size: 12px;
+    font-size: 14px;
 }
 .flex-between {
     display: flex;
@@ -134,13 +134,13 @@ export default {
     position: relative;
     margin-bottom: 0.5rem;
     padding-top: 0.5rem;
-    border-bottom: solid 1px #e9e9e9;
-    &:hover {
-        box-shadow: 0 5px 5px #c6c6c6;
-    }
     .card-header {
         cursor: pointer;
     }
+}
+.card-body {
+  border: 1px solid #222;
+  border-top: none;
 }
 .flex {
     display: flex;
@@ -181,9 +181,5 @@ export default {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
-}
-.links {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 </style>

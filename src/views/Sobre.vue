@@ -39,7 +39,7 @@
           <li>Andrés Martano</li>
           <li>Jair Neto</li>
           <li>Jefferson Neves</li>
-          <li>Hadrízia Santos</li>
+          <li>Hadrizia Santos</li>
           <li>Gibran Yasser</li>
           <li>Gileade Kelvin</li>
           <li>Daniel Coura</li>

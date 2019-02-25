@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="hide">
+  <div v-click-outside="hide" @keyup.enter="hide">
     <button type="button" v-show="!open" class="open-btn" @click="open = true">
       <i class="el-icon el-icon-menu"></i>
     </button>
@@ -12,11 +12,15 @@
         <i class="el-dialog__close el-icon el-icon-close"></i>
       </button>
       <el-menu mode="vertical">
-        <el-menu-item index="1" @click="propagateClick" class="menu-route-link">
+        <el-menu-item index="1" class="menu-route-link">
           <router-link :to="{ name: 'sobre' }">Sobre</router-link>
         </el-menu-item>
 
-        <el-menu-item index="2" @click="propagateClick" class="menu-route-link">
+        <el-menu-item index="2" class="menu-route-link">
+          <router-link :to="{ name: 'ajuda' }">Ajuda</router-link>
+        </el-menu-item>
+
+        <el-menu-item index="3" class="menu-route-link">
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
       </el-menu>
@@ -36,9 +40,6 @@ export default {
   methods: {
     hide () {
       this.open = false
-    },
-    propagateClick (el) {
-      el.$children.forEach(x => x.$el.click())
     }
   }
 }
