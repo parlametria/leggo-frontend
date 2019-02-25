@@ -17,6 +17,10 @@
         </el-menu-item>
 
         <el-menu-item index="2" class="menu-route-link">
+          <router-link :to="{ name: 'ajuda' }">Ajuda</router-link>
+        </el-menu-item>
+
+        <el-menu-item index="3" class="menu-route-link">
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
       </el-menu>
