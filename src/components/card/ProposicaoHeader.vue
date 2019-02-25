@@ -55,7 +55,6 @@ export default {
   grid-column: 2/3;
   grid-row: 1/6;
   border-left: 1px solid #222;
-  border-right: 1px solid #222;
 }
 .tags {
   grid-column: 1/2;

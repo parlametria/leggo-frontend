@@ -45,6 +45,7 @@ export default {
   min-width: 41px;
   display: flex;
   flex-direction: column-reverse;
+  box-sizing: border-box;
 }
 
 .filled-bar {
