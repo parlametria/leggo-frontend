@@ -7,7 +7,7 @@
     <div class="tema"><span class="tag">{{prop.tema}}</span></div>
     <div>
       <span class="prop-apelido">{{prop .apelido}}</span>
-      <i class="arrow" :class="{'arrow-down': clicked}" :style="arrowStyle"></i>
+      <i class="arrow" :class="{'arrow-down': clicked}"></i>
     </div>
     <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <div class="tags">
