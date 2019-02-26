@@ -100,13 +100,17 @@ export default {
   }
 }
 .menu-route-link {
+  padding: 0 !important;
   a {
     outline: none;
     transition: all .3s;
     font-size: 14pt;
+    width: 100%;
+    display: block;
+    padding: 0 1em;
   }
   .router-link-active {
-    padding-left: 1em;
+    padding-left: 2em;
   }
 }
 </style>
