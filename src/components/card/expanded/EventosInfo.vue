@@ -50,9 +50,10 @@ export default {
   },
   computed: {
     propEventosTram () {
-      let events = this.eventosTramitacao[this.id]
-      if (events) events = events.filter(e => e.evento !== 'nan')
-      return events
+      // let events = this.eventosTramitacao[this.id]
+      // if (events) events = events.filter(e => e.evento !== 'nan')
+      // return events
+      return this.eventosTramitacao[this.id]
     },
     ...mapState({
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
@@ -62,6 +63,7 @@ export default {
         casa: this.casa,
         id: this.id,
         dataFim: moment(this.date).format('YYYY-MM-DD'),
+        apenas_importantes: 'true',
         ultimosN: 3
       }
       }

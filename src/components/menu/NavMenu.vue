@@ -1,5 +1,5 @@
 <template>
-  <div v-click-outside="hide">
+  <div v-click-outside="hide" @keyup.enter="hide">
     <button type="button" v-show="!open" class="open-btn" @click="open = true">
       <i class="el-icon el-icon-menu"></i>
     </button>
@@ -17,6 +17,10 @@
         </el-menu-item>
 
         <el-menu-item index="2" class="menu-route-link">
+          <router-link :to="{ name: 'ajuda' }">Ajuda</router-link>
+        </el-menu-item>
+
+        <el-menu-item index="3" class="menu-route-link">
           <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
         </el-menu-item>
       </el-menu>

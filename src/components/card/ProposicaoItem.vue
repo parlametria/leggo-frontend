@@ -22,7 +22,7 @@
               <p class="small-text-field small-margin-top">Autor</p>
               <author-name :author="prop.lastEtapa.autor_nome" :casa="casa"/>
 
-              <p class="small-text-field small-margin-top">Relator(a):</p>
+              <p class="small-text-field small-margin-top">Relator(a)</p>
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
             </el-col>
             <el-col :span="12">
@@ -34,8 +34,9 @@
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <emendas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
-
-          <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
+          <div class="status-bar">
+            <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
+          </div>
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
         </div>
@@ -129,7 +130,7 @@ export default {
     justify-content: space-between;
 }
 .prop-item {
-    padding: 1rem;
+    padding: 1.5rem;
 }
 .el-badge {
     margin: 10px;
@@ -143,7 +144,7 @@ export default {
     }
 }
 .card-body {
-  border: 1px solid #222;
+  border: 1px solid #dadada;
   border-top: none;
 }
 .flex {
@@ -185,5 +186,8 @@ export default {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
+}
+.status-bar {
+  padding-top: 1rem;
 }
 </style>
