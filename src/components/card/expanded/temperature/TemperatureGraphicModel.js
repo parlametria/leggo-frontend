@@ -1,6 +1,5 @@
 export default class TemperatureGraphicModel {
   constructor (temperaturas, maxTemperatura, width) {
-    const encoding =
 
     this.vsSpec = {
       description: 'Últimos 30 dias',
