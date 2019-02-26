@@ -14,7 +14,7 @@
             </td>
             <td>
               <div class="evento-title">{{formatEventoTitle(eventoTram.evento)}}</div>
-              <div>{{formatTextoTramitacao(eventoTram.texto_tramitacao)}}</div>
+              <div @click="expandCollapseDescription(key)">{{formatTextoTramitacao(eventoTram.texto_tramitacao, key)}}</div>
             </td>
           </tr>
         </table>
@@ -30,7 +30,8 @@ export default {
   name: 'EventosInfo',
   data () {
     return {
-      activeNames: ['1']
+      activeNames: ['1'],
+      expandedDescriptions: []
     }
   },
   props: {
@@ -92,13 +93,25 @@ export default {
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
     },
-    formatTextoTramitacao (textoTramitacao) {
+    formatTextoTramitacao (textoTramitacao, key) {
       const MAX_TEXT_LENGTH = 120
-      return textoTramitacao.length > MAX_TEXT_LENGTH ? `${textoTramitacao.substring(0, MAX_TEXT_LENGTH)}...` : textoTramitacao
+      return textoTramitacao.length > MAX_TEXT_LENGTH && !this.isExpanded(key)
+        ? `${textoTramitacao.substring(0, MAX_TEXT_LENGTH)}...`
+        : textoTramitacao
     },
     formatEventoTitle (evento) {
       let formattedEvento = evento.split('_').join(' ')
       return formattedEvento === 'nan' ? '' : formattedEvento
+    },
+    expandCollapseDescription (key) {
+      if (!this.isExpanded(key)) {
+        this.expandedDescriptions.push(key)
+      } else {
+        this.expandedDescriptions = this.expandedDescriptions.filter(currentKey => key !== currentKey)
+      }
+    },
+    isExpanded (key) {
+      return this.expandedDescriptions.findIndex(currentKey => currentKey === key) !== -1
     }
   },
   watch: {
