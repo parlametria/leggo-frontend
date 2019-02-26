@@ -36,7 +36,7 @@ temperaturas.getters = {
       }
     })
 
-    return maxTemperatura
+    return maxTemperatura === 0 ? 10 : maxTemperatura
   }
 }
 export default temperaturas
