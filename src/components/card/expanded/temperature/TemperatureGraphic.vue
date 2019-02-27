@@ -41,7 +41,9 @@ export default {
             .view
             // eslint-disable-next-line
             .change('temperatura', vega.changeset().remove('temperatura', d => true))
-            .insert('temperatura', this.temperaturas).run())
+            .insert('temperatura', this.temperaturas.map(
+              (temperatura) => ({ ...temperatura, temperatura_recente: temperatura.temperatura_recente + 2 })))
+            .run())
       }
     }
   },
