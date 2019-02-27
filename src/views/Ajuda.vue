@@ -1,7 +1,22 @@
 <template>
   <div class="ajuda">
     <h1>Ajuda</h1>
-      <img :src="require(`@/assets/explicao_card_mobile.png`)" class="responsive" alt="">
+    <div class="ajuda-sm">
+      <img :src="require(`@/assets/ajuda_mobile.png`)" class="responsive" alt="">
+    </div>
+    <div class="ajuda-lg">
+
+      <template>
+        <div class="block">
+          <el-carousel height="500px" :interval="5000" arrow="always" :autoplay="false" :loop="false">
+            <el-carousel-item v-for="item in 5" :key="item">
+              <img :src="require(`@/assets/ajuda0${item}.jpg`)" class="responsive" alt="">
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </template>
+
+    </div>
   </div>
 </template>
 
@@ -35,6 +50,22 @@ h1 {
 @media screen and (max-width: 1270px) {
   .ajuda {
     margin: 0 1rem;
+  }
+}
+@media (min-width: 576px) {
+  .ajuda-sm {
+    display: none;
+  }
+  .ajuda-lg {
+    display: block;
+  }
+}
+@media (max-width: 575.98px) {
+  .ajuda-sm {
+    display: block;
+  }
+  .ajuda-lg {
+    display: none;
   }
 }
 </style>
