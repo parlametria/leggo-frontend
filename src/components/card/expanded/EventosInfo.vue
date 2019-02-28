@@ -1,20 +1,22 @@
 <template>
-    <el-collapse v-if="propEventosTram && propEventosTram.length" v-model="activeNames">
+    <el-collapse v-if="formattedEventos.length" v-model="activeNames">
       <el-collapse-item name="1">
         <template slot="title">
           <span class="title">Últimos Eventos</span>
         </template>
         <table class="eventos_tram">
-          <tr v-for="(eventoTram, key) in propEventosTram" :key="key">
+          <tr v-for="(evento, index) in formattedEventos" :key="index">
             <td class="date-field">
-              <el-tooltip :content="formatDate(eventoTram.data)" placement="bottom">
-                <div>{{formatDateDifference(eventoTram.data)}}</div>
+              <el-tooltip :content="evento.data" placement="bottom">
+                <div>{{evento.dataDiff}}</div>
               </el-tooltip>
-              <div class="sigla-local">{{eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local}}</div>
+              <div class="sigla-local">{{evento.sigla}}</div>
             </td>
             <td>
-              <div class="evento-title">{{formatEventoTitle(eventoTram.evento)}}</div>
-              <div>{{formatTextoTramitacao(eventoTram.texto_tramitacao)}}</div>
+              <div class="evento-title">{{evento.title}}</div>
+              <div :class="{clickable: evento.collapsible}" @click="toggleCollapseDescription(index)">
+                {{evento.texto}}
+              </div>
             </td>
           </tr>
         </table>
@@ -30,7 +32,9 @@ export default {
   name: 'EventosInfo',
   data () {
     return {
-      activeNames: ['1']
+      MAX_TEXT_LENGTH: 200,
+      activeNames: ['1'],
+      expandedDescriptions: []
     }
   },
   props: {
@@ -44,16 +48,22 @@ export default {
     }
   },
   mounted () {
-    if (!this.propEventosTram) {
+    if (!this.formattedEventos.length) {
       this.getEventosTramitacao(this.query)
     }
   },
   computed: {
-    propEventosTram () {
-      // let events = this.eventosTramitacao[this.id]
-      // if (events) events = events.filter(e => e.evento !== 'nan')
-      // return events
-      return this.eventosTramitacao[this.id]
+    formattedEventos () {
+      return (this.eventosTramitacao[this.id] || []).map((eventoTram, index) => {
+        return {
+          data: this.formatDate(eventoTram.data),
+          dataDiff: this.formatDateDifference(eventoTram.data),
+          sigla: eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local,
+          title: this.formatEventoTitle(eventoTram.evento),
+          texto: this.formatTextoTramitacao(eventoTram.texto_tramitacao, index),
+          collapsible: eventoTram.texto_tramitacao.length > this.MAX_TEXT_LENGTH
+        }
+      })
     },
     ...mapState({
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
@@ -92,13 +102,24 @@ export default {
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
     },
-    formatTextoTramitacao (textoTramitacao) {
-      const MAX_TEXT_LENGTH = 120
-      return textoTramitacao.length > MAX_TEXT_LENGTH ? `${textoTramitacao.substring(0, MAX_TEXT_LENGTH)}...` : textoTramitacao
+    formatTextoTramitacao (textoTramitacao, key) {
+      return textoTramitacao.length > this.MAX_TEXT_LENGTH && !this.isExpanded(key)
+        ? `${textoTramitacao.substring(0, this.MAX_TEXT_LENGTH - 50)}... (+)`
+        : textoTramitacao
     },
     formatEventoTitle (evento) {
       let formattedEvento = evento.split('_').join(' ')
       return formattedEvento === 'nan' ? '' : formattedEvento
+    },
+    toggleCollapseDescription (key) {
+      if (!this.isExpanded(key)) {
+        this.expandedDescriptions.push(key)
+      } else {
+        this.expandedDescriptions = this.expandedDescriptions.filter(currentKey => key !== currentKey)
+      }
+    },
+    isExpanded (key) {
+      return this.expandedDescriptions.findIndex(currentKey => currentKey === key) !== -1
     }
   },
   watch: {
