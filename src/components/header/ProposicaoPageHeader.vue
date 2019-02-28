@@ -18,24 +18,24 @@ import NavigationButtons from '@/components/header/NavigationButtons'
 import moment from 'moment'
 
 export default {
-    name: 'ProposicaoPageHeader',
-    computed: {
-        ...mapState({
-            metaInfo: state => state.proposicoes.metaInfo
-        }),
-        formattedLastUpdateDate () {
-            return moment(this.metaInfo.last_update_trams).format('DD/MM/YYYY')
-        },
-    },
-    methods: {
-        ...mapActions(['getMetaInfo'])
-    },
-    async mounted () {
-        await this.getMetaInfo()
-    },
-    components: {
-        NavigationButtons
+  name: 'ProposicaoPageHeader',
+  computed: {
+    ...mapState({
+      metaInfo: state => state.proposicoes.metaInfo
+    }),
+    formattedLastUpdateDate () {
+      return moment(this.metaInfo.last_update_trams).format('DD/MM/YYYY')
     }
+  },
+  methods: {
+    ...mapActions(['getMetaInfo'])
+  },
+  async mounted () {
+    await this.getMetaInfo()
+  },
+  components: {
+    NavigationButtons
+  }
 }
 </script>
 

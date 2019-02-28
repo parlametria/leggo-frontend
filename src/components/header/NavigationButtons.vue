@@ -8,12 +8,12 @@
 
 <script>
 export default {
-    name: 'NavigationButtons',
-    methods: {
-        checkPage (page) {
-            return  this.$route.name === page
-        }
+  name: 'NavigationButtons',
+  methods: {
+    checkPage (page) {
+      return this.$route.name === page
     }
+  }
 }
 </script>
 
@@ -33,4 +33,3 @@ div {
     font-weight: bold;
 }
 </style>
-
