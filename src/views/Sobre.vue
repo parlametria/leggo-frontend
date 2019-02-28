@@ -1,7 +1,5 @@
 <template>
-  <div class="sobre" align="left">
-    <h1>Sobre</h1>
-
+  <div align="left">
     <p>
       Leg.go é uma plataforma de inteligência para o acompanhamento das atividades no Congresso
       Nacional. Coletamos dados da Câmara e do Senado para encontrar quais proposições estão quentes,
@@ -84,10 +82,6 @@
 
 <style lang="scss" scoped>
 @import "@/base.scss";
-
-.sobre {
-  margin: 0 15rem;
-}
 .center {
   text-align: center;
 }
@@ -95,15 +89,6 @@
   list-style: none;
   padding: 0;
   text-align: center;
-}
-h1 {
-  font-family: "Rajdhani", sans-serif;
-  border-bottom: solid 2px #dc6060;
-  line-height: 50pt;
-  font-size: 50pt;
-  text-align: center;
-  font-weight: normal;
-  margin-bottom: 2rem;
 }
 h2 {
   font-family: "Rajdhani", sans-serif;

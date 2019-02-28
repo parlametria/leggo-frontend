@@ -9,9 +9,14 @@
     </el-aside>
     <el-container>
       <el-main>
-        <transition name="el-fade-in" mode="out-in">
-          <router-view/>
-        </transition>
+        <proposicao-page-header/>
+        <el-row type="flex" justify="space-around">
+          <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+            <transition name="el-fade-in" mode="out-in">
+              <router-view/>
+            </transition>
+          </el-col>
+        </el-row>
       </el-main>
       <el-footer class="footer">
         <p>
@@ -25,10 +30,12 @@
 
 <script>
 import NavMenu from '@/components/menu/NavMenu.vue'
+import ProposicaoPageHeader from '@/components/header/ProposicaoPageHeader'
 
 export default {
   components: {
-    NavMenu
+    NavMenu,
+    ProposicaoPageHeader
   },
   data () {
     return {

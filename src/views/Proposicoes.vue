@@ -1,47 +1,40 @@
 <template>
-  <div class="content">
-    <proposicao-page-header />
-    <el-row type="flex" justify="space-around">
-      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
-        <p v-else-if="error.proposicoes">Falha no carregamento</p>
-        <transition v-else name="el-fade-in" mode="out-in">
-          <div v-if="filteredProps.length">
-            <div class="session">
-              <header ref="emPautaHeader">
-                <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
-              </header>
-              <div ref="emPautaSession">
-                <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
-              </div>
-            </div>
-            <div class="session">
-              <header ref="notEmPautaHeader">
-                <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
-              </header>
-              <div ref="notEmPautaSession">
-                <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
-              </div>
-            </div>
+  <div>
+    <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
+    <p v-else-if="error.proposicoes">Falha no carregamento</p>
+    <transition v-else name="el-fade-in" mode="out-in">
+      <div v-if="filteredProps.length">
+        <div class="session">
+          <header ref="emPautaHeader">
+            <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+          </header>
+          <div ref="emPautaSession">
+            <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
           </div>
-          <p v-else>Nenhuma proposição para mostrar...</p>
-        </transition>
-      </el-col>
-    </el-row>
+        </div>
+        <div class="session">
+          <header ref="notEmPautaHeader">
+            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+          </header>
+          <div ref="notEmPautaSession">
+            <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+          </div>
+        </div>
+      </div>
+      <p v-else>Nenhuma proposição para mostrar...</p>
+    </transition>
   </div>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
-import ProposicaoPageHeader from '@/components/header/ProposicaoPageHeader'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 
 export default {
   name: 'proposicoes',
   components: {
-    ProposicaoItem,
-    ProposicaoPageHeader
+    ProposicaoItem
   },
   data () {
     return {
@@ -178,11 +171,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
 }
-.content {
-    display: block;
-    margin:auto;
-}
- .logo {
+.logo {
   max-width: 100%;
   height: auto;
 }
