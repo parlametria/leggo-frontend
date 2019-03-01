@@ -5,7 +5,10 @@
       <arquivada-tag :status="prop.lastEtapa.status"/>
     </div>
     <div class="tema"><span class="tag">{{prop.tema}}</span></div>
-    <span class="prop-apelido">{{prop .apelido}}</span>
+    <div>
+      <span class="prop-apelido">{{prop .apelido}}</span>
+      <i class="arrow" :class="{'arrow-down': clicked}"></i>
+    </div>
     <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
     <div class="tags">
         <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
@@ -89,5 +92,20 @@ export default {
   grid-column: 1/2;
   grid-row: 2/3;
   font-size: 9pt;
+}
+ .arrow {
+  position: absolute;
+  margin-left: 1rem;
+  margin-top: 0.3rem;
+  margin-bottom: auto;
+  height: 10px;
+  width: 10px;
+  border: solid #222;
+  border-width: 0px 2px 2px 0;
+  transform: rotate(45deg);
+}
+ .arrow-down {
+  margin-top: 0.6rem;
+  border-width: 2px 0px 0px 2px;
 }
 </style>

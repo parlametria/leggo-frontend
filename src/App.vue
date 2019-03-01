@@ -67,4 +67,7 @@ a {
     font-size: 10pt;
     color: grey;
 }
+.clickable {
+  cursor: pointer;
+}
 </style>

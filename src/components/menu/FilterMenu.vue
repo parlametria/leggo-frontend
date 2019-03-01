@@ -36,7 +36,7 @@
       </el-menu-item>
 
       <!-- Pauta -->
-      <el-menu-item index="5">
+      <el-menu-item index="5" class="no-padding">
         <el-checkbox
           v-model="emPautaFilter[0].status" class="filterMenus">
           {{ emPautaFilter[0].tipo }}
@@ -51,6 +51,7 @@
         </template>
         <el-checkbox-group v-model="self[filterName]">
           <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]"
+                        class="no-padding"
                         :key="j" index="j">
             <el-checkbox class="filterMenus" :label="opcao">{{ $t(opcao) }}</el-checkbox>
           </el-menu-item>
@@ -139,13 +140,17 @@ export default {
 }
 
 .filterMenus {
-  width: 500px;
+  width: 100%;
+  padding: 0 2rem;
 }
 
 @media only screen and (max-width: 800px) {
   .filterMenus {
     width: 250px;
   }
+}
+.no-padding {
+  padding: 0 !important;
 }
 
 </style>

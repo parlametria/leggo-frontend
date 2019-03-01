@@ -16,6 +16,9 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
+          <div class="status-bar">
+            <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
+          </div>
 
           <el-row>
             <el-col :span="12">
@@ -34,9 +37,6 @@
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
           <emendas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
-          <div class="status-bar">
-            <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
-          </div>
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 
         </div>

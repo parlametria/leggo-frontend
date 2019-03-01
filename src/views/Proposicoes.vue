@@ -79,6 +79,8 @@ export default {
         this.checkApelidoFilter(prop)
     },
     updateSticky (refHeader, refSession) {
+      if (!refSession || !refHeader) return
+
       // Faz com que o tamanho da barra seja redimensionado conforme o tamanho da janela
       refHeader.style.width = `${refSession.getBoundingClientRect().width}px`
 
