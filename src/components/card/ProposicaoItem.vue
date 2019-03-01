@@ -98,12 +98,16 @@ export default {
     },
     casa () {
       let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
+      let casaOrigem = (this.prop.lastEtapa.casa_origem)
       let casa = ''
-      if (autores.length > 1 || this.prop.lastEtapa.casa === 'senado') {
+      if (autores[0] === 'Poder Executivo') {
+        casa = ''
+      } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
         casa = 'Senado Federal'
       } else {
         casa = 'Câmara dos Deputados'
       }
+
       return casa
     },
     ...mapState({
