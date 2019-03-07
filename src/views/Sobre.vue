@@ -1,23 +1,25 @@
 <template>
-  <div align="left">
-    <p>
-      Leg.go é uma plataforma de inteligência para o acompanhamento das atividades no Congresso
-      Nacional. Coletamos dados da Câmara e do Senado para encontrar quais proposições estão quentes,
-      o que está tramitando com mais energia, como o conteúdo dos projetos é alterado e
-      quem são os atores importantes nesse processo.
-    </p>
+  <div class="sobre">
+    <div class="description">
+      <p>
+        Leg.go é uma plataforma de inteligência para o acompanhamento das atividades no Congresso
+        Nacional. Coletamos dados da Câmara e do Senado para encontrar quais proposições estão quentes,
+        o que está tramitando com mais energia, como o conteúdo dos projetos é alterado e
+        quem são os atores importantes nesse processo.
+      </p>
 
-    <p>
-      Nosso objetivo é complementar as informações de acompanhamento já disponíveis.
-      Usamos ciência de dados e aprendizagem de máquina para facilitar o trabalho de advocacy.
-      Acreditamos no poder da tecnologia para diminuir a assimetria de informação e empoderar o
-      cidadão e a sociedade civil na construção de uma democracia colaborativa.
-    </p>
+      <p>
+        Nosso objetivo é complementar as informações de acompanhamento já disponíveis.
+        Usamos ciência de dados e aprendizagem de máquina para facilitar o trabalho de advocacy.
+        Acreditamos no poder da tecnologia para diminuir a assimetria de informação e empoderar o
+        cidadão e a sociedade civil na construção de uma democracia colaborativa.
+      </p>
 
-    <p>
-      Leg.go é uma parceria da Dado Capital com a Universidade Federal de Campina Grande
-      e a Universidade Federal de Minas Gerais.
-    </p>
+      <p>
+        Leg.go é uma parceria da Dado Capital com a Universidade Federal de Campina Grande
+        e a Universidade Federal de Minas Gerais.
+      </p>
+    </div>
 
     <h2 class="center">Equipe:</h2>
 
@@ -85,6 +87,9 @@
 .center {
   text-align: center;
 }
+.description {
+  text-align: justify;
+}
 .contribua {
   list-style: none;
   padding: 0;
@@ -103,19 +108,13 @@ h3 {
   flex-wrap: wrap;
 }
 @media screen and (max-width: 1270px) {
-  .sobre {
-    margin: 0 8rem;
-  }
   .equipe {
     display: block;
   }
 }
 @media screen and (max-width: $nav-menu-break-width) {
   .sobre {
-    margin: 0 2rem;
-  }
-  .equipe {
-    display: block;
+    margin: 0 1.5rem;
   }
 }
 </style>

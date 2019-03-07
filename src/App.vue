@@ -8,7 +8,6 @@
       </nav-menu>
     </el-aside>
     <el-container>
-      <el-main>
         <proposicao-page-header/>
         <el-row type="flex" justify="space-around">
           <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
@@ -17,7 +16,6 @@
             </transition>
           </el-col>
         </el-row>
-      </el-main>
       <el-footer class="footer">
         <p>
           <span v-if="commitHash">versão <a :href="`https://github.com/analytics-ufcg/agora-digital-frontend/commit/${commitHash}`" target="_blank">{{ commitHash }}</a></span>

@@ -40,6 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
 .logo-container {
     margin-bottom: 2rem;
     h1 {
@@ -62,6 +63,7 @@ export default {
     justify-content: space-between;
     border-bottom: solid 2px #dc6060;
     padding-bottom: 7px;
+    flex-wrap: wrap;
 }
 .navigation {
     align-self: flex-end;
@@ -69,5 +71,15 @@ export default {
 .dot {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 2.4rem;
+}
+@media screen and (max-width: 1024px) {
+  .navigation {
+    margin-top: 1rem;
+  }
+}
+@media screen and (max-width: $nav-menu-break-width) {
+  .navbar h1 {
+    margin-top: 1.2rem;
+  }
 }
 </style>
