@@ -11,19 +11,6 @@
         @click="hide">
         <i class="el-dialog__close el-icon el-icon-close"></i>
       </button>
-      <el-menu mode="vertical">
-        <el-menu-item index="1" class="menu-route-link">
-          <router-link :to="{ name: 'sobre' }">Sobre</router-link>
-        </el-menu-item>
-
-        <el-menu-item index="2" class="menu-route-link">
-          <router-link :to="{ name: 'ajuda' }">Ajuda</router-link>
-        </el-menu-item>
-
-        <el-menu-item index="3" class="menu-route-link">
-          <router-link :to="{ name: 'proposicoes' }">Proposições</router-link>
-        </el-menu-item>
-      </el-menu>
       <slot/>
     </div>
   </div>

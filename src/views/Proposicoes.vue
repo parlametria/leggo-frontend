@@ -1,40 +1,28 @@
 <template>
-  <div class="content">
-    <el-row type="flex" justify="space-around" class="logo-container">
-      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <h1>Leg<span class="dot">.</span>go</h1>
-        <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
-          Atualizado em {{ formattedLastUpdateDate }}
-        </p>
-      </el-col>
-    </el-row>
-    <el-row type="flex" justify="space-around">
-      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
-        <p v-else-if="error.proposicoes">Falha no carregamento</p>
-        <transition v-else name="el-fade-in" mode="out-in">
-          <div v-if="filteredProps.length">
-            <div class="session">
-              <header ref="emPautaHeader">
-                <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
-              </header>
-              <div ref="emPautaSession">
-                <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
-              </div>
-            </div>
-            <div class="session">
-              <header ref="notEmPautaHeader">
-                <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
-              </header>
-              <div ref="notEmPautaSession">
-                <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
-              </div>
-            </div>
+  <div>
+    <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
+    <p v-else-if="error.proposicoes">Falha no carregamento</p>
+    <transition v-else name="el-fade-in" mode="out-in">
+      <div v-if="filteredProps.length">
+        <div class="session">
+          <header ref="emPautaHeader">
+            <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+          </header>
+          <div ref="emPautaSession">
+            <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
           </div>
-          <p v-else>Nenhuma proposição para mostrar...</p>
-        </transition>
-      </el-col>
-    </el-row>
+        </div>
+        <div class="session">
+          <header ref="notEmPautaHeader">
+            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+          </header>
+          <div ref="notEmPautaSession">
+            <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+          </div>
+        </div>
+      </div>
+      <p v-else>Nenhuma proposição para mostrar...</p>
+    </transition>
   </div>
 </template>
 
@@ -42,7 +30,6 @@
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
-import moment from 'moment'
 
 export default {
   name: 'proposicoes',
@@ -55,7 +42,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['listProposicoes', 'getMetaInfo']),
+    ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
@@ -134,8 +121,7 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       temperaturas: state => state.temperaturas.temperaturas,
-      pautas: state => state.pautas.pautas,
-      metaInfo: state => state.proposicoes.metaInfo
+      pautas: state => state.pautas.pautas
     }),
     ...mapGetters(['perFilterOptions', 'formattedDateRef', 'createfilterOptionObjectEmpty']),
     emPauta () {
@@ -149,9 +135,6 @@ export default {
         const propId = prop.lastEtapa.id
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
-    },
-    formattedLastUpdateDate () {
-      return moment(this.metaInfo.last_update_trams).format('DD/MM/YYYY')
     },
     compoundWatch () {
       return [this.formattedDateRef, this.filter.semanas].join()
@@ -175,7 +158,6 @@ export default {
     }
   },
   async mounted () {
-    await this.getMetaInfo()
     window.addEventListener('scroll', this.sticky)
     window.addEventListener('resize', this.sticky)
   }
@@ -189,28 +171,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
 }
-.content {
-    display: block;
-    margin:auto;
-}
-.logo-container {
-    margin-bottom: 2rem;
-    h1 {
-        font-family: 'Rajdhani', sans-serif;
-        border-bottom: solid 2px #dc6060;
-        line-height: 50pt;
-        font-size: 50pt;
-        text-align: center;
-        font-weight: normal;
-        margin-bottom: 0;
-    }
-    .last-update-date {
-      color: grey;
-      text-align: right;
-      margin-right: 1rem;
-    }
-}
- .logo {
+.logo {
   max-width: 100%;
   height: auto;
 }
@@ -247,9 +208,5 @@ export default {
   z-index: 20;
   background: #fff;
   border-bottom: solid 3px #dadada;
-}
-.dot {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 2.4rem;
 }
 </style>
