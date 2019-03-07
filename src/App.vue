@@ -1,12 +1,5 @@
 <template>
   <el-container id="app">
-    <el-aside class="aside-menu">
-      <nav-menu>
-        <el-collapse-transition mode="out-in">
-          <router-view name="menu"/>
-        </el-collapse-transition>
-      </nav-menu>
-    </el-aside>
     <el-container>
         <proposicao-page-header/>
         <el-row type="flex" justify="space-around">
@@ -27,12 +20,10 @@
 </template>
 
 <script>
-import NavMenu from '@/components/menu/NavMenu.vue'
 import ProposicaoPageHeader from '@/components/header/ProposicaoPageHeader'
 
 export default {
   components: {
-    NavMenu,
     ProposicaoPageHeader
   },
   data () {

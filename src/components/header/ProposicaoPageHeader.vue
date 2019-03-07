@@ -5,9 +5,9 @@
             <h1>Leg<span class="dot">.</span>go</h1>
             <navigation-buttons class="navigation"/>
         </div>
-        <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
-          Atualizado em {{ formattedLastUpdateDate }}
-        </p>
+        <div class="filters">
+          <filter-menu />
+        </div>
       </el-col>
     </el-row>
 </template>
@@ -15,6 +15,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import NavigationButtons from '@/components/header/NavigationButtons'
+import FilterMenu from '@/components/menu/FilterMenu'
 import moment from 'moment'
 
 export default {
@@ -34,7 +35,8 @@ export default {
     await this.getMetaInfo()
   },
   components: {
-    NavigationButtons
+    NavigationButtons,
+    FilterMenu
   }
 }
 </script>
@@ -42,20 +44,19 @@ export default {
 <style lang="scss" scoped>
 @import "@/base.scss";
 .logo-container {
-    margin-bottom: 2rem;
-    h1 {
-        font-family: 'Rajdhani', sans-serif;
-        line-height: 36pt;
-        font-size: 50pt;
-        text-align: center;
-        font-weight: normal;
-        margin-bottom: 0;
-    }
-    .last-update-date {
-      color: grey;
-      text-align: right;
-      margin-right: 1rem;
-    }
+  margin-bottom: 2rem;
+  display: flex;
+  h1 {
+    font-family: 'Rajdhani', sans-serif;
+    line-height: 36pt;
+    font-size: 50pt;
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+  .filters {
+    align-self: flex-end;
+  }
 }
 .navbar {
     display: flex;

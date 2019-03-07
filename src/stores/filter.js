@@ -4,7 +4,7 @@ import moment from 'moment'
 const filtro = {
   state: {
     // Filtros abilitados e também o nome do atributo da proposição usado por ele
-    filters: ['tema', 'regime_tramitacao', 'forma_apreciacao', 'casa'],
+    filters: ['tema', 'casa', 'regime_tramitacao', 'forma_apreciacao'],
     // Valores usados atualmente pelos filtros
     current: {},
     nomeProposicaoFilter: {
