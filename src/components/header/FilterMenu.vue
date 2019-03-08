@@ -80,7 +80,7 @@ export default {
       filter: state => state.filter,
       apreciacaoFilter: state => state.filter.apreciacaoFilter,
       regimeFilter: state => state.filter.regimeFilter,
-      casaFilter: state => state.filter.casaFilter,
+      casaFilter: state => state.filter.casaFilter
     }),
     ...mapGetters(['perFilterOptions']),
     ...generateFilterModels(),
