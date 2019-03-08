@@ -1,11 +1,11 @@
 <template>
     <el-row type="flex" justify="space-around" class="logo-container">
-      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8" class="header-wrapper">
         <div class="navbar">
             <h1>Leg<span class="dot">.</span>go</h1>
             <navigation-buttons class="navigation"/>
         </div>
-        <div class="filters">
+        <div class="prop-filters">
           <filter-menu />
         </div>
       </el-col>
@@ -45,7 +45,6 @@ export default {
 @import "@/base.scss";
 .logo-container {
   margin-bottom: 2rem;
-  display: flex;
   h1 {
     font-family: 'Rajdhani', sans-serif;
     line-height: 36pt;
@@ -54,8 +53,14 @@ export default {
     font-weight: normal;
     margin-bottom: 0;
   }
-  .filters {
-    align-self: flex-end;
+  .header-wrapper {
+    display: flex;
+    flex-direction: column;
+    .prop-filters {
+      align-self: flex-end;
+      margin-top: .5rem;
+      margin-right: .5rem;
+    }
   }
 }
 .navbar {

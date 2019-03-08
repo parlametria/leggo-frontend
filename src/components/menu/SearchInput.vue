@@ -1,5 +1,21 @@
 <template>
-<div></div>
+  <div class="search-wrapper">
+    <button class="filter-button" @click="handleButtonClick">
+      <img
+        :src="require('../../assets/search.svg')"
+        width="15"
+        alt="search-input"
+      />
+    </button>
+    <input
+      @change="filtraNomeProposicao(nomeProposicaoFilter)"
+      class="input"
+      ref="input"
+      placeholder="Buscar proposição"
+      v-model="nomeProposicaoFilter.nomeProposicao"
+      v-show="!isCollapse"
+    />
+  </div>
 </template>
 
 <script>
@@ -20,61 +36,32 @@ export default {
   methods: {
     ...mapMutations([
       'filtraNomeProposicao'
-    ])
+    ]),
+    handleButtonClick () {
+      this.isCollapse = !this.isCollapse
+      this.$nextTick(() => this.$refs.input.focus())
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-form{
-  position: relative;
-  transform: translate(-50%,-50%);
-  transition: all 1s;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  border: 4px solid white;
-  padding: 5px;
-}
-
-input{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;;
-  height: 42.5px;
-  line-height: 30px;
-  outline: 0;
-  border: 1px solid #999;
-  display: none;
-  font-size: 1em;
-  border-radius: 20px;
-  padding: 0 20px;
-}
-
-.fa{
-  box-sizing: border-box;
-  padding: 10px;
-  width: 42.5px;
-  height: 42.5px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 1px solid #999;
+.filter-button {
+  background: #fff;
   border-radius: 50%;
-  color: #07051a;
-  text-align: center;
-  font-size: 1.2em;
-  transition: all 1s;
-}
-
-form{
-  width: 200px;
+  border: none;
   cursor: pointer;
+  padding: 9px 10px 6px 9px;
 }
-
-.test{
-  display: block;
+.search-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  border: 1px solid black;
+  border-radius: 50px;
 }
-
+.input {
+  border: none;
+  outline: none;
+  margin-left: 1rem;
+}
 </style>

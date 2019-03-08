@@ -1,9 +1,12 @@
 <template>
   <div>
-    <button class="filter-button" :class="{'black-background': showFilter}" @click="showFilter = !showFilter">
-    <img :class="{white: showFilter}" :src="require('../../assets/filter.svg')" width="20" alt="filtro">
-    </button>
-    <div v-show="showFilter" class="filter">
+    <div class="button-group">
+      <search-input />
+      <button class="filter-button" :class="{'black-background': showFilter}" @click="showFilter = !showFilter">
+        <img :class="{white: showFilter}" :src="require('../../assets/filter.svg')" width="18" alt="filtro">
+      </button>
+    </div>
+    <div v-show="showFilter">
       <!-- Date -->
       <div class="filter-item">
         <div slot="title">Semana</div>
@@ -33,6 +36,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
+import SearchInput from '@/components/menu/SearchInput'
 import store from '@/stores/store'
 
 function generateFilterModels () {
@@ -54,7 +58,8 @@ function generateFilterModels () {
 export default {
   name: 'FilterMenu',
   components: {
-    TemperatureSort
+    TemperatureSort,
+    SearchInput
   },
   data () {
     let self = this
@@ -103,8 +108,12 @@ export default {
   background: #fff;
   border-radius: 50%;
   border: 1px solid black;
-  padding: 8px 7px 4px 7px;
+  padding: 9px 8px 5px 8px;
+  margin-left: .5rem;
   cursor: pointer;
+}
+.button-group {
+  display: flex;
 }
 .black-background {
   background: #000;
@@ -113,9 +122,9 @@ export default {
   filter: invert(1);
 }
 .filter-section-header {
-    text-align: center;
-    font-weight: normal;
-    margin-bottom: .5em;
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: .5em;
 }
 .filter-item {
   margin-bottom: .7rem;
@@ -131,5 +140,4 @@ export default {
 .no-padding {
   padding: 0 !important;
 }
-
 </style>
