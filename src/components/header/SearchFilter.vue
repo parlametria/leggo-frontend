@@ -23,7 +23,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  name: 'SeachInput',
+  name: 'SeachFilter',
   data () {
     return {
       isCollapse: true

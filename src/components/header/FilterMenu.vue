@@ -1,15 +1,19 @@
 <template>
   <div class="filter-menu-wrapper">
     <div class="button-group">
-      <search-input />
-      <button class="filter-button" :class="{'black-background': showFilter}" @click="showFilter = !showFilter">
+      <search-filter class="search" />
+      <button
+        class="filter-button"
+        :class="{'selected-button': showFilter}"
+        @click="showFilter = !showFilter"
+      >
         <img :class="{white: showFilter}" :src="require('../../assets/filter.svg')" width="18" alt="filtro">
       </button>
     </div>
-    <div v-show="showFilter" class="filters">
-      <!-- Date -->
+
+    <div v-show="showFilter" class="filters-form">
       <div class="filter-item">
-        <div slot="title">Semana</div>
+        <div>Data</div>
         <el-date-picker
           class="filterMenus"
           v-model="dateRef"
@@ -18,9 +22,8 @@
         </el-date-picker>
       </div>
 
-      <!-- Vários Filtros -->
       <div class="filter-item" v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
-        <div slot="title">{{ $t(filterName) }}</div>
+        <div>{{ $t(filterName) }}</div>
         <el-checkbox-group class="checkbox-group" v-model="self[filterName]">
           <div v-for="(opcao, j) in perFilterOptions[filterName]"
                         class="no-padding"
@@ -35,9 +38,8 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import TemperatureSort from '@/components/menu/TemperatureSort'
-import SearchInput from '@/components/menu/SearchInput'
 import store from '@/stores/store'
+import SearchFilter from '@/components/header/SearchFilter'
 
 function generateFilterModels () {
   let models = {}
@@ -57,10 +59,6 @@ function generateFilterModels () {
 
 export default {
   name: 'FilterMenu',
-  components: {
-    TemperatureSort,
-    SearchInput
-  },
   data () {
     let self = this
     return {
@@ -74,14 +72,15 @@ export default {
       self
     }
   },
+  components: {
+    SearchFilter
+  },
   computed: {
     ...mapState({
       filter: state => state.filter,
       apreciacaoFilter: state => state.filter.apreciacaoFilter,
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
-      emPautaFilter: state => state.filter.emPautaFilter,
-      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
     }),
     ...mapGetters(['perFilterOptions']),
     ...generateFilterModels(),
@@ -105,11 +104,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/base.scss";
-
 .filter-menu-wrapper {
   display: flex;
   flex-direction: column;
   .button-group {
+    display: flex;
     align-self: flex-end;
   }
 }
@@ -121,19 +120,8 @@ export default {
   margin-left: .5rem;
   cursor: pointer;
 }
-.button-group {
-  display: flex;
-}
-.black-background {
-  background: #000;
-}
 .white {
   filter: invert(1);
-}
-.filter-section-header {
-  text-align: center;
-  font-weight: normal;
-  margin-bottom: .5em;
 }
 .filter-item {
   margin-bottom: .7rem;
@@ -149,8 +137,11 @@ export default {
 .no-padding {
   padding: 0 !important;
 }
+.selected-button {
+  background: #000;
+}
 @media (max-width: $nav-menu-break-width) {
-  .filters {
+  .filters-form {
     margin: 1rem 1rem 0 1rem;
   }
 }

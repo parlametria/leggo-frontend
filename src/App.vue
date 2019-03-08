@@ -1,9 +1,9 @@
 <template>
   <el-container id="app">
     <el-container>
-        <proposicao-page-header/>
         <el-row type="flex" justify="space-around">
           <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
+            <page-header/>
             <transition name="el-fade-in" mode="out-in">
               <router-view/>
             </transition>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import ProposicaoPageHeader from '@/components/header/ProposicaoPageHeader'
+import PageHeader from '@/components/header/PageHeader'
 
 export default {
   components: {
-    ProposicaoPageHeader
+    PageHeader
   },
   data () {
     return {
