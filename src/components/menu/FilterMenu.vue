@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="filter-menu-wrapper">
     <div class="button-group">
       <search-input />
       <button class="filter-button" :class="{'black-background': showFilter}" @click="showFilter = !showFilter">
         <img :class="{white: showFilter}" :src="require('../../assets/filter.svg')" width="18" alt="filtro">
       </button>
     </div>
-    <div v-show="showFilter">
+    <div v-show="showFilter" class="filters">
       <!-- Date -->
       <div class="filter-item">
         <div slot="title">Semana</div>
@@ -103,7 +103,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/base.scss";
+
+.filter-menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  .button-group {
+    align-self: flex-end;
+  }
+}
 .filter-button {
   background: #fff;
   border-radius: 50%;
@@ -139,5 +148,10 @@ export default {
 }
 .no-padding {
   padding: 0 !important;
+}
+@media (max-width: $nav-menu-break-width) {
+  .filters {
+    margin: 1rem 1rem 0 1rem;
+  }
 }
 </style>

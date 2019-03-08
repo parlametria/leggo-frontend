@@ -9,6 +9,7 @@
     </button>
     <input
       @change="filtraNomeProposicao(nomeProposicaoFilter)"
+      @keyup.esc="handleInputEsc"
       class="input"
       ref="input"
       placeholder="Buscar proposição"
@@ -40,6 +41,10 @@ export default {
     handleButtonClick () {
       this.isCollapse = !this.isCollapse
       this.$nextTick(() => this.$refs.input.focus())
+    },
+    handleInputEsc () {
+      this.nomeProposicaoFilter.nomeProposicao = ''
+      this.isCollapse = true
     }
   }
 }

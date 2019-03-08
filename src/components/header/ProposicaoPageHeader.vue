@@ -5,7 +5,7 @@
             <h1>Leg<span class="dot">.</span>go</h1>
             <navigation-buttons class="navigation"/>
         </div>
-        <div class="prop-filters">
+        <div class="prop-filters" v-show="$route.name === 'proposicoes'">
           <filter-menu />
         </div>
       </el-col>
