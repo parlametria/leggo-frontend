@@ -11,10 +11,10 @@
           <p>Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
-          <p v-if="isComissoes(fase) && !fase.pulou && !isFuture(fase) && etapas.length == 1">Histórico de comissões: {{etapas[0].comissoes_passadas}}</p>
+          <p v-if="isComissoes(fase) && !fase.pulou && !isFuture(fase) && etapas.length == 1">Histórico de comissões: {{etapas[0].comissoes_passadas.toString()}}</p>
           <div v-else-if="isComissoes(fase) && !fase.pulou && !isFuture(fase)">
-            <p v-if="i == 0">Histórico de comissões: {{etapas[0].comissoes_passadas}}</p>
-            <p v-else-if="i == 2">Histórico de comissões: {{etapas[1].comissoes_passadas}}</p>
+            <p v-if="i == 0">Histórico de comissões: {{etapas[0].comissoes_passadas.toString()}}</p>
+            <p v-else-if="i == 2">Histórico de comissões: {{etapas[1].comissoes_passadas.toString()}}</p>
           </div>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
