@@ -15,7 +15,7 @@
           </div>
 
           <h4>Progresso da Tramitação</h4>
-          <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso"/>
+          <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
           <div class="status-bar">
             <p class="small-text-field">Desde {{ dataLocalAtual }} na(o) {{ localAtual }}</p>
           </div>

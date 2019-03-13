@@ -11,6 +11,11 @@
           <p>Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
+          <p v-if="isComissoes(fase) && !fase.pulou && !isFuture(fase) && etapas.length == 1">Histórico de comissões: {{etapas[0].comissoes_passadas}}</p>
+          <div v-else-if="isComissoes(fase) && !fase.pulou && !isFuture(fase)">
+            <p v-if="i == 0">Histórico de comissões: {{etapas[0].comissoes_passadas}}</p>
+            <p v-else-if="i == 2">Histórico de comissões: {{etapas[1].comissoes_passadas}}</p>
+          </div>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
@@ -29,7 +34,8 @@ import moment from 'moment'
 export default {
   name: 'FasesProgress',
   props: {
-    fases: Array
+    fases: Array,
+    etapas: Array
   },
   computed: {
     fasesResumidas () {
@@ -51,6 +57,9 @@ export default {
     isInProgress (fase) {
       const now = Date.now()
       return (fase.data_inicio != null && fase.data_fim == null) || new Date(fase.data_fim) > now
+    },
+    isComissoes (fase) {
+      return fase.local === 'Comissões'
     },
     isFinished (fase) {
       const now = Date.now()
