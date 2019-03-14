@@ -11,6 +11,7 @@
           <p>Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
+          <p>Histórico de comissões: {{comissoesHistoric(fase)}}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
@@ -29,7 +30,8 @@ import moment from 'moment'
 export default {
   name: 'FasesProgress',
   props: {
-    fases: Array
+    fases: Array,
+    etapas: Array
   },
   computed: {
     fasesResumidas () {
@@ -52,6 +54,9 @@ export default {
       const now = Date.now()
       return (fase.data_inicio != null && fase.data_fim == null) || new Date(fase.data_fim) > now
     },
+    isComissoes (fase) {
+      return fase.local === 'Comissões'
+    },
     isFinished (fase) {
       const now = Date.now()
       return fase.data_fim != null && new Date(fase.data_fim) < now
@@ -64,6 +69,25 @@ export default {
     },
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
+    },
+
+    formatArray (arrayComissoes) {
+      var resposta = ''
+      var i
+      for (i = 0; i < arrayComissoes.length; i++) {
+        if (i !== arrayComissoes.length - 1) {
+          resposta += arrayComissoes[i] + ', '
+        } else {
+          resposta += arrayComissoes[i]
+        }
+      }
+      return resposta
+    },
+
+    comissoesHistoric (fase) {
+      if (this.isComissoes(fase) && !fase.pulou && !this.isFuture(fase)) {
+        if (fase.fase_global === 'Construção') { return this.formatArray(this.etapas[0].comissoes_passadas) } else if (fase.fase_global === 'Revisão I') { return this.formatArray(this.etapas[1].comissoes_passadas) }
+      }
     }
   }
 }
