@@ -11,11 +11,7 @@
           <p>Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
-          <p v-if="isComissoes(fase) && !fase.pulou && !isFuture(fase) && etapas.length == 1">Histórico de comissões: {{etapas[0].comissoes_passadas.toString()}}</p>
-          <div v-else-if="isComissoes(fase) && !fase.pulou && !isFuture(fase)">
-            <p v-if="i == 0">Histórico de comissões: {{etapas[0].comissoes_passadas.toString()}}</p>
-            <p v-else-if="i == 2">Histórico de comissões: {{etapas[1].comissoes_passadas.toString()}}</p>
-          </div>
+          <p>Histórico de comissões: {{comissoesHistoric(fase)}}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
@@ -73,6 +69,27 @@ export default {
     },
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
+    },
+
+    formatArray (arrayComissoes) {
+      var resposta = ''
+      var i
+      for (i = 0; i < arrayComissoes.length; i++) {
+        if (i !== arrayComissoes.length - 1) {
+          resposta += arrayComissoes[i] + ', '
+        } else {
+          resposta += arrayComissoes[i]
+        }
+      }
+      return resposta
+    },
+
+    comissoesHistoric(fase) {
+      if(this.isComissoes(fase) && !fase.pulou && !this.isFuture(fase))
+        if(fase.fase_global == "Construção")
+          return this.formatArray(this.etapas[0].comissoes_passadas)
+        else if(fase.fase_global == "Revisão I")
+          return this.formatArray(this.etapas[1].comissoes_passadas)
     }
   }
 }
