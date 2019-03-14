@@ -56,7 +56,7 @@ export default {
       return (!this.filter.emPautaFilter.some(options => options.status) ? true : emPauta)
     },
     checkApelidoFilter (prop) {
-      const apelido = removeAcentos(prop.apelido.toLowerCase())
+      const apelido = removeAcentos(prop.sigla.toLowerCase() + prop.apelido.toLowerCase())
       const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
       return apelido.match(filtro)
     },
