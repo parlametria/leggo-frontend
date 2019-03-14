@@ -84,12 +84,10 @@ export default {
       return resposta
     },
 
-    comissoesHistoric(fase) {
-      if(this.isComissoes(fase) && !fase.pulou && !this.isFuture(fase))
-        if(fase.fase_global == "Construção")
-          return this.formatArray(this.etapas[0].comissoes_passadas)
-        else if(fase.fase_global == "Revisão I")
-          return this.formatArray(this.etapas[1].comissoes_passadas)
+    comissoesHistoric (fase) {
+      if (this.isComissoes(fase) && !fase.pulou && !this.isFuture(fase)) {
+        if (fase.fase_global === 'Construção') { return this.formatArray(this.etapas[0].comissoes_passadas) } else if (fase.fase_global === 'Revisão I') { return this.formatArray(this.etapas[1].comissoes_passadas) }
+      }
     }
   }
 }
