@@ -48,7 +48,7 @@
           <li>Gileade Kelvin</li>
           <li>Daniel Coura</li>
           <li>Juan Barros</li>
-          <li>Thayanne Souza</li>
+          <li>Thayanne Sousa</li>
         </ul>
       </div>
       <div>
