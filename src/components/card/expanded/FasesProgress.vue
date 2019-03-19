@@ -74,11 +74,13 @@ export default {
     formatArray (arrayComissoes) {
       var resposta = ''
       var i
-      for (i = 0; i < arrayComissoes.length; i++) {
-        if (i !== arrayComissoes.length - 1) {
-          resposta += arrayComissoes[i] + ', '
-        } else {
-          resposta += arrayComissoes[i]
+      if (arrayComissoes) {
+        for (i = 0; i < arrayComissoes.length; i++) {
+          if (i !== arrayComissoes.length - 1) {
+            resposta += arrayComissoes[i] + ', '
+          } else {
+            resposta += arrayComissoes[i]
+          }
         }
       }
       return resposta
