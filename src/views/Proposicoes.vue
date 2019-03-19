@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition v-else name="el-fade-in" mode="out-in">
@@ -9,7 +10,7 @@
             <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
           </header>
           <div ref="emPautaSession">
-            <proposicao-item :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
           </div>
         </div>
         <div class="session">
@@ -17,7 +18,7 @@
             <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
           </header>
           <div ref="notEmPautaSession">
-            <proposicao-item :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
           </div>
         </div>
       </div>
@@ -28,13 +29,15 @@
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
+import UltimosEventos from '@/components/UltimosEventos'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 
 export default {
   name: 'proposicoes',
   components: {
-    ProposicaoItem
+    ProposicaoItem,
+    UltimosEventos
   },
   data () {
     return {
