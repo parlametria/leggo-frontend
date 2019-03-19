@@ -1,14 +1,22 @@
 <template>
   <div v-if="procEventos.length">
     <h3 @click="show = !show">Últimos Eventos +</h3>
-    <ul v-if="show">
-      <li v-for="(evento, i) of procEventos" :key="i">
-        {{ evento.data }} -
-        <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
-        <br/>
-        {{ evento.texto }}
-      </li>
-    </ul>
+    <table v-if="show" class="eventos-tram">
+      <tr v-for="(evento, index) in procEventos" :key="index">
+        <td class="date-field">
+          <div>{{evento.data}}</div>
+          <div class="sigla-local">{{evento.local}}</div>
+        </td>
+        <td>
+          <div class="evento-title">
+            <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
+          </div>
+          <div>
+            {{evento.texto}}
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -40,6 +48,7 @@ export default {
             data: evento.data,
             propId: evento.proposicao_id,
             texto: evento.texto_tramitacao,
+            local: evento.sigla_local,
             propName
           }
         })
@@ -58,3 +67,29 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.eventos-tram {
+  font-size: 10pt;
+  text-align: center;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  padding: .5rem;
+  text-align: left;
+  vertical-align: top;
+}
+.date-field {
+  white-space: nowrap;
+  padding-right: 2rem;
+}
+.evento-title {
+  font-weight: bold;
+}
+.sigla-local {
+  color: #999;
+}
+</style>

@@ -4,7 +4,7 @@
         <template slot="title">
           <span class="title">Últimos Eventos</span>
         </template>
-        <table class="eventos_tram">
+        <table class="eventos-tram">
           <tr v-for="(evento, index) in formattedEventos" :key="index">
             <td class="date-field">
               <el-tooltip :content="evento.data" placement="bottom">
@@ -14,7 +14,8 @@
             </td>
             <td>
               <div class="evento-title">{{evento.title}}</div>
-              <div :class="{clickable: evento.collapsible}" @click="toggleCollapseDescription(index)">
+              <div :class="{clickable: evento.collapsible}"
+                   @click="toggleCollapseDescription(index)">
                 {{evento.texto}}
               </div>
             </td>
@@ -69,13 +70,14 @@ export default {
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
     }),
     query () {
-      return { params: {
-        casa: this.casa,
-        id: this.id,
-        dataFim: moment(this.date).format('YYYY-MM-DD'),
-        nivel: 1,
-        ultimosN: 3
-      }
+      return {
+        params: {
+          casa: this.casa,
+          id: this.id,
+          dataFim: moment(this.date).format('YYYY-MM-DD'),
+          nivel: 1,
+          ultimosN: 3
+        }
       }
     }
   },
@@ -137,7 +139,7 @@ export default {
 .title {
   font-size: .97rem;
 }
-.eventos_tram {
+.eventos-tram {
   font-size: 10pt;
   text-align: center;
 }
