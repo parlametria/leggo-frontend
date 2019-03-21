@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  name: 'Parlamentar',
+  name: 'ParlamentarCard',
   props: {
     parlamentar: {
       type: Object

@@ -3,12 +3,12 @@
     <span v-if="pending.comissao">Carregando composição da comissão {{ siglaComissao }} </span>
     <span v-else-if="error.comissao || !comissao ||comissao.length == 0" class="error">Não temos informações da composição dessa composição.</span>
     <div class="composicao" v-else >
-      <parlamentar :key="index" v-for="(parlamentar, index) in comissao" :parlamentar="parlamentar"/>
+      <parlamentar-card :key="index" v-for="(parlamentar, index) in comissao" :parlamentar="parlamentar"/>
     </div>
   </div>
 </template>
 <script>
-import Parlamentar from '@/components/comissao/Parlamentar'
+import ParlamentarCard from '@/components/comissao/ParlamentarCard'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -22,7 +22,7 @@ export default {
     }
   },
   components: {
-    Parlamentar
+    ParlamentarCard
   },
   methods: {
     ...mapActions(['getComissao'])
