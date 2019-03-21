@@ -40,7 +40,7 @@ export default new Router({
       component: Cases
     },
     {
-      path: '/comissao/:siglaComissao',
+      path: '/comissao/:casaComissao/:siglaComissao',
       name: 'comissao',
       component: Comissao,
       props: true

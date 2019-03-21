@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="comissao">
         <span class="titulo">Comissão <span class="sigla">{{siglaComissao}}</span></span>
-        <composicao :siglaComissao="siglaComissao"/>
+        <composicao :casaComissao="casaComissao" :siglaComissao="siglaComissao"/>
     </div>
 </template>
 <script>
@@ -10,7 +10,8 @@ import Composicao from '@/components/comissao/Composicao'
 export default {
     name: 'Comissao',
     props: {
-      siglaComissao: String
+      siglaComissao: String,
+      casaComissao: String
     },
     components: {
       Composicao
@@ -18,12 +19,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .titulo{
+  .comissao {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .titulo {
     color: #656565;
-    font-size: 1.4rem;
+    font-size: 2.0rem;
   }
   .sigla {
-    font-size: 1.6rem;
+    font-size: 2.0rem;
     text-transform: uppercase;
+  }
+  .composicao {
+    margin-top: 20px;
   }
 </style>

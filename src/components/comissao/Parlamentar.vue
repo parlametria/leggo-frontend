@@ -1,22 +1,49 @@
 <template>
-    <div class="card">
-    <img src="https://www.senado.gov.br/senadores/img/fotos-oficiais/senador70.jpg" alt="Avatar" style="width:100%">
+    <div class="card" v-if="parlamentarValido()">
+    <img :src="parlamentar.foto" alt="Foto do parlamentar" style="width:100%" @error="replacePhotoToDefault">
     <div class="container">
-        <h4><b>John Doe</b></h4> 
-        <p>Architect & Engineer</p> 
+      <header>
+        <span><b>{{ parlamentar.nome }}</b></span>
+        <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
+      </header>
+      <div class="info">
+        <span v-if="parlamentar.cargo != 'nan'" class="cargo">{{ parlamentar.cargo }}</span>
+        <span class="situacao"><b>Situação: </b>{{ parlamentar.situacao }}</span> 
+      </div>
     </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'Parlamentar'
+    name: 'Parlamentar',
+    props: {
+      parlamentar: {
+        type: Object
+      }
+    },
+    methods: {
+      parlamentarValido () {
+        if(this.parlamentar.nome &&  this.parlamentar.nome != 'nan' && !this.parlamentar.nome.replace(/\s/g, '').length)
+          return false
+    
+        return true
+      },
+      campoValido(campo) {
+        if(campo && campo != 'nan')
+          return true
+        return false
+      },
+      replacePhotoToDefault(e){
+        e.target.src = require("@/assets/default-avatar-parlamentar.png");
+      }
+    }
 }
 </script>
 <style lang="scss" scoped>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 40%;
+  height: 400px;
 }
 
 .card:hover {
@@ -24,7 +51,31 @@ export default {
 }
 
 .container {
-  padding: 2px 16px;
+  padding: 15px 16px;
+
+  header {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.partido {
+  font-size: 10pt;
+  color: gray;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: gray;
+  .cargo {
+    font-size: 10pt;
+  }
+  .situacao {
+   margin-top: 20px;
+  }
 }
 </style>
-
