@@ -23,6 +23,8 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .titulo {
     color: #656565;
