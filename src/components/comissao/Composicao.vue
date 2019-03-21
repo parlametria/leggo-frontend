@@ -12,7 +12,7 @@ import Parlamentar from '@/components/comissao/Parlamentar'
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'Comissao',
+  name: 'Composicao',
   props: {
     siglaComissao: {
       type: String
