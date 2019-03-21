@@ -96,9 +96,9 @@ export default {
       }
       return localAtual
     },
-    linkComissao() {
-      return { 
-        name: 'comissao', 
+    linkComissao () {
+      return {
+        name: 'comissao',
         params: { casaComissao: this.prop.lastEtapa.casa, siglaComissao: this.localAtual }
       }
     },
