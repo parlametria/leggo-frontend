@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 
 const comissao = new Vapi({
@@ -8,7 +7,7 @@ const comissao = new Vapi({
   } }).get({
   action: 'getComissao',
   property: 'comissao',
-  path: ({ casa, sigla}) =>
+  path: ({ casa, sigla }) =>
     `comissao/${casa}/${sigla}`,
   onSuccess: (state, { data }, axios, { params }) => {
     state.comissao = data

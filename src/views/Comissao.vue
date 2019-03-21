@@ -8,14 +8,14 @@
 import Composicao from '@/components/comissao/Composicao'
 
 export default {
-    name: 'Comissao',
-    props: {
-      siglaComissao: String,
-      casaComissao: String
-    },
-    components: {
-      Composicao
-    }
+  name: 'Comissao',
+  props: {
+    siglaComissao: String,
+    casaComissao: String
+  },
+  components: {
+    Composicao
+  }
 }
 </script>
 <style lang="scss" scoped>

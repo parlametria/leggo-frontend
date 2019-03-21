@@ -9,36 +9,36 @@
 </template>
 <script>
 import Parlamentar from '@/components/comissao/Parlamentar'
-import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
-    name: 'Comissao',
-    props: {
-      siglaComissao: {
-        type: String
-      },
-      casaComissao: {
-        type: String
-      }
+  name: 'Comissao',
+  props: {
+    siglaComissao: {
+      type: String
     },
-    components: {
-      Parlamentar
-    },
-    methods: {
-      ...mapActions(['getComissao'])
-    },
-    computed: {
-      ...mapState({
-        comissao: state => state.comissoes.comissao,
-        error: state => state.comissoes.error,
-        pending: state => state.comissoes.pending
-      })
-    },
-    async mounted () {
-      await this.getComissao({
-        params: {casa: this.casaComissao, sigla: this.siglaComissao}
-      })
+    casaComissao: {
+      type: String
     }
+  },
+  components: {
+    Parlamentar
+  },
+  methods: {
+    ...mapActions(['getComissao'])
+  },
+  computed: {
+    ...mapState({
+      comissao: state => state.comissoes.comissao,
+      error: state => state.comissoes.error,
+      pending: state => state.comissoes.pending
+    })
+  },
+  async mounted () {
+    await this.getComissao({
+      params: { casa: this.casaComissao, sigla: this.siglaComissao }
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>

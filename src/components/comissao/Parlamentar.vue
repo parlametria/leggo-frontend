@@ -7,37 +7,35 @@
         <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
       </header>
       <div class="info">
-        <span v-if="parlamentar.cargo != 'nan'" class="cargo">{{ parlamentar.cargo }}</span>
+        <span v-if="parlamentar.cargo !== 'nan'" class="cargo">{{ parlamentar.cargo }}</span>
         <span v-else class="cargo">Membro</span>
-        <span class="situacao"><b>Situação: </b>{{ parlamentar.situacao }}</span> 
+        <span class="situacao"><b>Situação: </b>{{ parlamentar.situacao }}</span>
       </div>
     </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'Parlamentar',
-    props: {
-      parlamentar: {
-        type: Object
-      }
-    },
-    methods: {
-      parlamentarValido () {
-        if(this.parlamentar.nome &&  this.parlamentar.nome != 'nan' && !this.parlamentar.nome.replace(/\s/g, '').length)
-          return false
-    
-        return true
-      },
-      campoValido(campo) {
-        if(campo && campo != 'nan')
-          return true
-        return false
-      },
-      replacePhotoToDefault(e){
-        e.target.src = require("@/assets/default-avatar-parlamentar.png");
-      }
+  name: 'Parlamentar',
+  props: {
+    parlamentar: {
+      type: Object
     }
+  },
+  methods: {
+    parlamentarValido () {
+      if (this.parlamentar.nome && this.parlamentar.nome !== 'nan' && !this.parlamentar.nome.replace(/\s/g, '').length) { return false }
+
+      return true
+    },
+    campoValido (campo) {
+      if (campo && campo !== 'nan') { return true }
+      return false
+    },
+    replacePhotoToDefault (e) {
+      e.target.src = require('@/assets/default-avatar-parlamentar.png')
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
