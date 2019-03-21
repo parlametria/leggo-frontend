@@ -17,7 +17,7 @@
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
           <div class="status-bar">
-            <span class="small-text-field">Desde {{ dataLocalAtual }} na(o) <router-link :to="`/comissao/${prop.lastEtapa.casa}/${localAtual}`">{{localAtual}}</router-link></span>
+            <span class="small-text-field">Desde {{ dataLocalAtual }} na(o) <router-link :to="linkComissao"> {{ localAtual }}</router-link></span>
           </div>
 
           <el-row>
@@ -95,6 +95,12 @@ export default {
         localAtual = 'Comissão Especial - ' + localAtual
       }
       return localAtual
+    },
+    linkComissao() {
+      return { 
+        name: 'comissao', 
+        params: { casaComissao: this.prop.lastEtapa.casa, siglaComissao: this.localAtual }
+      }
     },
     casa () {
       let autores = (this.prop.lastEtapa.autor_nome).split(' - ')

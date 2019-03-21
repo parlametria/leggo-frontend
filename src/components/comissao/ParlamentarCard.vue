@@ -63,6 +63,7 @@ export default {
 .partido {
   font-size: 10pt;
   color: gray;
+  font-weight: 900;
 }
 
 .info {
