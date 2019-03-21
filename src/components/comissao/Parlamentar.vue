@@ -8,6 +8,7 @@
       </header>
       <div class="info">
         <span v-if="parlamentar.cargo != 'nan'" class="cargo">{{ parlamentar.cargo }}</span>
+        <span v-else class="cargo">Membro</span>
         <span class="situacao"><b>Situação: </b>{{ parlamentar.situacao }}</span> 
       </div>
     </div>
@@ -75,7 +76,12 @@ export default {
     font-size: 10pt;
   }
   .situacao {
-   margin-top: 20px;
+    margin-top: 10px;
   }
 }
+
+img {
+  max-height: 300px;
+}
+
 </style>
