@@ -10,7 +10,6 @@
 <script>
 import ParlamentarCard from '@/components/comissao/ParlamentarCard'
 import { mapState, mapActions } from 'vuex'
-import _ from 'lodash'
 
 export default {
   name: 'Composicao',
@@ -30,14 +29,11 @@ export default {
       const aPrioridade = this.getPrioridade(a.cargo)
       const bPrioridade = this.getPrioridade(b.cargo)
 
-      if(aPrioridade || bPrioridade){
+      if (aPrioridade || bPrioridade) {
         return this.getPrioridade(b.cargo) - this.getPrioridade(a.cargo)
       }
       const aux = this.quantidadeMembrosComissao
       return aux[b.partido] - aux[a.partido]
-    },
-    compareComissao (a, b) {
-      return (b.cargo) - this.getPrioridade(a.cargo)
     },
     getPrioridade (cargo) {
       let prioridade = 0
@@ -58,7 +54,8 @@ export default {
   },
   computed: {
     ordenedComissao () {
-      return this.comissao.sort(this.compareComposicao)
+      let comissaoAuxiliar = this.comissao
+      return comissaoAuxiliar.sort(this.compareComposicao)
     },
     quantidadeMembrosComissao () {
       let result = {}
