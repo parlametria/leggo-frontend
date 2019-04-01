@@ -6,9 +6,8 @@
       <div class="content">
         <div class="info">
           <span v-if="campoValido(parlamentar.cargo)" class="cargo">{{ parlamentar.cargo }}</span>
-          <span v-else class="cargo">Membro</span>
+          <span v-else class="cargo">TITULAR</span>
         </div>
-        <span class="situacao"><b>Situação: </b>{{ parlamentar.situacao }}</span>
         <span><b>{{ parlamentar.nome }}</b></span>
         <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
       </div>

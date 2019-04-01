@@ -40,10 +40,22 @@ export default {
 
       switch (cargo) {
         case 'PRESIDENTE': {
-          prioridade = 2
+          prioridade = 4
           break
         }
         case 'VICE-PRESIDENTE': {
+          prioridade = 3
+          break
+        }
+        case 'PRIMEIRO VICE-PRESIDENTE': {
+          prioridade = 3
+          break
+        }
+        case 'SEGUNDO VICE-PRESIDENTE': {
+          prioridade = 2
+          break
+        }
+        case 'TERCEIRO VICE-PRESIDENTE': {
           prioridade = 1
           break
         }
