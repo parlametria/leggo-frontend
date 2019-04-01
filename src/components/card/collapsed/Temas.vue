@@ -19,6 +19,8 @@ export default {
 .tagTemas {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .tag {
     background-color: #FFA07A;
