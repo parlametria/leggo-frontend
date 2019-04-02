@@ -1,6 +1,6 @@
 <template>
     <div  class="tagTemas">
-       <div v-for="(tema, i) in temas" :key="i">
+       <div v-for="(tema, i) in temas" :key="i"> 
            <span class="tag">{{ tema }}</span>
         </div>
     </div>
@@ -23,8 +23,9 @@ export default {
     justify-content: flex-start;
 }
 .tag {
-    background-color: white;
-    margin-right: 12px;
+    background-color: #DCDCDC;
+    margin-right: 10px;
     border-radius: 5%;
 }
+
 </style>
