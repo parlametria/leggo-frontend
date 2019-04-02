@@ -20,11 +20,11 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 .tag {
-    background-color: #FFA07A;
-    margin-right: 10px;
+    background-color: white;
+    margin-right: 12px;
     border-radius: 5%;
 }
 </style>
