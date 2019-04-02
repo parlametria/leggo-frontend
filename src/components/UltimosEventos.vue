@@ -55,6 +55,16 @@ export default {
       } else {
         return []
       }
+    },
+    temasProposicoes () {
+      let temas = {}
+      this.proposicoes.forEach(proposicao => {
+        if (temas[proposicao.tema] === undefined) {
+          temas[proposicao.tema] = []
+        }
+        temas[proposicao.tema].push(proposicao.id)
+      })
+      return temas
     }
   },
   methods: {
