@@ -1,27 +1,32 @@
 <template>
   <div v-if="procEventos.length">
     <h3 @click="show = !show">Últimos Eventos +</h3>
-    <table v-if="show" class="eventos-tram">
-      <tr v-for="(evento, index) in procEventos" :key="index">
-        <td class="date-field">
-          <div>{{evento.data}}</div>
-          <div class="sigla-local">{{evento.local}}</div>
-        </td>
-        <td>
-          <div class="evento-title">
-            <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
-          </div>
-          <div>
-            {{evento.texto}}
-          </div>
-        </td>
-      </tr>
-    </table>
+    <div v-if="show" class="eventos-tram" v-for="(tema, i) in Object.keys(temasProposicoes)" :key="i">
+      <span class="titulo">{{ tema }}</span>
+      <table>
+        <tr v-for="(evento, index) in procEventos" :key="index" v-if="isInArray(temasProposicoes[tema], evento.propId)">
+          <td class="date-field">
+            <div>{{evento.data}}</div>
+            <div class="sigla-local">{{evento.local}}</div>
+          </td>
+          <td>
+            <div class="evento-title">
+              <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
+            </div>
+            <div>
+              {{evento.texto}}
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
+import _ from 'lodash'
+
 export default {
   name: 'ultimosEventos',
   components: {
@@ -58,17 +63,21 @@ export default {
     },
     temasProposicoes () {
       let temas = {}
-      this.proposicoes.forEach(proposicao => {
-        if (temas[proposicao.tema] === undefined) {
-          temas[proposicao.tema] = []
+      this.ultimosEventos.forEach(evento => {
+        const tema = this.proposicoes[evento.proposicao_id - 1].tema
+        if (temas[tema] === undefined) {
+          temas[tema] = []
         }
-        temas[proposicao.tema].push(proposicao.id)
+        temas[tema].push(evento.proposicao_id)
       })
       return temas
     }
   },
   methods: {
-    ...mapActions(['getUltimosEventos'])
+    ...mapActions(['getUltimosEventos']),
+    isInArray(array, element) {
+      return _.indexOf(array, element) !== -1
+    }
   },
   mounted () {
     if (!this.ultimosEventos || !this.ultimosEventos.length) {
@@ -82,6 +91,12 @@ export default {
 .eventos-tram {
   font-size: 10pt;
   text-align: center;
+  margin: 10px 0 30px 0;
+  display: flex;
+  align-content: stretch;
+  justify-content: center;
+  flex-direction: column;
+
 }
 table {
   border-collapse: collapse;
@@ -91,6 +106,11 @@ th, td {
   padding: .5rem;
   text-align: left;
   vertical-align: top;
+}
+.titulo {
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 1.5em;
 }
 .date-field {
   white-space: nowrap;
