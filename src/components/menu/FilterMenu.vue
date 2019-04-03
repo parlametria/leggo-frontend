@@ -58,12 +58,14 @@
         </el-checkbox-group>
       </el-submenu>
     </el-menu-item-group>
+    <Login></Login>
   </el-menu>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
+import Login from '@/components/menu/Login'
 import store from '@/stores/store'
 
 function generateFilterModels () {
@@ -85,7 +87,8 @@ function generateFilterModels () {
 export default {
   name: 'FilterMenu',
   components: {
-    TemperatureSort
+    TemperatureSort,
+    Login
   },
   data () {
     let self = this
@@ -124,7 +127,10 @@ export default {
     ...mapMutations([
       'filtraEmPauta',
       'filtraNomeProposicao'
-    ])
+    ]),
+    botao: function() {
+      console.log("gela")
+    }
   }
 }
 </script>
