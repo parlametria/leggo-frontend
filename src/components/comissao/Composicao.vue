@@ -32,7 +32,7 @@ export default {
       if (aPrioridade || bPrioridade) {
         return this.getPrioridade(b.cargo) - this.getPrioridade(a.cargo)
       }
-      const aux = this.quantidadeMembrosComissao
+      const aux = this.quantidadeMembrosPartido
       return aux[b.partido] - aux[a.partido]
     },
     getPrioridade (cargo) {
@@ -69,7 +69,7 @@ export default {
       let comissaoAuxiliar = this.comissao
       return comissaoAuxiliar.sort(this.compareComposicao)
     },
-    quantidadeMembrosComissao () {
+    quantidadeMembrosPartido () {
       let result = {}
       this.comissao.forEach((membro) => {
         if (result[membro.partido] === undefined) {
