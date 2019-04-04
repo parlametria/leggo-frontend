@@ -1,20 +1,20 @@
 <template>
-  <el-button @click="authenticate('google')">Login</el-button>
+  <div>
+    <el-button v-if="!isAuthenticated" @click="login({ provider:'google' })">Login</el-button>
+    <el-button v-if="isAuthenticated" @click="logout()">Logout</el-button>
+  </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Login",
   methods: {
-    botao: function() {
-      console.log("gela")
-    },
-    ...mapActions(["login"]),
-    authenticate(provider) {
-      this.login({ provider })
-    }
+    ...mapActions(["login", "logout"])
+  },
+  computed: {
+    ...mapGetters(["isAuthenticated"])
   }
 }
 </script>

@@ -6,6 +6,8 @@ import {
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
+const TOKEN_STORAGE = 'vue-authenticate.vueauth_token'
+
 Vue.use(VueAxios, axios)
 const http = axios.create({})
 
@@ -23,41 +25,34 @@ const vueAuth = new VueAuthenticate(http, {
 
 export default {
 
-  // You can use it as state property
   state: {
-    user: (() => jwt_decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwNzg2NzI5MDczNjUwMjc5NjEwOCIsImZpcnN0TmFtZSI6IkphaXIiLCJwaG90byI6Imh0dHBzOi8vbGg0Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tTEdxYXhTeW1GN1UvQUFBQUFBQUFBQUkvQUFBQUFBQUFBSUEvZ25NUzBqMVp1Tk0vcGhvdG8uanBnIiwiaWF0IjoxNTU0MzIyMjQzLCJleHAiOjE1NTY5MTQyNDN9.25GJaW4wX_IfxRbY-TEs09vrj_6IauuF9RPpdNrhKz0"))()
+    token: localStorage.getItem(TOKEN_STORAGE) || ''
   },
 
-  // You can use it as a state getter function (probably the best solution)
   getters: {
-    isAuthenticated() {
-      return vueAuth.isAuthenticated()
+    isAuthenticated: state =>{
+      return state.token != ''
     },
-    getToken() {
-      const token = localStorage.getItem('vue-authenticate.vueauth_token')
-      return token == null ? "" : token
+    getUser: state => { 
+      return state.token == '' ? null : jwt_decode(state.token)
     },
 
   },
-
-  // Mutation for when you use it as state property
   mutations: {
-    /* setAuthenticated(state, payload) {
-      state.isAuthenticated = payload
-    },
-    */
-    setUser(state, payload) {
-      state.user = payload
+    setToken(state, payload) {
+      state.token = payload
     }
   },
 
   actions: {
-
-    // Perform VueAuthenticate login using Vuex actions
-    login({ commit, state }, { provider }) {
+    login({ commit }, { provider }) {
       vueAuth.authenticate(provider).then((response) => {
-        commit('setUser', response.data.user)
+        commit('setToken', response.data.token)
       })
+    },
+    logout({ commit }) {
+      localStorage.removeItem(TOKEN_STORAGE)
+      commit('setToken', '')
     }
   }
 }
