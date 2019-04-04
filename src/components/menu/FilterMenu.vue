@@ -1,5 +1,6 @@
 <template>
   <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
+    <Login></Login>
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
@@ -58,7 +59,6 @@
         </el-checkbox-group>
       </el-submenu>
     </el-menu-item-group>
-    <Login></Login>
   </el-menu>
 </template>
 
