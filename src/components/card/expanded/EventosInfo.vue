@@ -60,7 +60,7 @@ export default {
           data: this.formatDate(eventoTram.data),
           dataDiff: this.formatDateDifference(eventoTram.data),
           sigla: eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local,
-          title: this.formatEventoTitle(eventoTram.evento),
+          title: eventoTram.titulo_evento,
           texto: this.formatTextoTramitacao(eventoTram.texto_tramitacao, index),
           collapsible: eventoTram.texto_tramitacao.length > this.MAX_TEXT_LENGTH
         }
@@ -108,10 +108,6 @@ export default {
       return textoTramitacao.length > this.MAX_TEXT_LENGTH && !this.isExpanded(key)
         ? `${textoTramitacao.substring(0, this.MAX_TEXT_LENGTH - 50)}... (+)`
         : textoTramitacao
-    },
-    formatEventoTitle (evento) {
-      let formattedEvento = evento.split('_').join(' ')
-      return formattedEvento === 'nan' ? '' : formattedEvento
     },
     toggleCollapseDescription (key) {
       if (!this.isExpanded(key)) {
