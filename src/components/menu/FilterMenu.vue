@@ -128,8 +128,8 @@ export default {
       'filtraEmPauta',
       'filtraNomeProposicao'
     ]),
-    botao: function() {
-      console.log("gela")
+    botao: function () {
+      console.log('gela')
     }
   }
 }
