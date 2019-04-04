@@ -127,10 +127,7 @@ export default {
     ...mapMutations([
       'filtraEmPauta',
       'filtraNomeProposicao'
-    ]),
-    botao: function () {
-      console.log('gela')
-    }
+    ])
   }
 }
 </script>

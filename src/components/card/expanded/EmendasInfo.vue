@@ -9,7 +9,6 @@
               <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
               <td><p>{{emenda.local}}</p></td>
               <td><p>{{emenda.autor}}</p></td>
-              <td><p>{{emenda.tamanho_pdf}} bytes</p></td>
             </tr>
         </table>
       </el-collapse-item>
