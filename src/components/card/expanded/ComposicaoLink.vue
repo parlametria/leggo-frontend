@@ -2,7 +2,7 @@
   <div class="status-bar">
     <span class="small-text-field">
       Desde {{ dataLocalAtual }} na(o)
-      <router-link v-if="hasComposicao" :to="linkComissao">{{ siglaComissao }}</router-link>
+      <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissao }}</router-link>
       <span v-else >{{ siglaComissao }}</span>
     </span>
   </div>
@@ -57,4 +57,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.link {
+    text-decoration: underline;
+}
 </style>
