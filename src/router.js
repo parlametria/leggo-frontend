@@ -4,6 +4,7 @@ import Proposicoes from '@/views/Proposicoes.vue'
 import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
+import Comissao from '@/views/Comissao.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 
 Vue.use(Router)
@@ -37,6 +38,12 @@ export default new Router({
       path: '/cases',
       name: 'cases',
       component: Cases
+    },
+    {
+      path: '/comissao/:casaComissao/:siglaComissao',
+      name: 'comissao',
+      component: Comissao,
+      props: true
     }
   ]
 })
