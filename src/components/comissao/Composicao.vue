@@ -1,23 +1,18 @@
 <template>
   <div>
-    <span v-if="pending.comissao">Carregando composição da comissão {{ siglaComissao }} </span>
-    <span v-else-if="error.comissao || !comissao ||comissao.length == 0" class="error">Não temos informações da composição dessa composição.</span>
-    <div class="composicao" v-else >
+    <div class="composicao" >
       <parlamentar-card :key="index" v-for="(parlamentar, index) in ordenedComissao" :parlamentar="parlamentar"/>
     </div>
   </div>
 </template>
 <script>
 import ParlamentarCard from '@/components/comissao/ParlamentarCard'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Composicao',
   props: {
     siglaComissao: {
-      type: String
-    },
-    casaComissao: {
       type: String
     }
   },
@@ -61,8 +56,7 @@ export default {
         }
       }
       return prioridade
-    },
-    ...mapActions(['getComissao'])
+    }
   },
   computed: {
     ordenedComissao () {
@@ -80,15 +74,11 @@ export default {
       })
       return result
     },
+    comissao () {
+      return this.orgao[this.siglaComissao].filter((parlamentar) => parlamentar.situacao === 'Titular')
+    },
     ...mapState({
-      comissao: state => state.comissoes.comissao.filter((parlamentar) => parlamentar.situacao === 'Titular'),
-      error: state => state.comissoes.error,
-      pending: state => state.comissoes.pending
-    })
-  },
-  async mounted () {
-    await this.getComissao({
-      params: { casa: this.casaComissao, sigla: this.siglaComissao }
+      orgao: state => state.comissoes.orgao
     })
   }
 }

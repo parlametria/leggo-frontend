@@ -16,9 +16,7 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
-          <div class="status-bar">
-            <span class="small-text-field">Desde {{ dataLocalAtual }} na(o) <router-link :to="linkComissao"> {{ localAtual }}</router-link></span>
-          </div>
+          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissao="localAtual" :casaComissao="prop.lastEtapa.casa"></composicao-link>
 
           <el-row>
             <el-col :span="12">
@@ -57,6 +55,7 @@ import TemperatureInfo from './expanded/temperature/TemperatureInfo'
 import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
+import ComposicaoLink from './expanded/ComposicaoLink'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -78,7 +77,8 @@ export default {
     TemperatureInfo,
     EventosInfo,
     EmendasInfo,
-    AuthorName
+    AuthorName,
+    ComposicaoLink
   },
   methods: {
     hasNumber: function (myString) {
@@ -100,12 +100,6 @@ export default {
         localAtual = 'Comissão Especial - ' + localAtual
       }
       return localAtual
-    },
-    linkComissao () {
-      return {
-        name: 'comissao',
-        params: { casaComissao: this.prop.lastEtapa.casa, siglaComissao: this.localAtual }
-      }
     },
     casa () {
       let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
