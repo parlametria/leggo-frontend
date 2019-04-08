@@ -9,7 +9,7 @@
         </td>
         <td>
           <div class="evento-title">
-            <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
+            <span>{{evento.titulo}}</span> - <a :href="`#${ evento.propId }`">{{evento.propName }}</a>
           </div>
           <div>
             {{evento.texto}}
@@ -49,6 +49,7 @@ export default {
             propId: evento.proposicao_id,
             texto: evento.texto_tramitacao,
             local: evento.sigla_local,
+            titulo: evento.titulo_evento,
             propName
           }
         })

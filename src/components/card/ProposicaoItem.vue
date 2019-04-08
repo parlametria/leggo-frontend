@@ -80,6 +80,11 @@ export default {
     EmendasInfo,
     AuthorName
   },
+  methods: {
+    hasNumber: function (myString) {
+      return /\d/.test(myString)
+    }
+  },
   computed: {
     emPauta () {
       return this.prop.lastEtapa.emPauta
@@ -91,7 +96,7 @@ export default {
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao
       let localAtual = locais[locais.length - 1].local
-      if (localAtual.startsWith('PL')) {
+      if (this.hasNumber(localAtual)) {
         localAtual = 'Comissão Especial - ' + localAtual
       }
       return localAtual
