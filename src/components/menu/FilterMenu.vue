@@ -1,6 +1,6 @@
 <template>
   <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
-    <Login></Login>
+    <Login />
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
