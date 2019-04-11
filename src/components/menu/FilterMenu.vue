@@ -1,5 +1,6 @@
 <template>
   <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
+    <Login />
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
@@ -64,6 +65,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
+import Login from '@/components/menu/Login'
 import store from '@/stores/store'
 
 function generateFilterModels () {
@@ -85,7 +87,8 @@ function generateFilterModels () {
 export default {
   name: 'FilterMenu',
   components: {
-    TemperatureSort
+    TemperatureSort,
+    Login
   },
   data () {
     let self = this

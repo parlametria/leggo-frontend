@@ -7,6 +7,7 @@ import temperaturasStore from './temperaturas'
 import eventosTramitacaoStore from './eventos_tramitacao'
 import emendasStore from './emendas'
 import comissoesStore from './comissoes'
+import authStore from './auth'
 
 Vue.use(Vuex)
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     temperaturas: temperaturasStore,
     eventosTramitacao: eventosTramitacaoStore,
     emendas: emendasStore,
-    comissoes: comissoesStore
+    comissoes: comissoesStore,
+    auth: authStore
   }
 })
