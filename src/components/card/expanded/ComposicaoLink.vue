@@ -2,8 +2,8 @@
   <div class="status-bar">
     <span class="small-text-field">
       Desde {{ dataLocalAtual }} na(o)
-      <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissao }}</router-link>
-      <span v-else >{{ siglaComissao }}</span>
+      <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissaoFront }}</router-link>
+      <span v-else >{{ siglaComissaoFront }}</span>
     </span>
   </div>
 </template>
@@ -13,7 +13,10 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'ComposicaoLink',
   props: {
-    siglaComissao: {
+    siglaComissaoLink: {
+      type: String
+    },
+    siglaComissaoFront: {
       type: String
     },
     casaComissao: {
@@ -37,7 +40,7 @@ export default {
         name: 'comissao',
         params: {
           casaComissao: this.casaComissao,
-          siglaComissao: this.siglaComissao
+          siglaComissao: this.siglaComissaoLink
         }
       }
     },
@@ -50,9 +53,10 @@ export default {
   },
   async mounted () {
     await this.getComissao({
-      params: { casa: this.casaComissao, sigla: this.siglaComissao }
+
+      params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
     })
-    this.composicao = this.orgao[this.siglaComissao]
+    this.composicao = this.orgao[this.siglaComissaoLink]
   }
 }
 </script>
