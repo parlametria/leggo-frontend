@@ -1,30 +1,52 @@
 <template>
-    <table class="emendas">
-        <tr>
-            <th>Coerência</th>
-            <th>Data de apresentação</th>
-            <th>Local de apresentação</th>
-            <th>Autor</th>
-            <th>Número</th>
-        </tr>
-        <tr v-for="(emenda, key) in emendas" :key="key">
-            <td><p>{{emenda.distancia}}</p></td>
-            <!--td><p>{{formatDate(emenda.data_apresentacao)}}</p></td-->
-            <td><p>{{emenda.local}}</p></td>
-            <td><p>{{emenda.autor}}</p></td>
-            <td><a :href="emenda.inteiro_teor" target="_blank">Emenda {{emenda.numero}}</a></td>
-        </tr>
-    </table>
+  <el-table
+    :data="emendas"
+    stripe
+    style="width: 100%">
+    <el-table-column
+      prop="distancia"
+      label="Coerência"
+      width="100">
+      <template slot-scope="scope">
+      {{ formatDistancia(scope.row.distancia) }}
+      </template>
+    </el-table-column>
+
+    <el-table-column
+      prop="local"
+      label="Local"
+      width="100">
+    </el-table-column>
+    <el-table-column
+      prop="autor"
+      label="Autor"
+      width="100">
+    </el-table-column>
+    <el-table-column
+      prop="numero"
+      label="Numero"
+      width="120">
+      <template slot-scope="scope">
+        <a :href="scope.row.inteiro_teor" target="_blank">{{ scope.row.numero }}</a>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
+import _ from 'lodash'
 
 export default {
   name: 'EmendasTabContent',
   props: {
     emendas: Array
+  },
+  methods: {
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY')
+    },
+    formatDistancia: (distancia) => _.ceil(distancia, 2)
   }
 }
 </script>

@@ -12,7 +12,7 @@
                <emendas-tab-content :emendas='getSemelhantes'/>
             </el-tab-pane>
           </el-tabs>
-        
+
       </el-collapse-item>
     </el-collapse>
 </template>
@@ -61,14 +61,14 @@ export default {
       }
     },
     orderedEmendas () {
-      return this.emendas[this.id].sort((a,b) => b.distancia - a.distancia)
+      const result = this.emendas[this.id]
+      return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
-      return _.take(this.orderedEmendas, _.ceil(this.orderedEmendas.length / 2))
+      return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
     },
     getSemelhantes () {
-      console.log(_.ceil(this.orderedEmendas.length / 2))
-      return _.reverse(_.takeRight(this.orderedEmendas, _.ceil(this.orderedEmendas.length / 2)))
+      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2))))
     }
   },
   methods: {
