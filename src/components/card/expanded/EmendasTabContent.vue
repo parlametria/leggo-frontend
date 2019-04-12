@@ -5,8 +5,7 @@
     style="width: 100%">
     <el-table-column
       prop="distancia"
-      label="Coerência"
-      width="100">
+      label="Coerência">
       <template slot-scope="scope">
       {{ formatDistancia(scope.row.distancia) }}
       </template>
@@ -14,18 +13,15 @@
 
     <el-table-column
       prop="local"
-      label="Local"
-      width="100">
+      label="Local">
     </el-table-column>
     <el-table-column
       prop="autor"
-      label="Autor"
-      width="100">
+      label="Autor">
     </el-table-column>
     <el-table-column
       prop="numero"
-      label="Numero"
-      width="120">
+      label="Numero">
       <template slot-scope="scope">
         <a :href="scope.row.inteiro_teor" target="_blank">{{ scope.row.numero }}</a>
       </template>
