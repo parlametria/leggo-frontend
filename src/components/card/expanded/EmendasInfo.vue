@@ -5,11 +5,19 @@
           <span class="title">Últimas Emendas</span>
         </template>
         <table class="emendas">
+            <tr>
+              <th>Coerência</th>
+              <th>Data de apresentação</th>
+              <th>Local de apresentação</th>
+              <th>Autor</th>
+              <th>Número</th>
+            </tr>
             <tr v-for="(emenda, key) in propEmendas.slice(0, 3)" :key="key">
+              <td><p>{{emenda.distancia}}</p></td>
               <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
               <td><p>{{emenda.local}}</p></td>
               <td><p>{{emenda.autor}}</p></td>
-              <td><a :href="emenda.inteiro_teor" target="_blank">Emenda /{{emenda.numero}}</a></td>
+              <td><a :href="emenda.inteiro_teor" target="_blank">Emenda {{emenda.numero}}</a></td>
             </tr>
         </table>
       </el-collapse-item>
