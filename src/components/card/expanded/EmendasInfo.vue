@@ -9,6 +9,7 @@
               <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
               <td><p>{{emenda.local}}</p></td>
               <td><p>{{emenda.autor}}</p></td>
+              <td><a :href="emenda.inteiro_teor" target="_blank">Emenda /{{emenda.numero}}</a></td>
             </tr>
         </table>
       </el-collapse-item>
