@@ -4,13 +4,15 @@
         <template slot="title">
           <span class="title">Últimas Emendas</span>
         </template>
-        <table class="emendas">
-            <tr v-for="(emenda, key) in propEmendas.slice(0, 3)" :key="key">
-              <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
-              <td><p>{{emenda.local}}</p></td>
-              <td><p>{{emenda.autor}}</p></td>
-            </tr>
-        </table>
+          <el-tabs>
+            <el-tab-pane label="Mais Discrepantes">
+              <emendas-tab-content :emendas='getDiscrepantes'/>
+            </el-tab-pane>
+            <el-tab-pane label="Mais Semelhantes">
+               <emendas-tab-content :emendas='getSemelhantes'/>
+            </el-tab-pane>
+          </el-tabs>
+
       </el-collapse-item>
     </el-collapse>
 </template>
@@ -18,9 +20,14 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
+import _ from 'lodash'
+import EmendasTabContent from './EmendasTabContent'
 
 export default {
   name: 'EmendasInfo',
+  components: {
+    EmendasTabContent
+  },
   props: {
     id: Number,
     casa: String,
@@ -52,6 +59,16 @@ export default {
           dataFim: this.formattedDate
         }
       }
+    },
+    orderedEmendas () {
+      const result = this.emendas[this.id]
+      return result.sort((a, b) => b.distancia - a.distancia)
+    },
+    getDiscrepantes () {
+      return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
+    },
+    getSemelhantes () {
+      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2))))
     }
   },
   methods: {
