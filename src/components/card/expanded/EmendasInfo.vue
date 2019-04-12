@@ -4,22 +4,15 @@
         <template slot="title">
           <span class="title">Últimas Emendas</span>
         </template>
-        <table class="emendas">
-            <tr>
-              <th>Coerência</th>
-              <th>Data de apresentação</th>
-              <th>Local de apresentação</th>
-              <th>Autor</th>
-              <th>Número</th>
-            </tr>
-            <tr v-for="(emenda, key) in propEmendas.slice(0, 3)" :key="key">
-              <td><p>{{emenda.distancia}}</p></td>
-              <td><p>{{formatDate(emenda.data_apresentacao)}}</p></td>
-              <td><p>{{emenda.local}}</p></td>
-              <td><p>{{emenda.autor}}</p></td>
-              <td><a :href="emenda.inteiro_teor" target="_blank">Emenda {{emenda.numero}}</a></td>
-            </tr>
-        </table>
+          <el-tabs>
+            <el-tab-pane label="Mais Discrepantes">
+              <emendas-tab-content :emendas='getDiscrepantes'/>
+            </el-tab-pane>
+            <el-tab-pane label="Mais Semelhantes">
+               <emendas-tab-content :emendas='getSemelhantes'/>
+            </el-tab-pane>
+          </el-tabs>
+        
       </el-collapse-item>
     </el-collapse>
 </template>
@@ -27,9 +20,14 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
+import _ from 'lodash'
+import EmendasTabContent from './EmendasTabContent'
 
 export default {
   name: 'EmendasInfo',
+  components: {
+    EmendasTabContent
+  },
   props: {
     id: Number,
     casa: String,
@@ -61,6 +59,16 @@ export default {
           dataFim: this.formattedDate
         }
       }
+    },
+    orderedEmendas () {
+      return this.emendas[this.id].sort((a,b) => b.distancia - a.distancia)
+    },
+    getDiscrepantes () {
+      return _.take(this.orderedEmendas, _.ceil(this.orderedEmendas.length / 2))
+    },
+    getSemelhantes () {
+      console.log(_.ceil(this.orderedEmendas.length / 2))
+      return _.reverse(_.takeRight(this.orderedEmendas, _.ceil(this.orderedEmendas.length / 2)))
     }
   },
   methods: {
