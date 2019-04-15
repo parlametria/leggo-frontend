@@ -1,14 +1,14 @@
 <template>
-    <el-collapse v-if="propEmendas && propEmendas.length">
+    <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Últimas Emendas</span>
+          <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
         </template>
           <el-tabs>
-            <el-tab-pane label="Mais Discrepantes">
+            <el-tab-pane label="Mudanças Mais Evidentes">
               <emendas-tab-content :emendas='getDiscrepantes'/>
             </el-tab-pane>
-            <el-tab-pane label="Mais Semelhantes">
+            <el-tab-pane label="Mudanças Mais Sutis">
                <emendas-tab-content :emendas='getSemelhantes'/>
             </el-tab-pane>
           </el-tabs>
@@ -69,6 +69,13 @@ export default {
     },
     getSemelhantes () {
       return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2))))
+    },
+    verificaSeMostraEmendas () {
+      if (this.propEmendas && this.propEmendas.length) {
+        return this.orderedEmendas[0].distancia !== 0
+      } else {
+        return false
+      }
     }
   },
   methods: {
