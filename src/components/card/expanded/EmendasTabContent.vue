@@ -6,7 +6,7 @@
     <el-table-column
       label="Emenda">
       <template slot-scope="scope">
-        <a :href="scope.row.inteiro_teor" target="_blank">{{ scope.row.titulo }}</a>
+        <a :href="scope.row.inteiro_teor+'&disposition=inline'" target="_blank">{{ scope.row.titulo }}</a>
       </template>
     </el-table-column>
     <el-table-column
