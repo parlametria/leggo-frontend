@@ -4,12 +4,11 @@
         <template slot="title">
           <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
         </template>
-        <span class="title">Mudanças</span>
           <el-tabs>
-            <el-tab-pane label="Mais Visíveis">
+            <el-tab-pane label="Mudanças Mais Evidentes">
               <emendas-tab-content :emendas='getDiscrepantes'/>
             </el-tab-pane>
-            <el-tab-pane label="Mais Sutis">
+            <el-tab-pane label="Mudanças Mais Sutis">
                <emendas-tab-content :emendas='getSemelhantes'/>
             </el-tab-pane>
           </el-tabs>
