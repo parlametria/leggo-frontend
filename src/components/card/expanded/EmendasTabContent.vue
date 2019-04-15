@@ -10,13 +10,6 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="distancia"
-      label="Coerência">
-      <template slot-scope="scope">
-      {{ formatDistancia(scope.row.distancia) }}
-      </template>
-    </el-table-column>
-    <el-table-column
       prop="autor"
       label="Autor">
     </el-table-column>
@@ -29,7 +22,6 @@
 
 <script>
 import moment from 'moment'
-import _ from 'lodash'
 
 export default {
   name: 'EmendasTabContent',
@@ -39,8 +31,7 @@ export default {
   methods: {
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
-    },
-    formatDistancia: (distancia) => _.ceil(distancia, 2)
+    }
   }
 }
 </script>
