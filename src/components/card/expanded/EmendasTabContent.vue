@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 
 export default {
   name: 'EmendasTabContent',
@@ -32,7 +31,7 @@ export default {
   },
   methods: {
     corrigePartidoAutor (autor) {
-      return autor.replace("/NA", "")
+      return autor.replace('/NA', '')
     }
   }
 }
