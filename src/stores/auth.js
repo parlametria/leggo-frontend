@@ -16,12 +16,12 @@ const vueAuth = new VueAuthenticate(http, {
   providers: {
     google: {
       clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
-      url: `${process.env.VUE_APP_AUTH_API_URL}api/auth/googleCode`,
+      url: `${process.env.VUE_APP_AUTH_API_URL}/api/auth/googleCode`,
       redirectUri: window.location.origin
     },
     facebook: {
       clientId: process.env.VUE_APP_FACEBOOK_CLIENT_ID,
-      url: `${process.env.VUE_APP_AUTH_API_URL}api/auth/facebookCode`,
+      url: `${process.env.VUE_APP_AUTH_API_URL}/api/auth/facebookCode`,
       redirectUri: window.location.origin
     }
   }
