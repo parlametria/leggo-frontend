@@ -2,8 +2,9 @@
     <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Análise das Emendas</span>
+          <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
         </template>
+        <span class="title">Mudanças</span>
           <el-tabs>
             <el-tab-pane label="Mais Visíveis">
               <emendas-tab-content :emendas='getDiscrepantes'/>
