@@ -105,7 +105,8 @@ export default {
       let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
       let casaOrigem = (this.prop.lastEtapa.casa_origem)
       let casa = ''
-      if (autores[0] === 'Poder Executivo') {
+      console.log(autores[0])
+      if (autores[0] === 'Poder Executivo' || autores[0].trim() === 'Presidência da República') {
         casa = ''
       } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
         casa = 'Senado Federal'
