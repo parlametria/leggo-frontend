@@ -10,8 +10,10 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="autor"
       label="Autor">
+      <template slot-scope="scope">
+      {{ corrigePartidoAutor(scope.row.autor) }}
+      </template>
     </el-table-column>
     <el-table-column
       prop="local"
@@ -21,7 +23,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 
 export default {
   name: 'EmendasTabContent',
@@ -29,8 +30,8 @@ export default {
     emendas: Array
   },
   methods: {
-    formatDate (date) {
-      return moment(date).format('DD/MM/YYYY')
+    corrigePartidoAutor (autor) {
+      return autor.replace('/NA', '')
     }
   }
 }
