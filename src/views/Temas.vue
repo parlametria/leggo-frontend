@@ -2,15 +2,16 @@
   <div>
     <div class="container-tema">
       <h4 class="text-center">Quais temas você tem mais interesse?</h4>
-      <div class="row gutters-sm mt-4">
-        <div v-for="(tema,i) in this.temas" :key="i" class="col-6 col-md-4 col-lg-3">
-          <button class="tema-btn">{{tema}}</button>
+      <div class="gutters-sm">
+        <div v-for="(tema,i) in this.temas" :key="i" class="col">
+          <button class="tema-btn icon-meio-ambiente" icon="meio-ambiente">{{tema}}</button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+
 export default {
   name: "Tema",
   computed: {
@@ -23,9 +24,25 @@ export default {
 <style lang="scss" scoped>
 .container-tema {
   align-items: center;
+  font-family: icomoon;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('../assets/fonts/icomoon.woff') format('woff'),
+        url('../assets/fonts/icomoon.svg') format('svg'),
+        url('../assets/fonts/icomoon.ttf') format('truetype'),
+        url('../assets/fonts/icomoon.eot') format('embedded-opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+.icon-meio-ambiente:before {
+  content: "\e900";
 }
 
 .tema-btn {
+  padding: 1rem;
   background-color: white;
   width: 100%;
   height: 100%;
@@ -40,11 +57,13 @@ export default {
 }
 
 .gutters-sm {
-    margin-right: -5px;
-  margin-left: -5px;
   display: flex;
   flex-direction: row;
-   flex-wrap: wrap;
-   justify-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.col {
+  margin: 0.3rem;
 }
 </style>
