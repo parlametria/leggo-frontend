@@ -70,7 +70,7 @@ export default {
     composicaoCompleta () {
       return this.ordenedComissao.map((parlamentar) => {
         let cpf = this.parlamentares[parlamentar.id_parlamentar]
-        parlamentar['cpf'] = cpf == undefined ? '': cpf
+        parlamentar['cpf'] = cpf === undefined ? '' : cpf
         return parlamentar
       })
     },
