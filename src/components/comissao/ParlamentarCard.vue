@@ -1,14 +1,18 @@
 <template>
     <div class="card" v-if="parlamentarValido()">
       <header class="header">
-        <img :src="parlamentar.foto" alt="Foto do parlamentar" class="img" @error="replacePhotoToDefault">
+        <img :src="parlamentar.foto" alt="Foto do parlamentar" class="foto" @error="replacePhotoToDefault">
       </header>
       <div class="content">
         <div class="info">
           <span v-if="campoValido(parlamentar.cargo)" class="cargo">{{ parlamentar.cargo }}</span>
           <span v-else class="cargo">TITULAR</span>
         </div>
-        <span><b>{{ parlamentar.nome }}</b></span>
+        <span>
+          <b>{{ parlamentar.nome }}</b>
+          <a v-if="parlamentar.cpf" :href="'http://www.vozativa.org/parlamentar/' + parlamentar.cpf" target="_blank"><img src="@/assets/vozativa.png" alt="ícone do Voz Ativa" class="icon">
+          </a>
+        </span>
         <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
       </div>
     </div>
@@ -53,7 +57,6 @@ export default {
   flex-flow: column nowrap;
   align-items: stretch;
   justify-content: space-between;
-
 }
 .partido {
   font-size: 10pt;
@@ -73,10 +76,13 @@ export default {
   min-width: 0;
   margin: 5px;
 }
-
-.img {
+.foto {
   width: 100px;
   max-width: 100%;
   max-height: 450px;
+}
+.icon {
+  width: 20px;
+  height: 20px;
 }
 </style>

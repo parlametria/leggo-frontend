@@ -1,7 +1,8 @@
 import Vapi from 'vuex-rest-api'
+import axios from './axios'
 
 const comissao = new Vapi({
-  baseURL: process.env.VUE_APP_API_URL,
+  axios: axios,
   state: {
     orgao: {}
   } }).get({

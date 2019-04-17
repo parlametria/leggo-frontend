@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
+import axios from './axios'
 
 const emendas = new Vapi({
-  baseURL: process.env.VUE_APP_API_URL,
+  axios: axios,
   state: {
     emendasDict: {}
   } }).get({

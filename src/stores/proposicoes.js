@@ -3,9 +3,10 @@ import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import temps from './temperaturas'
 import pautas from './pautas'
+import axios from './axios'
 
 const proposicoes = new Vapi({
-  baseURL: process.env.VUE_APP_API_URL,
+  axios: axios,
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
