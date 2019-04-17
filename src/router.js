@@ -6,6 +6,7 @@ import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
+import Temas from '@/views/Temas.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       name: 'comissao',
       component: Comissao,
       props: true
+    },
+    {
+      path: '/temas',
+      name: 'temas',
+      component: Temas
     }
   ]
 })
