@@ -14,7 +14,7 @@ const parlamentar = {
   actions: {
     getParlamentarCpf ({ commit }) {
       axios.create({
-        baseURL: 'https://voz-ativa.herokuapp.com/'
+        baseURL: process.env.VUE_APP_API_VOZ_ATIVA
       }).get('api/parlamentares/mapeamento-cpf').then((response) => {
         commit('setParlamentares', response.data)
       })
