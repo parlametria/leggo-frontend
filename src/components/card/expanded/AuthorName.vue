@@ -10,9 +10,11 @@
                 <span class="authors">{{formatTooltip(normalizedAuthor)}}</span>
          </el-popover>
 
-        <div v-else class="author">
-            {{normalizedAuthor}} <span class="casa"> {{ casa }} </span>
+        <div v-else class="author" v-for="(autor, i) in author" :key="i">
+          {{autor}} <span class="casa"> {{ casa }} </span>
         </div>
+        
+        
     </div>
 </template>
 
@@ -21,7 +23,7 @@ export default {
   name: 'AuthorName',
   props: {
     author: {
-      type: String,
+      type: Array,
       default: 'Autor não encontrado',
       validator: value => {
         return value != null
@@ -36,8 +38,7 @@ export default {
   },
   methods: {
     removeCasa (author) {
-      author = author.split(' - ')
-      return author.pop()
+      return author
     },
     containsMoreThanOneAuthor () {
       if (this.normalizedAuthor.includes(', ')) { return true }
