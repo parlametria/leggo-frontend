@@ -20,9 +20,8 @@
 
           <el-row>
             <el-col :span="12">
-              <p class="small-text-field small-margin-top">Autor</p>
-              <author-name :author="prop.lastEtapa.autor_nome" :casa="casa"/>
-
+              <p class="small-text-field small-margin-top">Autor(es)</p>
+              <author-name :author="prop.lastEtapa.autores" :casa="casa"/>
               <p class="small-text-field small-margin-top">Relator(a)</p>
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
             </el-col>
@@ -102,10 +101,10 @@ export default {
       return localAtual
     },
     casa () {
-      let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
+      let autores = (this.prop.lastEtapa.autores)
       let casaOrigem = (this.prop.lastEtapa.casa_origem)
       let casa = ''
-      if (autores[0] === 'Poder Executivo') {
+      if (autores === 'Poder Executivo') {
         casa = ''
       } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
         casa = 'Senado Federal'
