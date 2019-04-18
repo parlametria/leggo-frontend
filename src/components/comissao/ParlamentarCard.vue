@@ -9,9 +9,16 @@
           <span v-else class="cargo">TITULAR</span>
         </div>
         <span>
-          <b>{{ parlamentar.nome }}</b>
-          <a v-if="parlamentar.cpf" :href="'http://www.vozativa.org/parlamentar/' + parlamentar.cpf" target="_blank"><img src="@/assets/vozativa.png" alt="ícone do Voz Ativa" class="icon">
+          <a v-if="parlamentar.cpf"
+            :href="parlamentar.cpf | linkFilter"
+            target="_blank"
+            class="link"
+          >
+            <b>{{ parlamentar.nome }}</b>
           </a>
+          <b v-else>
+            {{ parlamentar.nome }}
+          </b>
         </span>
         <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
       </div>
@@ -23,6 +30,11 @@ export default {
   props: {
     parlamentar: {
       type: Object
+    }
+  },
+  filters: {
+    linkFilter (cpf) {
+      return `${process.env.VUE_APP_VOZ_ATIVA}parlamentar/${cpf}`
     }
   },
   methods: {
@@ -84,5 +96,12 @@ export default {
 .icon {
   width: 20px;
   height: 20px;
+}
+.link {
+  text-decoration: underline;
+  color: #AA67AE;
+}
+.link:hover {
+  color: #22BE86;
 }
 </style>

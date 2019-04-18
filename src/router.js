@@ -7,6 +7,7 @@ import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 import store from '@/stores/store'
+import NProgress from 'nprogress'
 
 Vue.use(Router)
 
@@ -46,8 +47,14 @@ export default new Router({
       component: Comissao,
       props: true,
       beforeEnter: (to, from, next) => {
-        store.dispatch('getParlamentarCpf')
-        next()
+        NProgress.start()
+        store.dispatch('getParlamentarCpf').then(() => {
+          NProgress.done()
+          next()
+        }).catch(() => {
+          NProgress.done()
+          next()
+        })
       }
     }
   ]
