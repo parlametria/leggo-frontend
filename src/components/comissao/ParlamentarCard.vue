@@ -34,7 +34,7 @@ export default {
   },
   filters: {
     linkFilter (cpf) {
-      return `${process.env.VUE_APP_VOZ_ATIVA}parlamentar/${cpf}`
+      return `${process.env.VUE_APP_VOZ_ATIVA}/parlamentar/${cpf}`
     }
   },
   methods: {

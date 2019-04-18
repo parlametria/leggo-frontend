@@ -51,9 +51,6 @@ export default new Router({
         store.dispatch('getParlamentarCpf').then(() => {
           NProgress.done()
           next()
-        }).catch(() => {
-          NProgress.done()
-          next()
         })
       }
     }

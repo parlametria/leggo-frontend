@@ -12,10 +12,10 @@ const parlamentar = {
     }
   },
   actions: {
-    getParlamentarCpf ({ commit }) {
-      axios.create({
+    async getParlamentarCpf ({ commit }) {
+      await axios.create({
         baseURL: process.env.VUE_APP_API_VOZ_ATIVA
-      }).get('api/parlamentares/mapeamento-cpf').then((response) => {
+      }).get('/api/parlamentares/mapeamento-cpf').then((response) => {
         commit('setParlamentares', response.data)
       })
     }

@@ -10,15 +10,10 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="distancia"
-      label="Coerência">
-      <template slot-scope="scope">
-      {{ formatDistancia(scope.row.distancia) }}
-      </template>
-    </el-table-column>
-    <el-table-column
-      prop="autor"
       label="Autor">
+      <template slot-scope="scope">
+      {{ corrigePartidoAutor(scope.row.autor) }}
+      </template>
     </el-table-column>
     <el-table-column
       prop="local"
@@ -28,8 +23,6 @@
 </template>
 
 <script>
-import moment from 'moment'
-import _ from 'lodash'
 
 export default {
   name: 'EmendasTabContent',
@@ -37,10 +30,9 @@ export default {
     emendas: Array
   },
   methods: {
-    formatDate (date) {
-      return moment(date).format('DD/MM/YYYY')
-    },
-    formatDistancia: (distancia) => _.ceil(distancia, 2)
+    corrigePartidoAutor (autor) {
+      return autor.replace('/NA', '')
+    }
   }
 }
 </script>
