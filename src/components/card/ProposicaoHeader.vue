@@ -4,7 +4,7 @@
       <pauta-tag :id="prop.lastEtapa.id"/>
       <arquivada-tag :status="prop.lastEtapa.status"/>
     </div>
-    <div class="tema"><span class="tag">{{prop.tema}}</span></div>
+    <temas :temas="prop.temas"/>
     <div>
       <span class="prop-apelido">{{prop.lastEtapa.sigla}} - {{prop .apelido}}</span>
       <i class="arrow" :class="{'arrow-down': clicked}"></i>
@@ -25,6 +25,7 @@ import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
 import PautaTag from './collapsed/PautaTag'
 import ArquivadaTag from './collapsed/ArquivadaTag'
+import Temas from './collapsed/Temas.vue'
 
 export default {
   name: 'proposicaoheader',
@@ -38,7 +39,8 @@ export default {
     Fases,
     TemperatureBar,
     PautaTag,
-    ArquivadaTag
+    ArquivadaTag,
+    Temas
   }
 }
 </script>
