@@ -11,9 +11,9 @@
          </el-popover>
 
         <div v-else class="author" v-for="(autor, i) in author" :key="i">
-          {{autor}} <span class="casa"> {{ casa }} </span>
+          {{autor}} 
         </div>
-        
+
         
     </div>
 </template>
