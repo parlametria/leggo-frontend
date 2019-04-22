@@ -48,7 +48,7 @@ export default new Router({
       props: true,
       beforeEnter: async ({ params }, from, next) => {
         NProgress.start()
-        if(store.state.comissoes.orgao[params.siglaComissao] === undefined) {
+        if (store.state.comissoes.orgao[params.siglaComissao] === undefined) {
           await store.dispatch('getComissao', {
             params: {
               sigla: params.siglaComissao,
