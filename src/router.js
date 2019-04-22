@@ -46,12 +46,19 @@ export default new Router({
       name: 'comissao',
       component: Comissao,
       props: true,
-      beforeEnter: (to, from, next) => {
+      beforeEnter: async ({ params }, from, next) => {
         NProgress.start()
-        store.dispatch('getParlamentarCpf').then(() => {
-          NProgress.done()
-          next()
-        })
+        if(store.state.comissoes.orgao[params.siglaComissao] === undefined) {
+          await store.dispatch('getComissao', {
+            params: {
+              sigla: params.siglaComissao,
+              casa: params.casaComissao
+            }
+          })
+        }
+        await store.dispatch('getParlamentarCpf')
+        NProgress.done()
+        next()
       }
     }
   ]
