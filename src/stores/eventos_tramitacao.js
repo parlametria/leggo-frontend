@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
+import axios from './axios'
 
 const eventosTramitacao = new Vapi({
+  axios: axios,
   baseURL: process.env.VUE_APP_API_URL,
   state: {
     eventosDict: {},

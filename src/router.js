@@ -6,6 +6,8 @@ import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
+import store from '@/stores/store'
+import NProgress from 'nprogress'
 
 Vue.use(Router)
 
@@ -43,7 +45,14 @@ export default new Router({
       path: '/comissao/:casaComissao/:siglaComissao',
       name: 'comissao',
       component: Comissao,
-      props: true
+      props: true,
+      beforeEnter: (to, from, next) => {
+        NProgress.start()
+        store.dispatch('getParlamentarCpf').then(() => {
+          NProgress.done()
+          next()
+        })
+      }
     }
   ]
 })

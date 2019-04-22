@@ -1,14 +1,25 @@
 <template>
     <div class="card" v-if="parlamentarValido()">
       <header class="header">
-        <img :src="parlamentar.foto" alt="Foto do parlamentar" class="img" @error="replacePhotoToDefault">
+        <img :src="parlamentar.foto" alt="Foto do parlamentar" class="foto" @error="replacePhotoToDefault">
       </header>
       <div class="content">
         <div class="info">
           <span v-if="campoValido(parlamentar.cargo)" class="cargo">{{ parlamentar.cargo }}</span>
           <span v-else class="cargo">TITULAR</span>
         </div>
-        <span><b>{{ parlamentar.nome }}</b></span>
+        <span>
+          <a v-if="parlamentar.cpf"
+            :href="parlamentar.cpf | linkFilter"
+            target="_blank"
+            class="link"
+          >
+            <b>{{ parlamentar.nome }}</b>
+          </a>
+          <b v-else>
+            {{ parlamentar.nome }}
+          </b>
+        </span>
         <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
       </div>
     </div>
@@ -19,6 +30,11 @@ export default {
   props: {
     parlamentar: {
       type: Object
+    }
+  },
+  filters: {
+    linkFilter (cpf) {
+      return `${process.env.VUE_APP_VOZ_ATIVA}/parlamentar/${cpf}`
     }
   },
   methods: {
@@ -53,7 +69,6 @@ export default {
   flex-flow: column nowrap;
   align-items: stretch;
   justify-content: space-between;
-
 }
 .partido {
   font-size: 10pt;
@@ -73,10 +88,20 @@ export default {
   min-width: 0;
   margin: 5px;
 }
-
-.img {
+.foto {
   width: 100px;
   max-width: 100%;
   max-height: 450px;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+}
+.link {
+  text-decoration: underline;
+  color: #AA67AE;
+}
+.link:hover {
+  color: #22BE86;
 }
 </style>
