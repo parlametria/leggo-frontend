@@ -6,9 +6,11 @@
         </template>
           <el-tabs>
             <el-tab-pane label="Mudanças Mais Aparentes">
+              <span>Top-5 Emendas cujas mudanças propostas ao texto original são <span style="color:#dc6060">Mais Aparentes</span>.</span>
               <emendas-tab-content :emendas='getDiscrepantes'/>
             </el-tab-pane>
             <el-tab-pane label="Mudanças Mais Sutis">
+              <span>Top-5 Emendas cujas mudanças propostas ao texto original são <span style="color:#dc6060">Mais Sutis</span>.</span>
                <emendas-tab-content :emendas='getSemelhantes'/>
             </el-tab-pane>
           </el-tabs>
