@@ -54,6 +54,14 @@ export default {
           prioridade = 1
           break
         }
+        case 'RELATOR': {
+          prioridade = 1
+          break
+        }
+        case 'RELATOR REVISOR': {
+          prioridade = 1
+          break
+        }
       }
       return prioridade
     }
