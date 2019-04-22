@@ -5,7 +5,7 @@
           <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
         </template>
           <el-tabs>
-            <el-tab-pane label="Mudanças Mais Evidentes">
+            <el-tab-pane label="Mudanças Mais Aparentes">
               <emendas-tab-content :emendas='getDiscrepantes'/>
             </el-tab-pane>
             <el-tab-pane label="Mudanças Mais Sutis">
