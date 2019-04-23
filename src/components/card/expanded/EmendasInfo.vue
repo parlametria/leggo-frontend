@@ -2,17 +2,16 @@
     <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Análise das Emendas</span>
+          <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
         </template>
           <el-tabs>
-            <el-tab-pane label="Mais Visíveis">
-              <emendas-tab-content :emendas='getDiscrepantes'/>
+            <el-tab-pane label="Mudanças Mais Aparentes">
+              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
             </el-tab-pane>
-            <el-tab-pane label="Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes'/>
+            <el-tab-pane label="Mudanças Mais Sutis">
+               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'"/>
             </el-tab-pane>
           </el-tabs>
-
       </el-collapse-item>
     </el-collapse>
 </template>
@@ -72,7 +71,7 @@ export default {
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0].distancia !== 0
+        return this.orderedEmendas[0].distancia !== -1
       } else {
         return false
       }

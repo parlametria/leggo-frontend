@@ -5,6 +5,7 @@ import router from '@/router'
 import store from '@/stores/store'
 import './plugins/element.js'
 import VModal from 'vue-js-modal'
+import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 
