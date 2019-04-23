@@ -6,10 +6,10 @@
         </template>
           <el-tabs>
             <el-tab-pane label="Mudanças Mais Aparentes">
-              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'Aparentes'"/>
+              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
             </el-tab-pane>
             <el-tab-pane label="Mudanças Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes' :categoria="'Sutis'"/>
+               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'"/>
             </el-tab-pane>
           </el-tabs>
       </el-collapse-item>
