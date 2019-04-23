@@ -1,4 +1,5 @@
-<template>        
+<template>
+
         <div>
           <el-popover
             width="200"
@@ -8,7 +9,8 @@
             <span class="author" v-for="(autor, i) in author" :key="i">
               <h5>{{autor}} </h5>
             </span>
-          </el-popover> 
+          </el-popover>
+
         </div>
 </template>
 
@@ -17,7 +19,7 @@ export default {
   name: 'AuthorName',
   props: {
     author: {
-      type: Array,
+      type: String,
       default: 'Autor não encontrado',
       validator: value => {
         return value != null
