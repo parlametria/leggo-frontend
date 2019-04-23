@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>Top-{{ emendas.length }} Emendas cujas propostas de mudança do texto original são <span style="color:#dc6060">Mais {{categoria}}</span>.</span>
+    <span class="explicacao_emendas">Essas são as {{ emendas.length }} emendas que propõem mudanças mais {{categoria}}.</span>
     <el-table
       :data="emendas"
       stripe
@@ -53,5 +53,8 @@ table {
 th, td {
     padding: .5rem;
     text-align: left;
+}
+.explicacao_emendas {
+    color: #999;
 }
 </style>
