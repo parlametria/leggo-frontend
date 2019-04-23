@@ -4,7 +4,7 @@
       <pauta-tag :id="prop.lastEtapa.id"/>
       <arquivada-tag :status="prop.lastEtapa.status"/>
     </div>
-    <temas :temas="prop.temas"/>
+    <temas :temas="prop.tema"/>
     <div>
       <span class="prop-apelido">{{prop.lastEtapa.sigla}} - {{prop .apelido}}</span>
       <i class="arrow" :class="{'arrow-down': clicked}"></i>
