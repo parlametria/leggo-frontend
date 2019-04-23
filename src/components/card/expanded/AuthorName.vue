@@ -1,21 +1,14 @@
-<template>
-    <div>
-        <el-popover
-            v-if="containsMoreThanOneAuthor()"
+<template>        
+        <div>
+          <el-popover
             width="200"
             placement="right-start"
             trigger="hover">
-                <span slot="reference" class="tooltip">Vários...</span>
-                Autores <br/>
-                <span class="authors">{{formatTooltip(normalizedAuthor)}}</span>
-         </el-popover>
-
-        <div v-else class="author" v-for="(autor, i) in author" :key="i">
-          {{autor}} 
+            <span slot="reference" class="small-text-field small-margin-top">Autor(es)</span>
+            <span class="author" v-for="(autor, i) in author" :key="i">
+              <h5>{{autor}} </h5></span>
+          </el-popover> 
         </div>
-
-        
-    </div>
 </template>
 
 <script>
