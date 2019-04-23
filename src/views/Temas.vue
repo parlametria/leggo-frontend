@@ -4,9 +4,19 @@
       <h4 class="text-center">Quais temas você tem mais interesse?</h4>
       <div class="gutters-sm">
         <div v-for="(tema,i) in this.temas" :key="i" class="col">
-          <button class="tema-btn icon-meio-ambiente" icon="meio-ambiente">{{tema}}</button>
+          <button class="tema-btn">
+            <span class="icon-".concat(tema)></span>
+          <p>{{tema}}</p>
+          </button>
         </div>
       </div>
+    </div>
+        <div class="text-center">
+      <button
+        class="btn btn-primary"
+      >
+        Dar minha opinião
+      </button>
     </div>
   </div>
 </template>
@@ -16,29 +26,60 @@ export default {
   name: "Tema",
   computed: {
     temas() {
-      return ["Meio Ambiente", "Direitos Humanos", "Educação", "Agenda Governo", "Integridade e Transparência"];
+      return ["meio-ambiente", "direitos-humanos", "educacao", "agenda-nacional", "transparencia"];
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
-.container-tema {
-  align-items: center;
-  font-family: icomoon;
-}
 
 @font-face {
   font-family: 'icomoon';
-  src: url('../assets/fonts/icomoon.woff') format('woff'),
-        url('../assets/fonts/icomoon.svg') format('svg'),
-        url('../assets/fonts/icomoon.ttf') format('truetype'),
-        url('../assets/fonts/icomoon.eot') format('embedded-opentype');
-  font-weight: bold;
+  src:  url('../assets/fonts/icomoon.eot');
+  src:  url('../assets/fonts/icomoon.eot#iefix') format('embedded-opentype'),
+    url('../assets/fonts/icomoon.ttf') format('truetype'),
+    url('../assets/fonts/icomoon.woff') format('woff'),
+    url('../assets/fonts/icomoon.svg') format('svg');
+  font-weight: normal;
   font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-center{text-align:center!important}
+
+.container-tema {
+  align-items: center;
+  font-family: 'icomoon';
 }
 
 .icon-meio-ambiente:before {
   content: "\e900";
+}
+.icon-agenda-nacional:before {
+  content: "\e901";
+}
+.icon-educacao:before {
+  content: "\e904";
+}
+.icon-direitos-humanos:before {
+  content: "\e907";
+}
+.icon-transparencia:before {
+  content: "\e908";
 }
 
 .tema-btn {
@@ -61,9 +102,42 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  padding-bottom: 2rem;
 }
 
 .col {
   margin: 0.3rem;
+}
+
+.btn {
+  text-transform: lowercase;
+  border-radius: 20px;
+}
+.btn-sm {
+  border-radius: 0;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #a963b3;
+  border-color: #a963b3;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #a963b3;
+  border-color: #a963b3;
+}
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #a963b3;
+  border-color: #a963b3;
+}
+.btn-primary.focus,
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(91, 39, 98, 0.5);
 }
 </style>
