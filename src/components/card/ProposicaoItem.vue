@@ -26,7 +26,7 @@
               <p class="small-text-field small-margin-top">Relator(a)</p>
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="12" :xs="24" class="temperaturas-container">
               <temperature-graphic :id="prop.lastEtapa.id" />
               <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
             </el-col>
@@ -206,6 +206,9 @@ export default {
   transition: opacity 1s linear;
 }
 .status-bar {
+  padding-top: 1rem;
+}
+.temperaturas-container {
   padding-top: 1rem;
 }
 </style>
