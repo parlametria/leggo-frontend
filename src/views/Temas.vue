@@ -18,48 +18,47 @@
 </template>
 <script>
 export default {
-  name: "Tema",
-  data() {
+  name: 'Tema',
+  data () {
     return {
       temas: [
         {
-          texto: "Meio Ambiente",
-          icon: "icon-meio-ambiente",
+          texto: 'Meio Ambiente',
+          icon: 'icon-meio-ambiente',
           selecionado: false
         },
         {
-          texto: "Direitos Humanos",
-          icon: "icon-direitos-humanos",
+          texto: 'Direitos Humanos',
+          icon: 'icon-direitos-humanos',
           selecionado: false
         },
         {
-          texto: "Educação",
-          icon: "icon-educacao",
+          texto: 'Educação',
+          icon: 'icon-educacao',
           selecionado: false
         },
         {
-          texto: "Agenda Nacional",
-          icon: "icon-agenda-nacional",
+          texto: 'Agenda Nacional',
+          icon: 'icon-agenda-nacional',
           selecionado: false
         },
         {
-          texto: "Integridade e Transparência",
-          icon: "icon-transparencia",
+          texto: 'Integridade e Transparência',
+          icon: 'icon-transparencia',
           selecionado: false
         }
       ]
-    };
+    }
   },
   methods: {
-    mudaSelecao(index) {
+    mudaSelecao (index) {
       this.temas[index].selecionado = !this.temas[index].selecionado
-      console.log(this.temas[index].selecionado)
     },
-    getTema(index) {
-      return this.temas[index].selecionado ? "tema-btn tema-btn-clicado" : "tema-btn"
+    getTema (index) {
+      return this.temas[index].selecionado ? 'tema-btn tema-btn-clicado' : 'tema-btn'
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 @font-face {
@@ -101,10 +100,6 @@ export default {
   text-align: center !important;
 }
 
-.container-tema {
-  align-items: center;
-}
-
 .icon-meio-ambiente:before {
   content: "\e900";
 }
@@ -142,20 +137,18 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding-bottom: 2rem;
+  padding-bottom: 30px;
 }
 
 .col {
-  margin: 0.3rem;
+  margin: 5px;
   width: 45%;
 }
 
 .btn {
   border-radius: 20px;
 }
-.btn-sm {
-  border-radius: 0;
-}
+
 .btn-primary {
   cursor: pointer;
   color: #fff;
