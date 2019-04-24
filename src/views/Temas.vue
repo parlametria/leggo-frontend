@@ -11,54 +11,56 @@
         </div>
       </div>
     </div>
-    <div class="text-center">
-      <button class="btn btn-primary">Pronto</button>
+    <div class="text-center btn-form">
+      <button class="btn btn-primary">Ver as proposições</button>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'Tema',
-  data () {
+  name: "Tema",
+  data() {
     return {
       temas: [
         {
-          texto: 'Meio Ambiente',
-          icon: 'icon-meio-ambiente',
+          texto: "Meio Ambiente",
+          icon: "icon-meio-ambiente",
           selecionado: false
         },
         {
-          texto: 'Direitos Humanos',
-          icon: 'icon-direitos-humanos',
+          texto: "Direitos Humanos",
+          icon: "icon-direitos-humanos",
           selecionado: false
         },
         {
-          texto: 'Educação',
-          icon: 'icon-educacao',
+          texto: "Educação",
+          icon: "icon-educacao",
           selecionado: false
         },
         {
-          texto: 'Agenda Nacional',
-          icon: 'icon-agenda-nacional',
+          texto: "Agenda Nacional",
+          icon: "icon-agenda-nacional",
           selecionado: false
         },
         {
-          texto: 'Integridade e Transparência',
-          icon: 'icon-transparencia',
+          texto: "Integridade e Transparência",
+          icon: "icon-transparencia",
           selecionado: false
         }
       ]
-    }
+    };
   },
   methods: {
-    mudaSelecao (index) {
-      this.temas[index].selecionado = !this.temas[index].selecionado
+    mudaSelecao(index) {
+      this.temas[index].selecionado = !this.temas[index].selecionado;
     },
-    getTema (index) {
-      return this.temas[index].selecionado ? 'tema-btn tema-btn-clicado' : 'tema-btn'
+    getTema(index) {
+      return this.temas[index].selecionado
+        ? "tema-btn tema-btn-clicado"
+        : "tema-btn";
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 @font-face {
@@ -94,6 +96,10 @@ export default {
   font-size: 0.65rem;
   margin: 0;
   padding: 0;
+}
+
+.btn-form {
+  height: 30%;
 }
 
 .text-center {
@@ -146,7 +152,7 @@ export default {
 }
 
 .btn {
-  border-radius: 20px;
+  border-radius: 3px;
 }
 
 .btn-primary {
@@ -154,6 +160,9 @@ export default {
   color: #fff;
   background-color: #dc6060;
   border-color: #dc6060;
+  padding: 8px;
+  font-size: 1rem;
+  height: 100%;
 }
 .btn-primary:hover {
   color: #fff;
