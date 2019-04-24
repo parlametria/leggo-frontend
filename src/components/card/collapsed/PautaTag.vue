@@ -1,6 +1,6 @@
 <template>
   <div v-if="pauta">
-    <span class="pauta">{{day}} - {{pauta.local}}</span>
+    <span class="pauta">{{day}} {{pauta.hora}} - {{pauta.local}}</span>
   </div>
 </template>
 
