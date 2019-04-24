@@ -16,7 +16,7 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
-          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissao="localAtual" :casaComissao="prop.lastEtapa.casa"></composicao-link>
+          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink" :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
 
           <el-row>
             <el-col :span="12">
@@ -93,12 +93,25 @@ export default {
       const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
       return moment(data).format('DD/MM/YYYY')
     },
+    siglaFormatada () {
+      let siglaFormatada = this.localAtual
+      if (this.hasNumber(siglaFormatada)) {
+        siglaFormatada = 'Comissão Especial - ' + siglaFormatada
+      }
+      return siglaFormatada
+    },
+    siglaParaLink () {
+      let siglaParaLink = this.localAtual
+      if (this.hasNumber(siglaParaLink)) {
+        siglaParaLink = siglaParaLink.replace(/\s/g, '')
+        siglaParaLink = siglaParaLink.split('/')
+        siglaParaLink = siglaParaLink[0]
+      }
+      return siglaParaLink
+    },
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao
       let localAtual = locais[locais.length - 1].local
-      if (this.hasNumber(localAtual)) {
-        localAtual = 'Comissão Especial - ' + localAtual
-      }
       return localAtual
     },
     casa () {
