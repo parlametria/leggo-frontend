@@ -118,7 +118,6 @@ export default {
       let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
       let casaOrigem = (this.prop.lastEtapa.casa_origem)
       let casa = ''
-      console.log(autores[0])
       if (autores[0] === 'Poder Executivo' || autores[0].trim() === 'Presidência da República') {
         casa = ''
       } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
@@ -210,6 +209,6 @@ export default {
   padding-top: 1rem;
 }
 .temperaturas-container {
-  padding-top: 1rem;
+  padding-top: 15px;
 }
 </style>
