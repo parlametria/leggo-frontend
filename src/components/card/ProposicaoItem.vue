@@ -16,7 +16,7 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
-          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissao="localAtual" :casaComissao="prop.lastEtapa.casa"></composicao-link>
+          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink" :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
 
           <el-row>
             <el-col :span="12">
@@ -25,7 +25,7 @@
               <p class="small-text-field small-margin-top">Relator(a)</p>
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="12" :xs="24" class="temperaturas-container">
               <temperature-graphic :id="prop.lastEtapa.id" />
               <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
             </el-col>
@@ -92,12 +92,25 @@ export default {
       const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
       return moment(data).format('DD/MM/YYYY')
     },
+    siglaFormatada () {
+      let siglaFormatada = this.localAtual
+      if (this.hasNumber(siglaFormatada)) {
+        siglaFormatada = 'Comissão Especial - ' + siglaFormatada
+      }
+      return siglaFormatada
+    },
+    siglaParaLink () {
+      let siglaParaLink = this.localAtual
+      if (this.hasNumber(siglaParaLink)) {
+        siglaParaLink = siglaParaLink.replace(/\s/g, '')
+        siglaParaLink = siglaParaLink.split('/')
+        siglaParaLink = siglaParaLink[0]
+      }
+      return siglaParaLink
+    },
     localAtual () {
       let locais = this.prop.lastEtapa.resumo_tramitacao
       let localAtual = locais[locais.length - 1].local
-      if (this.hasNumber(localAtual)) {
-        localAtual = 'Comissão Especial - ' + localAtual
-      }
       return localAtual
     },
     casa () {
@@ -192,6 +205,9 @@ export default {
   transition: opacity 1s linear;
 }
 .status-bar {
+  padding-top: 1rem;
+}
+.temperaturas-container {
   padding-top: 1rem;
 }
 </style>

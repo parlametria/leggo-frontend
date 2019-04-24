@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="composicao" >
-      <parlamentar-card :key="index" v-for="(parlamentar, index) in ordenedComissao" :parlamentar="parlamentar"/>
+      <parlamentar-card
+        :key="index"
+        v-for="(parlamentar, index) in composicaoCompleta"
+        :parlamentar="parlamentar"
+      />
     </div>
   </div>
 </template>
@@ -54,6 +58,14 @@ export default {
           prioridade = 1
           break
         }
+        case 'RELATOR': {
+          prioridade = 1
+          break
+        }
+        case 'RELATOR REVISOR': {
+          prioridade = 1
+          break
+        }
       }
       return prioridade
     }
@@ -62,6 +74,13 @@ export default {
     ordenedComissao () {
       let comissaoAuxiliar = this.comissao
       return comissaoAuxiliar.sort(this.compareComposicao)
+    },
+    composicaoCompleta () {
+      return this.ordenedComissao.map((parlamentar) => {
+        let cpf = this.parlamentares[parlamentar.id_parlamentar]
+        parlamentar['cpf'] = cpf === undefined ? '' : cpf
+        return parlamentar
+      })
     },
     quantidadeMembrosPartido () {
       let result = {}
@@ -78,7 +97,8 @@ export default {
       return this.orgao[this.siglaComissao].filter((parlamentar) => parlamentar.situacao === 'Titular')
     },
     ...mapState({
-      orgao: state => state.comissoes.orgao
+      orgao: state => state.comissoes.orgao,
+      parlamentares: state => state.parlamentar.parlamentares
     })
   }
 }
