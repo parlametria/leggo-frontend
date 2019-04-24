@@ -1,69 +1,108 @@
 <template>
   <div>
     <div class="container-tema">
-      <h4 class="text-center">Quais temas você tem mais interesse?</h4>
+      <h2 class="text-center">Quais temas você tem mais interesse?</h2>
       <div class="gutters-sm">
         <div v-for="(tema,i) in this.temas" :key="i" class="col">
-          <button class="tema-btn">
-            <span class="icon-".concat(tema)></span>
-          <p>{{tema}}</p>
+          <button @click="mudaSelecao(i)" :class="getTema(i)">
+            <span :class="tema.icon"></span>
+            <p class="btn-tema-text">{{tema.texto}}</p>
           </button>
         </div>
       </div>
     </div>
-        <div class="text-center">
-      <button
-        class="btn btn-primary"
-      >
-        Dar minha opinião
-      </button>
+    <div class="text-center">
+      <button class="btn btn-primary">Pronto</button>
     </div>
   </div>
 </template>
 <script>
-
 export default {
   name: "Tema",
-  computed: {
-    temas() {
-      return ["meio-ambiente", "direitos-humanos", "educacao", "agenda-nacional", "transparencia"];
+  data() {
+    return {
+      temas: [
+        {
+          texto: "Meio Ambiente",
+          icon: "icon-meio-ambiente",
+          selecionado: false
+        },
+        {
+          texto: "Direitos Humanos",
+          icon: "icon-direitos-humanos",
+          selecionado: false
+        },
+        {
+          texto: "Educação",
+          icon: "icon-educacao",
+          selecionado: false
+        },
+        {
+          texto: "Agenda Nacional",
+          icon: "icon-agenda-nacional",
+          selecionado: false
+        },
+        {
+          texto: "Integridade e Transparência",
+          icon: "icon-transparencia",
+          selecionado: false
+        }
+      ]
+    };
+  },
+  methods: {
+    mudaSelecao(index) {
+      this.temas[index].selecionado = !this.temas[index].selecionado
+      console.log(this.temas[index].selecionado)
+    },
+    getTema(index) {
+      return this.temas[index].selecionado ? "tema-btn tema-btn-clicado" : "tema-btn"
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
-
 @font-face {
-  font-family: 'icomoon';
-  src:  url('../assets/fonts/icomoon.eot');
-  src:  url('../assets/fonts/icomoon.eot#iefix') format('embedded-opentype'),
-    url('../assets/fonts/icomoon.ttf') format('truetype'),
-    url('../assets/fonts/icomoon.woff') format('woff'),
-    url('../assets/fonts/icomoon.svg') format('svg');
+  font-family: "icomoon";
+  src: url("../assets/fonts/icomoon.eot");
+  src: url("../assets/fonts/icomoon.eot#iefix") format("embedded-opentype"),
+    url("../assets/fonts/icomoon.ttf") format("truetype"),
+    url("../assets/fonts/icomoon.woff") format("woff"),
+    url("../assets/fonts/icomoon.svg") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: "icomoon" !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+  font-size: 3rem;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.text-center{text-align:center!important}
+.btn-tema-text {
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  margin: 0;
+  padding: 0;
+}
+
+.text-center {
+  text-align: center !important;
+}
 
 .container-tema {
   align-items: center;
-  font-family: 'icomoon';
 }
 
 .icon-meio-ambiente:before {
@@ -90,10 +129,11 @@ export default {
   margin: 1rem;
   font-size: 1.5rem;
   border-color: black;
+  cursor: pointer;
 }
 
 .tema-btn:hover {
-  background-color: black;
+  background-color: #dc6060;
   color: white;
 }
 
@@ -107,37 +147,31 @@ export default {
 
 .col {
   margin: 0.3rem;
+  width: 45%;
 }
 
 .btn {
-  text-transform: lowercase;
   border-radius: 20px;
 }
 .btn-sm {
   border-radius: 0;
 }
 .btn-primary {
+  cursor: pointer;
   color: #fff;
-  background-color: #a963b3;
-  border-color: #a963b3;
+  background-color: #dc6060;
+  border-color: #dc6060;
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #a963b3;
-  border-color: #a963b3;
+  background-color: #e70c0c;
+  border-color: #e70c0c;
 }
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.show > .btn-primary.dropdown-toggle:focus,
-.btn-primary:not(:disabled):not(.disabled).active,
-.btn-primary:not(:disabled):not(.disabled):active,
-.show > .btn-primary.dropdown-toggle {
+
+.tema-btn-clicado {
   color: #fff;
-  background-color: #a963b3;
-  border-color: #a963b3;
-}
-.btn-primary.focus,
-.btn-primary:focus {
+  background-color: #dc6060;
+  border-color: #dc6060;
   box-shadow: 0 0 0 0.2rem rgba(91, 39, 98, 0.5);
 }
 </style>

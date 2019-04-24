@@ -30,6 +30,11 @@ export default new Router({
       component: Ajuda
     },
     {
+      path: '/temas',
+      name: 'temas',
+      component: Temas
+    },
+    {
       path: '/proposicoes',
       name: 'proposicoes',
       components: {
@@ -61,12 +66,6 @@ export default new Router({
         NProgress.done()
         next()
       }
-      props: true
-    },
-    {
-      path: '/temas',
-      name: 'temas',
-      component: Temas
     }
   ]
 })
