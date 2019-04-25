@@ -16,7 +16,6 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
-          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink" :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
 
           <el-row>
             <el-col :span="12">
