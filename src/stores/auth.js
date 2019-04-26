@@ -12,6 +12,7 @@ Vue.use(VueAxios, axios)
 const http = axios.create({})
 
 const vueAuth = new VueAuthenticate(http, {
+  tokenPath: 'token',
   baseUrl: window.location.origin,
   providers: {
     google: {
@@ -22,17 +23,16 @@ const vueAuth = new VueAuthenticate(http, {
     facebook: {
       clientId: process.env.VUE_APP_FACEBOOK_CLIENT_ID,
       url: `${process.env.VUE_APP_AUTH_API_URL}/api/auth/facebookCode`,
+      authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
       redirectUri: window.location.origin
     }
   }
 })
 
 export default {
-
   state: {
     token: localStorage.getItem(TOKEN_STORAGE) || ''
   },
-
   getters: {
     isAuthenticated: state => {
       return state.token !== ''
@@ -47,10 +47,10 @@ export default {
       state.token = payload
     }
   },
-
   actions: {
     login ({ commit }, { provider }) {
       vueAuth.authenticate(provider).then((response) => {
+        console.log(response)
         commit('setToken', response.data.token)
       })
     },

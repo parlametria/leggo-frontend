@@ -17,7 +17,7 @@ services:
       - ${FRONTEND_PATH:-.}/tests:/app/tests
       - ${FRONTEND_PATH:-.}/public:/app/public
     ports:
-      - "3000:8080"
+      - "8080:8080"
 
 networks:
   default:
