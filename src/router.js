@@ -8,6 +8,7 @@ import Comissao from '@/views/Comissao.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
+import Temas from '@/views/Temas.vue'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/ajuda',
       name: 'ajuda',
       component: Ajuda
+    },
+    {
+      path: '/temas',
+      name: 'temas',
+      component: Temas
     },
     {
       path: '/proposicoes',
