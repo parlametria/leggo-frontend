@@ -50,7 +50,6 @@ export default {
   actions: {
     login ({ commit }, { provider }) {
       vueAuth.authenticate(provider).then((response) => {
-        console.log(response)
         commit('setToken', response.data.token)
       })
     },
