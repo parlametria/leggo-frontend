@@ -7,18 +7,18 @@ const service = axios.create({
 
 service.interceptors.request.use((config) => {
   NProgress.start()
-  return config;
+  return config
 }, (error) => {
   NProgress.start()
-  return Promise.reject(error);
+  return Promise.reject(error)
 })
 
 service.interceptors.response.use((response) => {
   NProgress.done()
-  return response;
+  return response
 }, (error) => {
   NProgress.done()
-  return Promise.reject(error);
+  return Promise.reject(error)
 })
 
 export default service
