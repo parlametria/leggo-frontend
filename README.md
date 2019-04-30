@@ -83,4 +83,10 @@ npm run test:e2e
 Roda testes mostrando só resultado:
 ```
 npm run test:e2e -- --headless
-``**
+```
+
+### Rodar o lint no docker
+```
+docker exec -it frontend_dev sh -c 'npm run lint --fix' 
+```
+
