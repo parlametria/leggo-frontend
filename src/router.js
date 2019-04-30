@@ -56,7 +56,6 @@ export default new Router({
             }
           })
         }
-        await store.dispatch('getParlamentarCpf')
         NProgress.done()
         next()
       }
