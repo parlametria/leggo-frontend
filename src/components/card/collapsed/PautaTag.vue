@@ -28,10 +28,10 @@ export default {
     },
     day () {
       moment.locale('pt-BR')
-      return moment(this.pauta.data).format('dddd') === moment().format('dddd') ? 'Hoje' : moment(this.pauta.data).format('dddd')
+      return moment(this.pauta.data).format('MMMM Do YYYY') === moment().format('MMMM Do YYYY') ? 'Hoje' : moment(this.pauta.data).format('dddd')
     },
     hora () {
-      return this.pauta.data !== '' ? moment(this.pauta.data).format('LT') : ''
+      return this.pauta.data !== '' ? moment(this.pauta.data).utcOffset('+0000').format('LT') : ''
     }
   }
 }
