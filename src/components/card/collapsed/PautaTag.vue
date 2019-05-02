@@ -1,6 +1,6 @@
 <template>
   <div v-if="pauta">
-    <span class="pauta">{{day}} - {{pauta.local}}</span>
+    <span class="pauta">{{day}} {{this.hora}} - {{pauta.local}}</span>
   </div>
 </template>
 
@@ -28,7 +28,10 @@ export default {
     },
     day () {
       moment.locale('pt-BR')
-      return moment(this.pauta.data).format('dddd')
+      return moment(this.pauta.data).format('MMMM Do YYYY') === moment().format('MMMM Do YYYY') ? 'Hoje' : moment(this.pauta.data).format('dddd')
+    },
+    hora () {
+      return this.pauta.data !== '' ? moment(this.pauta.data).utcOffset('+0000').format('LT') : ''
     }
   }
 }

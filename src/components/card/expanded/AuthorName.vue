@@ -4,10 +4,12 @@
           <el-popover
             width="200"
             placement="right-start"
-            trigger="hover">
-            <span slot="reference" class="small-text-field small-margin-top">Veja aqui</span>
+            trigger="hover"
+            :disabled="disabled"
+            >
+            <span slot="reference" class="small-text-field small-margin-top">{{ formataAutor() }}</span>
             <span class="author" v-for="(autor, i) in author" :key="i">
-              <h5>{{autor}} </h5>
+              <h5> {{autor}} </h5>
             </span>
           </el-popover>
 
@@ -19,8 +21,8 @@ export default {
   name: 'AuthorName',
   props: {
     author: {
-      type: String,
-      default: 'Autor não encontrado',
+      type: Array,
+      default: function () { return ['Autor não encontrado'] },
       validator: value => {
         return value != null
       }
@@ -30,18 +32,24 @@ export default {
   computed: {
     normalizedAuthor () {
       return this.removeCasa(this.author)
+    },
+    disabled () {
+      return this.author.length === 1
     }
   },
   methods: {
-    removeCasa (author) {
+    removeCasa: function (author) {
       return author
     },
-    containsMoreThanOneAuthor () {
+    containsMoreThanOneAuthor: function () {
       if (this.normalizedAuthor.includes(', ')) { return true }
       return false
     },
-    formatTooltip (data) {
+    formatTooltip: function (data) {
       return data.replace(/,/g, '\n')
+    },
+    formataAutor: function () {
+      return this.author.length > 1 ? this.author[0] + ' + ' : this.author[0]
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="fasesBlock">
     <div v-for="(fase,i) in fasesResumidas" :key="i">
-      <el-tooltip :content="fase.local + '-' + fase.fase_global">
+      <el-tooltip :content="getContent(fase)">
         <div class="fase" :class="geraEstilo(fase)"/>
       </el-tooltip>
     </div>
@@ -22,17 +22,34 @@ export default {
   },
   methods: {
     geraEstilo (fase) {
+      let classe = ''
       if (fase.pulou) {
-        return 'pulou'
+        classe = 'pulou'
       }
       if (fase.data_inicio !== null) {
-        if (fase.local_casa === 'camara' || fase.local_casa === 'senado') {
-          return fase.local_casa
+        if (!fase.is_mpv && (fase.local_casa === 'camara' || fase.local_casa === 'senado')) {
+          classe = fase.local_casa
+        } else if (fase.is_mpv) {
+          if (fase.fase_global === 'Câmara dos Deputados' || fase.fase_global === 'Câmara dos Deputados - Revisão') {
+            classe = 'camara'
+          } else if (fase.fase_global === 'Senado Federal') {
+            classe = 'senado'
+          } else {
+            classe = 'congresso'
+          }
         } else {
-          return 'plenario'
+          classe = 'congresso'
         }
       } else {
-        return 'naoRealizada'
+        classe = 'naoRealizada'
+      }
+      return classe
+    },
+    getContent (fase) {
+      if (fase.is_mpv) {
+        return fase.fase_global
+      } else {
+        return fase.local + '-' + fase.fase_global
       }
     }
   }
@@ -54,18 +71,18 @@ export default {
 }
 
 .camara {
-  background-color: #4EB65F;
-  border-color: #4EB65F;
+  background-color: #4eb65f;
+  border-color: #4eb65f;
 }
 
 .senado {
-  background-color: #4E8CB6;
-  border-color: #4E8CB6;
+  background-color: #4e8cb6;
+  border-color: #4e8cb6;
 }
 
-.plenario {
-  background-color: #B6AF4E;
-  border-color: #B6AF4E;
+.congresso {
+  background-color: #b6af4e;
+  border-color: #b6af4e;
 }
 
 .naoRealizada {
@@ -76,5 +93,4 @@ export default {
   background-color: #dadada;
   border-color: #dadada;
 }
-
 </style>

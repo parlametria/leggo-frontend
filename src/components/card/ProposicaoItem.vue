@@ -16,11 +16,11 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
-          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink" :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
-
+          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink"
+            :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
           <el-row>
             <el-col :span="12">
-              <p class="small-text-field small-margin-top">Autor(es)</p>
+              <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
               <author-name :author="prop.lastEtapa.autores" :casa="casa"/>
               <p class="small-text-field small-margin-top">Relator(a)</p>
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
@@ -82,6 +82,9 @@ export default {
   methods: {
     hasNumber: function (myString) {
       return /\d/.test(myString)
+    },
+    getNomeAutor: function () {
+      return this.prop.lastEtapa.autores.length > 1 ? 'Autores' : 'Autor'
     }
   },
   computed: {
@@ -208,6 +211,6 @@ export default {
   padding-top: 1rem;
 }
 .temperaturas-container {
-  padding-top: 1rem;
+  padding-top: 15px;
 }
 </style>
