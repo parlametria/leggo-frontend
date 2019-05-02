@@ -9,7 +9,7 @@
           <span v-else class="cargo">TITULAR</span>
         </div>
         <span>
-          <a v-if="parlamentar.id_parlamentar"
+          <a v-if="parlamentar.id_parlamentar && parlamentar.casa === 'camara'"
             :href="linkParlamentar(parlamentar)"
             target="_blank"
             class="link"
