@@ -27,7 +27,7 @@ export default {
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
-    }, 
+    },
     tamanhoGrafico () {
       return document.getElementById('grafico').offsetWidth
     }
