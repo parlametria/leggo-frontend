@@ -3,7 +3,7 @@
     <div class="composicao" >
       <parlamentar-card
         :key="index"
-        v-for="(parlamentar, index) in composicaoCompleta"
+        v-for="(parlamentar, index) in ordenedComissao"
         :parlamentar="parlamentar"
       />
     </div>
@@ -75,13 +75,6 @@ export default {
       let comissaoAuxiliar = this.comissao
       return comissaoAuxiliar.sort(this.compareComposicao)
     },
-    composicaoCompleta () {
-      return this.ordenedComissao.map((parlamentar) => {
-        let cpf = this.parlamentares[parlamentar.id_parlamentar]
-        parlamentar['cpf'] = cpf === undefined ? '' : cpf
-        return parlamentar
-      })
-    },
     quantidadeMembrosPartido () {
       let result = {}
       this.comissao.forEach((membro) => {
@@ -97,8 +90,7 @@ export default {
       return this.orgao[this.siglaComissao].filter((parlamentar) => parlamentar.situacao === 'Titular')
     },
     ...mapState({
-      orgao: state => state.comissoes.orgao,
-      parlamentares: state => state.parlamentar.parlamentares
+      orgao: state => state.comissoes.orgao
     })
   }
 }
