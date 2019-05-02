@@ -49,7 +49,7 @@ export default {
         'camara': fase.local_casa === 'camara' || ['Câmara dos Deputados', 'Câmara dos Deputados - Revisão'].includes(fase.fase_global),
         'planalto':
          ['presidência da república', 'congresso'].includes(fase.local_casa) ||
-         ['Comissão Mista', 'Transformada em Lei', 'Transformada em Lei com vetos'].includes(fase.fase_global)
+         ['Comissão Mista', 'Congresso Nacional'].includes(fase.fase_global)
       }
     },
     isInProgress (fase) {
