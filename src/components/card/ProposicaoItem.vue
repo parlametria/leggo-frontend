@@ -27,7 +27,7 @@
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
             </el-col>
             <el-col :span="12" :xs="24" class="temperaturas-container">
-              <temperature-graphic :id="prop.lastEtapa.id" />
+              <temperature-graphic :id="prop.lastEtapa.id"/>
               <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info"/>
             </el-col>
           </el-row>

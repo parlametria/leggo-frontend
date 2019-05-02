@@ -1,5 +1,5 @@
 <template>
-  <div class="graphic">
+  <div class="graphic" id="grafico">
     <div ref="anchor">
     </div>
   </div>
@@ -12,8 +12,7 @@ import TemperatureGraphicModel from './TemperatureGraphicModel.js'
 export default {
   name: 'TemperatureGraphic',
   props: {
-    id: Number,
-    cardWidth: Number
+    id: Number
   },
   computed: {
     ...mapState({
@@ -28,13 +27,16 @@ export default {
     },
     coeficiente () {
       return this.listaCoeficientes[this.id] || 0
+    }, 
+    tamanhoGrafico () {
+      return document.getElementById('grafico').offsetWidth
     }
   },
   methods: {
     async mountGraphic () {
       if (this.temperaturas && this.temperaturas.length) {
         let model = new TemperatureGraphicModel(
-          this.temperaturas, this.maxTemperatura, this.cardWidth)
+          this.temperaturas, this.maxTemperatura, this.tamanhoGrafico)
         await (
           // eslint-disable-next-line
           (await vegaEmbed(this.$refs.anchor, model.vsSpec))
@@ -49,7 +51,7 @@ export default {
   },
   mounted () {
     this.$watch('temperaturas', this.mountGraphic, { immediate: true, deep: true })
-    this.$watch('cardWidth', this.mountGraphic)
+    this.$watch('tamanhoGrafico', this.mountGraphic)
   }
 }
 </script>
