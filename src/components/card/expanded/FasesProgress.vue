@@ -7,11 +7,11 @@
         :key="i"
         effect="light">
         <div class="tooltip-content" slot="content">
-          <p>Fase: <strong>{{fase.fase_global}} - {{fase.local}}</strong></p>
-          <p>Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
+          <p>Fase: <strong>{{ formataFase(fase) }}</strong></p>
+          <p v-show="!fase.is_mpv">Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
-          <p>Histórico de comissões: {{comissoesHistoric(fase)}}</p>
+          <p v-show="!fase.is_mpv">Histórico de comissões: {{comissoesHistoric(fase)}}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
@@ -45,9 +45,11 @@ export default {
         'future': this.isFuture(fase),
         'jumped': this.isJumpedFase(fase),
         'inProgress': this.isInProgress(fase),
-        'senado': fase.local_casa === 'senado',
-        'camara': fase.local_casa === 'camara',
-        'planalto': fase.local_casa === 'presidência da república' || fase.local_casa === 'congresso'
+        'senado': fase.local_casa === 'senado' || fase.fase_global === 'Senado Federal',
+        'camara': fase.local_casa === 'camara' || ['Câmara dos Deputados', 'Câmara dos Deputados - Revisão'].includes(fase.fase_global),
+        'planalto':
+         ['presidência da república', 'congresso'].includes(fase.local_casa) ||
+         ['Comissão Mista', 'Congresso Nacional'].includes(fase.fase_global)
       }
     },
     isInProgress (fase) {
@@ -90,6 +92,11 @@ export default {
       if (this.isComissoes(fase) && !fase.pulou && !this.isFuture(fase)) {
         if (fase.fase_global === 'Construção') { return this.formatArray(this.etapas[0].comissoes_passadas) } else if (fase.fase_global === 'Revisão I') { return this.formatArray(this.etapas[1].comissoes_passadas) }
       }
+    },
+    formataFase (fase) {
+      if (fase.is_mpv) {
+        return fase.fase_global
+      } return fase.fase_global + ' - ' + fase.local
     }
   }
 }

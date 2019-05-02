@@ -9,8 +9,8 @@
           <span v-else class="cargo">TITULAR</span>
         </div>
         <span>
-          <a v-if="parlamentar.cpf"
-            :href="parlamentar.cpf | linkFilter"
+          <a v-if="parlamentar.id_parlamentar && parlamentar.casa === 'camara'"
+            :href="linkParlamentar(parlamentar)"
             target="_blank"
             class="link"
           >
@@ -32,11 +32,6 @@ export default {
       type: Object
     }
   },
-  filters: {
-    linkFilter (cpf) {
-      return `${process.env.VUE_APP_VOZ_ATIVA}/parlamentar/${cpf}`
-    }
-  },
   methods: {
     parlamentarValido () {
       if (this.parlamentar.nome && this.parlamentar.nome !== 'nan' && !this.parlamentar.nome.replace(/\s/g, '').length) { return false }
@@ -48,6 +43,15 @@ export default {
     },
     replacePhotoToDefault (e) {
       e.target.src = require('@/assets/default-avatar-parlamentar.png')
+    },
+    linkParlamentar (parlamentar) {
+      let cargo = 0
+      if (parlamentar.casa === 'camara') {
+        cargo = 1
+      } else if (parlamentar.casa === 'senado') {
+        cargo = 2
+      }
+      return `${process.env.VUE_APP_API_VOZ_ATIVA}/parlamentar/${cargo}${parlamentar.id_parlamentar}`
     }
   }
 }

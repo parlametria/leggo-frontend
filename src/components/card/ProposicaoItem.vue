@@ -16,13 +16,12 @@
 
           <h4>Progresso da Tramitação</h4>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
-          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink" :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
-
+          <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink"
+            :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
           <el-row>
             <el-col :span="12">
-              <p class="small-text-field small-margin-top">Autor</p>
-              <author-name :author="prop.lastEtapa.autor_nome" :casa="casa"/>
-
+              <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
+              <author-name :author="prop.lastEtapa.autores" :casa="casa"/>
               <p class="small-text-field small-margin-top">Relator(a)</p>
               <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
             </el-col>
@@ -83,6 +82,9 @@ export default {
   methods: {
     hasNumber: function (myString) {
       return /\d/.test(myString)
+    },
+    getNomeAutor: function () {
+      return this.prop.lastEtapa.autores.length > 1 ? 'Autores' : 'Autor'
     }
   },
   computed: {
@@ -115,10 +117,10 @@ export default {
       return localAtual
     },
     casa () {
-      let autores = (this.prop.lastEtapa.autor_nome).split(' - ')
+      let autores = (this.prop.lastEtapa.autores)
       let casaOrigem = (this.prop.lastEtapa.casa_origem)
       let casa = ''
-      if (autores[0] === 'Poder Executivo') {
+      if (autores === 'Poder Executivo') {
         casa = ''
       } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
         casa = 'Senado Federal'
@@ -209,6 +211,6 @@ export default {
   padding-top: 1rem;
 }
 .temperaturas-container {
-  padding-top: 1rem;
+  padding-top: 15px;
 }
 </style>
