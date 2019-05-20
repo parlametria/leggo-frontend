@@ -66,6 +66,20 @@ export default {
         }
       })
     },
+    groupEventos () {
+      var groups = {};
+      for (var i = 0; i < this.formattedEventos.length; i++) {
+        var groupName = this.formattedEventos[i].data.concat(this.formattedEventos[i].title);
+        if (!groups[groupName]) {
+          groups[groupName] = [];
+        }
+        groups[groupName].push(this.formattedEventos[i]);
+      }
+      myArray = [];
+      for (var groupName in groups) {
+        myArray.push({group: groupName, evento: groups[groupName]});
+      }
+    },
     ...mapState({
       eventosTramitacao: state => state.eventosTramitacao.eventosDict
     }),
