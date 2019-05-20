@@ -10,18 +10,18 @@
             <el-tooltip :content="eventos['evento'][0].data" placement="bottom">
               <div>{{eventos['evento'][0].dataDiff}}</div>
             </el-tooltip>
-            <div class="sigla-local">{{eventos['evento'][0].sigla}}</div>
+            <tr class="sigla-local">{{eventos['evento'][0].sigla}}</tr>
           </td>
           <td>
-            <div
+            <tr
               v-if="eventos['evento'].length > 1"
               class="evento-title"
-            >{{eventos['evento'].length}} eventos de {{eventos['evento'][0].title}}</div>
-            <div v-else class="evento-title">{{eventos['evento'][0].title}}</div>
-            <div
+            >{{eventos['evento'].length}} eventos de {{eventos['evento'][0].title}}</tr>
+            <tr v-else class="evento-title">{{eventos['evento'][0].title}}</tr>
+            <tr
               :class="{clickable: eventos['evento'][0].collapsible}"
               @click="toggleCollapseDescription(key)"
-            >{{eventos['evento'][0].texto}}</div>
+            >{{eventos['evento'][0].texto}}</tr>
           </td>
         </div>
       </table>
@@ -135,9 +135,6 @@ export default {
 
       return dateInTextFormat
     },
-    testa (evento) {
-      console.log(evento)
-    },
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
     },
@@ -181,7 +178,6 @@ export default {
 }
 .eventos-tram {
   font-size: 10pt;
-  text-align: center;
 }
 table {
   border-collapse: collapse;
@@ -198,6 +194,7 @@ td {
   padding-right: 2rem;
 }
 .evento-title {
+  width: 100%;
   font-weight: bold;
   text-transform: capitalize;
 }
