@@ -6,6 +6,7 @@ import store from '@/stores/store'
 import './plugins/element.js'
 import VModal from 'vue-js-modal'
 import 'nprogress/nprogress.css'
+import VueAnalytics from 'vue-analytics'
 
 Vue.config.productionTip = false
 
@@ -29,6 +30,11 @@ Vue.use({
   }
 })
 Vue.use(VModal)
+
+Vue.use(VueAnalytics, {
+  id: 'UA-140657958-1',
+  router
+})
 
 // Allows calling function when clicked outside of an element
 // Usefull for modal and styled select
