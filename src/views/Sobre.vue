@@ -49,6 +49,9 @@
           <li>Daniel Coura</li>
           <li>Juan Barros</li>
           <li>Thayanne Sousa</li>
+          <li>Marcella Siqueira</li>
+          <li>Ivyna Santino</li>
+          <li>Matheus Leal</li>
         </ul>
       </div>
       <div>
@@ -63,6 +66,7 @@
           <li>Lucas Lage</li>
           <li>Raphael Faria</li>
           <li>Roberta Queiroz</li>
+          <li>João Paulo</li>
         </ul>
       </div>
     </div>
