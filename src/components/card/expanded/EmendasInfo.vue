@@ -60,7 +60,9 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id]
+      const result = this.emendas[this.id].filter(function(emenda) {
+	      return emenda.distancia !== -1;
+      });
       return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
