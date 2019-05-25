@@ -2,7 +2,7 @@
     <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
+          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisamos {{getAnalisadas}})</span>
         </template>
           <el-tabs>
             <el-tab-pane label="Mudanças Mais Aparentes">
@@ -60,9 +60,7 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id].filter(function(emenda) {
-	      return emenda.distancia !== -1;
-      });
+      const result = this.emendas[this.id].filter(function (emenda) { return emenda.distancia !== -1 })
       return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
@@ -77,6 +75,13 @@ export default {
       } else {
         return false
       }
+    },
+    getAnalisadas () {
+      var analisadas = 0
+      this.orderedEmendas.forEach(function (emenda) {
+        if (emenda.distancia !== -1) { analisadas++ }
+      })
+      return analisadas
     }
   },
   methods: {
