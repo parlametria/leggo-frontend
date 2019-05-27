@@ -2,7 +2,7 @@
     <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisamos {{getAnalisadas}})</span>
+          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
         </template>
           <el-tabs>
             <el-tab-pane label="Mudanças Mais Aparentes">
