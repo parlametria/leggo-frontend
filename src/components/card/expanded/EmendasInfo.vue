@@ -2,7 +2,7 @@
     <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Análise das Emendas (total: {{propEmendas.length}})</span>
+          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
         </template>
           <el-tabs>
             <el-tab-pane label="Mudanças Mais Aparentes">
@@ -60,21 +60,28 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id]
+      const result = this.emendas[this.id].filter(function (emenda) { return emenda.distancia !== -1 })
       return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
       return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
     },
     getSemelhantes () {
-      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2))))
+      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0].distancia !== -1
+        return this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
       } else {
         return false
       }
+    },
+    getAnalisadas () {
+      var analisadas = 0
+      this.orderedEmendas.forEach(function (emenda) {
+        if (emenda.distancia !== -1) { analisadas++ }
+      })
+      return analisadas
     }
   },
   methods: {
