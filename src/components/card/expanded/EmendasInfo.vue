@@ -71,7 +71,7 @@ export default {
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0].distancia !== -1
+        return this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
       } else {
         return false
       }
