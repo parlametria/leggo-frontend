@@ -1,7 +1,7 @@
 <template>
   <div class="status-bar">
     <span class="small-text-field">
-      Desde {{ dataLocalAtual }} na(o)
+      {{ geraFrase() }}
       <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissaoFront }}</router-link>
       <span v-else >{{ siglaComissaoFront }}</span>
     </span>
@@ -32,7 +32,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getComissao'])
+    ...mapActions(['getComissao']),
+    geraFrase: function () {
+      return ['Plenário', 'PLEN'].includes(this.siglaComissaoFront)
+        ? 'Desde ' + this.dataLocalAtual + ' no'
+        : 'Desde ' + this.dataLocalAtual + ' na'
+    }
   },
   computed: {
     linkComissao () {
