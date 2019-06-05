@@ -18,7 +18,7 @@
              @click="toggleCollapseDescription(scope.$index)">
         {{ corrigePartidoAutor(
           scope.row.autor,
-          scope.$index) }}
+          scope.$index) }} <span v-if="isShowExpandIcon(scope.row.autor, MAX_TEXT_LENGTH, scope.$index)" class="el-icon-circle-plus-outline"></span>
        </div>
         </template>
       </el-table-column>
@@ -55,7 +55,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+@import "@/base.scss";
 .emendas {
     font-size: 10pt;
     text-align: center;
@@ -70,5 +71,8 @@ th, td {
 }
 .explicacao_emendas {
     color: #999;
+}
+.el-icon-circle-plus-outline{
+  color: $--color-primary;
 }
 </style>

@@ -6,8 +6,8 @@ const mixin = {
   },
   methods: {
     formatTextoTramitacao (textoParaSerColapsado, key, maxLength, tamanhoTextoInicial) {
-      return textoParaSerColapsado.length > maxLength && !this.isExpanded(key)
-        ? `${textoParaSerColapsado.substring(0, maxLength - tamanhoTextoInicial)}... (+)`
+      return this.isShowExpandIcon(textoParaSerColapsado, maxLength, key)
+        ? `${textoParaSerColapsado.substring(0, maxLength - tamanhoTextoInicial)}... `
         : textoParaSerColapsado
     },
     toggleCollapseDescription (key) {
@@ -19,6 +19,9 @@ const mixin = {
     },
     isExpanded (key) {
       return this.expandedDescriptions.findIndex(currentKey => currentKey === key) !== -1
+    },
+    isShowExpandIcon (textoParaSerColapsado, maxLength, key) {
+      return textoParaSerColapsado.length > maxLength && !this.isExpanded(key)
     }
   }
 }
