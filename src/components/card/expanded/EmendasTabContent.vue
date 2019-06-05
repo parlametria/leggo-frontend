@@ -14,7 +14,12 @@
       <el-table-column
         label="Autor">
         <template slot-scope="scope">
-        {{ corrigePartidoAutor(scope.row.autor) }}
+          <div :class="{clickable: scope.row.autor.length > MAX_TEXT_LENGTH}"
+             @click="toggleCollapseDescription(scope.$index)">
+        {{ corrigePartidoAutor(
+          scope.row.autor,
+          scope.$index) }}
+       </div>
         </template>
       </el-table-column>
       <el-table-column
@@ -26,16 +31,25 @@
 </template>
 
 <script>
+import mixin from '@/mixins/ExpandedTexts.js'
 
 export default {
   name: 'EmendasTabContent',
+  data () {
+    return {
+      MAX_TEXT_LENGTH: 100,
+      TEXT_TO_BE_SHOWED_LENGTH: 30,
+      expandedDescriptions: []
+    }
+  },
+  mixins: [mixin],
   props: {
     emendas: Array,
     categoria: String
   },
   methods: {
-    corrigePartidoAutor (autor) {
-      return autor.replace('/NA', '')
+    corrigePartidoAutor (autor, key) {
+      return this.formatTextoTramitacao(autor.replace('/NA', ''), key, this.MAX_TEXT_LENGTH, this.TEXT_TO_BE_SHOWED_LENGTH)
     }
   }
 }

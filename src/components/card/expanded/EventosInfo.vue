@@ -34,6 +34,7 @@ export default {
   data () {
     return {
       MAX_TEXT_LENGTH: 200,
+      TEXT_TO_BE_SHOWED_LENGTH: 50,
       activeNames: ['1'],
       expandedDescriptions: []
     }
@@ -61,7 +62,7 @@ export default {
           dataDiff: this.formatDateDifference(eventoTram.data),
           sigla: eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local,
           title: eventoTram.titulo_evento,
-          texto: this.formatTextoTramitacao(eventoTram.texto_tramitacao, index),
+          texto: this.formatTextoTramitacao(eventoTram.texto_tramitacao, index, this.MAX_TEXT_LENGTH, this.TEXT_TO_BE_SHOWED_LENGTH),
           collapsible: eventoTram.texto_tramitacao.length > this.MAX_TEXT_LENGTH
         }
       })
