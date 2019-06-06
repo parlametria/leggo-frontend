@@ -37,8 +37,7 @@ export default {
     return {
       MAX_TEXT_LENGTH: 200,
       TEXT_TO_BE_SHOWED_LENGTH: 50,
-      activeNames: ['1'],
-      expandedDescriptions: []
+      activeNames: ['1']
     }
   },
   mixins: [mixin],

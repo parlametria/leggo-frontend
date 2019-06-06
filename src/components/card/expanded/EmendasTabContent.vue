@@ -38,8 +38,7 @@ export default {
   data () {
     return {
       MAX_TEXT_LENGTH: 100,
-      TEXT_TO_BE_SHOWED_LENGTH: 30,
-      expandedDescriptions: []
+      TEXT_TO_BE_SHOWED_LENGTH: 30
     }
   },
   mixins: [mixin],
