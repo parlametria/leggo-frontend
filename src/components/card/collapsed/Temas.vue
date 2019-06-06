@@ -21,7 +21,6 @@ export default {
     justify-content: flex-start;
 }
 .tag {
-    background-color: #DCDCDC;
     margin-right: 10px;
     border-radius: 5%;
 }
