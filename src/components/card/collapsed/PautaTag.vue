@@ -1,34 +1,22 @@
 <template>
-  <div v-if="pauta">
+  <div v-if="pauta" class="tag">
     <span class="pauta">{{day}} {{this.hora}} - {{pauta.local}}</span>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
-import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'PautaTag',
   props: {
-    id: Number
-  },
-  methods: {
-    ...mapActions(['getPautas'])
+    pauta: Object,
+    dateRef: Date
   },
   computed: {
-    ...mapState({
-      pautas: state => state.pautas.pautas
-    }),
-    pauta () {
-      if (this.pautas && this.pautas[this.id] && this.pautas[this.id].length > 0) {
-        return this.pautas[this.id].slice(-1).pop()
-      }
-      return null
-    },
     day () {
       moment.locale('pt-BR')
-      return moment(this.pauta.data).format('MMMM Do YYYY') === moment().format('MMMM Do YYYY') ? 'Hoje' : moment(this.pauta.data).format('dddd')
+      return moment(this.pauta.data).format('MMMM Do YYYY') === moment(this.dateRef).format('MMMM Do YYYY') ? 'Hoje' : moment(this.pauta.data).format('dddd')
     },
     hora () {
       return this.pauta.data !== '' ? moment(this.pauta.data).utcOffset('+0000').format('LT') : ''
@@ -40,5 +28,10 @@ export default {
 <style lang="scss" scoped>
 .pauta {
   font-size: 9pt;
+}
+.tag {
+  margin: 0 4px 4px 0;
+  padding: 0 2px;
+  background-color: #DCDCDC;
 }
 </style>

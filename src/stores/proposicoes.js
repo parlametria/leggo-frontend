@@ -10,7 +10,6 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    // pautas: {},
     eventos_tramitacao: {},
     metaInfo: {}
   }
