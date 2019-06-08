@@ -3,7 +3,7 @@
       <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
         <div class="navbar">
             <router-link :to="{ name: 'proposicoes' }">
-              <h1>Leg<span class="dot">.</span>go</h1>
+              <img :src="require(`@/assets/logo.png`)" class="logo" alt="">
             </router-link>
             <navigation-buttons class="navigation"/>
         </div>
@@ -46,6 +46,10 @@ export default {
 a {
   all: unset;
   cursor: pointer;
+}
+.logo {
+  max-width: 100%;
+  height: auto;
 }
 .logo-container {
     margin-bottom: 2rem;

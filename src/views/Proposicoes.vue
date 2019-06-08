@@ -174,10 +174,6 @@ export default {
     display: flex;
     flex-wrap: wrap;
 }
-.logo {
-  max-width: 100%;
-  height: auto;
-}
 .session {
   position: relative;
   padding-top: 4rem;
