@@ -97,9 +97,9 @@ export default {
     },
     siglaFormatada () {
       let siglaFormatada = this.localAtual
-      if (this.localAtual === "Comissão Especial") {
+      if (this.localAtual === 'Comissão Especial') {
         siglaFormatada = this.siglaLocalAtual
-      } 
+      }
       if (this.hasNumber(siglaFormatada)) {
         siglaFormatada = 'Comissão Especial - ' + siglaFormatada
       }
@@ -107,7 +107,7 @@ export default {
     },
     siglaParaLink () {
       let siglaParaLink = this.localAtual
-      if (this.localAtual === "Comissão Especial" || this.localAtual === "Plenário") {
+      if (this.localAtual === 'Comissão Especial' || this.localAtual === 'Plenário') {
         siglaParaLink = this.siglaLocalAtual
       }
       if (this.hasNumber(siglaParaLink)) {
