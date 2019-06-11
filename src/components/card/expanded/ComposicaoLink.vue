@@ -55,6 +55,7 @@ export default {
     ...mapState({
       orgao: state => state.comissoes.orgao
     })
+
   },
   async mounted () {
     await this.getComissao({
