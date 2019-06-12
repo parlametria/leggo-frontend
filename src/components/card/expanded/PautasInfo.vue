@@ -6,6 +6,7 @@
         </template>
         <table class="pautas">
           <tr v-for="(pauta, key) in propPautas" :key="key">
+            {{propPautas}}
             <td><p>{{formatDate(pauta.data)}}</p></td>
             <td><p>{{pauta.local}}</p></td>
           </tr>

@@ -1,7 +1,11 @@
 <template>
   <div class="container">
-    <div class="em-pauta-tag">
-      <pauta-tag :id="prop.lastEtapa.id"/>
+    <div class="header-tags">
+      <pauta-tag
+      v-for="(pauta, i) in filteredPautas"
+      :key="i"
+      :pauta="pauta"
+      :dateRef="dateRef"/>
       <arquivada-tag :status="prop.lastEtapa.status"/>
     </div>
     <temas :temas="prop.tema"/>
@@ -27,6 +31,8 @@ import PautaTag from './collapsed/PautaTag'
 import ArquivadaTag from './collapsed/ArquivadaTag'
 import Temas from './collapsed/Temas.vue'
 
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'proposicaoheader',
   props: {
@@ -41,6 +47,23 @@ export default {
     PautaTag,
     ArquivadaTag,
     Temas
+  },
+  methods: {
+    ...mapActions(['getPautas'])
+  },
+  computed: {
+    ...mapState({
+      dateRef: state => state.filter.dateRef,
+      pautas: state => state.pautas.pautas
+    }),
+    filteredPautas () {
+      const id = this.prop.lastEtapa.id
+      if (this.pautas && this.pautas[id] && this.pautas[id].length > 0) {
+        const result = this.pautas[id]
+        return result.reverse()
+      }
+      return []
+    }
   }
 }
 </script>
@@ -84,6 +107,13 @@ export default {
   grid-row: 3/4;
   font-size: 14pt;
   margin: .2rem 0;
+}
+.header-tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 @media (min-width: 768px) {
   .prop-apelido {
