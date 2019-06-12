@@ -17,6 +17,7 @@
               <div :class="{clickable: evento.collapsible}"
                    @click="toggleCollapseDescription(index)">
                 {{evento.texto}}
+                <span v-if="!isExpanded(index)" class="el-icon-circle-plus-outline"></span>
               </div>
             </td>
           </tr>
@@ -28,16 +29,18 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
+import mixin from '@/mixins/ExpandedTexts.js'
 
 export default {
   name: 'EventosInfo',
   data () {
     return {
       MAX_TEXT_LENGTH: 200,
-      activeNames: ['1'],
-      expandedDescriptions: []
+      TEXT_TO_BE_SHOWED_LENGTH: 50,
+      activeNames: ['1']
     }
   },
+  mixins: [mixin],
   props: {
     id: Number,
     casa: String,
@@ -61,7 +64,7 @@ export default {
           dataDiff: this.formatDateDifference(eventoTram.data),
           sigla: eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local,
           title: eventoTram.titulo_evento,
-          texto: this.formatTextoTramitacao(eventoTram.texto_tramitacao, index),
+          texto: this.formatTextoTramitacao(eventoTram.texto_tramitacao, index, this.MAX_TEXT_LENGTH, this.TEXT_TO_BE_SHOWED_LENGTH),
           collapsible: eventoTram.texto_tramitacao.length > this.MAX_TEXT_LENGTH
         }
       })
@@ -103,21 +106,6 @@ export default {
     },
     formatDate (date) {
       return moment(date).format('DD/MM/YYYY')
-    },
-    formatTextoTramitacao (textoTramitacao, key) {
-      return textoTramitacao.length > this.MAX_TEXT_LENGTH && !this.isExpanded(key)
-        ? `${textoTramitacao.substring(0, this.MAX_TEXT_LENGTH - 50)}... (+)`
-        : textoTramitacao
-    },
-    toggleCollapseDescription (key) {
-      if (!this.isExpanded(key)) {
-        this.expandedDescriptions.push(key)
-      } else {
-        this.expandedDescriptions = this.expandedDescriptions.filter(currentKey => key !== currentKey)
-      }
-    },
-    isExpanded (key) {
-      return this.expandedDescriptions.findIndex(currentKey => currentKey === key) !== -1
     }
   },
   watch: {
@@ -128,7 +116,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+@import "@/base.scss";
 .el-collapse {
   margin-top: 1rem
 }
@@ -158,5 +147,8 @@ th, td {
 }
 .sigla-local {
   color: #999;
+}
+.el-icon-circle-plus-outline{
+  color: $--color-primary;
 }
 </style>
