@@ -118,13 +118,13 @@ export default {
       return siglaParaLink
     },
     localAtual () {
-      let locais = this.prop.lastEtapa.resumo_tramitacao
-      let localAtual = locais[locais.length - 1].local
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const localAtual = locais[locais.length - 1].local
       return localAtual
     },
     siglaLocalAtual () {
-      let locais = this.prop.lastEtapa.resumo_tramitacao
-      let siglaLocalAtual = locais[locais.length - 1].sigla_local
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const siglaLocalAtual = locais[locais.length - 1].sigla_local
       return siglaLocalAtual
     },
     casa () {
