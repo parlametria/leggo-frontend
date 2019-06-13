@@ -107,7 +107,7 @@ export default {
     },
     siglaParaLink () {
       let siglaParaLink = this.localAtual
-      if (this.localAtual === 'Comissão Especial' || this.localAtual === 'Plenário') {
+      if (this.localAtual === 'Comissão Especial' || this.localAtual === 'Plenário' || this.localAtual === 'Presidência da República') {
         siglaParaLink = this.siglaLocalAtual
       }
       if (this.hasNumber(siglaParaLink)) {
