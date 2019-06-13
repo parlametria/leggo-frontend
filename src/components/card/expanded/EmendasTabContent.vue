@@ -14,7 +14,12 @@
       <el-table-column
         label="Autor">
         <template slot-scope="scope">
-        {{ corrigePartidoAutor(scope.row.autor) }}
+          <div :class="{clickable: scope.row.autor.length > MAX_TEXT_LENGTH}"
+             @click="toggleCollapseDescription(scope.$index)">
+        {{ corrigePartidoAutor(
+          scope.row.autor,
+          scope.$index) }} <span v-if="isShowExpandIcon(scope.row.autor, MAX_TEXT_LENGTH, scope.$index)" class="el-icon-circle-plus-outline"></span>
+       </div>
         </template>
       </el-table-column>
       <el-table-column
@@ -26,22 +31,31 @@
 </template>
 
 <script>
+import mixin from '@/mixins/ExpandedTexts.js'
 
 export default {
   name: 'EmendasTabContent',
+  data () {
+    return {
+      MAX_TEXT_LENGTH: 100,
+      TEXT_TO_BE_SHOWED_LENGTH: 30
+    }
+  },
+  mixins: [mixin],
   props: {
     emendas: Array,
     categoria: String
   },
   methods: {
-    corrigePartidoAutor (autor) {
-      return autor.replace('/NA', '')
+    corrigePartidoAutor (autor, key) {
+      return this.formatTextoTramitacao(autor.replace('/NA', ''), key, this.MAX_TEXT_LENGTH, this.TEXT_TO_BE_SHOWED_LENGTH)
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+@import "@/base.scss";
 .emendas {
     font-size: 10pt;
     text-align: center;
@@ -56,5 +70,8 @@ th, td {
 }
 .explicacao_emendas {
     color: #999;
+}
+.el-icon-circle-plus-outline{
+  color: $--color-primary;
 }
 </style>
