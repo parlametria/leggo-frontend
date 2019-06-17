@@ -17,7 +17,7 @@
               <div :class="{clickable: evento.collapsible}"
                    @click="toggleCollapseDescription(index)">
                 {{evento.texto}}
-                <span v-if="!isExpanded(index)" class="el-icon-circle-plus-outline"></span>
+                <span v-if="!isExpanded(index) && evento.collapsible" class="el-icon-circle-plus-outline"></span>
               </div>
             </td>
           </tr>
