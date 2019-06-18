@@ -103,12 +103,13 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.temperaturas && this.temperaturas[idA] && this.temperaturas[idA][0] &&
-              this.temperaturas[idB] && this.temperaturas[idB][0]) {
+          if (this.temperaturas) {
+            let tempA = this.temperaturas[idA][0] === undefined ? 0 : this.temperaturas[idA][0].temperatura_recente
+            let tempB = this.temperaturas[idB][0] === undefined ? 0 : this.temperaturas[idB][0].temperatura_recente
             if (this.filter.temperatureOrder === 'desc') {
-              return this.temperaturas[idB][0].temperatura_recente - this.temperaturas[idA][0].temperatura_recente
+              return tempB - tempA
             } else {
-              return this.temperaturas[idA][0].temperatura_recente - this.temperaturas[idB][0].temperatura_recente
+              return tempA - tempB
             }
           } else {
             return 0
