@@ -6,7 +6,7 @@
       :key="i"
       :pauta="pauta"
       :dateRef="dateRef"/>
-      <arquivada-tag :status="prop.lastEtapa.status"/>
+      <text-tag :status="prop.lastEtapa.status" />
     </div>
     <temas :temas="prop.tema"/>
     <div>
@@ -28,7 +28,7 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
 import PautaTag from './collapsed/PautaTag'
-import ArquivadaTag from './collapsed/ArquivadaTag'
+import TextTag from './collapsed/TextTag'
 import Temas from './collapsed/Temas.vue'
 
 import { mapState, mapActions } from 'vuex'
@@ -45,7 +45,7 @@ export default {
     Fases,
     TemperatureBar,
     PautaTag,
-    ArquivadaTag,
+    TextTag,
     Temas
   },
   methods: {
