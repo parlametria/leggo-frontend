@@ -97,6 +97,9 @@ export default {
     },
     siglaFormatada () {
       let siglaFormatada = this.localAtual
+      if (this.localAtual === 'Comissão Especial') {
+        siglaFormatada = this.siglaLocalAtual
+      }
       if (this.hasNumber(siglaFormatada)) {
         siglaFormatada = 'Comissão Especial - ' + siglaFormatada
       }
@@ -104,6 +107,9 @@ export default {
     },
     siglaParaLink () {
       let siglaParaLink = this.localAtual
+      if (this.localAtual === 'Comissão Especial' || this.localAtual === 'Plenário' || this.localAtual === 'Presidência da República') {
+        siglaParaLink = this.siglaLocalAtual
+      }
       if (this.hasNumber(siglaParaLink)) {
         siglaParaLink = siglaParaLink.replace(/\s/g, '')
         siglaParaLink = siglaParaLink.split('/')
@@ -112,9 +118,14 @@ export default {
       return siglaParaLink
     },
     localAtual () {
-      let locais = this.prop.lastEtapa.resumo_tramitacao
-      let localAtual = locais[locais.length - 1].local
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const localAtual = locais[locais.length - 1].local
       return localAtual
+    },
+    siglaLocalAtual () {
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const siglaLocalAtual = locais[locais.length - 1].sigla_local
+      return siglaLocalAtual
     },
     casa () {
       let autores = (this.prop.lastEtapa.autores)

@@ -22,7 +22,7 @@
               :class="{clickable: eventos['evento'][0].collapsible}"
               @click="toggleCollapseDescription(key)"
             >{{eventos['evento'][0].texto}}</tr>
-            <span v-if="!isExpanded(key)" class="el-icon-circle-plus-outline"></span>
+            <span v-if="!isExpanded(key) && eventos.collapsible" class="el-icon-circle-plus-outline"></span>
           </td>
         </div>
       </table>
@@ -81,18 +81,19 @@ export default {
       )
     },
     groupEventos () {
-      var groups = {}
-      for (var i = 0; i < this.formattedEventos.length; i++) {
-        var groupName = this.formattedEventos[i].data.concat(
-          this.formattedEventos[i].title,
-          this.formattedEventos[i].texto
+      let groups = {}
+      let groupName
+      this.formattedEventos.forEach(event => {
+        groupName = event.data.concat(
+          event.title,
+          event.texto
         )
         if (!groups[groupName]) {
           groups[groupName] = []
         }
-        groups[groupName].push(this.formattedEventos[i])
-      }
-      var myArray = []
+        groups[groupName].push(event)
+      })
+      let myArray = []
       for (groupName in groups) {
         myArray.push({ group: groupName, evento: groups[groupName] })
       }
