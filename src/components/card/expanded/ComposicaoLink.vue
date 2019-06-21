@@ -58,7 +58,7 @@ export default {
 
   },
   async mounted () {
-     try {
+    try {
       await this.getComissao({
 
         params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
