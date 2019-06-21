@@ -58,11 +58,15 @@ export default {
 
   },
   async mounted () {
-    await this.getComissao({
+     try {
+      await this.getComissao({
 
-      params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
-    })
-    this.composicao = this.orgao[this.siglaComissaoLink]
+        params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
+      })
+      this.composicao = this.orgao[this.siglaComissaoLink]
+    } catch (exc) {
+      this.composicao = undefined
+    }
   }
 }
 </script>
