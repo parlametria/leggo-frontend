@@ -111,11 +111,10 @@ export default {
         siglaParaLink = this.siglaLocalAtual
       }
       if (this.hasNumber(siglaParaLink)) {
-        siglaParaLink = siglaParaLink.replace(/\s/g, '')
-        siglaParaLink = siglaParaLink.split('/')
+        siglaParaLink = siglaParaLink.replace(/\s/g, '').split('/')
         siglaParaLink = siglaParaLink[0]
       }
-      return siglaParaLink
+      return siglaParaLink.replace(/\(|\)/g, '')
     },
     localAtual () {
       const locais = this.prop.lastEtapa.resumo_tramitacao
