@@ -2,7 +2,7 @@
     <el-collapse v-if="verificaSeMostraEmendas">
       <el-collapse-item>
         <template slot="title">
-          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
+          <span class="title">Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
         </template>
           <el-tabs>
             <el-tab-pane label="Mudanças Mais Aparentes">
@@ -34,6 +34,17 @@ export default {
       type: Date,
       default: function () {
         return moment()
+      }
+    }
+  },
+  filters: {
+    toFormattedName: function (value) {
+      if (value === 'senado') {
+        return 'Senado'
+      } else if (value === 'camara') {
+        return 'Câmara'
+      } else {
+        return value
       }
     }
   },
@@ -82,6 +93,9 @@ export default {
         if (emenda.distancia !== -1) { analisadas++ }
       })
       return analisadas
+    },
+    getCasa () {
+      return this.orderedEmendas[0].local.startsWith('CMMPV') ? 'Congresso Nacional' : this.casa
     }
   },
   methods: {
