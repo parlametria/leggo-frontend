@@ -1,19 +1,37 @@
 <template>
-    <el-collapse v-if="verificaSeMostraEmendas">
-      <el-collapse-item>
-        <template slot="title">
-          <span class="title">Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
-        </template>
-          <el-tabs>
-            <el-tab-pane  v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
-              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'" :showTextoExplicacao='showTextoExplicacao'/>
-            </el-tab-pane>
-            <el-tab-pane label="Mudanças Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'" :showTextoExplicacao='showTextoExplicacao'/>
-            </el-tab-pane>
-          </el-tabs>
-      </el-collapse-item>
-    </el-collapse>
+  <el-collapse v-if="verificaSeMostraEmendas">
+    <el-collapse-item>
+      <template slot="title">
+        <span
+          class="title"
+        >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
+      </template>
+      <el-tabs>
+        <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
+          <emendas-tab-content
+            :emendas="getDiscrepantes"
+            :categoria="'drásticas'"
+            :showTextoExplicacao="showTextoExplicacao"
+          />
+        </el-tab-pane>
+        <el-tab-pane label="Mudanças Mais Sutis">
+          <emendas-tab-content
+            :emendas="getSemelhantes"
+            :categoria="'pontuais'"
+            :showTextoExplicacao="showTextoExplicacao"
+          />
+        </el-tab-pane>
+      </el-tabs>
+    </el-collapse-item>
+  </el-collapse>
+  <el-collapse v-else-if="propEmendas.length === 0">
+    <div class="sem-emendas">Não foram apresentadas emendas para esta proposição</div>
+  </el-collapse>
+  <el-collapse v-else>
+    <div
+      class="sem-emendas"
+    >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</div>
+  </el-collapse>
 </template>
 
 <script>
@@ -76,22 +94,39 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id].filter(function (emenda) { return emenda.distancia !== -1 })
+      const result = this.emendas[this.id].filter(function (emenda) {
+        return emenda.distancia !== -1
+      })
       return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
-      return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
+      return _.take(
+        this.orderedEmendas,
+        Math.min(5, _.ceil(this.orderedEmendas.length / 2))
+      )
     },
     getSemelhantes () {
       if (!this.verificaSeMostraEmendasAparentes) {
-        return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, this.orderedEmendas.length)))
+        return _.reverse(
+          _.takeRight(
+            this.orderedEmendas,
+            Math.min(5, this.orderedEmendas.length)
+          )
+        )
       } else {
-        return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
+        return _.reverse(
+          _.takeRight(
+            this.orderedEmendas,
+            Math.min(5, _.floor(this.orderedEmendas.length / 2))
+          )
+        )
       }
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
+        return (
+          this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
+        )
       } else {
         return false
       }
@@ -99,15 +134,21 @@ export default {
     getAnalisadas () {
       var analisadas = 0
       this.orderedEmendas.forEach(function (emenda) {
-        if (emenda.distancia !== -1) { analisadas++ }
+        if (emenda.distancia !== -1) {
+          analisadas++
+        }
       })
       return analisadas
     },
     getCasa () {
-      return this.orderedEmendas[0].local.startsWith('CMMPV') ? 'Congresso Nacional' : this.casa
+      return this.orderedEmendas[0].local.startsWith('CMMPV')
+        ? 'Congresso Nacional'
+        : this.casa
     },
     verificaSeMostraEmendasAparentes () {
-      return this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
+      return (
+        this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
+      )
     },
     showTextoExplicacao () {
       return this.propEmendas.length !== this.getAnalisadas
@@ -129,18 +170,22 @@ export default {
 
 <style scoped>
 .title {
-  font-size: .97rem;
+  font-size: 0.97rem;
 }
 .emendas {
-    font-size: 10pt;
-    text-align: center;
+  font-size: 10pt;
+  text-align: center;
 }
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
-th, td {
-    padding: .5rem;
-    text-align: left;
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+}
+.sem-emendas {
+  padding: 10px;
 }
 </style>
