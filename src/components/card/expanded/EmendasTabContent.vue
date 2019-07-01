@@ -27,6 +27,7 @@
         label="Local">
       </el-table-column>
     </el-table>
+    <span v-if="showTextoExplicacao" class="explicacao_emendas">*Não analisamos todas pois algumas emendas estão no sistema como imagem e não como texto.</span>
   </div>
 </template>
 
@@ -44,7 +45,8 @@ export default {
   mixins: [mixin],
   props: {
     emendas: Array,
-    categoria: String
+    categoria: String,
+    showTextoExplicacao: Boolean
   },
   methods: {
     corrigePartidoAutor (autor, key) {

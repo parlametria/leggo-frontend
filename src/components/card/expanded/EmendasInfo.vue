@@ -6,10 +6,10 @@
         </template>
           <el-tabs>
             <el-tab-pane  v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
-              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
+              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'" :showTextoExplicacao='showTextoExplicacao'/>
             </el-tab-pane>
             <el-tab-pane label="Mudanças Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'"/>
+               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'" :showTextoExplicacao='showTextoExplicacao'/>
             </el-tab-pane>
           </el-tabs>
       </el-collapse-item>
@@ -108,6 +108,9 @@ export default {
     },
     verificaSeMostraEmendasAparentes () {
       return this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
+    },
+    showTextoExplicacao () {
+      return this.propEmendas.length !== this.getAnalisadas
     }
   },
   methods: {
