@@ -5,7 +5,7 @@
           <span class="title">Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
         </template>
           <el-tabs>
-            <el-tab-pane label="Mudanças Mais Aparentes">
+            <el-tab-pane  v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
               <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
             </el-tab-pane>
             <el-tab-pane label="Mudanças Mais Sutis">
@@ -35,6 +35,11 @@ export default {
       default: function () {
         return moment()
       }
+    }
+  },
+  data () {
+    return {
+      LIMIAR: 10
     }
   },
   filters: {
@@ -78,7 +83,11 @@ export default {
       return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
     },
     getSemelhantes () {
-      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
+      if (!this.verificaSeMostraEmendasAparentes) {
+        return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, this.orderedEmendas.length)))
+      } else {
+        return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
+      }
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
@@ -96,6 +105,9 @@ export default {
     },
     getCasa () {
       return this.orderedEmendas[0].local.startsWith('CMMPV') ? 'Congresso Nacional' : this.casa
+    },
+    verificaSeMostraEmendasAparentes () {
+      return this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
     }
   },
   methods: {
