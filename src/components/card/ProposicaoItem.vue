@@ -33,7 +33,7 @@
 
           <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
           <div v-for="(etapa,i) in prop.etapas" :key="i">
-            <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef"/>
+            <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" :numEtapas="prop.etapas.length"/>
           </div>
           <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef"/>
 

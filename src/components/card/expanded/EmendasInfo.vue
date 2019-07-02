@@ -3,8 +3,8 @@
     <el-collapse-item>
       <template slot="title">
         <span
-          class="title"
-        >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
+          class="title x"
+        >Análise das Emendas {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
       </template>
       <el-tabs>
         <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
@@ -24,13 +24,13 @@
       </el-tabs>
     </el-collapse-item>
   </el-collapse>
-  <el-collapse v-else-if="propEmendas.length === 0">
-    <div class="sem-emendas">Não foram apresentadas emendas para esta proposição</div>
+  <el-collapse v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
+    <div class="title sem-emendas">Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName}}</div>
   </el-collapse>
   <el-collapse v-else>
     <div
-      class="sem-emendas"
-    >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</div>
+      class="title sem-emendas"
+    >Não conseguimos analisar as emendas {{ getCasa | toFormattedName}}.</div>
   </el-collapse>
 </template>
 
@@ -53,7 +53,8 @@ export default {
       default: function () {
         return moment()
       }
-    }
+    },
+    numEtapas: Number
   },
   data () {
     return {
@@ -63,9 +64,9 @@ export default {
   filters: {
     toFormattedName: function (value) {
       if (value === 'senado') {
-        return 'Senado'
+        return 'no Senado'
       } else if (value === 'camara') {
-        return 'Câmara'
+        return 'na Câmara'
       } else {
         return value
       }
@@ -141,7 +142,7 @@ export default {
       return analisadas
     },
     getCasa () {
-      return this.orderedEmendas[0].local.startsWith('CMMPV')
+      return this.orderedEmendas[0] && this.orderedEmendas[0].local.startsWith('CMMPV')
         ? 'Congresso Nacional'
         : this.casa
     },
@@ -186,6 +187,8 @@ td {
   text-align: left;
 }
 .sem-emendas {
-  padding: 10px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  color: #303133;
 }
 </style>
