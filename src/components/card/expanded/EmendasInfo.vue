@@ -3,7 +3,7 @@
     <el-collapse-item>
       <template slot="title">
         <span
-          class="title x"
+          class="title"
         >Análise das Emendas {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
       </template>
       <el-tabs>
@@ -172,6 +172,7 @@ export default {
 <style scoped>
 .title {
   font-size: 0.97rem;
+  line-height: 15px;
 }
 .emendas {
   font-size: 10pt;
