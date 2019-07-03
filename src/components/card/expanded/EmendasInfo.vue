@@ -25,7 +25,9 @@
     </el-collapse-item>
   </el-collapse>
   <el-collapse v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
-    <div class="title sem-emendas">Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName}}</div>
+    <div
+      class="title sem-emendas"
+    >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName}}</div>
   </el-collapse>
   <el-collapse v-else>
     <div
@@ -95,10 +97,11 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id].filter(function (emenda) {
-        return emenda.distancia !== -1
-      })
-      return result.sort((a, b) => b.distancia - a.distancia)
+      return this.emendas[this.id]
+        ? this.emendas[this.id]
+          .filter(emenda => emenda.distancia !== -1)
+          .sort((a, b) => b.distancia - a.distancia)
+        : this.emendas[this.id]
     },
     getDiscrepantes () {
       return _.take(
@@ -107,30 +110,26 @@ export default {
       )
     },
     getSemelhantes () {
+      const reversedEmendas = _.reverse(this.orderedEmendas)
       if (!this.verificaSeMostraEmendasAparentes) {
-        return _.reverse(
-          _.takeRight(
-            this.orderedEmendas,
-            Math.min(5, this.orderedEmendas.length)
-          )
+        return _.takeRight(
+          reversedEmendas,
+          Math.min(5, this.orderedEmendas.length)
         )
       } else {
-        return _.reverse(
-          _.takeRight(
-            this.orderedEmendas,
-            Math.min(5, _.floor(this.orderedEmendas.length / 2))
-          )
+        return _.takeRight(
+          reversedEmendas,
+          Math.min(5, _.floor(this.orderedEmendas.length / 2))
         )
       }
     },
     verificaSeMostraEmendas () {
-      if (this.propEmendas && this.propEmendas.length) {
-        return (
-          this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
-        )
-      } else {
-        return false
-      }
+      return (
+        this.propEmendas &&
+        this.propEmendas.lengt &&
+        this.orderedEmendas[0] &&
+        this.orderedEmendas[0].distancia !== -1
+      )
     },
     getAnalisadas () {
       var analisadas = 0
@@ -142,7 +141,9 @@ export default {
       return analisadas
     },
     getCasa () {
-      return this.orderedEmendas[0] && this.orderedEmendas[0].local.startsWith('CMMPV')
+      return this.orderedEmendas &&
+        this.orderedEmendas[0] &&
+        this.orderedEmendas[0].local.startsWith('CMMPV')
         ? 'Congresso Nacional'
         : this.casa
     },
