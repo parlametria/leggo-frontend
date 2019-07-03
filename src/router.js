@@ -5,6 +5,7 @@ import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
+import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
@@ -59,6 +60,12 @@ export default new Router({
         NProgress.done()
         next()
       }
+    },
+    {
+      path: '/proposicao/:id',
+      name: 'proposicao',
+      component: ProposicaoDetailed,
+      props: true
     }
   ]
 })

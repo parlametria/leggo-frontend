@@ -1,8 +1,8 @@
 <template>
   <div class="proposicao-card">
-    <div @click="dropShow = !dropShow" class="card-header">
+    <router-link :to="linkComissao" tag="div" class="card-header">
       <proposicao-header :prop="prop" :clicked="dropShow"/>
-    </div>
+    </router-link>
     <el-collapse-transition>
       <div v-if="dropShow" class="card-body">
         <div class="prop-item">
@@ -89,6 +89,14 @@ export default {
     }
   },
   computed: {
+    linkComissao () {
+      return {
+        name: 'proposicao',
+        params: {
+          id: this.prop.id
+        }
+      }
+    },
     emPauta () {
       return this.prop.lastEtapa.emPauta
     },
