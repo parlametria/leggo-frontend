@@ -13,15 +13,15 @@
 </template>
 
 <script>
-import ProposicaoHeader from "./ProposicaoHeader";
+import ProposicaoHeader from './ProposicaoHeader'
 // import ProposicaoExpanded from "./ProposicaoExpanded";
 
 export default {
-  name: "proposicaoitem",
-  data() {
+  name: 'proposicaoitem',
+  data () {
     return {
       dropShow: false
-    };
+    }
   },
   components: {
     ProposicaoHeader
@@ -32,16 +32,16 @@ export default {
     prop: Object
   },
   computed: {
-    linkProp() {
+    linkProp () {
       return {
-        name: "proposicao",
+        name: 'proposicao',
         params: {
           id: this.prop.id
         }
-      };
+      }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

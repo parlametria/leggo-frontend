@@ -7,7 +7,7 @@
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
-import ProposicaoExpanded from "@/components/card/ProposicaoExpanded";
+import ProposicaoExpanded from '@/components/card/ProposicaoExpanded'
 import { mapState } from 'vuex'
 
 export default {

@@ -42,26 +42,26 @@
 </template>
 
 <script>
-import RegimeTramitacao from "./collapsed/RegimeTramitacao.vue";
-import FormaApreciacao from "./collapsed/FormaApreciacao.vue";
-import TemperatureGraphic from "./expanded/temperature/TemperatureGraphic";
-import FasesProgress from "./expanded/FasesProgress";
-import PautasInfo from "./expanded/PautasInfo";
-import TemperatureBar from "./collapsed/TemperatureBar";
-import TemperatureInfo from "./expanded/temperature/TemperatureInfo";
-import AuthorName from "./expanded/AuthorName";
-import EventosInfo from "./expanded/EventosInfo";
-import EmendasInfo from "./expanded/EmendasInfo";
-import ComposicaoLink from "./expanded/ComposicaoLink";
-import { mapState } from "vuex";
-import moment from "moment";
+import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
+import FormaApreciacao from './collapsed/FormaApreciacao.vue'
+import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
+import FasesProgress from './expanded/FasesProgress'
+import PautasInfo from './expanded/PautasInfo'
+import TemperatureBar from './collapsed/TemperatureBar'
+import TemperatureInfo from './expanded/temperature/TemperatureInfo'
+import AuthorName from './expanded/AuthorName'
+import EventosInfo from './expanded/EventosInfo'
+import EmendasInfo from './expanded/EmendasInfo'
+import ComposicaoLink from './expanded/ComposicaoLink'
+import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
-  name: "proposicaoitem",
-  data() {
+  name: 'proposicaoitem',
+  data () {
     return {
       dropShow: false
-    };
+    }
   },
   components: {
     RegimeTramitacao,
@@ -77,69 +77,69 @@ export default {
     ComposicaoLink
   },
   methods: {
-    hasNumber: function(myString) {
-      return /\d/.test(myString);
+    hasNumber: function (myString) {
+      return /\d/.test(myString)
     },
-    getNomeAutor: function() {
-      return this.prop.lastEtapa.autores.length > 1 ? "Autores" : "Autor";
+    getNomeAutor: function () {
+      return this.prop.lastEtapa.autores.length > 1 ? 'Autores' : 'Autor'
     }
   },
   computed: {
-    emPauta() {
-      return this.prop.lastEtapa.emPauta;
+    emPauta () {
+      return this.prop.lastEtapa.emPauta
     },
-    dataLocalAtual() {
-      const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data;
-      return moment(data).format("DD/MM/YYYY");
+    dataLocalAtual () {
+      const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
+      return moment(data).format('DD/MM/YYYY')
     },
-    siglaFormatada() {
-      let siglaFormatada = this.localAtual;
-      if (this.localAtual === "Comissão Especial") {
-        siglaFormatada = this.siglaLocalAtual;
+    siglaFormatada () {
+      let siglaFormatada = this.localAtual
+      if (this.localAtual === 'Comissão Especial') {
+        siglaFormatada = this.siglaLocalAtual
       }
       if (this.hasNumber(siglaFormatada)) {
-        siglaFormatada = "Comissão Especial - " + siglaFormatada;
+        siglaFormatada = 'Comissão Especial - ' + siglaFormatada
       }
-      return siglaFormatada;
+      return siglaFormatada
     },
-    siglaParaLink() {
-      let siglaParaLink = this.localAtual;
+    siglaParaLink () {
+      let siglaParaLink = this.localAtual
       if (
-        this.localAtual === "Comissão Especial" ||
-        this.localAtual === "Plenário" ||
-        this.localAtual === "Presidência da República"
+        this.localAtual === 'Comissão Especial' ||
+        this.localAtual === 'Plenário' ||
+        this.localAtual === 'Presidência da República'
       ) {
-        siglaParaLink = this.siglaLocalAtual;
+        siglaParaLink = this.siglaLocalAtual
       }
       if (this.hasNumber(siglaParaLink)) {
-        siglaParaLink = siglaParaLink.replace(/\s/g, "").split("/");
-        siglaParaLink = siglaParaLink[0];
+        siglaParaLink = siglaParaLink.replace(/\s/g, '').split('/')
+        siglaParaLink = siglaParaLink[0]
       }
-      return siglaParaLink.replace(/\(|\)/g, "");
+      return siglaParaLink.replace(/\(|\)/g, '')
     },
-    localAtual() {
-      const locais = this.prop.lastEtapa.resumo_tramitacao;
-      const localAtual = locais[locais.length - 1].local;
-      return localAtual;
+    localAtual () {
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const localAtual = locais[locais.length - 1].local
+      return localAtual
     },
-    siglaLocalAtual() {
-      const locais = this.prop.lastEtapa.resumo_tramitacao;
-      const siglaLocalAtual = locais[locais.length - 1].sigla_local;
-      return siglaLocalAtual;
+    siglaLocalAtual () {
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const siglaLocalAtual = locais[locais.length - 1].sigla_local
+      return siglaLocalAtual
     },
-    casa() {
-      let autores = this.prop.lastEtapa.autores;
-      let casaOrigem = this.prop.lastEtapa.casa_origem;
-      let casa = "";
-      if (autores === "Poder Executivo") {
-        casa = "";
-      } else if (casaOrigem === "senado" || casaOrigem === "Senado Federal") {
-        casa = "Senado Federal";
+    casa () {
+      let autores = this.prop.lastEtapa.autores
+      let casaOrigem = this.prop.lastEtapa.casa_origem
+      let casa = ''
+      if (autores === 'Poder Executivo') {
+        casa = ''
+      } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
+        casa = 'Senado Federal'
       } else {
-        casa = "Câmara dos Deputados";
+        casa = 'Câmara dos Deputados'
       }
 
-      return casa;
+      return casa
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
@@ -149,7 +149,7 @@ export default {
   props: {
     prop: Object
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
