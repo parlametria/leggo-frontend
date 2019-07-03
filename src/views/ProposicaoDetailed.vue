@@ -1,11 +1,13 @@
 <template>
   <div>
     <h1>{{this.filteredProp.apelido}}</h1>
+    <proposicao-expanded :prop="this.filteredProp"></proposicao-expanded>
   </div>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
+import ProposicaoExpanded from "@/components/card/ProposicaoExpanded";
 import { mapState } from 'vuex'
 
 export default {
@@ -16,12 +18,12 @@ export default {
     }
   },
   components: {
-    ProposicaoItem
+    ProposicaoItem,
+    ProposicaoExpanded
   },
   computed: {
     filteredProp () {
       for (var i = 0; i < this.proposicoes.length; i++) {
-        console.log(this.proposicoes[i])
         if (this.proposicoes[i].id === this.id) {
           return this.proposicoes[i]
         }
