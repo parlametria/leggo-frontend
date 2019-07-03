@@ -6,7 +6,6 @@
         - {{ $t(etapa.casa) }}
       </p>
     </div>
-
     <h4>Progresso da Tramitação</h4>
     <fases-progress
       class="fases-progress"
@@ -32,7 +31,6 @@
         <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info" />
       </el-col>
     </el-row>
-
     <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
     <div v-for="(etapa,i) in prop.etapas" :key="i">
       <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" />
@@ -77,10 +75,10 @@ export default {
     ComposicaoLink
   },
   methods: {
-    hasNumber: function (myString) {
+    hasNumber (myString) {
       return /\d/.test(myString)
     },
-    getNomeAutor: function () {
+    getNomeAutor () {
       return this.prop.lastEtapa.autores.length > 1 ? 'Autores' : 'Autor'
     }
   },
