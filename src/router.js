@@ -65,7 +65,23 @@ export default new Router({
       path: '/proposicao/:id',
       name: 'proposicao',
       component: ProposicaoDetailed,
-      props: true
+      props: true,
+      beforeEnter: async ({ params }, from, next) => {
+        NProgress.start()
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        await store.dispatch('listProposicoes', {
+          params: { semanas, date }
+        })
+        const proposicoes = store.state.proposicoes.proposicoes
+        proposicoes.forEach(proposicao => {
+          if (proposicao.id === parseInt(params.id)) {
+            params.prop = proposicao
+          }
+        })
+        NProgress.done()
+        next()
+      }
     }
   ]
 })

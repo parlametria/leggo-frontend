@@ -1,42 +1,53 @@
 <template>
   <div>
-    <h1>{{this.filteredProp.apelido}}</h1>
-    <proposicao-expanded :prop="this.filteredProp"></proposicao-expanded>
+    <div v-if="prop === undefined">Falha no carregamento</div>
+    <div v-else>
+        <router-link :to="{ path: $store.state.route.from.fullPath }">
+        <span class="titulo">
+            {{this.prop.apelido}}
+        </span>
+        </router-link>
+        <proposicao-expanded :prop="this.prop"></proposicao-expanded>
+    </div>
   </div>
 </template>
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import ProposicaoExpanded from '@/components/card/ProposicaoExpanded'
-import { mapState } from 'vuex'
 
 export default {
   name: 'proposicoes',
   props: {
-    id: {
-      type: Number
+    prop: {
+      type: Object
     }
   },
   components: {
     ProposicaoItem,
     ProposicaoExpanded
-  },
-  computed: {
-    filteredProp () {
-      for (var i = 0; i < this.proposicoes.length; i++) {
-        if (this.proposicoes[i].id === this.id) {
-          return this.proposicoes[i]
-        }
-      }
-      return null
-    },
-    ...mapState({
-      proposicoes: state => state.proposicoes.proposicoes
-    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "@/base.scss";
+
+.titulo {
+  color: #656565;
+  font-size: 2rem;
+  padding-right: 15px;
+}
+.titulo::before {
+  height: 12px;
+  width: 12px;
+  border: solid #dc6060;
+  border-width: 0px 3px 3px 0;
+  margin-bottom: 4px;
+  margin-right: -5px;
+  transform: rotate(130deg);
+  content: "";
+  display: inline-block;
+}
+
 </style>

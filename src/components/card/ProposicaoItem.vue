@@ -2,19 +2,12 @@
   <div class="proposicao-card">
     <router-link :to="linkProp" tag="div" class="card-header">
       <proposicao-header :prop="prop" :clicked="dropShow" />
-
-      <!-- <el-collapse-transition>
-        <div v-if="dropShow" class="card-body">
-          <proposicao-expanded :prop="prop"></proposicao-expanded>
-        </div>
-      </el-collapse-transition> -->
     </router-link>
   </div>
 </template>
 
 <script>
 import ProposicaoHeader from './ProposicaoHeader'
-// import ProposicaoExpanded from "./ProposicaoExpanded";
 
 export default {
   name: 'proposicaoitem',
@@ -25,8 +18,6 @@ export default {
   },
   components: {
     ProposicaoHeader
-    // ,
-    // ProposicaoExpanded
   },
   props: {
     prop: Object
