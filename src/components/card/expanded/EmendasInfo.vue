@@ -75,10 +75,10 @@ export default {
       return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
-      return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
+      return _.take(this.orderedEmendas, _.ceil(this.orderedEmendas.length / 2))
     },
     getSemelhantes () {
-      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
+      return _.reverse(_.takeRight(this.orderedEmendas, _.floor(this.orderedEmendas.length / 2)))
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
