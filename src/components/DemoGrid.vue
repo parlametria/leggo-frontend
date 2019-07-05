@@ -171,8 +171,7 @@ td {
 
 th,
 td {
-  min-width: 120px;
-  padding: 10px 20px;
+  padding: 0 5px;
 }
 
 th.active {
@@ -212,7 +211,7 @@ th.active .arrow {
   position: relative;
 
   overflow: hidden;
-  padding: 2px;
+  padding: 5px;
 
   border-width: 0;
   outline: none;
