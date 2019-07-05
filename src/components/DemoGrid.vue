@@ -152,6 +152,7 @@ table {
   border: 2px solid $--color-primary;
   border-radius: 3px;
   background-color: #fff;
+  width: 100%;
 }
 
 th {

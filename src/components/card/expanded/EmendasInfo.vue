@@ -1,29 +1,34 @@
 <template>
-    <el-collapse v-if="verificaSeMostraEmendas">
-      <el-collapse-item>
-        <template slot="title">
-          <span class="title">Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
-        </template>
-          <el-tabs>
-            <el-tab-pane label="Mudanças Mais Aparentes">
-              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
-            </el-tab-pane>
-            <el-tab-pane label="Mudanças Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'"/>
-            </el-tab-pane>
-          </el-tabs>
-      </el-collapse-item>
-    </el-collapse>
+  <el-collapse v-if="verificaSeMostraEmendas">
+    <el-collapse-item>
+      <template slot="title">
+        <span
+          class="title"
+        >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
+      </template>
+      <el-tabs>
+        <el-tab-pane label="Todas emendas">
+          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+        </el-tab-pane>
+        <el-tab-pane label="Mudanças Mais Aparentes">
+          <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
+        </el-tab-pane>
+        <el-tab-pane label="Mudanças Mais Sutis">
+          <emendas-tab-content :emendas="getSemelhantes" :categoria="'pontuais'" />
+        </el-tab-pane>
+      </el-tabs>
+    </el-collapse-item>
+  </el-collapse>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import moment from 'moment'
-import _ from 'lodash'
-import EmendasTabContent from './EmendasTabContent'
+import { mapActions, mapState } from "vuex";
+import moment from "moment";
+import _ from "lodash";
+import EmendasTabContent from "./EmendasTabContent";
 
 export default {
-  name: 'EmendasInfo',
+  name: "EmendasInfo",
   components: {
     EmendasTabContent
   },
@@ -32,100 +37,117 @@ export default {
     casa: String,
     date: {
       type: Date,
-      default: function () {
-        return moment()
+      default: function() {
+        return moment();
       }
     }
   },
   filters: {
-    toFormattedName: function (value) {
-      if (value === 'senado') {
-        return 'Senado'
-      } else if (value === 'camara') {
-        return 'Câmara'
+    toFormattedName: function(value) {
+      if (value === "senado") {
+        return "Senado";
+      } else if (value === "camara") {
+        return "Câmara";
       } else {
-        return value
+        return value;
       }
     }
   },
-  mounted () {
-    this.getEmendas(this.query)
+  mounted() {
+    this.getEmendas(this.query);
   },
   computed: {
-    propEmendas () {
-      return this.emendas[this.id]
+    propEmendas() {
+      return this.emendas[this.id];
     },
     ...mapState({
       emendas: state => state.emendas.emendasDict
     }),
-    formattedDate () {
-      return moment(this.date).format('YYYY-MM-DD')
+    formattedDate() {
+      return moment(this.date).format("YYYY-MM-DD");
     },
-    query () {
+    query() {
       return {
         params: {
           casa: this.casa,
           id: this.id,
           dataFim: this.formattedDate
         }
-      }
+      };
     },
-    orderedEmendas () {
-      const result = this.emendas[this.id].filter(function (emenda) { return emenda.distancia !== -1 })
-      return result.sort((a, b) => b.distancia - a.distancia)
+    orderedEmendas() {
+      const result = this.emendas[this.id].filter(function(emenda) {
+        return emenda.distancia !== -1;
+      });
+      return result.sort((a, b) => b.distancia - a.distancia);
     },
-    getDiscrepantes () {
-      return _.take(this.orderedEmendas, _.ceil(this.orderedEmendas.length / 2))
+    getDiscrepantes() {
+      return _.take(
+        this.orderedEmendas,
+        _.ceil(this.orderedEmendas.length / 2)
+      );
     },
-    getSemelhantes () {
-      return _.reverse(_.takeRight(this.orderedEmendas, _.floor(this.orderedEmendas.length / 2)))
+    getSemelhantes() {
+      return _.reverse(
+        _.takeRight(
+          this.orderedEmendas,
+          _.floor(this.orderedEmendas.length / 2)
+        )
+      );
     },
-    verificaSeMostraEmendas () {
+    verificaSeMostraEmendas() {
       if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
+        return (
+          this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
+        );
       } else {
-        return false
+        return false;
       }
     },
-    getAnalisadas () {
-      var analisadas = 0
-      this.orderedEmendas.forEach(function (emenda) {
-        if (emenda.distancia !== -1) { analisadas++ }
-      })
-      return analisadas
+    getAnalisadas() {
+      var analisadas = 0;
+      this.orderedEmendas.forEach(function(emenda) {
+        if (emenda.distancia !== -1) {
+          analisadas++;
+        }
+      });
+      return analisadas;
     },
-    getCasa () {
-      return this.orderedEmendas[0].local.startsWith('CMMPV') ? 'Congresso Nacional' : this.casa
+    getCasa() {
+      return this.orderedEmendas[0].local.startsWith("CMMPV")
+        ? "Congresso Nacional"
+        : this.casa;
     }
   },
   methods: {
-    ...mapActions(['getEmendas']),
-    formatDate (date) {
-      return moment(date).format('DD/MM/YYYY')
+    ...mapActions(["getEmendas"]),
+    formatDate(date) {
+      return moment(date).format("DD/MM/YYYY");
     }
   },
   watch: {
-    date () {
-      this.getEmendas(this.query)
+    date() {
+      this.getEmendas(this.query);
     }
   }
-}
+};
 </script>
 
 <style scoped>
 .title {
-  font-size: .97rem;
+  font-size: 0.97rem;
 }
 .emendas {
-    font-size: 10pt;
-    text-align: center;
+  font-size: 10pt;
+  text-align: center;
 }
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
-th, td {
-    padding: .5rem;
-    text-align: left;
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
 }
 </style>
