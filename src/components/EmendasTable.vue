@@ -50,7 +50,7 @@
 import mixin from '@/mixins/ExpandedTexts.js'
 
 export default {
-  name: 'DemoGrid',
+  name: 'EmendasTable',
   props: {
     data: Array,
     columns: Array,
@@ -62,7 +62,7 @@ export default {
     }
   },
   data: function () {
-    var sortOrders = {}
+    let sortOrders = {}
     this.columns.forEach(function (key) {
       sortOrders[key] = 1
     })
@@ -77,16 +77,18 @@ export default {
   mixins: [mixin],
   computed: {
     filteredData: function () {
-      var sortKey = this.sortKey
-      var filterKey = this.filterKey && this.filterKey.toLowerCase()
-      var order = this.sortOrders[sortKey] || 1
-      var data = this.paginatedData
+      let sortKey = this.sortKey
+      let filterKey = this.filterKey && this.filterKey.toLowerCase()
+      filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      let order = this.sortOrders[sortKey] || 1
+      let data = this.paginatedData
       if (filterKey) {
         data = data.filter(function (row) {
           return Object.keys(row).some(function (key) {
             return (
               String(row[key])
                 .toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                 .indexOf(filterKey) > -1
             )
           })
@@ -209,18 +211,15 @@ th.active .arrow {
 
 .btn {
   position: relative;
-
+  margin: 6px 5px;
   overflow: hidden;
-  padding: 5px;
-
+  padding: 7px;
   border-width: 0;
   outline: none;
   border-radius: 2px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-
   background-color: $--color-primary;
   color: #ecf0f1;
-
   transition: background-color .3s;
 }
 

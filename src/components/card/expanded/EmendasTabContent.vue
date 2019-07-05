@@ -7,17 +7,18 @@
   <span class="bar"></span>
   <label>Pesquise aqui</label>
   <span class="el-icon-search"></span>
+  <span class="loader" v-show="loading"></span>
 </div>
-  <demo-grid
+  <emendas-table
     :data="emendas"
     :columns="['titulo', 'autor', 'local']"
     :filter-key="query">
-  </demo-grid>
+  </emendas-table>
 </div>
 </template>
 
 <script>
-import DemoGrid from '@/components/DemoGrid.vue'
+import EmendasTable from '@/components/EmendasTable.vue'
 import _ from 'lodash'
 
 export default {
@@ -25,19 +26,27 @@ export default {
   data () {
     return {
       searchQuery: '',
-      query: ''
+      query: '',
+      loading: false
     }
   },
   components: {
-    DemoGrid
+    EmendasTable
   },
   props: {
     emendas: Array,
     categoria: String
   },
+  created () {
+    this.delay = _.debounce(() => {
+      this.query = this.searchQuery
+      this.loading = false
+    }, 500)
+  },
   watch: {
     searchQuery (newValue, oldValue) {
-      _.debounce(() => this.query = newValue, 500)()
+      this.loading = true
+      this.delay()
     }
   }
 }
@@ -81,7 +90,7 @@ td {
   font-size: 1rem;
   line-height: 1rem;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   width: 100%;
   text-align: left;
   background-color: transparent;
@@ -178,6 +187,27 @@ td {
   opacity: 1;
   width: 100%;
   margin-left: 0;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid $--color-primary;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 </style>
