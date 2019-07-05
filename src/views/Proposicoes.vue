@@ -47,9 +47,10 @@ export default {
   methods: {
     ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
+
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.filter.current[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
+        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
       )
     },
     checkPautaFilter (prop) {
@@ -89,9 +90,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent']),
     filteredProps () {
+      console.log(1)
       // Teste para ver se o obj com os filtros já foi inicializado
-      if (Object.keys(this.filter.current).length) {
+      if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
@@ -126,7 +129,6 @@ export default {
       temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas
     }),
-    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'createfilterOptionObjectEmpty']),
     emPauta () {
       return this.filteredProps.filter(prop => {
         const propId = prop.lastEtapa.id
@@ -138,26 +140,6 @@ export default {
         const propId = prop.lastEtapa.id
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
-    },
-    compoundWatch () {
-      return [this.formattedDateRef, this.filter.semanas].join()
-    }
-  },
-  watch: {
-    compoundWatch: {
-      async handler (newValue, oldValue) {
-        await this.listProposicoes({
-          params: {
-            semanas: this.filter.semanas,
-            date: this.formattedDateRef
-          }
-        })
-        if (!oldValue) {
-          // Deep clone o obj para que não seja modificado quando só os filtros forem.
-          this.setFilter(JSON.parse(JSON.stringify(this.createfilterOptionObjectEmpty)))
-        }
-      },
-      immediate: true
     }
   },
   async mounted () {
