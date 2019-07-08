@@ -54,11 +54,6 @@ proposicoes.getters = {
     }
     return options
   },
-  createfilterOptionObjectEmpty (state) {
-    let options = {}
-    filterStore.state.filters.map(filter => { options[filter] = [] })
-    return options
-  },
   getPropById (state) {
     return (id) => state.proposicoes.find(prop => prop.id === id)
   }

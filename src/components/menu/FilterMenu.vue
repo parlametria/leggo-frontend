@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
 import Login from '@/components/menu/Login'
 import store from '@/stores/store'
@@ -119,15 +119,15 @@ export default {
         return this.$store.state.filter.dateRef
       },
       set (value) {
-        this.$store.commit('updateDateRef', value)
+        this.updateDateRef(value)
       }
     }
   },
   methods: {
     ...mapMutations([
-      'filtraEmPauta',
       'filtraNomeProposicao'
-    ])
+    ]),
+    ...mapActions(['updateDateRef'])
   }
 }
 </script>
