@@ -2,11 +2,12 @@
   <el-collapse v-if="verificaSeMostraEmendas">
     <el-collapse-item>
       <template slot="title">
-        <span
-          class="title"
-        >Análise das Emendas {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
+        <h4>Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</h4>
       </template>
       <el-tabs>
+        <el-tab-pane label="Todas as emendas">
+          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+        </el-tab-pane>
         <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
           <emendas-tab-content
             :emendas="getDiscrepantes"
@@ -37,13 +38,13 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import moment from 'moment'
-import _ from 'lodash'
-import EmendasTabContent from './EmendasTabContent'
+import { mapActions, mapState } from "vuex";
+import moment from "moment";
+import _ from "lodash";
+import EmendasTabContent from "./EmendasTabContent";
 
 export default {
-  name: 'EmendasInfo',
+  name: "EmendasInfo",
   components: {
     EmendasTabContent
   },
@@ -52,122 +53,122 @@ export default {
     casa: String,
     date: {
       type: Date,
-      default: function () {
-        return moment()
+      default: function() {
+        return moment();
       }
     },
     numEtapas: Number
   },
-  data () {
+  data() {
     return {
       LIMIAR: 10
-    }
+    };
   },
   filters: {
-    toFormattedName: function (value) {
-      if (value === 'senado') {
-        return 'no Senado'
-      } else if (value === 'camara') {
-        return 'na Câmara'
+    toFormattedName: function(value) {
+      if (value === "senado") {
+        return "no Senado";
+      } else if (value === "camara") {
+        return "na Câmara";
       } else {
-        return value
+        return value;
       }
     }
   },
-  mounted () {
-    this.getEmendas(this.query)
+  mounted() {
+    this.getEmendas(this.query);
   },
   computed: {
-    propEmendas () {
-      return this.emendas[this.id]
+    propEmendas() {
+      return this.emendas[this.id];
     },
     ...mapState({
       emendas: state => state.emendas.emendasDict
     }),
-    formattedDate () {
-      return moment(this.date).format('YYYY-MM-DD')
+    formattedDate() {
+      return moment(this.date).format("YYYY-MM-DD");
     },
-    query () {
+    query() {
       return {
         params: {
           casa: this.casa,
           id: this.id,
           dataFim: this.formattedDate
         }
-      }
+      };
     },
-    orderedEmendas () {
+    orderedEmendas() {
       return this.emendas[this.id]
         ? this.emendas[this.id]
-          .filter(emenda => emenda.distancia !== -1)
-          .sort((a, b) => b.distancia - a.distancia)
-        : this.emendas[this.id]
+            .filter(emenda => emenda.distancia !== -1)
+            .sort((a, b) => b.distancia - a.distancia)
+        : this.emendas[this.id];
     },
-    getDiscrepantes () {
+    getDiscrepantes() {
       return _.take(
         this.orderedEmendas,
-        Math.min(5, _.ceil(this.orderedEmendas.length / 2))
-      )
+        _.ceil(this.orderedEmendas.length / 2)
+      );
     },
-    getSemelhantes () {
-      const reversedEmendas = _.reverse(this.orderedEmendas)
+    getSemelhantes() {
+      const reversedEmendas = _.reverse(this.orderedEmendas);
       if (!this.verificaSeMostraEmendasAparentes) {
         return _.takeRight(
           reversedEmendas,
-          Math.min(5, this.orderedEmendas.length)
-        )
+          this.orderedEmendas.length
+        );
       } else {
         return _.takeRight(
           reversedEmendas,
-          Math.min(5, _.floor(this.orderedEmendas.length / 2))
-        )
+          _.floor(this.orderedEmendas.length / 2)
+        );
       }
     },
-    verificaSeMostraEmendas () {
+    verificaSeMostraEmendas() {
       return (
         this.propEmendas &&
-        this.propEmendas.lengt &&
+        this.propEmendas.length &&
         this.orderedEmendas[0] &&
         this.orderedEmendas[0].distancia !== -1
-      )
+      );
     },
-    getAnalisadas () {
-      var analisadas = 0
-      this.orderedEmendas.forEach(function (emenda) {
+    getAnalisadas() {
+      var analisadas = 0;
+      this.orderedEmendas.forEach(function(emenda) {
         if (emenda.distancia !== -1) {
-          analisadas++
+          analisadas++;
         }
-      })
-      return analisadas
+      });
+      return analisadas;
     },
-    getCasa () {
+    getCasa() {
       return this.orderedEmendas &&
         this.orderedEmendas[0] &&
-        this.orderedEmendas[0].local.startsWith('CMMPV')
-        ? 'Congresso Nacional'
-        : this.casa
+        this.orderedEmendas[0].local.startsWith("CMMPV")
+        ? "Congresso Nacional"
+        : this.casa;
     },
-    verificaSeMostraEmendasAparentes () {
+    verificaSeMostraEmendasAparentes() {
       return (
         this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
-      )
+      );
     },
-    showTextoExplicacao () {
-      return this.propEmendas.length !== this.getAnalisadas
+    showTextoExplicacao() {
+      return this.propEmendas.length !== this.getAnalisadas;
     }
   },
   methods: {
-    ...mapActions(['getEmendas']),
-    formatDate (date) {
-      return moment(date).format('DD/MM/YYYY')
+    ...mapActions(["getEmendas"]),
+    formatDate(date) {
+      return moment(date).format("DD/MM/YYYY");
     }
   },
   watch: {
-    date () {
-      this.getEmendas(this.query)
+    date() {
+      this.getEmendas(this.query);
     }
   }
-}
+};
 </script>
 
 <style scoped>
