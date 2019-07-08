@@ -61,9 +61,9 @@ export default {
       default: 10
     }
   },
-  data: function () {
+  data () {
     let sortOrders = {}
-    this.columns.forEach(function (key) {
+    this.columns.forEach((key) => {
       sortOrders[key] = 1
     })
     return {
@@ -76,7 +76,7 @@ export default {
   },
   mixins: [mixin],
   computed: {
-    filteredData: function () {
+    filteredData () {
       let sortKey = this.sortKey
       let filterKey = this.filterKey && this.filterKey.toLowerCase()
       filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -115,12 +115,12 @@ export default {
     }
   },
   filters: {
-    capitalize: function (str) {
+    capitalize (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
     }
   },
   methods: {
-    sortBy: function (key) {
+    sortBy (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
