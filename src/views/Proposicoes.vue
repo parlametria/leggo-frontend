@@ -92,7 +92,6 @@ export default {
   computed: {
     ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent']),
     filteredProps () {
-      console.log(1)
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
