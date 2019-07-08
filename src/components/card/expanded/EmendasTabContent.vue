@@ -18,17 +18,17 @@
 </template>
 
 <script>
-import EmendasTable from "@/components/EmendasTable.vue";
-import _ from "lodash";
+import EmendasTable from '@/components/EmendasTable.vue'
+import _ from 'lodash'
 
 export default {
-  name: "EmendasTabContent",
-  data() {
+  name: 'EmendasTabContent',
+  data () {
     return {
-      searchQuery: "",
-      query: "",
+      searchQuery: '',
+      query: '',
       loading: false
-    };
+    }
   },
   components: {
     EmendasTable
@@ -38,34 +38,34 @@ export default {
     categoria: String,
     showTextoExplicacao: Boolean
   },
-  created() {
+  created () {
     this.delay = _.debounce(() => {
       this.query = this.searchQuery
       this.loading = false
     }, 500)
   },
   watch: {
-    searchQuery(newValue, oldValue) {
+    searchQuery (newValue, oldValue) {
       this.loading = true
       this.delay()
     }
   },
   computed: {
-    getTextoExplicacao() {
-      return this.categoria === "todas"
-        ? "Essas são as ".concat(
-            this.emendas.length,
-            " emendas da proposição."
-          )
-        : "Essas são as ".concat(
-            this.emendas.length,
-            " emendas que propõem mudanças mais ",
-            this.categoria,
-            "."
-          )
+    getTextoExplicacao () {
+      return this.categoria === 'todas'
+        ? 'Essas são as '.concat(
+          this.emendas.length,
+          ' emendas da proposição.'
+        )
+        : 'Essas são as '.concat(
+          this.emendas.length,
+          ' emendas que propõem mudanças mais ',
+          this.categoria,
+          '.'
+        )
     }
   }
-};
+}
 </script>
 
 <style scoped lang='scss'>
