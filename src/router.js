@@ -12,7 +12,7 @@ import NProgress from 'nprogress'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -67,21 +67,29 @@ export default new Router({
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
-        NProgress.start()
-        const semanas = store.state.filter.semanas
-        const date = store.getters.formattedDateRef
-        await store.dispatch('listProposicoes', {
-          params: { semanas, date }
-        })
         const proposicoes = store.state.proposicoes.proposicoes
         proposicoes.forEach(proposicao => {
           if (proposicao.id === parseInt(params.id)) {
             params.prop = proposicao
           }
         })
-        NProgress.done()
         next()
       }
     }
   ]
 })
+router.beforeEach(async (to, from, next) => {
+  NProgress.start()
+  const semanas = store.state.filter.semanas
+  const date = store.getters.formattedDateRef
+  const proposicoes = store.state.proposicoes.proposicoes
+  if (proposicoes.length === 0) {
+    await store.dispatch('listProposicoes', {
+      params: { semanas, date }
+    })
+  }
+
+  NProgress.done()
+  next()
+})
+export default router
