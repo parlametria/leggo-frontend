@@ -40,14 +40,16 @@
           </td>
         </tr>
       </tbody>
-      <button @click="prevPage" :disabled="pageNumber==0" class="btn" >Anterior</button>
-      <button @click="nextPage" :disabled="pageNumber >= pageCount -1" class="btn next" >Próxima</button>
     </table>
+    <div class="paginationbar">
+      <pagination-bar :size="pageCount" @change="(number) => updatePageNumber(number)"/>
+    </div>
   </div>
 </template>
 
 <script>
 import mixin from '@/mixins/ExpandedTexts.js'
+import PaginationBar from '@/components/utils/PaginationBar'
 
 export default {
   name: 'EmendasTable',
@@ -60,6 +62,9 @@ export default {
       required: false,
       default: 10
     }
+  },
+  components: {
+    PaginationBar
   },
   data () {
     let sortOrders = {}
@@ -123,6 +128,9 @@ export default {
     sortBy (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
+    },
+    updatePageNumber (pageCount) {
+      this.pageNumber = pageCount
     },
     corrigePartidoAutor (autor, key) {
       return this.formatTextoTramitacao(
@@ -209,54 +217,10 @@ th.active .arrow {
   color: $--color-primary;
 }
 
-.btn {
-  position: relative;
-  margin: 6px 5px;
-  overflow: hidden;
-  padding: 7px;
-  border-width: 0;
-  outline: none;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
-  background-color: $--color-primary;
-  color: #ecf0f1;
-  transition: background-color .3s;
-}
-
-.btn:hover, .btn:focus, .btn:disabled {
-  background-color: #a03a3a;
-}
-
-.btn:before {
-  content: "";
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  display: block;
-  width: 0;
-  padding-top: 0;
-
-  border-radius: 100%;
-
-  background-color: rgba(236, 240, 241, .3);
-
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.btn:active:before {
-  width: 120%;
-  padding-top: 120%;
-
-  transition: width .2s ease-out, padding-top .2s ease-out;
-}
-
-.next {
-    margin-left: 10px;
+.paginationbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
 }
 </style>
