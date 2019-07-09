@@ -68,13 +68,13 @@ export default {
       this.actual = this.window.final
     },
     backActualToLimit () {
-      this.actual -=  this.actual - this.window.initial + 1
+      this.actual -= this.actual - this.window.initial + 1
     }
   },
   computed: {
     getWindow () {
       let result = []
-      for(let i = this.window.initial; i != Math.min(this.window.final, this.size); i++){
+      for (let i = this.window.initial; i !== Math.min(this.window.final, this.size); i++) {
         result.push(i)
       }
       return result
@@ -86,7 +86,7 @@ export default {
       if (newValue === this.window.final) {
         this.window.initial = newValue
         this.window.final = newValue + this.limit
-      } else if (newValue === this.window.initial - 1){
+      } else if (newValue === this.window.initial - 1) {
         this.window.final = newValue + 1
         this.window.initial = newValue - this.limit + 1
       }
