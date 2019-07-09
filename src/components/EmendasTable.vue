@@ -42,7 +42,7 @@
       </tbody>
     </table>
     <div class="paginationbar">
-      <pagination-bar :size="pageCount" @change="(number) => updatePageNumber(number)"/>
+      <pagination-bar :size="pageCount" :limit="getLimitPages" @change="(number) => updatePageNumber(number)"/>
     </div>
   </div>
 </template>
@@ -117,6 +117,9 @@ export default {
       const start = this.pageNumber * this.size
       const end = start + this.size
       return this.data.slice(start, end)
+    },
+    getLimitPages () {
+      return Math.floor(window.innerWidth / 150)
     }
   },
   filters: {

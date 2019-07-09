@@ -1,11 +1,14 @@
 <template>
   <div class="pagination">
     <button :class="getClassPrevious()" @click="addPageCount">&laquo;</button>
+    <button v-if="window.initial !== 0" @click="backActualToLimit">...</button>
     <button
-      v-for="(page, i) in size" :key="i"
-      :class="getClassBtn(i)"
-      @click="changeOption(i)"
-    >{{ i + 1 }}</button>
+      v-for="page in getWindow" :key="page"
+      :class="getClassBtn(page)"
+      @click="changeOption(page)"
+      v-if="page < window.final"
+    >{{ page + 1 }}</button>
+    <button v-if="size - actual > limit" @click="skipActualToLimit">...</button>
     <button :class="getClassNext()" @click="removePageCount">&raquo;</button>
   </div>
 </template>
@@ -13,11 +16,20 @@
 export default {
   name: 'PaginationBar',
   props: {
-    size: Number
+    size: Number,
+    limit: {
+      default () {
+        return 5
+      }
+    }
   },
   data () {
     return {
-      actual: 0
+      actual: 0,
+      window: {
+        initial: 0,
+        final: this.limit
+      }
     }
   },
   methods: {
@@ -51,10 +63,33 @@ export default {
       if (this.actual < this.size - 1) {
         this.actual++
       }
+    },
+    skipActualToLimit () {
+      this.actual = this.window.final
+    },
+    backActualToLimit () {
+      this.actual -=  this.actual - this.window.initial + 1
+    }
+  },
+  computed: {
+    getWindow () {
+      let result = []
+      for(let i = this.window.initial; i != Math.min(this.window.final, this.size); i++){
+        result.push(i)
+      }
+      return result
     }
   },
   watch: {
+
     actual (newValue, oldValue) {
+      if (newValue === this.window.final) {
+        this.window.initial = newValue
+        this.window.final = newValue + this.limit
+      } else if (newValue === this.window.initial - 1){
+        this.window.final = newValue + 1
+        this.window.initial = newValue - this.limit + 1
+      }
       this.$emit('change', newValue)
     }
   }
