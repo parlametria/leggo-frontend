@@ -15,6 +15,7 @@
           </div>
 
           <h4>Progresso da Tramitação</h4>
+          <atores-graphic :id="prop.lastEtapa.id"/>
           <fases-progress class="fases-progress" :class="{'visible': dropShow}" :fases="prop.resumo_progresso" :etapas="prop.etapas"/>
           <composicao-link :dataLocalAtual="dataLocalAtual" :siglaComissaoLink="siglaParaLink"
             :siglaComissaoFront="siglaFormatada" :casaComissao="prop.lastEtapa.casa"></composicao-link>
@@ -47,6 +48,7 @@ import ProposicaoHeader from './ProposicaoHeader'
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
+import AtoresGraphic from './expanded/atores/AtoresGraphic'
 import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
@@ -77,7 +79,8 @@ export default {
     EventosInfo,
     EmendasInfo,
     AuthorName,
-    ComposicaoLink
+    ComposicaoLink,
+    AtoresGraphic
   },
   methods: {
     hasNumber: function (myString) {

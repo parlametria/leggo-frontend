@@ -1,11 +1,12 @@
 export default class AtoresGraphicModel {
-    constructor () {
+    constructor (width) {
       this.vsSpec = {
         description: 'Últimos 30 dias',
         $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
+        width: width * 0.8,
         title: '',
         data: {
-          name: 'ator'
+          name: 'http://localhost:8000/atores/camara/14562'
         },
         mark: {
           type: 'bar',
