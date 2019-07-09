@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from 'vuex'
 
 export default {
   computed: {
@@ -12,9 +12,9 @@ export default {
     })
   },
   methods: {
-    ...mapActions(["getAtores"])
+    ...mapActions(['getAtores'])
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

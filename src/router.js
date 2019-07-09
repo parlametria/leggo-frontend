@@ -5,13 +5,14 @@ import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
+import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
 import FilterMenu from '@/components/menu/FilterMenu.vue'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -59,6 +60,36 @@ export default new Router({
         NProgress.done()
         next()
       }
+    },
+    {
+      path: '/proposicao/:id',
+      name: 'proposicao',
+      component: ProposicaoDetailed,
+      props: true,
+      beforeEnter: async ({ params }, from, next) => {
+        const proposicoes = store.state.proposicoes.proposicoes
+        proposicoes.forEach(proposicao => {
+          if (proposicao.id === parseInt(params.id)) {
+            params.prop = proposicao
+          }
+        })
+        next()
+      }
     }
   ]
 })
+router.beforeEach(async (to, from, next) => {
+  NProgress.start()
+  const semanas = store.state.filter.semanas
+  const date = store.getters.formattedDateRef
+  const proposicoes = store.state.proposicoes.proposicoes
+  if (proposicoes.length === 0) {
+    await store.dispatch('listProposicoes', {
+      params: { semanas, date }
+    })
+  }
+
+  NProgress.done()
+  next()
+})
+export default router

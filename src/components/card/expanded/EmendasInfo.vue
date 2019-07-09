@@ -1,19 +1,23 @@
 <template>
-    <el-collapse v-if="verificaSeMostraEmendas">
-      <el-collapse-item>
-        <template slot="title">
-          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
-        </template>
-          <el-tabs>
-            <el-tab-pane label="Mudanças Mais Aparentes">
-              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
-            </el-tab-pane>
-            <el-tab-pane label="Mudanças Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'"/>
-            </el-tab-pane>
-          </el-tabs>
-      </el-collapse-item>
-    </el-collapse>
+  <el-collapse v-if="verificaSeMostraEmendas">
+    <el-collapse-item>
+      <template slot="title">
+        <h4
+        >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</h4>
+      </template>
+      <el-tabs>
+        <el-tab-pane label="Todas as emendas">
+          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+        </el-tab-pane>
+        <el-tab-pane label="Mudanças Mais Aparentes">
+          <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
+        </el-tab-pane>
+        <el-tab-pane label="Mudanças Mais Sutis">
+          <emendas-tab-content :emendas="getSemelhantes" :categoria="'pontuais'" />
+        </el-tab-pane>
+      </el-tabs>
+    </el-collapse-item>
+  </el-collapse>
 </template>
 
 <script>
@@ -34,6 +38,17 @@ export default {
       type: Date,
       default: function () {
         return moment()
+      }
+    }
+  },
+  filters: {
+    toFormattedName: function (value) {
+      if (value === 'senado') {
+        return 'Senado'
+      } else if (value === 'camara') {
+        return 'Câmara'
+      } else {
+        return value
       }
     }
   },
@@ -60,18 +75,30 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id].filter(function (emenda) { return emenda.distancia !== -1 })
+      const result = this.emendas[this.id].filter(function (emenda) {
+        return emenda.distancia !== -1
+      })
       return result.sort((a, b) => b.distancia - a.distancia)
     },
     getDiscrepantes () {
-      return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
+      return _.take(
+        this.orderedEmendas,
+        _.ceil(this.orderedEmendas.length / 2)
+      )
     },
     getSemelhantes () {
-      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
+      return _.reverse(
+        _.takeRight(
+          this.orderedEmendas,
+          _.floor(this.orderedEmendas.length / 2)
+        )
+      )
     },
     verificaSeMostraEmendas () {
       if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
+        return (
+          this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
+        )
       } else {
         return false
       }
@@ -79,9 +106,16 @@ export default {
     getAnalisadas () {
       var analisadas = 0
       this.orderedEmendas.forEach(function (emenda) {
-        if (emenda.distancia !== -1) { analisadas++ }
+        if (emenda.distancia !== -1) {
+          analisadas++
+        }
       })
       return analisadas
+    },
+    getCasa () {
+      return this.orderedEmendas[0].local.startsWith('CMMPV')
+        ? 'Congresso Nacional'
+        : this.casa
     }
   },
   methods: {
@@ -99,19 +133,17 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  font-size: .97rem;
-}
 .emendas {
-    font-size: 10pt;
-    text-align: center;
+  font-size: 10pt;
+  text-align: center;
 }
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
-th, td {
-    padding: .5rem;
-    text-align: left;
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
 }
 </style>

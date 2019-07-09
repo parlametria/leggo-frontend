@@ -3,6 +3,7 @@ import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import temps from './temperaturas'
 import pautas from './pautas'
+import atores from './atores'
 import axios from './axios'
 
 const proposicoes = new Vapi({
@@ -10,7 +11,6 @@ const proposicoes = new Vapi({
   state: {
     proposicoes: [],
     tramitacoes: new Set(),
-    // pautas: {},
     eventos_tramitacao: {},
     metaInfo: {}
   }
@@ -23,6 +23,7 @@ const proposicoes = new Vapi({
     state.proposicoes = data
     var temperaturas = {}
     var coeficientes = {}
+    var atoresTmp = {}
     var pautasTmp = {}
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
@@ -30,10 +31,12 @@ const proposicoes = new Vapi({
       temperaturas[prop.lastEtapa.id] = prop.lastEtapa.temperatura_historico
       coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
+      atoresTmp[prop.lastEtapa.id] = prop.lastEtapa.top_atores
     })
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
+    Vue.set(atores.state, 'atores', atoresTmp)
   }
 }).get({
   action: 'getMetaInfo',
@@ -53,11 +56,6 @@ proposicoes.getters = {
         state.proposicoes.map(p => p.lastEtapa[filter])
       ).values()]
     }
-    return options
-  },
-  createfilterOptionObjectEmpty (state) {
-    let options = {}
-    filterStore.state.filters.map(filter => { options[filter] = [] })
     return options
   },
   getPropById (state) {
