@@ -36,7 +36,7 @@
     <div v-for="(etapa,i) in prop.etapas" :key="i">
       <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" />
     </div>
-    
+
     <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
   </div>
 </template>

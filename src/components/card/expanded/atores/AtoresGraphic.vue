@@ -38,16 +38,18 @@ export default {
     ...mapActions(['getAtores']),
     async mountGraphic () {
       if (this.atores && this.atores.length) {
-          console.log('as')
+        console.log('as')
         let model = new AtoresGraphicModel(this.tamanhoGrafico)
-        await(
-        (await vegaEmbed(this.$refs.anchor, model.vsSpec))
-        .view
-        .change('ator', vega.changeset().remove('ator', d => true))
-        .insert(
-          'ator',
-          this.atores
-        ).run())
+        await (
+          // eslint-disable-next-line
+          (await vegaEmbed(this.$refs.anchor, model.vsSpec))
+            .view
+            // eslint-disable-next-line
+            .change('ator', vega.changeset().remove('ator', d => true))
+            .insert(
+              'ator',
+              this.atores
+            ).run())
       }
     }
   },

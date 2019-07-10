@@ -60,8 +60,8 @@ export default class AtoresGraphicModel {
           }
         },
         tooltip: [
-          {'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num. de documentos'},
-          {'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento'}
+          { 'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
+          { 'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento' }
         ]
       },
       config: {

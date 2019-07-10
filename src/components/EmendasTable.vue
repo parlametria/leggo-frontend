@@ -142,12 +142,6 @@ export default {
         this.MAX_TEXT_LENGTH,
         this.TEXT_TO_BE_SHOWED_LENGTH
       )
-    },
-    nextPage () {
-      this.pageNumber++
-    },
-    prevPage () {
-      this.pageNumber--
     }
   }
 }
@@ -168,6 +162,14 @@ table {
   width: 100%;
 }
 
+thead {
+  font-size: 1rem;
+}
+
+tr {
+  font-size: 0.8rem;
+}
+
 th {
   background-color: $--color-primary;
   color: #f9f9f9;
@@ -176,15 +178,13 @@ th {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding: 10px;
 }
 
 td {
   background-color: #f9f9f9;
-}
-
-th,
-td {
-  padding: 0 5px;
+  padding: 10px;
+  color: #303133;
 }
 
 th.active {
