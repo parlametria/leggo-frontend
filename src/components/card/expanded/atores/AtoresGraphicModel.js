@@ -4,7 +4,7 @@ export default class AtoresGraphicModel {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
-      title: '',
+      title: 'Quantidade de documentos',
       data: {
         name: 'ator'
       },
@@ -20,17 +20,18 @@ export default class AtoresGraphicModel {
           field: 'qtd_de_documentos',
           type: 'quantitative',
           axis: {
-            title: 'Quantidade de documentos'
+            title: ''
           }
         },
         y: {
-          field: 'nome_autor',
+          field: 'nome_partido_uf',
           type: 'nominal',
           axis: {
-            title: 'Autor'
+            title: ''
           },
           sort: {
-            encoding: 'x'
+            encoding: 'x',
+            order: 'descending'
           }
         },
         color: {
@@ -45,7 +46,7 @@ export default class AtoresGraphicModel {
               'Parecer',
               'Voto em Separado',
               'Requerimento',
-              'Proposição',
+              'Proposição Apensada',
               'Outros'
             ],
             range: [
@@ -57,7 +58,11 @@ export default class AtoresGraphicModel {
               '#FF7F9D'
             ]
           }
-        }
+        },
+        tooltip: [
+          {'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num de documentos'},
+          {'field': 'descricao_tipo', 'type': 'nominal', 'title': 'Tipo de documento'}
+        ]
       },
       config: {
         view: {

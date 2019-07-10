@@ -2,9 +2,9 @@
   <el-collapse v-if="verificaSeMostraAtores">
     <el-collapse-item>
       <template slot="title">
-        <h4>Análise dos atores mais ativos da proposição</h4>
+        <h4 class="title">Análise dos atores mais ativos da proposição</h4>
       </template>
-      <div class="graphic2" id="grafico">
+      <div class="graphic" id="grafico">
         <div ref="anchor"></div>
       </div>
     </el-collapse-item>
@@ -41,21 +41,11 @@ export default {
     async mountGraphic () {
       if (this.atores && this.atores.length) {
         let model = new AtoresGraphicModel(this.tamanhoGrafico)
-        await // eslint-disable-next-line
+        await
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view.insert(
           'ator',
           this.atores
         )
-        // eslint-disable-next-line
-        //   .change("ator", vega.changeset().remove("ator", d => true))
-        //   .insert(
-        //     "ator",
-        //     this.ator.map(ator => ({
-        //       ...ator,
-        //       qnt_documentos: ator.qtd_de_documentos
-        //     }))
-        //   )
-        //   .run();
       }
     }
   },
@@ -71,7 +61,11 @@ export default {
     display: none;
   }
 }
-.graphic2 {
+.graphic {
   text-align: left;
+  overflow-x:auto;
+}
+.title {
+   line-height: 15px;
 }
 </style>
