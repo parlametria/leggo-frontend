@@ -38,7 +38,6 @@ export default {
     ...mapActions(['getAtores']),
     async mountGraphic () {
       if (this.atores && this.atores.length) {
-        console.log('as')
         let model = new AtoresGraphicModel(this.tamanhoGrafico)
         await (
           // eslint-disable-next-line
