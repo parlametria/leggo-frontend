@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
@@ -161,7 +161,6 @@ export default {
 }
 .session {
   position: relative;
-  padding-top: 4rem;
   &:first-child {
     padding-top: 0;
   }
@@ -179,11 +178,10 @@ export default {
   .disabled {
     color: #bbb;
   }
-  @media (max-width: $nav-menu-break-width) {
-    div {
-      margin: 0 4px;
-    }
-  }
+}
+.content {
+  padding: 5vh 0.5rem 0 0.5rem;
+
 }
 .sticky {
   display: block;

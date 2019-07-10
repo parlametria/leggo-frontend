@@ -163,7 +163,7 @@ export default {
   justify-content: space-between;
 }
 .prop-item {
-  padding: 1.5rem;
+  padding: 1.5rem 1rem;
 }
 .el-badge {
   margin: 10px;

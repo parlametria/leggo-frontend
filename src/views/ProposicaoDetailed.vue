@@ -36,7 +36,7 @@ export default {
 .titulo {
   color: #656565;
   font-size: 2rem;
-  padding-right: 15px;
+  padding: 0rem 0.5rem;
 }
 .titulo::before {
   height: 12px;

@@ -1,7 +1,7 @@
 <template>
   <div v-if="verificaSeMostraAtores">
     <header slot="title">
-        <h4 class="title">Parlamentares mais ativos</h4>
+        <h4 class="title">Parlamentares mais ativos na Câmara</h4>
     </header>
     <div class="graphic" id="grafico">
         <div ref="anchor"></div>
@@ -66,7 +66,7 @@ export default {
 }
 .graphic {
   text-align: left;
-  overflow-x:auto;
+  overflow-x: auto;
 }
 .title {
    line-height: 15px;
