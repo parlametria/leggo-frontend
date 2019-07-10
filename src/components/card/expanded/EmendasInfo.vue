@@ -1,23 +1,21 @@
 <template>
-  <el-collapse v-if="verificaSeMostraEmendas">
-    <el-collapse-item>
-      <template slot="title">
-        <h4
-        >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</h4>
-      </template>
-      <el-tabs>
-        <el-tab-pane label="Todas as emendas">
-          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
-        </el-tab-pane>
-        <el-tab-pane label="Mudanças Mais Aparentes">
-          <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
-        </el-tab-pane>
-        <el-tab-pane label="Mudanças Mais Sutis">
-          <emendas-tab-content :emendas="getSemelhantes" :categoria="'pontuais'" />
-        </el-tab-pane>
-      </el-tabs>
-    </el-collapse-item>
-  </el-collapse>
+  <div v-if="verificaSeMostraEmendas">
+    <header>
+      <h4
+      >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</h4>
+    </header>
+    <el-tabs>
+      <el-tab-pane label="Todas as emendas">
+        <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+      </el-tab-pane>
+      <el-tab-pane label="Mudanças Mais Aparentes">
+        <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
+      </el-tab-pane>
+      <el-tab-pane label="Mudanças Mais Sutis">
+        <emendas-tab-content :emendas="getSemelhantes" :categoria="'pontuais'" />
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>

@@ -4,7 +4,7 @@ export default class AtoresGraphicModel {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
-      title: 'Quantidade de documentos',
+      title: '',
       data: {
         name: 'ator'
       },
@@ -20,7 +20,7 @@ export default class AtoresGraphicModel {
           field: 'qtd_de_documentos',
           type: 'quantitative',
           axis: {
-            title: ''
+            title: 'Quantidade'
           }
         },
         y: {
@@ -38,7 +38,7 @@ export default class AtoresGraphicModel {
           field: 'tipo_generico',
           type: 'nominal',
           legend: {
-            title: 'Tipo de Documento'
+            title: 'Ação'
           },
           scale: {
             domain: [
@@ -50,18 +50,18 @@ export default class AtoresGraphicModel {
               'Outros'
             ],
             range: [
-              '#DF8C6C',
-              '#87C6CD',
-              '#A9A5AD',
-              '#A5C882',
-              '#F7DD72',
-              '#FF7F9D'
+              '#FB9A99',
+              '#F9EE9D',
+              '#855D7C',
+              '#80B1D3',
+              '#B2DF8A',
+              '#587B7A'
             ]
           }
         },
         tooltip: [
-          {'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num de documentos'},
-          {'field': 'descricao_tipo', 'type': 'nominal', 'title': 'Tipo de documento'}
+          {'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num. de documentos'},
+          {'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento'}
         ]
       },
       config: {

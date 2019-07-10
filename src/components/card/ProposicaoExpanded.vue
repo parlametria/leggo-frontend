@@ -32,10 +32,11 @@
       </el-col>
     </el-row>
     <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
+    <atores-graphic :id="prop.lastEtapa.id" />
     <div v-for="(etapa,i) in prop.etapas" :key="i">
       <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" />
     </div>
-    <atores-graphic :id="prop.lastEtapa.id" />
+    
     <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
   </div>
 </template>

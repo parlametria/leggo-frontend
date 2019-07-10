@@ -1,14 +1,12 @@
 <template>
-  <el-collapse v-if="verificaSeMostraAtores">
-    <el-collapse-item>
-      <template slot="title">
-        <h4 class="title">Análise dos atores mais ativos da proposição</h4>
-      </template>
-      <div class="graphic" id="grafico">
+  <div v-if="verificaSeMostraAtores">
+    <header slot="title">
+        <h4 class="title">Parlamentares mais ativos</h4>
+    </header>
+    <div class="graphic" id="grafico">
         <div ref="anchor"></div>
-      </div>
-    </el-collapse-item>
-  </el-collapse>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -40,12 +38,16 @@ export default {
     ...mapActions(['getAtores']),
     async mountGraphic () {
       if (this.atores && this.atores.length) {
+          console.log('as')
         let model = new AtoresGraphicModel(this.tamanhoGrafico)
-        await
-        (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view.insert(
+        await(
+        (await vegaEmbed(this.$refs.anchor, model.vsSpec))
+        .view
+        .change('ator', vega.changeset().remove('ator', d => true))
+        .insert(
           'ator',
           this.atores
-        )
+        ).run())
       }
     }
   },
