@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="verificaSeMostraEmendas">
-      <header>
-        <h4
-        >Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</h4>
+    <header>
+        <p>{{propName}} {{getCasa | toFormattedName}}</p>
       </header>
+    <div v-if="verificaSeMostraEmendas">
+      <h5>Total: {{propEmendas.length}} | Analisadas: {{getAnalisadas}}</h5>
       <el-tabs>
         <el-tab-pane label="Todas as emendas">
           <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
@@ -50,7 +50,8 @@ export default {
         return moment()
       }
     },
-    numEtapas: Number
+    numEtapas: Number,
+    propName: String
   },
   data () {
     return {

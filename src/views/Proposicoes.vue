@@ -7,7 +7,7 @@
       <div v-if="filteredProps.length">
         <div class="session">
           <header ref="emPautaHeader">
-            <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+            <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
           </header>
           <div ref="emPautaSession">
             <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
@@ -15,7 +15,7 @@
         </div>
         <div class="session">
           <header ref="notEmPautaHeader">
-            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
           </header>
           <div ref="notEmPautaSession">
             <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>

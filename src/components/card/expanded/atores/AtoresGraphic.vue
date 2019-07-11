@@ -1,7 +1,7 @@
 <template>
   <div v-if="verificaSeMostraAtores">
     <header slot="title">
-        <h4 class="title">Parlamentares mais ativos na Câmara</h4>
+        <h4 class="title">Atividade Parlamentar</h4>
     </header>
     <div class="graphic" id="grafico">
         <div ref="anchor"></div>
