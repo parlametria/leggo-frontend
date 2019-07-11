@@ -65,7 +65,7 @@ export default {
     }
   },
   filters: {
-    toFormattedName: function (value) {
+    toFormattedName (value) {
       if (value === 'senado') {
         return 'no Senado'
       } else if (value === 'camara') {
