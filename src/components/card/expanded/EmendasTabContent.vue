@@ -1,20 +1,20 @@
 <template>
-<!-- demo root element -->
-<div>
-<div class="search-input">
-  <input type="text" v-model="searchQuery">
-  <span class="highlight"></span>
-  <span class="bar"></span>
-  <label>Pesquise aqui</label>
-  <span class="el-icon-search"></span>
-  <span class="loader" v-show="loading"></span>
-</div>
-  <emendas-table
-    :data="emendas"
-    :columns="['titulo', 'autor', 'local']"
-    :filter-key="query">
-  </emendas-table>
-</div>
+  <div>
+    <span class="explicacao_emendas"> {{ getTextoExplicacao }}</span>
+    <div class="search-input">
+      <input type="text" v-model="searchQuery" />
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Pesquise aqui</label>
+      <span class="el-icon-search"></span>
+      <span class="loader" v-show="loading"></span>
+    </div>
+    <emendas-table :data="emendas" :columns="['titulo', 'autor', 'local']" :filter-key="query"></emendas-table>
+    <span
+      v-if="showTextoExplicacao"
+      class="explicacao_emendas"
+    >*Não analisamos todas pois algumas emendas estão no sistema como imagem e não como texto.</span>
+  </div>
 </template>
 
 <script>
@@ -35,7 +35,8 @@ export default {
   },
   props: {
     emendas: Array,
-    categoria: String
+    categoria: String,
+    showTextoExplicacao: Boolean
   },
   created () {
     this.delay = _.debounce(() => {
@@ -48,14 +49,29 @@ export default {
       this.loading = true
       this.delay()
     }
+  },
+  computed: {
+    getTextoExplicacao () {
+      return this.categoria === 'todas'
+        ? 'Essas são as '.concat(
+          this.emendas.length,
+          ' emendas da proposição.'
+        )
+        : 'Essas são as '.concat(
+          this.emendas.length,
+          ' emendas que propõem mudanças mais ',
+          this.categoria,
+          '.'
+        )
+    }
   }
 }
 </script>
 
 <style scoped lang='scss'>
 @import "@/base.scss";
-$primary-color: rgba(0,0,0,1);
-$hint-color: rgba(0,0,0,.3);
+$primary-color: rgba(0, 0, 0, 1);
+$hint-color: rgba(0, 0, 0, 0.3);
 
 .emendas {
   font-size: 10pt;
@@ -201,13 +217,20 @@ td {
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
 </style>
