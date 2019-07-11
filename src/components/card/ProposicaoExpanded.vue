@@ -32,9 +32,11 @@
       </el-col>
     </el-row>
     <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
+    <atores-graphic :id="prop.lastEtapa.id" />
     <div v-for="(etapa,i) in prop.etapas" :key="i">
       <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" />
     </div>
+
     <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
   </div>
 </template>
@@ -47,6 +49,7 @@ import FasesProgress from './expanded/FasesProgress'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
 import TemperatureInfo from './expanded/temperature/TemperatureInfo'
+import AtoresGraphic from './expanded/atores/AtoresGraphic'
 import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
@@ -72,7 +75,8 @@ export default {
     EventosInfo,
     EmendasInfo,
     AuthorName,
-    ComposicaoLink
+    ComposicaoLink,
+    AtoresGraphic
   },
   methods: {
     hasNumber (myString) {
@@ -159,7 +163,7 @@ export default {
   justify-content: space-between;
 }
 .prop-item {
-  padding: 1.5rem;
+  padding: 1.5rem 1rem;
 }
 .el-badge {
   margin: 10px;
