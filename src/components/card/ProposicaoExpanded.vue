@@ -33,8 +33,9 @@
     </el-row>
     <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
     <atores-graphic :id="prop.lastEtapa.id" />
+    <h4>Análise das Emendas</h4>
     <div v-for="(etapa,i) in prop.etapas" :key="i">
-      <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" />
+      <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" :propName="etapa.sigla" />
     </div>
 
     <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />

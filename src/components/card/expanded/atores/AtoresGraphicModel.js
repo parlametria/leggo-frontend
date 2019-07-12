@@ -4,7 +4,11 @@ export default class AtoresGraphicModel {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
-      title: '',
+      title: {
+        text: 'Parlamentares mais Ativos',
+        fontSize: 15,
+        offset: 5
+      },
       data: {
         name: 'ator'
       },
