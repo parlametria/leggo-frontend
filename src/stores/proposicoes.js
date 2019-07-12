@@ -31,7 +31,9 @@ const proposicoes = new Vapi({
       temperaturas[prop.lastEtapa.id] = prop.lastEtapa.temperatura_historico
       coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
-      atoresTmp[prop.lastEtapa.id] = prop.lastEtapa.top_atores
+      prop.etapas.forEach((etapa) => {
+        atoresTmp[etapa.id] = etapa.top_atores
+      })
     })
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)

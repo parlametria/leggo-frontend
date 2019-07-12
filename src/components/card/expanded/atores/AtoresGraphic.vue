@@ -1,10 +1,10 @@
 <template>
-  <div v-if="verificaSeMostraAtores">
-    <header slot="title">
-        <h4 class="title">Atividade Parlamentar</h4>
-    </header>
-    <div class="graphic" id="grafico">
+  <div >
+    <div v-if="verificaSeMostraAtores" class="graphic" id="grafico">
         <div ref="anchor"></div>
+    </div>
+    <div v-else>
+      <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
     </div>
   </div>
 </template>
@@ -70,5 +70,9 @@ export default {
 }
 .title {
    line-height: 15px;
+}
+.sem-atores {
+  color: #969696;
+  font-size: 0.8em;
 }
 </style>

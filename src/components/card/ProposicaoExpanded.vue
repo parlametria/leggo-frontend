@@ -13,6 +13,7 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
+    <h4> Etapa Mais Recente: {{prop.lastEtapa.sigla}} - {{capitalizeFirstLetter(prop.lastEtapa.casa)}}</h4>
     <composicao-link
       :dataLocalAtual="dataLocalAtual"
       :siglaComissaoLink="siglaParaLink"
@@ -32,13 +33,18 @@
       </el-col>
     </el-row>
     <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
-    <atores-graphic :id="prop.lastEtapa.id" />
-    <h4>Análise das Emendas</h4>
-    <div v-for="(etapa,i) in prop.etapas" :key="i">
+    <h5>Atividade Parlamentar</h5>
+<atores-graphic :id="prop.lastEtapa.id" />
+    <h5>Análise das Emendas</h5>
+    <emendas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" :propName="prop.lastEtapa.sigla" />
+    <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
+    <div v-for="(etapa,i) in etapasAnteriores" :key="i">
+      <h4> Etapa {{etapa.id == prop.lastEtapa.id? 'Mais Recente' : 'Anterior'}}: {{etapa.sigla}} - {{capitalizeFirstLetter(etapa.casa)}}</h4>
+      <h5>Atividade Parlamentar</h5>
+      <atores-graphic :id="etapa.id" />
+      <h5>Análise das Emendas</h5>
       <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" :propName="etapa.sigla" />
     </div>
-
-    <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
   </div>
 </template>
 
@@ -85,6 +91,9 @@ export default {
     },
     getNomeAutor () {
       return this.prop.lastEtapa.autores.length > 1 ? 'Autores' : 'Autor'
+    },
+    capitalizeFirstLetter (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
     }
   },
   computed: {
@@ -143,6 +152,9 @@ export default {
       }
 
       return casa
+    },
+    etapasAnteriores () {
+      return this.prop.etapas.filter(etapa => etapa.id !== this.prop.lastEtapa.id)
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
