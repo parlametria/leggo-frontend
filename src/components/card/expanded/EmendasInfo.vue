@@ -9,7 +9,7 @@
         <el-tab-pane label="Todas as emendas">
           <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
         </el-tab-pane>
-        <el-tab-pane label="Mudanças Mais Aparentes">
+        <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
           <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
         </el-tab-pane>
         <el-tab-pane label="Mudanças Mais Sutis">
@@ -109,7 +109,7 @@ export default {
       if (!this.verificaSeMostraEmendasAparentes) {
         return _.takeRight(
           reversedEmendas,
-          this.orderedEmendas.length
+          Math.min(5, this.orderedEmendas.length)
         )
       } else {
         return _.takeRight(
