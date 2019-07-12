@@ -1,8 +1,5 @@
 <template>
   <div>
-    <header>
-        <p>{{propName}} {{getCasa | toFormattedName}}</p>
-      </header>
     <div v-if="verificaSeMostraEmendas">
       <h5>Total: {{propEmendas.length}} | Analisadas: {{getAnalisadas}}</h5>
       <el-tabs>
@@ -18,14 +15,10 @@
       </el-tabs>
     </div>
     <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
-      <div
-        class="title sem-emendas"
-      >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName}}</div>
+      <p class="sem-emendas">Não foram apresentadas emendas para esta proposição.</p>
     </div>
     <div v-else>
-      <div
-        class="title sem-emendas"
-      >Não conseguimos analisar as emendas {{ getCasa | toFormattedName}}.</div>
+      <p class="sem-emendas">Não foi possível analisar as emendas.</p>
     </div>
   </div>
 </template>
@@ -184,8 +177,7 @@ td {
   text-align: left;
 }
 .sem-emendas {
-  padding-top: 14px;
-  padding-bottom: 14px;
-  color: #303133;
+  color: #969696;
+  font-size: 0.8em;
 }
 </style>
