@@ -45,7 +45,6 @@
       <h5>Análise das Emendas</h5>
       <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" :propName="etapa.sigla" />
     </div>
-    
   </div>
 </template>
 
@@ -95,9 +94,6 @@ export default {
     },
     capitalizeFirstLetter (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
-    },
-    isLastEtapa (etapaId, lastEtapaId) {
-      return etapaId == lastEtapaId
     }
   },
   computed: {

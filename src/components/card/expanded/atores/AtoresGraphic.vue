@@ -1,8 +1,5 @@
 <template>
   <div >
-    <header slot="title">
-        
-    </header>
     <div v-if="verificaSeMostraAtores" class="graphic" id="grafico">
         <div ref="anchor"></div>
     </div>
