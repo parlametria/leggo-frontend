@@ -1,8 +1,11 @@
 <template>
   <div class="status-bar">
     <span class="small-text-field">
-      Desde {{ dataLocalAtual }} na(o)
-      <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissaoFront }}</router-link>
+      {{ geraFrase() }}
+      <router-link
+        v-if="hasComposicao"
+        :to="linkComissao"
+        class="link">{{ siglaComissaoFront }}</router-link>
       <span v-else >{{ siglaComissaoFront }}</span>
     </span>
   </div>
@@ -14,16 +17,20 @@ export default {
   name: 'ComposicaoLink',
   props: {
     siglaComissaoLink: {
-      type: String
+      type: String,
+      default: ''
     },
     siglaComissaoFront: {
-      type: String
+      type: String,
+      default: ''
     },
     casaComissao: {
-      type: String
+      type: String,
+      default: ''
     },
     dataLocalAtual: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -32,7 +39,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getComissao'])
+    ...mapActions(['getComissao']),
+    geraFrase: function () {
+      return ['Plenário', 'PLEN'].includes(this.siglaComissaoFront)
+        ? 'Desde ' + this.dataLocalAtual + ' no'
+        : 'Desde ' + this.dataLocalAtual + ' na'
+    }
   },
   computed: {
     linkComissao () {
@@ -52,11 +64,15 @@ export default {
     })
   },
   async mounted () {
-    await this.getComissao({
+    try {
+      await this.getComissao({
 
-      params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
-    })
-    this.composicao = this.orgao[this.siglaComissaoLink]
+        params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
+      })
+      this.composicao = this.orgao[this.siglaComissaoLink]
+    } catch (exc) {
+      this.composicao = undefined
+    }
   }
 }
 </script>

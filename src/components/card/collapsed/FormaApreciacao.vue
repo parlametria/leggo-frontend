@@ -1,6 +1,8 @@
 <template>
-  <el-tag v-if="options.includes(apreciacao.toLowerCase())" type="info">
-    {{apreciacao}}
+  <el-tag
+    v-if="options.includes(apreciacao.toLowerCase())"
+    type="info">
+    {{ apreciacao }}
   </el-tag>
 </template>
 
@@ -12,6 +14,11 @@ export default {
       options: ['conclusiva', 'plenário']
     }
   },
-  props: ['apreciacao']
+  props: {
+    apreciacao: {
+      type: String,
+      default: 'plenário'
+    }
+  }
 }
 </script>

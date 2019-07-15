@@ -1,11 +1,14 @@
 <template>
-  <el-select v-model="temperatureOrder" clearable placeholder="Ordenar por" size="large">
+  <el-select
+    v-model="temperatureOrder"
+    clearable
+    placeholder="Ordenar por"
+    size="large">
     <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-    </el-option>
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value"/>
   </el-select>
 </template>
 <script>

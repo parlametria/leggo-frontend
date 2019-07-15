@@ -1,7 +1,8 @@
 <template>
-  <div class="graphic" id="grafico">
-    <div ref="anchor">
-    </div>
+  <div
+    class="graphic"
+    id="grafico">
+    <div ref="anchor"/>
   </div>
 </template>
 
@@ -12,7 +13,10 @@ import TemperatureGraphicModel from './TemperatureGraphicModel.js'
 export default {
   name: 'TemperatureGraphic',
   props: {
-    id: Number
+    id: {
+      type: Number,
+      default: undefined
+    }
   },
   computed: {
     ...mapState({

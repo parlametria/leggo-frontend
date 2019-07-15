@@ -1,14 +1,17 @@
 <template>
-    <div  class="tagTemas">
-      <span class="tag">{{ temas }}</span>
-    </div>
+  <div class="tagTemas">
+    <span class="tag">{{ temas }}</span>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Temas',
   props: {
-    temas: String
+    temas: {
+      type: String,
+      default: ''
+    }
   }
 }
 </script>
@@ -21,7 +24,6 @@ export default {
     justify-content: flex-start;
 }
 .tag {
-    background-color: #DCDCDC;
     margin-right: 10px;
     border-radius: 5%;
 }

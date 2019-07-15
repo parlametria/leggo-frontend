@@ -1,14 +1,18 @@
 <template>
-    <el-container>
-        <el-select :value="value" @input="$emit('input', $event)" clearable placeholder="aa por" size="mini">
-          <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-          </el-option>
-        </el-select>
-    </el-container>
+  <el-container>
+    <el-select
+      :value="value"
+      @input="$emit('input', $event)"
+      clearable
+      placeholder="aa por"
+      size="mini">
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"/>
+    </el-select>
+  </el-container>
 </template>
 <script>
 import Datepicker from 'vuejs-datepicker'

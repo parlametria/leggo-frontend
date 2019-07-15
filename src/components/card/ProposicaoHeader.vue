@@ -1,20 +1,31 @@
 <template>
   <div class="container">
-    <div class="em-pauta-tag">
-      <pauta-tag :id="prop.lastEtapa.id"/>
-      <arquivada-tag :status="prop.lastEtapa.status"/>
+    <div class="header-tags">
+      <pauta-tag
+        v-for="(pauta, i) in filteredPautas"
+        :key="i"
+        :pauta="pauta"
+        :date-ref="dateRef"/>
+      <text-tag :status="prop.lastEtapa.status" />
     </div>
     <temas :temas="prop.tema"/>
     <div>
-      <span class="prop-apelido">{{prop.lastEtapa.sigla}} - {{prop .apelido}}</span>
-      <i class="arrow" :class="{'arrow-down': clicked}"></i>
+      <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
+      <i
+        class="arrow"
+        :class="{'arrow-down': clicked}"/>
     </div>
-    <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
+    <fases
+      class="fases"
+      :class="{'hidden': clicked, 'visible': !clicked}"
+      :fases="prop.resumo_progresso"/>
     <div class="tags">
-        <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
-        <span class="tag">{{prop.lastEtapa.forma_apreciacao}}</span>
+      <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
+      <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
     </div>
-    <temperature-bar class="temperatura" :id="prop.lastEtapa.id"/>
+    <temperature-bar
+      class="temperatura"
+      :id="prop.lastEtapa.id"/>
   </div>
 </template>
 
@@ -24,14 +35,22 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
 import PautaTag from './collapsed/PautaTag'
-import ArquivadaTag from './collapsed/ArquivadaTag'
+import TextTag from './collapsed/TextTag'
 import Temas from './collapsed/Temas.vue'
 
+import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'proposicaoheader',
+  name: 'Proposicaoheader',
   props: {
-    prop: Object,
-    clicked: Boolean
+    prop: {
+      type: Object,
+      default: undefined
+    },
+    clicked: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     RegimeTramitacao,
@@ -39,8 +58,25 @@ export default {
     Fases,
     TemperatureBar,
     PautaTag,
-    ArquivadaTag,
+    TextTag,
     Temas
+  },
+  methods: {
+    ...mapActions(['getPautas'])
+  },
+  computed: {
+    ...mapState({
+      dateRef: state => state.filter.dateRef,
+      pautas: state => state.pautas.pautas
+    }),
+    filteredPautas () {
+      const id = this.prop.lastEtapa.id
+      if (this.pautas && this.pautas[id] && this.pautas[id].length > 0) {
+        const result = this.pautas[id]
+        return result.reverse()
+      }
+      return []
+    }
   }
 }
 </script>
@@ -84,6 +120,13 @@ export default {
   grid-row: 3/4;
   font-size: 14pt;
   margin: .2rem 0;
+}
+.header-tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: baseline;
 }
 @media (min-width: 768px) {
   .prop-apelido {

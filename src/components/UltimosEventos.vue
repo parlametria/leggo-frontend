@@ -1,18 +1,22 @@
 <template>
   <div v-if="procEventos.length">
     <h3 @click="show = !show">Últimos Eventos +</h3>
-    <table v-if="show" class="eventos-tram">
-      <tr v-for="(evento, index) in procEventos" :key="index">
+    <table
+      v-if="show"
+      class="eventos-tram">
+      <tr
+        v-for="(evento, index) in procEventos"
+        :key="index">
         <td class="date-field">
-          <div>{{evento.data}}</div>
-          <div class="sigla-local">{{evento.local}}</div>
+          <div>{{ evento.data }}</div>
+          <div class="sigla-local">{{ evento.local }}</div>
         </td>
         <td>
           <div class="evento-title">
-            <span>{{evento.titulo}}</span> - <a :href="`#${ evento.propId }`">{{evento.propName }}</a>
+            <span>{{ evento.titulo }}</span> - <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
           </div>
           <div>
-            {{evento.texto}}
+            {{ evento.texto }}
           </div>
         </td>
       </tr>
@@ -23,7 +27,7 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  name: 'ultimosEventos',
+  name: 'UltimosEventos',
   components: {
   },
   data () {

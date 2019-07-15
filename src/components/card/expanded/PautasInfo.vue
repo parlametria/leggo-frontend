@@ -1,17 +1,18 @@
 <template>
-    <el-collapse v-if="propPautas && propPautas.length">
-      <el-collapse-item>
-        <template slot="title">
-          <span class="title">Próximas Pautas</span>
-        </template>
-        <table class="pautas">
-          <tr v-for="(pauta, key) in propPautas" :key="key">
-            <td><p>{{formatDate(pauta.data)}}</p></td>
-            <td><p>{{pauta.local}}</p></td>
-          </tr>
-        </table>
-      </el-collapse-item>
-    </el-collapse>
+  <div v-if="propPautas && propPautas.length">
+    <header>
+      <span class="title">Próximas Pautas</span>
+    </header>
+    <table class="pautas">
+      <tr
+        v-for="(pauta, key) in propPautas"
+        :key="key">
+        {{ propPautas }}
+        <td><p>{{ formatDate(pauta.data) }}</p></td>
+        <td><p>{{ pauta.local }}</p></td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -21,8 +22,14 @@ import moment from 'moment'
 export default {
   name: 'PautasInfo',
   props: {
-    id: Number,
-    casa: String,
+    id: {
+      type: Number,
+      default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
     date: {
       type: Date,
       default: function () {

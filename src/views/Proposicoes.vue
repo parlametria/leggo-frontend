@@ -1,24 +1,35 @@
 <template>
-  <div>
+  <div class="content">
     <ultimos-eventos/>
-    <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
+    <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
-    <transition v-else name="el-fade-in" mode="out-in">
+    <transition
+      v-else
+      name="el-fade-in"
+      mode="out-in">
       <div v-if="filteredProps.length">
         <div class="session">
           <header ref="emPautaHeader">
-            <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+            <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
           </header>
           <div ref="emPautaSession">
-            <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            <proposicao-item
+              :id="prop.id"
+              :key="prop.apelido"
+              v-for="prop in emPauta"
+              :prop="prop"/>
           </div>
         </div>
         <div class="session">
           <header ref="notEmPautaHeader">
-            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
           </header>
           <div ref="notEmPautaSession">
-            <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            <proposicao-item
+              :id="prop.id"
+              :key="prop.apelido"
+              v-for="prop in notEmPauta"
+              :prop="prop"/>
           </div>
         </div>
       </div>
@@ -34,7 +45,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 
 export default {
-  name: 'proposicoes',
+  name: 'Proposicoes',
   components: {
     ProposicaoItem,
     UltimosEventos
@@ -47,9 +58,10 @@ export default {
   methods: {
     ...mapActions(['listProposicoes']),
     ...mapMutations(['setFilter']),
+
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.filter.current[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
+        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
       )
     },
     checkPautaFilter (prop) {
@@ -89,9 +101,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent']),
     filteredProps () {
       // Teste para ver se o obj com os filtros já foi inicializado
-      if (Object.keys(this.filter.current).length) {
+      if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa)
         }).sort((a, b) => {
@@ -126,7 +139,6 @@ export default {
       temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas
     }),
-    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'createfilterOptionObjectEmpty']),
     emPauta () {
       return this.filteredProps.filter(prop => {
         const propId = prop.lastEtapa.id
@@ -138,26 +150,6 @@ export default {
         const propId = prop.lastEtapa.id
         return !(this.pautas && this.pautas[propId] && this.pautas[propId].length > 0)
       })
-    },
-    compoundWatch () {
-      return [this.formattedDateRef, this.filter.semanas].join()
-    }
-  },
-  watch: {
-    compoundWatch: {
-      async handler (newValue, oldValue) {
-        await this.listProposicoes({
-          params: {
-            semanas: this.filter.semanas,
-            date: this.formattedDateRef
-          }
-        })
-        if (!oldValue) {
-          // Deep clone o obj para que não seja modificado quando só os filtros forem.
-          this.setFilter(JSON.parse(JSON.stringify(this.createfilterOptionObjectEmpty)))
-        }
-      },
-      immediate: true
     }
   },
   async mounted () {
@@ -180,7 +172,6 @@ export default {
 }
 .session {
   position: relative;
-  padding-top: 4rem;
   &:first-child {
     padding-top: 0;
   }
@@ -198,11 +189,10 @@ export default {
   .disabled {
     color: #bbb;
   }
-  @media (max-width: $nav-menu-break-width) {
-    div {
-      margin: 0 4px;
-    }
-  }
+}
+.content {
+  padding: 5vh 0.5rem 0 0.5rem;
+
 }
 .sticky {
   display: block;
