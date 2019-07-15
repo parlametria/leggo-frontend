@@ -2,9 +2,13 @@ export default class TemperatureGraphicModel {
   constructor (temperaturas, maxTemperatura, width) {
     this.vsSpec = {
       description: 'Últimos 30 dias',
-      $schema: 'https://vega.github.io/schema/vega-lite/v2.json',
-      height: 50,
+      $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
+      height: 100,
       width: width * 0.8,
+      autosize: {
+        type: 'fit',
+        contains: 'padding'
+      },
       title: '',
       data: {
         name: 'temperatura'
@@ -38,13 +42,11 @@ export default class TemperatureGraphicModel {
             labels: false,
             ticks: false
           },
-          scale: {
-            domain: [0, maxTemperatura]
-          }
+          scale: { type: 'sqrt' }
         },
         tooltip: [
-          { 'field': 'temperatura_periodo', 'type': 'Number', 'title': 'Temperatura da Semana' },
-          { 'field': 'temperatura_recente', 'type': 'Number', 'title': 'Temperatura Acumulada' },
+          { 'field': 'temperatura_recente', 'type': 'quantitative', 'title': 'Temperatura Acumulada' },
+          { 'field': 'temperatura_periodo', 'type': 'quantitative', 'title': 'Temperatura da Semana' },
           { 'field': 'periodo', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
         ]
       },

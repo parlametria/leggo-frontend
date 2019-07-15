@@ -44,8 +44,27 @@ const filtro = {
     }
   },
   getters: {
+    getCurrent (state) {
+      let options = {}
+      const keys = Object.keys(state.current)
+      state.filters.map(filter => {
+        options[filter] = keys.includes(filter) ? state.current[filter] : []
+      })
+      return options
+    },
     formattedDateRef (state) {
       return moment(state.dateRef).format('YYYY-MM-DD')
+    }
+  },
+  actions: {
+    updateDateRef ({ commit, dispatch, state, getters }, date) {
+      commit('updateDateRef', date)
+      dispatch('listProposicoes', {
+        params: {
+          semanas: state.semanas,
+          date: getters.formattedDateRef
+        }
+      })
     }
   }
 }

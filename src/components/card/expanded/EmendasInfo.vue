@@ -1,19 +1,26 @@
 <template>
-    <el-collapse v-if="verificaSeMostraEmendas">
-      <el-collapse-item>
-        <template slot="title">
-          <span class="title">Análise das Emendas (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</span>
-        </template>
-          <el-tabs>
-            <el-tab-pane label="Mudanças Mais Aparentes">
-              <emendas-tab-content :emendas='getDiscrepantes' :categoria="'drásticas'"/>
-            </el-tab-pane>
-            <el-tab-pane label="Mudanças Mais Sutis">
-               <emendas-tab-content :emendas='getSemelhantes' :categoria="'pontuais'"/>
-            </el-tab-pane>
-          </el-tabs>
-      </el-collapse-item>
-    </el-collapse>
+  <div>
+    <div v-if="verificaSeMostraEmendas">
+      <h5>Total: {{propEmendas.length}} | Analisadas: {{getAnalisadas}}</h5>
+      <el-tabs>
+        <el-tab-pane label="Todas as emendas">
+          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+        </el-tab-pane>
+        <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
+          <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
+        </el-tab-pane>
+        <el-tab-pane label="Mudanças Mais Sutis">
+          <emendas-tab-content :emendas="getSemelhantes" :categoria="'pontuais'" />
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+    <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
+      <p class="sem-emendas">Não foram apresentadas emendas para esta proposição.</p>
+    </div>
+    <div v-else>
+      <p class="sem-emendas">Não foi possível analisar as emendas.</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -34,6 +41,24 @@ export default {
       type: Date,
       default: function () {
         return moment()
+      }
+    },
+    numEtapas: Number,
+    propName: String
+  },
+  data () {
+    return {
+      LIMIAR: 10
+    }
+  },
+  filters: {
+    toFormattedName (value) {
+      if (value === 'senado') {
+        return 'no Senado'
+      } else if (value === 'camara') {
+        return 'na Câmara'
+      } else {
+        return value
       }
     }
   },
@@ -60,28 +85,63 @@ export default {
       }
     },
     orderedEmendas () {
-      const result = this.emendas[this.id].filter(function (emenda) { return emenda.distancia !== -1 })
-      return result.sort((a, b) => b.distancia - a.distancia)
+      return this.emendas[this.id]
+        ? this.emendas[this.id]
+          .filter(emenda => emenda.distancia !== -1)
+          .sort((a, b) => b.distancia - a.distancia)
+        : this.emendas[this.id]
     },
     getDiscrepantes () {
-      return _.take(this.orderedEmendas, Math.min(5, _.ceil(this.orderedEmendas.length / 2)))
+      return _.take(
+        this.orderedEmendas,
+        _.ceil(this.orderedEmendas.length / 2)
+      )
     },
     getSemelhantes () {
-      return _.reverse(_.takeRight(this.orderedEmendas, Math.min(5, _.floor(this.orderedEmendas.length / 2))))
+      const reversedEmendas = _.reverse(this.orderedEmendas)
+      if (!this.verificaSeMostraEmendasAparentes) {
+        return _.takeRight(
+          reversedEmendas,
+          Math.min(5, this.orderedEmendas.length)
+        )
+      } else {
+        return _.takeRight(
+          reversedEmendas,
+          _.floor(this.orderedEmendas.length / 2)
+        )
+      }
     },
     verificaSeMostraEmendas () {
-      if (this.propEmendas && this.propEmendas.length) {
-        return this.orderedEmendas[0] && this.orderedEmendas[0].distancia !== -1
-      } else {
-        return false
-      }
+      return (
+        this.propEmendas &&
+        this.propEmendas.length &&
+        this.orderedEmendas[0] &&
+        this.orderedEmendas[0].distancia !== -1
+      )
     },
     getAnalisadas () {
       var analisadas = 0
       this.orderedEmendas.forEach(function (emenda) {
-        if (emenda.distancia !== -1) { analisadas++ }
+        if (emenda.distancia !== -1) {
+          analisadas++
+        }
       })
       return analisadas
+    },
+    getCasa () {
+      return this.orderedEmendas &&
+        this.orderedEmendas[0] &&
+        this.orderedEmendas[0].local.startsWith('CMMPV')
+        ? 'Congresso Nacional'
+        : this.casa
+    },
+    verificaSeMostraEmendasAparentes () {
+      return (
+        this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
+      )
+    },
+    showTextoExplicacao () {
+      return this.propEmendas.length !== this.getAnalisadas
     }
   },
   methods: {
@@ -100,18 +160,24 @@ export default {
 
 <style scoped>
 .title {
-  font-size: .97rem;
+  font-size: 0.97rem;
+  line-height: 15px;
 }
 .emendas {
-    font-size: 10pt;
-    text-align: center;
+  font-size: 10pt;
+  text-align: center;
 }
 table {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
-th, td {
-    padding: .5rem;
-    text-align: left;
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+}
+.sem-emendas {
+  color: #969696;
+  font-size: 0.8em;
 }
 </style>
