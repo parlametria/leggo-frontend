@@ -1,5 +1,7 @@
 <template>
-  <div class="prop-item">
+  <div
+    class="prop-item"
+    autofocus>
     <div class="links">
       <p
         class="small-text-field"
@@ -19,60 +21,13 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
-    <h4> Etapa Mais Recente: {{ prop.lastEtapa.sigla }} - {{ capitalizeFirstLetter(prop.lastEtapa.casa) }}</h4>
-    <composicao-link
-      :data-local-atual="dataLocalAtual"
-      :sigla-comissao-link="siglaParaLink"
-      :sigla-comissao-front="siglaFormatada"
-      :casa-comissao="prop.lastEtapa.casa"
-    />
-    <el-row>
-      <el-col :span="12">
-        <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
-        <author-name
-          :author="prop.lastEtapa.autores"
-          :casa="casa" />
-        <p class="small-text-field small-margin-top">Relator(a)</p>
-        <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
-      </el-col>
-      <el-col
-        :span="12"
-        :xs="24"
-        class="temperaturas-container">
-        <temperature-graphic :id="prop.lastEtapa.id" />
-        <temperature-info
-          :id="prop.lastEtapa.id_ext"
-          class="temperature-info" />
-      </el-col>
-    </el-row>
-    <eventos-info
-      :id="prop.lastEtapa.id_ext"
-      :casa="prop.lastEtapa.casa"
-      :date="dateRef" />
-    <h5>Atividade Parlamentar</h5>
-    <atores-graphic :id="prop.lastEtapa.id" />
-    <h5>Análise das Emendas</h5>
-    <emendas-info
-      :id="prop.lastEtapa.id_ext"
-      :casa="prop.lastEtapa.casa"
-      :date="dateRef"
-      :prop-name="prop.lastEtapa.sigla" />
-    <pautas-info
-      :id="prop.lastEtapa.id_ext"
-      :casa="prop.lastEtapa.casa"
-      :date="dateRef" />
     <div
-      v-for="(etapa,i) in etapasAnteriores"
+      v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
-      <h4> Etapa {{ etapa.id == prop.lastEtapa.id? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
-      <h5>Atividade Parlamentar</h5>
-      <atores-graphic :id="etapa.id" />
-      <h5>Análise das Emendas</h5>
-      <emendas-info
-        :id="etapa.id_ext"
-        :casa="etapa.casa"
-        :date="dateRef"
-        :prop-name="etapa.sigla" />
+      <etapa-proposicao
+        :etapa="etapa"
+        :id-last-etapa="prop.lastEtapa.id"
+        :date="dateRef"/>
     </div>
   </div>
 </template>
@@ -80,18 +35,9 @@
 <script>
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
-import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
 import FasesProgress from './expanded/FasesProgress'
-import PautasInfo from './expanded/PautasInfo'
-import TemperatureBar from './collapsed/TemperatureBar'
-import TemperatureInfo from './expanded/temperature/TemperatureInfo'
-import AtoresGraphic from './expanded/atores/AtoresGraphic'
-import AuthorName from './expanded/AuthorName'
-import EventosInfo from './expanded/EventosInfo'
-import EmendasInfo from './expanded/EmendasInfo'
-import ComposicaoLink from './expanded/ComposicaoLink'
+import EtapaProposicao from './EtapaProposicao'
 import { mapState } from 'vuex'
-import moment from 'moment'
 
 export default {
   name: 'Proposicaoitem',
@@ -109,16 +55,8 @@ export default {
   components: {
     RegimeTramitacao,
     FormaApreciacao,
-    TemperatureGraphic,
-    PautasInfo,
     FasesProgress,
-    TemperatureBar,
-    TemperatureInfo,
-    EventosInfo,
-    EmendasInfo,
-    AuthorName,
-    ComposicaoLink,
-    AtoresGraphic
+    EtapaProposicao
   },
   methods: {
     hasNumber (myString) {
@@ -132,68 +70,18 @@ export default {
     }
   },
   computed: {
-    emPauta () {
-      return this.prop.lastEtapa.emPauta
-    },
-    dataLocalAtual () {
-      const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
-      return moment(data).format('DD/MM/YYYY')
-    },
-    siglaFormatada () {
-      let siglaFormatada = this.localAtual
-      if (this.localAtual === 'Comissão Especial') {
-        siglaFormatada = this.siglaLocalAtual
+    revChronSortedEtapas () {
+      function dataApresCasa (a, b) {
+        if (a.data_apresentacao < b.data_apresentacao) return 1
+        if (a.data_apresentacao > b.data_apresentacao) return -1
+        if (a.casa < b.casa) return -1
+        if (a.casa > b.casa) return 1
+        return 0
       }
-      if (this.hasNumber(siglaFormatada)) {
-        siglaFormatada = 'Comissão Especial - ' + siglaFormatada
-      }
-      return siglaFormatada
-    },
-    siglaParaLink () {
-      let siglaParaLink = this.localAtual
-      if (
-        this.localAtual === 'Comissão Especial' ||
-        this.localAtual === 'Plenário' ||
-        this.localAtual === 'Presidência da República'
-      ) {
-        siglaParaLink = this.siglaLocalAtual
-      }
-      if (this.hasNumber(siglaParaLink)) {
-        siglaParaLink = siglaParaLink.replace(/\s/g, '').split('/')
-        siglaParaLink = siglaParaLink[0]
-      }
-      return siglaParaLink.replace(/\(|\)/g, '')
-    },
-    localAtual () {
-      const locais = this.prop.lastEtapa.resumo_tramitacao
-      const localAtual = locais[locais.length - 1].local
-      return localAtual
-    },
-    siglaLocalAtual () {
-      const locais = this.prop.lastEtapa.resumo_tramitacao
-      const siglaLocalAtual = locais[locais.length - 1].sigla_local
-      return siglaLocalAtual
-    },
-    casa () {
-      let autores = this.prop.lastEtapa.autores
-      let casaOrigem = this.prop.lastEtapa.casa_origem
-      let casa = ''
-      if (autores === 'Poder Executivo') {
-        casa = ''
-      } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
-        casa = 'Senado Federal'
-      } else {
-        casa = 'Câmara dos Deputados'
-      }
-
-      return casa
-    },
-    etapasAnteriores () {
-      return this.prop.etapas.filter(etapa => etapa.id !== this.prop.lastEtapa.id)
+      return [...this.prop.etapas].sort(dataApresCasa)
     },
     ...mapState({
-      dateRef: state => state.filter.dateRef,
-      pautas: state => state.pautas.pautas
+      dateRef: state => state.filter.dateRef
     })
   }
 }
@@ -203,60 +91,21 @@ export default {
 .sigla {
   font-size: 14px;
 }
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-}
 .prop-item {
   padding: 1.5rem 1rem;
-}
-.el-badge {
-  margin: 10px;
-}
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
 }
 .small-text-field {
   font-size: 10pt;
   color: gray;
   margin: 0;
 }
-.big-text-field {
-  margin-top: 0px;
-  font-size: 22px;
-  margin-bottom: 0px;
-}
-.medium-text-field {
-  font-size: 12pt;
-  margin: 0;
-}
-
-.temperature-info {
-  font-size: 12px;
-}
-
-.temperature-area {
-  margin-bottom: 20px;
-}
-
 .fases-progress {
   visibility: hidden;
   opacity: 0;
-}
-.small-margin-top {
-  margin-top: 10px;
 }
 .visible {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
-}
-.status-bar {
-  padding-top: 1rem;
-}
-.temperaturas-container {
-  padding-top: 15px;
 }
 </style>
