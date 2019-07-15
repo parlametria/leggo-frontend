@@ -1,16 +1,23 @@
 <template>
   <div class="content">
     <ultimos-eventos/>
-    <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"></i></p>
+    <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
-    <transition v-else name="el-fade-in" mode="out-in">
+    <transition
+      v-else
+      name="el-fade-in"
+      mode="out-in">
       <div v-if="filteredProps.length">
         <div class="session">
           <header ref="emPautaHeader">
             <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
           </header>
           <div ref="emPautaSession">
-            <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in emPauta" :prop="prop"/>
+            <proposicao-item
+              :id="prop.id"
+              :key="prop.apelido"
+              v-for="prop in emPauta"
+              :prop="prop"/>
           </div>
         </div>
         <div class="session">
@@ -18,7 +25,11 @@
             <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
           </header>
           <div ref="notEmPautaSession">
-            <proposicao-item :id="prop.id" :key="prop.apelido" v-for="prop in notEmPauta" :prop="prop"/>
+            <proposicao-item
+              :id="prop.id"
+              :key="prop.apelido"
+              v-for="prop in notEmPauta"
+              :prop="prop"/>
           </div>
         </div>
       </div>
@@ -34,7 +45,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 
 export default {
-  name: 'proposicoes',
+  name: 'Proposicoes',
   components: {
     ProposicaoItem,
     UltimosEventos

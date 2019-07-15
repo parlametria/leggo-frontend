@@ -1,11 +1,16 @@
 <template>
-  <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
+  <el-menu
+    mode="vertical"
+    :collapse="false"
+    :collapse-transition="false">
     <!-- <Login /> -->
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
       <el-menu-item index="2">
-        <i class="el-icon-search" @click="isCollapse = !isCollapse"></i>
+        <i
+          class="el-icon-search"
+          @click="isCollapse = !isCollapse"/>
         <template slot="title">
           <el-input
             @change="filtraNomeProposicao(nomeProposicaoFilter)"
@@ -22,9 +27,10 @@
         <template slot="title">
           <el-date-picker
             v-model="dateRef"
-            type="date" placeholder="Data de referência" format="dd/MM/yyyy"
-            :picker-options="datePickerOptions">
-          </el-date-picker>
+            type="date"
+            placeholder="Data de referência"
+            format="dd/MM/yyyy"
+            :picker-options="datePickerOptions"/>
         </template>
       </el-menu-item>
 
@@ -37,24 +43,37 @@
       </el-menu-item>
 
       <!-- Pauta -->
-      <el-menu-item index="5" class="no-padding">
+      <el-menu-item
+        index="5"
+        class="no-padding">
         <el-checkbox
-          v-model="emPautaFilter[0].status" class="filterMenus">
+          v-model="emPautaFilter[0].status"
+          class="filterMenus">
           {{ emPautaFilter[0].tipo }}
         </el-checkbox>
       </el-menu-item>
 
       <!-- Vários Filtros -->
-      <el-submenu v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
+      <el-submenu
+        v-for="(filterName, i) of filter.filters"
+        :key="i"
+        :index="filterName">
         <template slot="title">
-          <i class="el-icon-edit-outline"></i>
+          <i class="el-icon-edit-outline"/>
           <span slot="title">{{ $t(filterName) }}</span>
         </template>
-        <el-checkbox-group v-model="self[filterName]">
-          <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]"
-                        class="no-padding"
-                        :key="j" index="j">
-            <el-checkbox class="filterMenus" :label="opcao">{{ $t(opcao) }}</el-checkbox>
+        <el-checkbox-group v-model="models[filterName]">
+          <el-menu-item
+            v-for="(opcao, j) in perFilterOptions[filterName]"
+            class="no-padding"
+            :key="j"
+            index="j">
+            <el-checkbox
+              class="filterMenus"
+              :label="opcao"
+              @change="() => handleChangeSelect(filterName, opcao)"
+            >{{ $t(opcao) }}
+            </el-checkbox>
           </el-menu-item>
         </el-checkbox-group>
       </el-submenu>
@@ -72,14 +91,7 @@ function generateFilterModels () {
   let models = {}
   let filterStore = store.state.filter
   for (let filter of filterStore.filters) {
-    models[filter] = {
-      get () {
-        return filterStore.current[filter]
-      },
-      set (value) {
-        store.commit('setFilter', { value, filter })
-      }
-    }
+    models[filter] = []
   }
   return models
 }
@@ -91,7 +103,6 @@ export default {
     Login
   },
   data () {
-    let self = this
     return {
       isCollapse: true,
       windowWidth: 0,
@@ -100,7 +111,7 @@ export default {
           return time.getTime() > Date.now()
         }
       },
-      self
+      models: generateFilterModels()
     }
   },
   computed: {
@@ -113,7 +124,6 @@ export default {
       nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
     }),
     ...mapGetters(['perFilterOptions']),
-    ...generateFilterModels(),
     dateRef: {
       get () {
         return this.$store.state.filter.dateRef
@@ -127,7 +137,11 @@ export default {
     ...mapMutations([
       'filtraNomeProposicao'
     ]),
-    ...mapActions(['updateDateRef'])
+    ...mapActions(['updateDateRef']),
+    handleChangeSelect (filterName, option) {
+      this.models[filterName][option] = !this.models[filterName][option]
+      store.commit('setFilter', { filter: filterName, value: this.models[filterName] })
+    }
   }
 }
 </script>
