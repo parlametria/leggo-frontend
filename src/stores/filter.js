@@ -48,7 +48,7 @@ const filtro = {
       let options = {}
       const keys = Object.keys(state.current)
       state.filters.map(filter => {
-        options[filter] = keys.includes(filter)? state.current[filter]:[]
+        options[filter] = keys.includes(filter) ? state.current[filter] : []
       })
       return options
     },
