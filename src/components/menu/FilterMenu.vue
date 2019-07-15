@@ -1,11 +1,16 @@
 <template>
-  <el-menu mode="vertical" :collapse="false" :collapse-transition="false">
+  <el-menu
+    mode="vertical"
+    :collapse="false"
+    :collapse-transition="false">
     <!-- <Login /> -->
     <el-menu-item-group title="Filtros:">
 
       <!-- Search -->
       <el-menu-item index="2">
-        <i class="el-icon-search" @click="isCollapse = !isCollapse"></i>
+        <i
+          class="el-icon-search"
+          @click="isCollapse = !isCollapse"/>
         <template slot="title">
           <el-input
             @change="filtraNomeProposicao(nomeProposicaoFilter)"
@@ -22,9 +27,10 @@
         <template slot="title">
           <el-date-picker
             v-model="dateRef"
-            type="date" placeholder="Data de referência" format="dd/MM/yyyy"
-            :picker-options="datePickerOptions">
-          </el-date-picker>
+            type="date"
+            placeholder="Data de referência"
+            format="dd/MM/yyyy"
+            :picker-options="datePickerOptions"/>
         </template>
       </el-menu-item>
 
@@ -37,23 +43,31 @@
       </el-menu-item>
 
       <!-- Pauta -->
-      <el-menu-item index="5" class="no-padding">
+      <el-menu-item
+        index="5"
+        class="no-padding">
         <el-checkbox
-          v-model="emPautaFilter[0].status" class="filterMenus">
+          v-model="emPautaFilter[0].status"
+          class="filterMenus">
           {{ emPautaFilter[0].tipo }}
         </el-checkbox>
       </el-menu-item>
 
       <!-- Vários Filtros -->
-      <el-submenu v-for="(filterName, i) of filter.filters" :key="i" :index="filterName">
+      <el-submenu
+        v-for="(filterName, i) of filter.filters"
+        :key="i"
+        :index="filterName">
         <template slot="title">
-          <i class="el-icon-edit-outline"></i>
+          <i class="el-icon-edit-outline"/>
           <span slot="title">{{ $t(filterName) }}</span>
         </template>
         <el-checkbox-group v-model="models[filterName]">
-          <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]"
-                        class="no-padding"
-                        :key="j" index="j">
+          <el-menu-item
+            v-for="(opcao, j) in perFilterOptions[filterName]"
+            class="no-padding"
+            :key="j"
+            index="j">
             <el-checkbox
               class="filterMenus"
               :label="opcao"
@@ -72,7 +86,6 @@ import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
 import Login from '@/components/menu/Login'
 import store from '@/stores/store'
-import { constants } from 'fs';
 
 function generateFilterModels () {
   let models = {}
@@ -90,7 +103,6 @@ export default {
     Login
   },
   data () {
-    let self = this
     return {
       isCollapse: true,
       windowWidth: 0,
@@ -126,7 +138,7 @@ export default {
       'filtraNomeProposicao'
     ]),
     ...mapActions(['updateDateRef']),
-    handleChangeSelect(filterName, option) {
+    handleChangeSelect (filterName, option) {
       this.models[filterName][option] = !this.models[filterName][option]
       store.commit('setFilter', { filter: filterName, value: this.models[filterName] })
     }
