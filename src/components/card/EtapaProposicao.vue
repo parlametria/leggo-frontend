@@ -1,33 +1,50 @@
 <template>
   <div>
-    <h4> Etapa {{isLastEtapa? 'Mais Recente' : 'Anterior'}}: {{etapa.sigla}} - {{capitalizeFirstLetter(etapa.casa)}}</h4>
+    <h4> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
     <div v-if="isLastEtapa">
-        <composicao-link
-            :dataLocalAtual="dataLocalAtual"
-            :siglaComissaoLink="siglaParaLink"
-            :siglaComissaoFront="siglaFormatada"
-            :casaComissao="etapa.casa"
-        ></composicao-link>
-        <el-row>
+      <composicao-link
+        :data-local-atual="dataLocalAtual"
+        :sigla-comissao-link="siglaParaLink"
+        :sigla-comissao-front="siglaFormatada"
+        :casa-comissao="etapa.casa"
+      />
+      <el-row>
         <el-col :span="12">
-            <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
-            <author-name :author="etapa.autores" :casa="casa" />
-            <p class="small-text-field small-margin-top">Relator(a)</p>
-            <p class="medium-text-field">{{ etapa.relator_nome }}</p>
+          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
+          <author-name
+            :author="etapa.autores"
+            :casa="casa" />
+          <p class="small-text-field small-margin-top">Relator(a)</p>
+          <p class="medium-text-field">{{ etapa.relator_nome }}</p>
         </el-col>
-        <el-col :span="12" :xs="24" class="temperaturas-container">
-            <temperature-graphic :id="etapa.id" />
-            <temperature-info :id="etapa.id_ext" class="temperature-info" />
+        <el-col
+          :span="12"
+          :xs="24"
+          class="temperaturas-container">
+          <temperature-graphic :id="etapa.id" />
+          <temperature-info
+            :id="etapa.id_ext"
+            class="temperature-info" />
         </el-col>
-        </el-row>
-        <eventos-info :id="etapa.id_ext" :casa="etapa.casa" :date="date" />
+      </el-row>
+      <eventos-info
+        :id="etapa.id_ext"
+        :casa="etapa.casa"
+        :date="date" />
     </div>
     <h5>Atividade Parlamentar</h5>
     <atores-graphic :id="etapa.id" />
     <h5>Análise das Emendas</h5>
-    <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="date" :propName="etapa.sigla" />
+    <emendas-info
+      :id="etapa.id_ext"
+      :casa="etapa.casa"
+      :date="date"
+      :prop-name="etapa.sigla" />
     <div v-if="isLastEtapa">
-        <pautas-info :id="etapa.id_ext" :casa="etapa.casa" :date="date" />
+      <pautas-info
+        :id="etapa.id_ext"
+        :casa="etapa.casa"
+        :date="date" />
     </div>
   </div>
 </template>
@@ -46,7 +63,7 @@ import { mapState } from 'vuex'
 import moment from 'moment'
 
 export default {
-  name: 'etapaproposicao',
+  name: 'Etapaproposicao',
   data () {
     return {
       dropShow: false

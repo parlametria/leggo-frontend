@@ -1,5 +1,7 @@
 <template>
-  <div class="prop-item" autofocus>
+  <div
+    class="prop-item"
+    autofocus>
     <div class="links">
       <p
         class="small-text-field"
@@ -19,10 +21,12 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
-    <div v-for="(etapa,i) in revChronSortedEtapas" :key="i">
+    <div
+      v-for="(etapa,i) in revChronSortedEtapas"
+      :key="i">
       <etapa-proposicao
         :etapa="etapa"
-        :idLastEtapa="prop.lastEtapa.id"
+        :id-last-etapa="prop.lastEtapa.id"
         :date="dateRef"/>
     </div>
   </div>
