@@ -49,7 +49,7 @@ export default {
     ...mapMutations(['setFilter']),
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.filter.current[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
+        filter => this.filter.current[filter].length === 0 || this.filter.current[filter].includes(prop[filter].data)
       )
     },
     checkPautaFilter (prop) {

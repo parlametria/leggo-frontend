@@ -52,6 +52,15 @@ proposicoes.getters = {
         state.proposicoes.map(p => p.lastEtapa[filter])
       ).values()]
     }
+    options['temas'] = new Set()
+    if (state.proposicoes.length !== 0) {
+      for (let prop of state.proposicoes) {
+        for (let tema of prop.lastEtapa['temas']) {
+          options['temas'].add(tema)
+        }
+      }
+    }
+    options['temas'] = [...options['temas']]
     return options
   },
   createfilterOptionObjectEmpty (state) {
