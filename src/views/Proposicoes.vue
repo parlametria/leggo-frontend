@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
@@ -10,7 +10,7 @@
       <div v-if="filteredProps.length">
         <div class="session">
           <header ref="emPautaHeader">
-            <h2 :class="{disabled: emPauta.length === 0}">Na pauta</h2>
+            <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
           </header>
           <div ref="emPautaSession">
             <proposicao-item
@@ -22,7 +22,7 @@
         </div>
         <div class="session">
           <header ref="notEmPautaHeader">
-            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta da semana</h2>
+            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
           </header>
           <div ref="notEmPautaSession">
             <proposicao-item
@@ -172,7 +172,6 @@ export default {
 }
 .session {
   position: relative;
-  padding-top: 4rem;
   &:first-child {
     padding-top: 0;
   }
@@ -190,11 +189,10 @@ export default {
   .disabled {
     color: #bbb;
   }
-  @media (max-width: $nav-menu-break-width) {
-    div {
-      margin: 0 4px;
-    }
-  }
+}
+.content {
+  padding: 5vh 0.5rem 0 0.5rem;
+
 }
 .sticky {
   display: block;

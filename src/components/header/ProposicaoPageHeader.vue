@@ -80,6 +80,8 @@ a {
     border-bottom: solid 2px #dc6060;
     padding-bottom: 7px;
     flex-wrap: wrap;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 .navigation {
     align-self: flex-end;

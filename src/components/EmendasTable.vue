@@ -22,12 +22,13 @@
           :key="indexData">
           <td
             v-for="(key, index) in columns"
-            :key="index">
+            :key="index"
+            v-show="verificaSeEmenda(entry)">
             <a
               v-if="key === 'titulo'"
               :href="entry['inteiro_teor']+'&disposition=inline'"
               target="_blank"
-            >{{ entry[key] }}</a>
+            >{{ formataTitulo(entry[key]) }}</a>
             <div
               v-else-if="key === 'autor'"
               :class="{clickable: entry[key].length > MAX_TEXT_LENGTH}"
@@ -150,6 +151,13 @@ export default {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
+    verificaSeEmenda (dadosEmendas) {
+      return !dadosEmendas['titulo'].includes('nan')
+    },
+    formataTitulo (titulo) {
+      let arrayTitulo = titulo.split(' ')
+      return arrayTitulo[0].concat(' ', parseInt(arrayTitulo[1]))
+    },
     updatePageNumber (pageCount) {
       this.pageNumber = pageCount
     },
@@ -160,12 +168,6 @@ export default {
         this.MAX_TEXT_LENGTH,
         this.TEXT_TO_BE_SHOWED_LENGTH
       )
-    },
-    nextPage () {
-      this.pageNumber++
-    },
-    prevPage () {
-      this.pageNumber--
     }
   }
 }
@@ -186,6 +188,14 @@ table {
   width: 100%;
 }
 
+thead {
+  font-size: 1rem;
+}
+
+tr {
+  font-size: 0.8rem;
+}
+
 th {
   background-color: $--color-primary;
   color: #f9f9f9;
@@ -194,15 +204,13 @@ th {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding: 10px;
 }
 
 td {
   background-color: #f9f9f9;
-}
-
-th,
-td {
-  padding: 0 5px;
+  padding: 10px;
+  color: #303133;
 }
 
 th.active {

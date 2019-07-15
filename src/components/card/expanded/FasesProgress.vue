@@ -13,7 +13,7 @@
           <p v-show="!fase.is_mpv">Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
-          <p v-show="!fase.is_mpv">Histórico de comissões: {{ comissoesHistoric(fase) }}</p>
+          <p v-show="showHistoricoComissoes(fase)">Histórico de comissões: {{ comissoesHistoric(fase) }}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
@@ -59,6 +59,9 @@ export default {
          ['presidência da república', 'congresso'].includes(fase.local_casa) ||
          ['Comissão Mista', 'Sanção Presidencial/Promulgação'].includes(fase.fase_global)
       }
+    },
+    showHistoricoComissoes (fase) {
+      return !(fase.is_mpv || fase.local === 'Plenário')
     },
     isInProgress (fase) {
       const now = Date.now()

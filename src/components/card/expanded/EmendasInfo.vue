@@ -1,9 +1,7 @@
 <template>
-  <el-collapse v-if="verificaSeMostraEmendas">
-    <el-collapse-item>
-      <template slot="title">
-        <h4>Análise das Emendas - {{ getCasa | toFormattedName }} (total: {{ propEmendas.length }}, analisadas: {{ getAnalisadas }})</h4>
-      </template>
+  <div>
+    <div v-if="verificaSeMostraEmendas">
+      <h5>Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</h5>
       <el-tabs>
         <el-tab-pane label="Todas as emendas">
           <emendas-tab-content
@@ -27,18 +25,17 @@
           />
         </el-tab-pane>
       </el-tabs>
-    </el-collapse-item>
-  </el-collapse>
-  <el-collapse v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
-    <div
-      class="title sem-emendas"
-    >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}</div>
-  </el-collapse>
-  <el-collapse v-else>
-    <div
-      class="title sem-emendas"
-    >Não conseguimos analisar as emendas {{ getCasa | toFormattedName }}.</div>
-  </el-collapse>
+    </div>
+    <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
+      <div
+        class="title sem-emendas"
+      >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}</div>
+    </div>
+    <div v-else>
+      <div class="title sem-emendas">
+        Não foi possível analisar as emendas {{ getCasa | toFormattedName }}.</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -70,6 +67,10 @@ export default {
     numEtapas: {
       type: Number,
       default: undefined
+    },
+    propName: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -128,7 +129,7 @@ export default {
       if (!this.verificaSeMostraEmendasAparentes) {
         return _.takeRight(
           reversedEmendas,
-          this.orderedEmendas.length
+          Math.min(5, this.orderedEmendas.length)
         )
       } else {
         return _.takeRight(
@@ -203,8 +204,7 @@ td {
   text-align: left;
 }
 .sem-emendas {
-  padding-top: 14px;
-  padding-bottom: 14px;
-  color: #303133;
+  color: #969696;
+  font-size: 0.8em;
 }
 </style>
