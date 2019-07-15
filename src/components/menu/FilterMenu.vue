@@ -50,11 +50,16 @@
           <i class="el-icon-edit-outline"></i>
           <span slot="title">{{ $t(filterName) }}</span>
         </template>
-        <el-checkbox-group v-model="self[filterName]">
+        <el-checkbox-group v-model="models[filterName]">
           <el-menu-item v-for="(opcao, j) in perFilterOptions[filterName]"
                         class="no-padding"
                         :key="j" index="j">
-            <el-checkbox class="filterMenus" :label="opcao">{{ $t(opcao) }}</el-checkbox>
+            <el-checkbox
+              class="filterMenus"
+              :label="opcao"
+              @change="() => handleChangeSelect(filterName, opcao)"
+            >{{ $t(opcao) }}
+            </el-checkbox>
           </el-menu-item>
         </el-checkbox-group>
       </el-submenu>
@@ -67,19 +72,13 @@ import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
 import Login from '@/components/menu/Login'
 import store from '@/stores/store'
+import { constants } from 'fs';
 
 function generateFilterModels () {
   let models = {}
   let filterStore = store.state.filter
   for (let filter of filterStore.filters) {
-    models[filter] = {
-      get () {
-        return filterStore.current[filter]
-      },
-      set (value) {
-        store.commit('setFilter', { value, filter })
-      }
-    }
+    models[filter] = []
   }
   return models
 }
@@ -100,7 +99,7 @@ export default {
           return time.getTime() > Date.now()
         }
       },
-      self
+      models: generateFilterModels()
     }
   },
   computed: {
@@ -113,7 +112,6 @@ export default {
       nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
     }),
     ...mapGetters(['perFilterOptions']),
-    ...generateFilterModels(),
     dateRef: {
       get () {
         return this.$store.state.filter.dateRef
@@ -127,7 +125,11 @@ export default {
     ...mapMutations([
       'filtraNomeProposicao'
     ]),
-    ...mapActions(['updateDateRef'])
+    ...mapActions(['updateDateRef']),
+    handleChangeSelect(filterName, option) {
+      this.models[filterName][option] = !this.models[filterName][option]
+      store.commit('setFilter', { filter: filterName, value: this.models[filterName] })
+    }
   }
 }
 </script>

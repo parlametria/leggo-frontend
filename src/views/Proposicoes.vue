@@ -49,6 +49,7 @@ export default {
     ...mapMutations(['setFilter']),
 
     checkCategoricalFilters (prop) {
+      console.log('a')
       return this.filter.filters.every(
         filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
       )
