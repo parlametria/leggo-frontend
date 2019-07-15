@@ -1,6 +1,6 @@
 <template>
   <div v-if="formattedStatus">
-    <span class="tag">{{formattedStatus}}</span>
+    <span class="tag">{{ formattedStatus }}</span>
   </div>
 </template>
 
@@ -9,7 +9,10 @@
 export default {
   name: 'TextTag',
   props: {
-    status: String
+    status: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     formattedStatus () {

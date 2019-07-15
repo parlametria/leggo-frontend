@@ -1,28 +1,38 @@
 <template>
-  <el-collapse v-if="formattedEventos.length" v-model="activeNames">
+  <el-collapse
+    v-if="formattedEventos.length"
+    v-model="activeNames">
     <el-collapse-item name="1">
       <template slot="title">
         <span class="title">Últimos Eventos</span>
       </template>
       <table class="eventos-tram">
-        <div v-for="(eventos, key) in groupEventos" :key="key">
+        <div
+          v-for="(eventos, key) in groupEventos"
+          :key="key">
           <td class="date-field">
-            <el-tooltip :content="eventos['evento'][0].data" placement="bottom">
-              <div>{{eventos['evento'][0].dataDiff}}</div>
+            <el-tooltip
+              :content="eventos['evento'][0].data"
+              placement="bottom">
+              <div>{{ eventos['evento'][0].dataDiff }}</div>
             </el-tooltip>
-            <tr class="sigla-local">{{eventos['evento'][0].sigla}}</tr>
+            <tr class="sigla-local">{{ eventos['evento'][0].sigla }}</tr>
           </td>
           <td>
             <tr
               v-if="eventos['evento'].length > 1"
               class="evento-title"
-            >{{eventos['evento'].length}} eventos de {{eventos['evento'][0].title}}</tr>
-            <tr v-else class="evento-title">{{eventos['evento'][0].title}}</tr>
+            >{{ eventos['evento'].length }} eventos de {{ eventos['evento'][0].title }}</tr>
+            <tr
+              v-else
+              class="evento-title">{{ eventos['evento'][0].title }}</tr>
             <tr
               :class="{clickable: eventos['evento'][0].collapsible}"
               @click="toggleCollapseDescription(key)"
-            >{{eventos['evento'][0].texto}}</tr>
-            <span v-if="!isExpanded(key) && eventos.collapsible" class="el-icon-circle-plus-outline"></span>
+            >{{ eventos['evento'][0].texto }}</tr>
+            <span
+              v-if="!isExpanded(key) && eventos.collapsible"
+              class="el-icon-circle-plus-outline"/>
           </td>
         </div>
       </table>
@@ -46,8 +56,14 @@ export default {
   },
   mixins: [mixin],
   props: {
-    id: Number,
-    casa: String,
+    id: {
+      type: Number,
+      default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
     date: {
       type: Date,
       default: function () {

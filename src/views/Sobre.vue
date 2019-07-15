@@ -74,13 +74,19 @@
     <h2 class="center">Contribua</h2>
     <ul class="contribua">
       <li>
-        <a href="https://github.com/analytics-ufcg/leggoR" target="_blank">Pacote R</a>
+        <a
+          href="https://github.com/analytics-ufcg/leggoR"
+          target="_blank">Pacote R</a>
       </li>
       <li>
-        <a href="https://github.com/analytics-ufcg/leggo-frontend" target="_blank">Leg.go Frontend</a>
+        <a
+          href="https://github.com/analytics-ufcg/leggo-frontend"
+          target="_blank">Leg.go Frontend</a>
       </li>
       <li>
-        <a href="https://github.com/analytics-ufcg/leggo-backend" target="_blank">Leg.go Backend</a>
+        <a
+          href="https://github.com/analytics-ufcg/leggo-backend"
+          target="_blank">Leg.go Backend</a>
       </li>
     </ul>
   </div>

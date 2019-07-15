@@ -2,14 +2,21 @@
   <div>
     <span class="explicacao_emendas"> {{ getTextoExplicacao }}</span>
     <div class="search-input">
-      <input type="text" v-model="searchQuery" />
-      <span class="highlight"></span>
-      <span class="bar"></span>
+      <input
+        type="text"
+        v-model="searchQuery" >
+      <span class="highlight"/>
+      <span class="bar"/>
       <label>Pesquise aqui</label>
-      <span class="el-icon-search"></span>
-      <span class="loader" v-show="loading"></span>
+      <span class="el-icon-search"/>
+      <span
+        class="loader"
+        v-show="loading"/>
     </div>
-    <emendas-table :data="emendas" :columns="['titulo', 'autor', 'local']" :filter-key="query"></emendas-table>
+    <emendas-table
+      :data="emendas"
+      :columns="['titulo', 'autor', 'local']"
+      :filter-key="query"/>
     <span
       v-if="showTextoExplicacao"
       class="explicacao_emendas"
@@ -34,9 +41,18 @@ export default {
     EmendasTable
   },
   props: {
-    emendas: Array,
-    categoria: String,
-    showTextoExplicacao: Boolean
+    emendas: {
+      type: Array,
+      default () { return [] }
+    },
+    categoria: {
+      type: String,
+      default: ''
+    },
+    showTextoExplicacao: {
+      type: Boolean,
+      default: false
+    }
   },
   created () {
     this.delay = _.debounce(() => {

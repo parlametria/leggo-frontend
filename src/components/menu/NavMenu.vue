@@ -1,15 +1,23 @@
 <template>
-  <div v-click-outside="hide" @keyup.enter="hide">
-    <button type="button" v-show="!open" class="open-btn" @click="open = true">
-      <i class="el-icon el-icon-menu"></i>
+  <div
+    v-click-outside="hide"
+    @keyup.enter="hide">
+    <button
+      type="button"
+      v-show="!open"
+      class="open-btn"
+      @click="open = true">
+      <i class="el-icon el-icon-menu"/>
     </button>
-    <div :class="{ collapsed: !open }" class="collapsable-menu">
+    <div
+      :class="{ collapsed: !open }"
+      class="collapsable-menu">
       <button
         type="button"
         class="close-btn"
         aria-label="Close"
         @click="hide">
-        <i class="el-dialog__close el-icon el-icon-close"></i>
+        <i class="el-dialog__close el-icon el-icon-close"/>
       </button>
       <slot/>
     </div>
