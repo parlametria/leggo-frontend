@@ -3,10 +3,12 @@
     <router-link :to="{ name: 'proposicoes' }">
       <span class="titulo">
         Comissão
-        <span class="sigla">{{siglaComissao}} - {{casaFormatada}}</span>
+        <span class="sigla">{{ siglaComissao }} - {{ casaFormatada }}</span>
       </span>
     </router-link>
-    <composicao :casaComissao="casaComissao" :siglaComissao="siglaComissao"/>
+    <composicao
+      :casa-comissao="casaComissao"
+      :sigla-comissao="siglaComissao"/>
   </div>
 </template>
 <script>
@@ -15,8 +17,14 @@ import Composicao from '@/components/comissao/Composicao'
 export default {
   name: 'Comissao',
   props: {
-    siglaComissao: String,
-    casaComissao: String
+    siglaComissao: {
+      type: String,
+      default: ''
+    },
+    casaComissao: {
+      type: String,
+      default: ''
+    }
   },
   components: {
     Composicao

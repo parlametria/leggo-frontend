@@ -1,16 +1,18 @@
 <template>
-    <div v-if="propPautas && propPautas.length">
-      <header>
-        <span class="title">Próximas Pautas</span>
-      </header>
-      <table class="pautas">
-        <tr v-for="(pauta, key) in propPautas" :key="key">
-          {{propPautas}}
-          <td><p>{{formatDate(pauta.data)}}</p></td>
-          <td><p>{{pauta.local}}</p></td>
-        </tr>
-      </table>
-    </div>
+  <div v-if="propPautas && propPautas.length">
+    <header>
+      <span class="title">Próximas Pautas</span>
+    </header>
+    <table class="pautas">
+      <tr
+        v-for="(pauta, key) in propPautas"
+        :key="key">
+        {{ propPautas }}
+        <td><p>{{ formatDate(pauta.data) }}</p></td>
+        <td><p>{{ pauta.local }}</p></td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -20,8 +22,14 @@ import moment from 'moment'
 export default {
   name: 'PautasInfo',
   props: {
-    id: Number,
-    casa: String,
+    id: {
+      type: Number,
+      default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
     date: {
       type: Date,
       default: function () {

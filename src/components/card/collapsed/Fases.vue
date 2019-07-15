@@ -1,8 +1,12 @@
 <template>
   <div class="fasesBlock">
-    <div v-for="(fase,i) in fasesResumidas" :key="i">
+    <div
+      v-for="(fase,i) in fasesResumidas"
+      :key="i">
       <el-tooltip :content="getContent(fase)">
-        <div class="fase" :class="geraEstilo(fase)"/>
+        <div
+          class="fase"
+          :class="geraEstilo(fase)"/>
       </el-tooltip>
     </div>
   </div>
@@ -13,7 +17,10 @@ import { resumirFases } from '@/utils'
 export default {
   name: 'Fases',
   props: {
-    fases: Array
+    fases: {
+      type: Array,
+      default () { return [] }
+    }
   },
   computed: {
     fasesResumidas () {

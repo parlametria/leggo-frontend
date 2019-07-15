@@ -1,6 +1,8 @@
 <template>
-  <div v-if="pauta" class="tag">
-    <span class="pauta">{{day}} {{this.hora}} - {{pauta.local}}</span>
+  <div
+    v-if="pauta"
+    class="tag">
+    <span class="pauta">{{ day }} {{ this.hora }} - {{ pauta.local }}</span>
   </div>
 </template>
 
@@ -10,8 +12,14 @@ import moment from 'moment'
 export default {
   name: 'PautaTag',
   props: {
-    pauta: Object,
-    dateRef: Date
+    pauta: {
+      type: Object,
+      default: undefined
+    },
+    dateRef: {
+      type: Date,
+      default: undefined
+    }
   },
   computed: {
     day () {

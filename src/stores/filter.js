@@ -45,13 +45,12 @@ const filtro = {
   },
   getters: {
     getCurrent (state) {
-      if (state.current.length) {
-        return state.current
-      } else {
-        let options = {}
-        state.filters.map(filter => { options[filter] = [] })
-        return options
-      }
+      let options = {}
+      const keys = Object.keys(state.current)
+      state.filters.map(filter => {
+        options[filter] = keys.includes(filter) ? state.current[filter] : []
+      })
+      return options
     },
     formattedDateRef (state) {
       return moment(state.dateRef).format('YYYY-MM-DD')

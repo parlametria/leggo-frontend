@@ -53,8 +53,14 @@ export default {
     }
   },
   props: {
-    etapa: Object,
-    idLastEtapa: Number,
+    etapa: {
+      type: Object,
+      default: undefined
+    },
+    idLastEtapa: {
+      type: Number,
+      default: -1
+    },
     date: {
       type: Date,
       default: function () {

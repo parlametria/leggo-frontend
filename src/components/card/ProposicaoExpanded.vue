@@ -1,8 +1,14 @@
 <template>
   <div class="prop-item" autofocus>
     <div class="links">
-      <p class="small-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
-        <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
+      <p
+        class="small-text-field"
+        v-for="(etapa,i) in prop.etapas"
+        :key="i">
+        <a
+          class="sigla"
+          :href="etapa.url"
+          target="_blank">{{ etapa.sigla }}</a>
         - {{ $t(etapa.casa) }}
       </p>
     </div>
@@ -13,7 +19,7 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
-    <div v-for="(etapa,i) in chronologicallySortedEtapas" :key="i">
+    <div v-for="(etapa,i) in revChronSortedEtapas" :key="i">
       <etapa-proposicao
         :etapa="etapa"
         :idLastEtapa="prop.lastEtapa.id"
@@ -30,14 +36,17 @@ import EtapaProposicao from './EtapaProposicao'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'proposicaoitem',
+  name: 'Proposicaoitem',
   data () {
     return {
       dropShow: false
     }
   },
   props: {
-    prop: Object
+    prop: {
+      type: Object,
+      default: undefined
+    }
   },
   components: {
     RegimeTramitacao,
@@ -57,7 +66,7 @@ export default {
     }
   },
   computed: {
-    chronologicallySortedEtapas () {
+    revChronSortedEtapas () {
       function dataApresCasa (a, b) {
         if (a.data_apresentacao < b.data_apresentacao) return 1
         if (a.data_apresentacao > b.data_apresentacao) return -1

@@ -1,15 +1,28 @@
 <template>
   <div>
     <div class="ajuda-sm">
-      <img :src="require(`@/assets/ajuda_mobile.png`)" class="responsive" alt="">
+      <img
+        :src="require(`@/assets/ajuda_mobile.png`)"
+        class="responsive"
+        alt="">
     </div>
     <div class="ajuda-lg">
 
       <template>
         <div class="block">
-          <el-carousel height="500px" :interval="5000" arrow="always" :autoplay="false" :loop="false">
-            <el-carousel-item v-for="item in 5" :key="item">
-              <img :src="require(`@/assets/ajuda0${item}.jpg`)" class="responsive" alt="">
+          <el-carousel
+            height="500px"
+            :interval="5000"
+            arrow="always"
+            :autoplay="false"
+            :loop="false">
+            <el-carousel-item
+              v-for="item in 5"
+              :key="item">
+              <img
+                :src="require(`@/assets/ajuda0${item}.jpg`)"
+                class="responsive"
+                alt="">
             </el-carousel-item>
           </el-carousel>
         </div>

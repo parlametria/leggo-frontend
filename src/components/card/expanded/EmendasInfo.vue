@@ -1,24 +1,39 @@
 <template>
   <div>
     <div v-if="verificaSeMostraEmendas">
-      <h5>Total: {{propEmendas.length}} | Analisadas: {{getAnalisadas}}</h5>
+      <h5>Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</h5>
       <el-tabs>
         <el-tab-pane label="Todas as emendas">
-          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+          <emendas-tab-content
+            :emendas="emendas[id]"
+            :categoria="'todas'" />
         </el-tab-pane>
-        <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
-          <emendas-tab-content :emendas="getDiscrepantes" :categoria="'drásticas'" />
+        <el-tab-pane
+          v-if="verificaSeMostraEmendasAparentes"
+          label="Mudanças Mais Aparentes">
+          <emendas-tab-content
+            :emendas="getDiscrepantes"
+            :categoria="'drásticas'"
+            :show-texto-explicacao="showTextoExplicacao"
+          />
         </el-tab-pane>
         <el-tab-pane label="Mudanças Mais Sutis">
-          <emendas-tab-content :emendas="getSemelhantes" :categoria="'pontuais'" />
+          <emendas-tab-content
+            :emendas="getSemelhantes"
+            :categoria="'pontuais'"
+            :show-texto-explicacao="showTextoExplicacao"
+          />
         </el-tab-pane>
       </el-tabs>
     </div>
     <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
-      <p class="sem-emendas">Não foram apresentadas emendas para esta proposição.</p>
+      <div
+        class="title sem-emendas"
+      >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}</div>
     </div>
     <div v-else>
-      <p class="sem-emendas">Não foi possível analisar as emendas.</p>
+      <div class="title sem-emendas">
+        Não foi possível analisar as emendas {{ getCasa | toFormattedName }}.</div>
     </div>
   </div>
 </template>
@@ -35,16 +50,28 @@ export default {
     EmendasTabContent
   },
   props: {
-    id: Number,
-    casa: String,
+    id: {
+      type: Number,
+      default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
     date: {
       type: Date,
       default: function () {
         return moment()
       }
     },
-    numEtapas: Number,
-    propName: String
+    numEtapas: {
+      type: Number,
+      default: undefined
+    },
+    propName: {
+      type: String,
+      default: ''
+    }
   },
   data () {
     return {
