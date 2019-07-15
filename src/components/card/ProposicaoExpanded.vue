@@ -1,8 +1,14 @@
 <template>
   <div class="prop-item">
     <div class="links">
-      <p class="small-text-field" v-for="(etapa,i) in prop.etapas" :key="i">
-        <a class="sigla" :href="etapa.url" target="_blank">{{ etapa.sigla }}</a>
+      <p
+        class="small-text-field"
+        v-for="(etapa,i) in prop.etapas"
+        :key="i">
+        <a
+          class="sigla"
+          :href="etapa.url"
+          target="_blank">{{ etapa.sigla }}</a>
         - {{ $t(etapa.casa) }}
       </p>
     </div>
@@ -14,28 +20,46 @@
       :etapas="prop.etapas"
     />
     <composicao-link
-      :dataLocalAtual="dataLocalAtual"
-      :siglaComissaoLink="siglaParaLink"
-      :siglaComissaoFront="siglaFormatada"
-      :casaComissao="prop.lastEtapa.casa"
-    ></composicao-link>
+      :data-local-atual="dataLocalAtual"
+      :sigla-comissao-link="siglaParaLink"
+      :sigla-comissao-front="siglaFormatada"
+      :casa-comissao="prop.lastEtapa.casa"
+    />
     <el-row>
       <el-col :span="12">
         <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
-        <author-name :author="prop.lastEtapa.autores" :casa="casa" />
+        <author-name
+          :author="prop.lastEtapa.autores"
+          :casa="casa" />
         <p class="small-text-field small-margin-top">Relator(a)</p>
         <p class="medium-text-field">{{ prop.lastEtapa.relator_nome }}</p>
       </el-col>
-      <el-col :span="12" :xs="24" class="temperaturas-container">
+      <el-col
+        :span="12"
+        :xs="24"
+        class="temperaturas-container">
         <temperature-graphic :id="prop.lastEtapa.id" />
-        <temperature-info :id="prop.lastEtapa.id_ext" class="temperature-info" />
+        <temperature-info
+          :id="prop.lastEtapa.id_ext"
+          class="temperature-info" />
       </el-col>
     </el-row>
-    <eventos-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
-    <div v-for="(etapa,i) in prop.etapas" :key="i">
-      <emendas-info :id="etapa.id_ext" :casa="etapa.casa" :date="dateRef" />
+    <eventos-info
+      :id="prop.lastEtapa.id_ext"
+      :casa="prop.lastEtapa.casa"
+      :date="dateRef" />
+    <div
+      v-for="(etapa,i) in prop.etapas"
+      :key="i">
+      <emendas-info
+        :id="etapa.id_ext"
+        :casa="etapa.casa"
+        :date="dateRef" />
     </div>
-    <pautas-info :id="prop.lastEtapa.id_ext" :casa="prop.lastEtapa.casa" :date="dateRef" />
+    <pautas-info
+      :id="prop.lastEtapa.id_ext"
+      :casa="prop.lastEtapa.casa"
+      :date="dateRef" />
   </div>
 </template>
 
@@ -55,10 +79,16 @@ import { mapState } from 'vuex'
 import moment from 'moment'
 
 export default {
-  name: 'proposicaoitem',
+  name: 'Proposicaoitem',
   data () {
     return {
       dropShow: false
+    }
+  },
+  props: {
+    prop: {
+      type: Object,
+      default: undefined
     }
   },
   components: {
@@ -143,9 +173,6 @@ export default {
       dateRef: state => state.filter.dateRef,
       pautas: state => state.pautas.pautas
     })
-  },
-  props: {
-    prop: Object
   }
 }
 </script>

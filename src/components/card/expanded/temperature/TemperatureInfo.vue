@@ -1,17 +1,19 @@
 <template>
-    <el-tooltip
+  <el-tooltip
     placement="bottom"
-        effect="light">
-      <div class="tooltip-content" slot="content">
-        <p v-if="this.temperatureInfo === 'subiu'">
-          A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
-        </p>
-        <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
-      </div>
-      <div class="info">
-        Temperatura dos últimos 3 meses
-      </div>
-    </el-tooltip>
+    effect="light">
+    <div
+      class="tooltip-content"
+      slot="content">
+      <p v-if="this.temperatureInfo === 'subiu'">
+        A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
+      </p>
+      <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
+    </div>
+    <div class="info">
+      Temperatura dos últimos 3 meses
+    </div>
+  </el-tooltip>
 </template>
 
 <script>
@@ -19,7 +21,12 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'TemperatureInfo',
-  props: ['id'],
+  props: {
+    id: {
+      type: Number,
+      default: undefined
+    }
+  },
   computed: mapState({
     coefficients: state => state.temperaturas.coeficiente,
     coefficient () {

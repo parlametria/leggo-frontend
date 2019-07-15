@@ -2,12 +2,12 @@
   <div>
     <div v-if="prop === undefined">Falha no carregamento</div>
     <div v-else>
-        <router-link :to="{ path: $store.state.route.from.fullPath }">
+      <router-link :to="{ path: $store.state.route.from.fullPath }">
         <span class="titulo">
-            {{this.prop.apelido}}
+          {{ this.prop.apelido }}
         </span>
-        </router-link>
-        <proposicao-expanded :prop="this.prop"></proposicao-expanded>
+      </router-link>
+      <proposicao-expanded :prop="this.prop"/>
     </div>
   </div>
 </template>
@@ -17,10 +17,11 @@ import ProposicaoItem from '@/components/card/ProposicaoItem'
 import ProposicaoExpanded from '@/components/card/ProposicaoExpanded'
 
 export default {
-  name: 'proposicoes',
+  name: 'Proposicoes',
   props: {
     prop: {
-      type: Object
+      type: Object,
+      default: undefined
     }
   },
   components: {

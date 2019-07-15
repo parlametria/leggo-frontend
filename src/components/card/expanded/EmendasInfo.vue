@@ -2,24 +2,28 @@
   <el-collapse v-if="verificaSeMostraEmendas">
     <el-collapse-item>
       <template slot="title">
-        <h4>Análise das Emendas - {{getCasa | toFormattedName}} (total: {{propEmendas.length}}, analisadas: {{getAnalisadas}})</h4>
+        <h4>Análise das Emendas - {{ getCasa | toFormattedName }} (total: {{ propEmendas.length }}, analisadas: {{ getAnalisadas }})</h4>
       </template>
       <el-tabs>
         <el-tab-pane label="Todas as emendas">
-          <emendas-tab-content :emendas="emendas[id]" :categoria="'todas'" />
+          <emendas-tab-content
+            :emendas="emendas[id]"
+            :categoria="'todas'" />
         </el-tab-pane>
-        <el-tab-pane v-if="verificaSeMostraEmendasAparentes" label="Mudanças Mais Aparentes">
+        <el-tab-pane
+          v-if="verificaSeMostraEmendasAparentes"
+          label="Mudanças Mais Aparentes">
           <emendas-tab-content
             :emendas="getDiscrepantes"
             :categoria="'drásticas'"
-            :showTextoExplicacao="showTextoExplicacao"
+            :show-texto-explicacao="showTextoExplicacao"
           />
         </el-tab-pane>
         <el-tab-pane label="Mudanças Mais Sutis">
           <emendas-tab-content
             :emendas="getSemelhantes"
             :categoria="'pontuais'"
-            :showTextoExplicacao="showTextoExplicacao"
+            :show-texto-explicacao="showTextoExplicacao"
           />
         </el-tab-pane>
       </el-tabs>
@@ -28,12 +32,12 @@
   <el-collapse v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
     <div
       class="title sem-emendas"
-    >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName}}</div>
+    >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}</div>
   </el-collapse>
   <el-collapse v-else>
     <div
       class="title sem-emendas"
-    >Não conseguimos analisar as emendas {{ getCasa | toFormattedName}}.</div>
+    >Não conseguimos analisar as emendas {{ getCasa | toFormattedName }}.</div>
   </el-collapse>
 </template>
 
@@ -49,15 +53,24 @@ export default {
     EmendasTabContent
   },
   props: {
-    id: Number,
-    casa: String,
+    id: {
+      type: Number,
+      default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
     date: {
       type: Date,
       default: function () {
         return moment()
       }
     },
-    numEtapas: Number
+    numEtapas: {
+      type: Number,
+      default: undefined
+    }
   },
   data () {
     return {

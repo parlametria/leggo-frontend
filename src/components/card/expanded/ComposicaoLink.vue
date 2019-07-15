@@ -2,7 +2,10 @@
   <div class="status-bar">
     <span class="small-text-field">
       {{ geraFrase() }}
-      <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissaoFront }}</router-link>
+      <router-link
+        v-if="hasComposicao"
+        :to="linkComissao"
+        class="link">{{ siglaComissaoFront }}</router-link>
       <span v-else >{{ siglaComissaoFront }}</span>
     </span>
   </div>
@@ -14,16 +17,20 @@ export default {
   name: 'ComposicaoLink',
   props: {
     siglaComissaoLink: {
-      type: String
+      type: String,
+      default: ''
     },
     siglaComissaoFront: {
-      type: String
+      type: String,
+      default: ''
     },
     casaComissao: {
-      type: String
+      type: String,
+      default: ''
     },
     dataLocalAtual: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   data () {

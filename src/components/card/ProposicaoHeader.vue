@@ -2,23 +2,30 @@
   <div class="container">
     <div class="header-tags">
       <pauta-tag
-      v-for="(pauta, i) in filteredPautas"
-      :key="i"
-      :pauta="pauta"
-      :dateRef="dateRef"/>
+        v-for="(pauta, i) in filteredPautas"
+        :key="i"
+        :pauta="pauta"
+        :date-ref="dateRef"/>
       <text-tag :status="prop.lastEtapa.status" />
     </div>
     <temas :temas="prop.tema"/>
     <div>
-      <span class="prop-apelido">{{prop.lastEtapa.sigla}} - {{prop .apelido}}</span>
-      <i class="arrow" :class="{'arrow-down': clicked}"></i>
+      <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
+      <i
+        class="arrow"
+        :class="{'arrow-down': clicked}"/>
     </div>
-    <fases class="fases" :class="{'hidden': clicked, 'visible': !clicked}" :fases="prop.resumo_progresso"/>
+    <fases
+      class="fases"
+      :class="{'hidden': clicked, 'visible': !clicked}"
+      :fases="prop.resumo_progresso"/>
     <div class="tags">
-        <span class="tag">{{prop.lastEtapa.regime_tramitacao}}</span>
-        <span class="tag">{{prop.lastEtapa.forma_apreciacao}}</span>
+      <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
+      <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
     </div>
-    <temperature-bar class="temperatura" :id="prop.lastEtapa.id"/>
+    <temperature-bar
+      class="temperatura"
+      :id="prop.lastEtapa.id"/>
   </div>
 </template>
 
@@ -34,10 +41,16 @@ import Temas from './collapsed/Temas.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'proposicaoheader',
+  name: 'Proposicaoheader',
   props: {
-    prop: Object,
-    clicked: Boolean
+    prop: {
+      type: Object,
+      default: undefined
+    },
+    clicked: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     RegimeTramitacao,

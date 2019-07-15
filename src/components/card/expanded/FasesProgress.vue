@@ -6,19 +6,21 @@
         v-for="(fase, i) in fasesResumidas"
         :key="i"
         effect="light">
-        <div class="tooltip-content" slot="content">
+        <div
+          class="tooltip-content"
+          slot="content">
           <p>Fase: <strong>{{ formataFase(fase) }}</strong></p>
           <p v-show="!fase.is_mpv">Casa: <strong>{{ $t(fase.local_casa) }}</strong></p>
           <p v-if="fase.data_inicio">Início: {{ formatDate(fase.data_inicio) }}</p>
           <p v-if="fase.data_fim">Fim: {{ formatDate(fase.data_fim) }}</p>
-          <p v-show="!fase.is_mpv">Histórico de comissões: {{comissoesHistoric(fase)}}</p>
+          <p v-show="!fase.is_mpv">Histórico de comissões: {{ comissoesHistoric(fase) }}</p>
           <p v-if="fase.pulou">Esta proposição não precisou passar por esta fase.</p>
           <p v-if="isInProgress(fase)">Fase atual desta proposição.</p>
           <p v-if="isFuture(fase)">Esta proposição ainda não chegou nesta fase.</p>
         </div>
         <li :class="styleFase(fase)"/>
       </el-tooltip>
-      <hr class="linha"/>
+      <hr class="linha">
     </ul>
   </div>
 </template>
@@ -30,8 +32,14 @@ import moment from 'moment'
 export default {
   name: 'FasesProgress',
   props: {
-    fases: Array,
-    etapas: Array
+    fases: {
+      type: Array,
+      default () { return [] }
+    },
+    etapas: {
+      type: Array,
+      default () { return [] }
+    }
   },
   computed: {
     fasesResumidas () {

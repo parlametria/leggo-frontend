@@ -1,35 +1,49 @@
 <template>
-    <div class="card" v-if="parlamentarValido()">
-      <header class="header">
-        <img :src="parlamentar.foto" alt="Foto do parlamentar" class="foto" @error="replacePhotoToDefault">
-      </header>
-      <div class="content">
-        <div class="info">
-          <span v-if="campoValido(parlamentar.cargo)" class="cargo">{{ parlamentar.cargo }}</span>
-          <span v-else class="cargo">TITULAR</span>
-        </div>
-        <span>
-          <a v-if="parlamentar.id_parlamentar && parlamentar.casa === 'camara'"
-            :href="linkParlamentar(parlamentar)"
-            target="_blank"
-            class="link"
-          >
-            <b>{{ parlamentar.nome }}</b>
-          </a>
-          <b v-else>
-            {{ parlamentar.nome }}
-          </b>
-        </span>
-        <span class="partido" v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
+  <div
+    class="card"
+    v-if="parlamentarValido()">
+    <header class="header">
+      <img
+        :src="parlamentar.foto"
+        alt="Foto do parlamentar"
+        class="foto"
+        @error="replacePhotoToDefault">
+    </header>
+    <div class="content">
+      <div class="info">
+        <span
+          v-if="campoValido(parlamentar.cargo)"
+          class="cargo">{{ parlamentar.cargo }}</span>
+        <span
+          v-else
+          class="cargo">TITULAR</span>
       </div>
+      <span>
+        <a
+          v-if="parlamentar.id_parlamentar && parlamentar.casa === 'camara'"
+          :href="linkParlamentar(parlamentar)"
+          target="_blank"
+          class="link"
+        >
+          <b>{{ parlamentar.nome }}</b>
+        </a>
+        <b v-else>
+          {{ parlamentar.nome }}
+        </b>
+      </span>
+      <span
+        class="partido"
+        v-if="campoValido(parlamentar.partido)">{{ parlamentar.partido }} - {{ parlamentar.uf }}</span>
     </div>
+  </div>
 </template>
 <script>
 export default {
   name: 'ParlamentarCard',
   props: {
     parlamentar: {
-      type: Object
+      type: Object,
+      default: undefined
     }
   },
   methods: {

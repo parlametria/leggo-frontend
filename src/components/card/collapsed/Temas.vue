@@ -1,14 +1,17 @@
 <template>
-    <div  class="tagTemas">
-      <span class="tag">{{ temas }}</span>
-    </div>
+  <div class="tagTemas">
+    <span class="tag">{{ temas }}</span>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Temas',
   props: {
-    temas: String
+    temas: {
+      type: String,
+      default: ''
+    }
   }
 }
 </script>
