@@ -1,19 +1,24 @@
 <template>
 
-        <div>
-          <el-popover
-            width="200"
-            placement="right-start"
-            trigger="hover"
-            :disabled="disabled"
-            >
-            <span slot="reference" class="small-text-field small-margin-top">{{ formataAutor() }}</span>
-            <span class="author" v-for="(autor, i) in author" :key="i">
-              <h5> {{autor}} </h5>
-            </span>
-          </el-popover>
+  <div>
+    <el-popover
+      width="200"
+      placement="right-start"
+      trigger="hover"
+      :disabled="disabled"
+    >
+      <span
+        slot="reference"
+        class="small-text-field small-margin-top">{{ formataAutor() }}</span>
+      <span
+        class="author"
+        v-for="(autor, i) in author"
+        :key="i">
+        <h5> {{ autor }} </h5>
+      </span>
+    </el-popover>
 
-        </div>
+  </div>
 </template>
 
 <script>
@@ -27,7 +32,10 @@ export default {
         return value != null
       }
     },
-    casa: String
+    casa: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     normalizedAuthor () {

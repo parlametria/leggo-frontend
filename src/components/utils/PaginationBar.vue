@@ -1,26 +1,37 @@
 <template>
   <div class="pagination">
-    <button :class="getClassPrevious()" @click="addPageCount">&laquo;</button>
-    <button v-if="window.initial !== 0" @click="backActualToLimit">...</button>
     <button
-      v-for="page in getWindow" :key="page"
+      :class="getClassPrevious()"
+      @click="addPageCount">&laquo;</button>
+    <button
+      v-if="window.initial !== 0"
+      @click="backActualToLimit">...</button>
+    <button
+      v-for="page in getWindow"
+      :key="page"
       :class="getClassBtn(page)"
       @click="changeOption(page)"
       v-if="page < window.final"
     >{{ page + 1 }}</button>
-    <button v-if="size - actual > limit" @click="skipActualToLimit">...</button>
-    <button :class="getClassNext()" @click="removePageCount">&raquo;</button>
+    <button
+      v-if="size - actual > limit"
+      @click="skipActualToLimit">...</button>
+    <button
+      :class="getClassNext()"
+      @click="removePageCount">&raquo;</button>
   </div>
 </template>
 <script>
 export default {
   name: 'PaginationBar',
   props: {
-    size: Number,
+    size: {
+      type: Number,
+      default: 5
+    },
     limit: {
-      default () {
-        return 5
-      }
+      type: Number,
+      default: 5
     }
   },
   data () {

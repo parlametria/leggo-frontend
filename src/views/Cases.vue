@@ -26,11 +26,11 @@
             <h3>Discussões acaloradas na Comissão Especial durante a apreciação do parecer favorável do relator</h3>
             <time>18/06/2018</time>
           </header>
-            <ul>
-              <li>Relator apresenta parecer favorável à aprovação</li>
-              <li>Diversos Requerimentos (Votação Nominal, Retirada de Pauta, Inclusão Extrapauta, Quebra de Interstício, Audiência Pública, Adiamento da Votação)</li>
-              <li>Voto em Separado</li>
-            </ul>
+          <ul>
+            <li>Relator apresenta parecer favorável à aprovação</li>
+            <li>Diversos Requerimentos (Votação Nominal, Retirada de Pauta, Inclusão Extrapauta, Quebra de Interstício, Audiência Pública, Adiamento da Votação)</li>
+            <li>Voto em Separado</li>
+          </ul>
         </article>
 
         <article class="card">
@@ -38,12 +38,12 @@
             <h3>Aprovação do parecer favorável do relator na Comissão Especial</h3>
             <time>25/06/2018</time>
           </header>
-            <ul>
-              <li>Diversos Requerimentos</li>
-              <li>Votação do Parecer do Relator</li>
-              <li>Destaques</li>
-              <li>Aprovação do parecer favorável</li>
-            </ul>
+          <ul>
+            <li>Diversos Requerimentos</li>
+            <li>Votação do Parecer do Relator</li>
+            <li>Destaques</li>
+            <li>Aprovação do parecer favorável</li>
+          </ul>
         </article>
       </div>
     </section>

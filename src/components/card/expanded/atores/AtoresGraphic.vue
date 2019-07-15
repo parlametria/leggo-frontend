@@ -1,7 +1,10 @@
 <template>
   <div >
-    <div v-if="verificaSeMostraAtores" class="graphic" id="grafico">
-        <div ref="anchor"></div>
+    <div
+      v-if="verificaSeMostraAtores"
+      class="graphic"
+      id="grafico">
+      <div ref="anchor"/>
     </div>
     <div v-else>
       <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
@@ -16,7 +19,10 @@ import AtoresGraphicModel from './AtoresGraphicModel.js'
 export default {
   name: 'AtoresGraphic',
   props: {
-    id: Number
+    id: {
+      type: Number,
+      default: undefined
+    }
   },
   computed: {
     atores () {

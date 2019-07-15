@@ -1,17 +1,27 @@
 <template>
-    <el-row type="flex" justify="space-around" class="logo-container">
-      <el-col :xs="24" :sm="18" :md="12" :lg="12" :xl="8">
-        <div class="navbar">
-            <router-link :to="{ name: 'proposicoes' }">
-              <h1>Leg<span class="dot">.</span>go</h1>
-            </router-link>
-            <navigation-buttons class="navigation"/>
-        </div>
-        <p v-if="metaInfo && metaInfo.last_update_trams" class="last-update-date">
-          Atualizado em {{ formattedLastUpdateDate }}
-        </p>
-      </el-col>
-    </el-row>
+  <el-row
+    type="flex"
+    justify="space-around"
+    class="logo-container">
+    <el-col
+      :xs="24"
+      :sm="18"
+      :md="12"
+      :lg="12"
+      :xl="8">
+      <div class="navbar">
+        <router-link :to="{ name: 'proposicoes' }">
+          <h1>Leg<span class="dot">.</span>go</h1>
+        </router-link>
+        <navigation-buttons class="navigation"/>
+      </div>
+      <p
+        v-if="metaInfo && metaInfo.last_update_trams"
+        class="last-update-date">
+        Atualizado em {{ formattedLastUpdateDate }}
+      </p>
+    </el-col>
+  </el-row>
 </template>
 
 <script>

@@ -17,7 +17,8 @@ export default {
   name: 'Composicao',
   props: {
     siglaComissao: {
-      type: String
+      type: String,
+      default: ''
     }
   },
   components: {

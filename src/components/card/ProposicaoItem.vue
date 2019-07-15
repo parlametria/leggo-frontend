@@ -1,7 +1,12 @@
 <template>
   <div class="proposicao-card">
-    <router-link :to="linkProp" tag="div" class="card-header">
-      <proposicao-header :prop="prop" :clicked="dropShow" />
+    <router-link
+      :to="linkProp"
+      tag="div"
+      class="card-header">
+      <proposicao-header
+        :prop="prop"
+        :clicked="dropShow" />
     </router-link>
   </div>
 </template>
@@ -10,7 +15,7 @@
 import ProposicaoHeader from './ProposicaoHeader'
 
 export default {
-  name: 'proposicaoitem',
+  name: 'Proposicaoitem',
   data () {
     return {
       dropShow: false
@@ -20,7 +25,10 @@ export default {
     ProposicaoHeader
   },
   props: {
-    prop: Object
+    prop: {
+      type: Object,
+      default: undefined
+    }
   },
   computed: {
     linkProp () {
