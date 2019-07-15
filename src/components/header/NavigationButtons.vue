@@ -1,9 +1,15 @@
 <template>
-    <div>
-        <router-link :class="{selected: checkPage('proposicoes')}" :to="{ name: 'proposicoes' }">Proposições</router-link>
-        <router-link :class="{selected: checkPage('ajuda')}" :to="{ name: 'ajuda' }">Ajuda</router-link>
-        <router-link :class="{selected: checkPage('sobre')}" :to="{ name: 'sobre' }">Sobre</router-link>
-    </div>
+  <div>
+    <router-link
+      :class="{selected: checkPage('proposicoes')}"
+      :to="{ name: 'proposicoes' }">Proposições</router-link>
+    <router-link
+      :class="{selected: checkPage('ajuda')}"
+      :to="{ name: 'ajuda' }">Ajuda</router-link>
+    <router-link
+      :class="{selected: checkPage('sobre')}"
+      :to="{ name: 'sobre' }">Sobre</router-link>
+  </div>
 </template>
 
 <script>

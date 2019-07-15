@@ -1,6 +1,8 @@
 <template>
   <div class="temperature-bar">
-    <div :style="barStyle" class="filled-bar"></div>
+    <div
+      :style="barStyle"
+      class="filled-bar"/>
   </div>
 </template>
 
@@ -9,7 +11,12 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'TemperatureBar',
-  props: ['id'],
+  props: {
+    id: {
+      type: Number,
+      default: undefined
+    }
+  },
   computed: {
     ...mapState({
       listaTemperaturas: state => state.temperaturas.temperaturas,

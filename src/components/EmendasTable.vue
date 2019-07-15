@@ -10,13 +10,20 @@
             :key="key"
           >
             {{ key | capitalize }}
-            <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
+            <span
+              class="arrow"
+              :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"/>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(entry, indexData) in filteredData" :key="indexData">
-          <td v-for="(key, index) in columns" :key="index" v-show="verificaSeEmenda(entry)">
+        <tr
+          v-for="(entry, indexData) in filteredData"
+          :key="indexData">
+          <td
+            v-for="(key, index) in columns"
+            :key="index"
+            v-show="verificaSeEmenda(entry)">
             <a
               v-if="key === 'titulo'"
               :href="entry['inteiro_teor']+'&disposition=inline'"
@@ -28,21 +35,24 @@
               @click="toggleCollapseDescription(indexData)"
             >
               {{ corrigePartidoAutor(
-              entry[key],
-              indexData) }}
+                entry[key],
+                indexData) }}
               <span
                 v-if="isShowExpandIcon(entry[key], MAX_TEXT_LENGTH, indexData)"
                 class="el-icon-circle-plus-outline"
-              ></span>
+              />
             </div>
 
-            <p v-else>{{entry[key]}}</p>
+            <p v-else>{{ entry[key] }}</p>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="paginationbar">
-      <pagination-bar :size="pageCount" :limit="getLimitPages" @change="(number) => updatePageNumber(number)"/>
+      <pagination-bar
+        :size="pageCount"
+        :limit="getLimitPages"
+        @change="(number) => updatePageNumber(number)"/>
     </div>
   </div>
 </template>
@@ -54,9 +64,18 @@ import PaginationBar from '@/components/utils/PaginationBar'
 export default {
   name: 'EmendasTable',
   props: {
-    data: Array,
-    columns: Array,
-    filterKey: String,
+    data: {
+      type: Array,
+      default () { return [] }
+    },
+    columns: {
+      type: Array,
+      default () { return [] }
+    },
+    filterKey: {
+      type: String,
+      default: ''
+    },
     size: {
       type: Number,
       required: false,
