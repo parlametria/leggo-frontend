@@ -3,7 +3,7 @@
     class="tagTemas">
     <div
       v-for="(tema, i) in temas"
-      v-bind:key="i">
+      :key="i">
       <span
         class="tag"
         >{{ tema }}
