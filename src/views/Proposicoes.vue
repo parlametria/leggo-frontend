@@ -24,12 +24,17 @@
           <header ref="notEmPautaHeader">
             <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
           </header>
-          <div ref="notEmPautaSession">
+          <div ref="notEmPautaSession" class="section">
             <proposicao-item
               :id="prop.id"
               :key="prop.apelido"
-              v-for="prop in notEmPauta"
+              v-for="prop in propPaged"
               :prop="prop"/>
+            <pagination-bar
+              :size="Math.ceil(notEmPauta.length / quantityProp)"
+              :limit="10"
+              @change="(number) => updatePageNumber(number)"
+            />
           </div>
         </div>
       </div>
@@ -43,16 +48,20 @@ import ProposicaoItem from '@/components/card/ProposicaoItem'
 import UltimosEventos from '@/components/UltimosEventos'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
+import PaginationBar from '@/components/utils/PaginationBar'
 
 export default {
   name: 'Proposicoes',
   components: {
     ProposicaoItem,
-    UltimosEventos
+    UltimosEventos,
+    PaginationBar
   },
   data () {
     return {
-      activeNames: []
+      activeNames: [],
+      pageNumber: 0,
+      quantityProp: 10
     }
   },
   methods: {
@@ -98,6 +107,9 @@ export default {
     sticky () {
       this.updateSticky(this.$refs.emPautaHeader, this.$refs.emPautaSession)
       this.updateSticky(this.$refs.notEmPautaHeader, this.$refs.notEmPautaSession)
+    },
+    updatePageNumber (number) {
+      this.pageNumber = number
     }
   },
   computed: {
@@ -130,6 +142,11 @@ export default {
       } else {
         return this.proposicoes
       }
+    },
+    propPaged () {
+      const init = this.pageNumber * this.quantityProp
+      const end = (this.pageNumber + 1) * this.quantityProp
+      return this.notEmPauta.slice(init, end)
     },
     ...mapState({
       proposicoes: state => state.proposicoes.proposicoes,
@@ -201,5 +218,10 @@ export default {
   z-index: 20;
   background: #fff;
   border-bottom: solid 3px #dadada;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 </style>

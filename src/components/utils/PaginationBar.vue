@@ -98,7 +98,8 @@ export default {
 <style scoped lang='scss'>
 @import "@/base.scss";
 .pagination {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination button {
