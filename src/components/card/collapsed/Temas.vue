@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="tagTemas">
+  <div class="tagTemas">
     <div
       v-for="(tema, i) in temas"
       :key="i">
-      <span
-        class="tag"
-        >{{ tema }}
-      </span>
+      <span class="tag">{{ tema }}</span>
     </div>
   </div>
 </template>
@@ -16,8 +12,10 @@
 export default {
   name: 'Temas',
   props: {
-    temas: Array,
-    default: []
+    temas: {
+      type: Array,
+      default () { return [] }
+    }
   }
 }
 </script>
