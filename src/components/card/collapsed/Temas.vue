@@ -10,8 +10,7 @@
 export default {
   name: 'Temas',
   props: {
-    temas: String,
-    default: ''
+    temas: Array
   }
 }
 </script>
