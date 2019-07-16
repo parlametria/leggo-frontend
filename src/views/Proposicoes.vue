@@ -24,7 +24,9 @@
           <header ref="notEmPautaHeader">
             <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
           </header>
-          <div ref="notEmPautaSession" class="section">
+          <div
+            ref="notEmPautaSession"
+            class="section">
             <proposicao-item
               :id="prop.id"
               :key="prop.apelido"
