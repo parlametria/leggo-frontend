@@ -72,7 +72,7 @@ export default {
 
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
+        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].some(v => prop[filter].includes(v))
       )
     },
     checkPautaFilter (prop) {
