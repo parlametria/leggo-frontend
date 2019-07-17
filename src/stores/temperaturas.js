@@ -6,8 +6,7 @@ const temperaturas = new Vapi({
   axios: axios,
   state: {
     temperaturas: {},
-    coeficiente: {},
-    maxTemperatura: 0
+    coeficiente: {}
   } }).get({
   action: 'getTemperaturaRecente',
   property: 'temperaturas',
