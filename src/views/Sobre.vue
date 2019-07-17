@@ -71,6 +71,20 @@
       </div>
     </div>
 
+    <h2 class="center">Relatórios</h2>
+    <ul class="contribua">
+      <li>
+        <a
+          href="http://rpubs.com/tarcisob/balanco-2019-temperatura-leggo"
+          target="_blank">Balanço Temperatura 2019</a>
+      </li>
+      <li>
+        <a
+          href="http://rpubs.com/MatheusHALeal/leggo-progresso-2"
+          target="_blank">Balanço Progresso 2019</a>
+      </li>
+    </ul>
+
     <h2 class="center">Contribua</h2>
     <ul class="contribua">
       <li>
@@ -89,6 +103,7 @@
           target="_blank">Leg.go Backend</a>
       </li>
     </ul>
+
   </div>
 </template>
 
