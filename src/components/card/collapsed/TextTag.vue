@@ -5,35 +5,42 @@
 </template>
 
 <script>
-
 export default {
   name: 'TextTag',
   props: {
-    status: {
-      type: String,
-      default: ''
+    etapas: {
+      type: Array,
+      default () { return [] }
     }
   },
   computed: {
     formattedStatus () {
       let result = ''
-      switch (this.status) {
-        case 'Lei':
-          result = 'Transformada em Lei'
-          break
-        case 'Arquivada':
-          result = 'Arquivada'
-          break
+      for (let etapa of this.etapas) {
+        console.log(etapa.status)
+        switch (etapa.status) {
+          case 'Lei':
+            result = 'Transformada em Lei'
+            break
+          case 'Arquivada':
+            result = 'Arquivada'
+            break
+          case 'Caducou':
+            result = 'Caducou'
+            break
+          case 'Rejeitada':
+            result = 'Rejeitada'
+            break
+        }
       }
       return result
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
-  .tag {
-    font-size: 9pt;
-  }
+.tag {
+  font-size: 9pt;
+}
 </style>
