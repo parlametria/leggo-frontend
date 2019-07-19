@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-if="verificaSeMostraAtores" class="graphic" id="grafico">
+    <div
+      v-if="verificaSeMostraAtores"
+      class="graphic"
+      id="grafico">
       <div ref="anchor" />
     </div>
     <div v-else>
@@ -10,43 +13,43 @@
 </template>
 
 <script>
-import AtoresGraphicModel from "./AtoresGraphicModel.js";
+import AtoresGraphicModel from './AtoresGraphicModel.js'
 
 export default {
-  name: "AtoresGraphic",
+  name: 'AtoresGraphic',
   props: {
     atores: {
       type: Array,
-      default() {
-        return [];
+      default () {
+        return []
       }
     }
   },
   computed: {
-    tamanhoGrafico() {
-      return document.getElementById("grafico").offsetWidth;
+    tamanhoGrafico () {
+      return document.getElementById('grafico').offsetWidth
     },
-    verificaSeMostraAtores() {
-      return this.atores && this.atores.length;
+    verificaSeMostraAtores () {
+      return this.atores && this.atores.length
     }
   },
   methods: {
-    async mountGraphic() {
+    async mountGraphic () {
       if (this.atores && this.atores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico);
+        let model = new AtoresGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
           .change("ator", vega.changeset().remove("ator", d => true))
-          .insert("ator", this.atores)
-          .run();
+          .insert('ator', this.atores)
+          .run()
       }
     }
   },
-  mounted() {
-    this.$watch("atores", this.mountGraphic, { immediate: true, deep: true });
+  mounted () {
+    this.$watch('atores', this.mountGraphic, { immediate: true, deep: true })
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

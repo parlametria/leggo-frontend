@@ -6,7 +6,7 @@
         :key="i"
         :pauta="pauta"
         :date-ref="dateRef"/>
-      <text-tag :status="prop.lastEtapa.status" />
+      <text-tag :etapas="prop.etapas" />
     </div>
     <temas :temas="prop.temas"/>
     <div>
