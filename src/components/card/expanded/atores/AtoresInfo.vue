@@ -10,9 +10,6 @@ export default {
     ...mapState({
       atores: state => state.atores.atores
     })
-  },
-  methods: {
-    ...mapActions(['getAtores'])
   }
 }
 </script>

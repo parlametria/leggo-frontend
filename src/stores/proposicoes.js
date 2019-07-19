@@ -21,10 +21,11 @@ const proposicoes = new Vapi({
     `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}`,
   onSuccess: (state, { data }) => {
     state.proposicoes = data
-    var temperaturas = {}
-    var coeficientes = {}
-    var atoresTmp = {}
-    var pautasTmp = {}
+    let temperaturas = {}
+    let coeficientes = {}
+    let atoresTmp = {}
+    let atoresImportantTmp = {}
+    let pautasTmp = {}
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
       prop.lastEtapa = prop.etapas.slice(-1)[0]
@@ -33,12 +34,14 @@ const proposicoes = new Vapi({
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
       prop.etapas.forEach((etapa) => {
         atoresTmp[etapa.id] = etapa.top_atores
+        atoresImportantTmp[etapa.id] = etapa.top_important_atores
       })
     })
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
     Vue.set(atores.state, 'atores', atoresTmp)
+    Vue.set(atores.state, 'atoresImportant', atoresImportantTmp)
   }
 }).get({
   action: 'getMetaInfo',

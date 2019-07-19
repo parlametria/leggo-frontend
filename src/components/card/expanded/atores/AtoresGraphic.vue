@@ -1,10 +1,7 @@
 <template>
-  <div >
-    <div
-      v-if="verificaSeMostraAtores"
-      class="graphic"
-      id="grafico">
-      <div ref="anchor"/>
+  <div>
+    <div v-if="verificaSeMostraAtores" class="graphic" id="grafico">
+      <div ref="anchor" />
     </div>
     <div v-else>
       <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
@@ -13,55 +10,43 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import AtoresGraphicModel from './AtoresGraphicModel.js'
+import AtoresGraphicModel from "./AtoresGraphicModel.js";
 
 export default {
-  name: 'AtoresGraphic',
+  name: "AtoresGraphic",
   props: {
-    id: {
-      type: Number,
-      default: undefined
+    atores: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   computed: {
-    atores () {
-      if (this.listaAtores[this.id]) {
-        return this.listaAtores[this.id]
-      }
+    tamanhoGrafico() {
+      return document.getElementById("grafico").offsetWidth;
     },
-    ...mapState({
-      listaAtores: state => state.atores.atores
-    }),
-    tamanhoGrafico () {
-      return document.getElementById('grafico').offsetWidth
-    },
-    verificaSeMostraAtores () {
-      return this.atores && this.atores.length
+    verificaSeMostraAtores() {
+      return this.atores && this.atores.length;
     }
   },
   methods: {
-    ...mapActions(['getAtores']),
-    async mountGraphic () {
+    async mountGraphic() {
       if (this.atores && this.atores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico)
-        await (
+        let model = new AtoresGraphicModel(this.tamanhoGrafico);
+        await // eslint-disable-next-line
+        (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
-          (await vegaEmbed(this.$refs.anchor, model.vsSpec))
-            .view
-            // eslint-disable-next-line
-            .change('ator', vega.changeset().remove('ator', d => true))
-            .insert(
-              'ator',
-              this.atores
-            ).run())
+          .change("ator", vega.changeset().remove("ator", d => true))
+          .insert("ator", this.atores)
+          .run();
       }
     }
   },
-  mounted () {
-    this.$watch('atores', this.mountGraphic, { immediate: true, deep: true })
+  mounted() {
+    this.$watch("atores", this.mountGraphic, { immediate: true, deep: true });
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -75,7 +60,7 @@ export default {
   overflow-x: auto;
 }
 .title {
-   line-height: 15px;
+  line-height: 15px;
 }
 .sem-atores {
   color: #969696;
