@@ -5,10 +5,10 @@
         <atores-graphic :atores="atores" />
       </el-tab-pane>
       <div
-        v-for="(atores_comissoes, index) in atoresImportants"
+        v-for="(atores_comissoes, index) in atoresLocaisImportantes"
         :key="index">
         <el-tab-pane :label="index">
-          <atores-graphic :atores="getFirstN(atores_comissoes, 16)" />
+          <atores-graphic :atores="atores_comissoes" />
         </el-tab-pane>
       </div>
     </el-tabs>
@@ -36,10 +36,10 @@ export default {
         return this.listaAtores[this.id]
       }
     },
-    atoresImportants () {
+    atoresLocaisImportantes () {
       let atoresLocais = {}
-      if (this.listaAtoresImportants[this.id]) {
-        for (let ator of this.listaAtoresImportants[this.id]) {
+      if (this.listaAtoresLocaisImportantes[this.id]) {
+        for (let ator of this.listaAtoresLocaisImportantes[this.id]) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local)) {
             atoresLocais[ator.sigla_local].push(ator)
           } else {
@@ -53,13 +53,8 @@ export default {
     },
     ...mapState({
       listaAtores: state => state.atores.atores,
-      listaAtoresImportants: state => state.atores.atoresImportant
+      listaAtoresLocaisImportantes: state => state.atores.atoresLocaisImportantes
     })
-  },
-  methods: {
-    getFirstN (atores, n) {
-      return atores.slice(0, n)
-    }
   }
 }
 </script>

@@ -41,7 +41,7 @@ const proposicoes = new Vapi({
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
     Vue.set(atores.state, 'atores', atoresTmp)
-    Vue.set(atores.state, 'atoresImportant', atoresImportantTmp)
+    Vue.set(atores.state, 'atoresLocaisImportantes', atoresImportantTmp)
   }
 }).get({
   action: 'getMetaInfo',
