@@ -1,7 +1,7 @@
 export default class AtoresGraphicModel {
   constructor (width) {
     this.vsSpec = {
-      description: 'Últimos 30 dias',
+      description: 'Atores',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
       title: {

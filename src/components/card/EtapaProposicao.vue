@@ -33,7 +33,7 @@
         :date="date" />
     </div>
     <h5>Atividade Parlamentar</h5>
-    <atores-graphic :id="etapa.id" />
+    <tab-atores-graphics :id="etapa.id" />
     <h5>Análise das Emendas</h5>
     <emendas-info
       :id="etapa.id_ext"
@@ -54,7 +54,7 @@ import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
 import TemperatureInfo from './expanded/temperature/TemperatureInfo'
-import AtoresGraphic from './expanded/atores/AtoresGraphic'
+import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
 import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
@@ -94,7 +94,7 @@ export default {
     EmendasInfo,
     AuthorName,
     ComposicaoLink,
-    AtoresGraphic
+    TabAtoresGraphics
   },
   methods: {
     hasNumber (myString) {
