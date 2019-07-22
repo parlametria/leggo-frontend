@@ -17,7 +17,6 @@ export default {
     formattedStatus () {
       let result = ''
       for (let etapa of this.etapas) {
-        console.log(etapa.status)
         switch (etapa.status) {
           case 'Lei':
             result = 'Transformada em Lei'
