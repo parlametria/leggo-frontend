@@ -4,9 +4,11 @@
       <el-tab-pane label="Top Geral">
         <atores-graphic :atores="atores" />
       </el-tab-pane>
-        <el-tab-pane :label="index" v-for="(atores_comissoes, index) in atoresLocaisImportantes"
+      <el-tab-pane
+        :label="index"
+        v-for="(atores_comissoes, index) in atoresLocaisImportantes"
         :key="index">
-          <atores-graphic :atores="atores_comissoes" />
+        <atores-graphic :atores="atores_comissoes" />
       </el-tab-pane>
     </el-tabs>
   </div>
