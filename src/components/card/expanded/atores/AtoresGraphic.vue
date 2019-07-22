@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="verificaSeMostraAtores"
-      class="graphic"
-      id="grafico">
+    <div v-if="verificaSeMostraAtores" class="graphic" id="grafico">
       <div ref="anchor" />
     </div>
     <div v-else>
@@ -13,43 +10,74 @@
 </template>
 
 <script>
-import AtoresGraphicModel from './AtoresGraphicModel.js'
+import AtoresGraphicModel from "./AtoresGraphicModel.js";
+import _ from "lodash";
 
 export default {
-  name: 'AtoresGraphic',
+  name: "AtoresGraphic",
   props: {
     atores: {
       type: Array,
-      default () {
-        return []
+      default() {
+        return [];
       }
     }
   },
   computed: {
-    tamanhoGrafico () {
-      return document.getElementById('grafico').offsetWidth
+    tamanhoGrafico() {
+      return document.getElementById("grafico").offsetWidth;
     },
-    verificaSeMostraAtores () {
-      return this.atores && this.atores.length
+    verificaSeMostraAtores() {
+      return this.atores && this.atores.length;
+    },
+    atoresAgregados() {
+      const atores = {}
+      this.atores.forEach(element => {
+        if (atores[element.id_autor] === undefined)
+          atores[element.id_autor] = 0
+        atores[element.id_autor] += element.qtd_de_documentos
+      })
+      return atores
+    },
+    maioresContribuidores() {
+      const sortable = [];
+      const atoresAgregados = this.atoresAgregados
+      for (let id_autor in atoresAgregados) {
+        sortable.push([id_autor, atoresAgregados[id_autor]]);
+      }
+      const top = _.take(
+        sortable.sort((a, b) => {
+          return b[1] - a[1];
+        }),
+        15
+      ).map(e => parseInt(e[0]));
+
+      return top;
+    },
+    filteredAutores() {
+      const maioresContribuidores = this.maioresContribuidores;
+      return this.atores.filter(e =>
+        maioresContribuidores.includes(e.id_autor)
+      );
     }
   },
   methods: {
-    async mountGraphic () {
-      if (this.atores && this.atores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico)
+    async mountGraphic() {
+      if (this.filteredAutores && this.filteredAutores.length) {
+        let model = new AtoresGraphicModel(this.tamanhoGrafico);
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
           .change("ator", vega.changeset().remove("ator", d => true))
-          .insert('ator', this.atores)
-          .run()
+          .insert("ator", this.filteredAutores)
+          .run();
       }
     }
   },
-  mounted () {
-    this.$watch('atores', this.mountGraphic, { immediate: true, deep: true })
+  mounted() {
+    this.$watch("atores", this.mountGraphic, { immediate: true, deep: true });
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
