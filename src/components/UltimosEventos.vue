@@ -1,6 +1,12 @@
 <template>
   <div v-if="procEventos.length">
-    <h3 @click="show = !show">Últimos Eventos +</h3>
+    <div
+      class="title"
+      @click="show = !show">Últimos Eventos
+      <span
+        v-if="!show"
+        class="el-icon-circle-plus-outline"/>
+    </div>
     <table
       v-if="show"
       class="eventos-tram">
@@ -73,7 +79,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+@import "@/base.scss";
 .eventos-tram {
   font-size: 10pt;
   text-align: center;
@@ -96,5 +103,11 @@ th, td {
 }
 .sigla-local {
   color: #999;
+}
+.el-icon-circle-plus-outline{
+  color: $--color-primary;
+}
+.title {
+  cursor: pointer;
 }
 </style>

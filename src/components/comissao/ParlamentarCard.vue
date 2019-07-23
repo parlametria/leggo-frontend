@@ -65,7 +65,7 @@ export default {
       } else if (parlamentar.casa === 'senado') {
         cargo = 2
       }
-      return `${process.env.VUE_APP_API_VOZ_ATIVA}/parlamentar/${cargo}${parlamentar.id_parlamentar}`
+      return `${process.env.VUE_APP_VOZ_ATIVA}/parlamentar/${cargo}${parlamentar.id_parlamentar}/votacoes`
     }
   }
 }

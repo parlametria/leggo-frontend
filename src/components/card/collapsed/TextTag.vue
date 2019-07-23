@@ -37,9 +37,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.tag {
-  font-size: 9pt;
-}
-</style>

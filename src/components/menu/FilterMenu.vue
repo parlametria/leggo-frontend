@@ -60,7 +60,9 @@
         :index="filterName">
         <template slot="title">
           <i class="el-icon-edit-outline"/>
-          <span slot="title">{{ $t(filterName) }}</span>
+          <span
+            slot="title"
+            class="filter">{{ $t(filterName) }}</span>
         </template>
         <el-checkbox-group v-model="models[filterName]">
           <el-menu-item
@@ -154,6 +156,10 @@ export default {
     text-align: center;
     font-weight: normal;
     margin-bottom: .5em;
+}
+
+.filter {
+  text-transform: capitalize;
 }
 
 .filterMenus {
