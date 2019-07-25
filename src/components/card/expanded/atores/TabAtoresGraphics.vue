@@ -27,7 +27,7 @@ export default {
     }
   },
   filters: {
-    formataLocal: function (value) {
+    formataLocal (value) {
       if (value.toLowerCase() === 'plen') {
         return 'Plenário'
       } else if (/\d/.test(value)) {
