@@ -102,6 +102,7 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: auto;
   grid-gap: 20px 20px;
+  margin-top: 15px;
 }
 
 .error {

@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-tabs>
-      <el-tab-pane label="Top Geral">
+      <el-tab-pane label="Geral">
         <atores-graphic :atores="atores" />
       </el-tab-pane>
       <el-tab-pane
-        :label="index"
+        :label="index | formataLocal"
         v-for="(atores_comissoes, index) in atoresLocaisImportantes"
         :key="index">
         <atores-graphic :atores="atores_comissoes" />
@@ -24,6 +24,17 @@ export default {
     id: {
       type: Number,
       default: undefined
+    }
+  },
+  filters: {
+    formataLocal (value) {
+      if (value.toLowerCase() === 'plen') {
+        return 'Plenário'
+      } else if (/\d/.test(value)) {
+        return value.concat(' - ', 'Com. Especial')
+      } else {
+        return value
+      }
     }
   },
   components: {

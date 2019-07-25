@@ -2,6 +2,9 @@
   <div
     class="prop-item"
     autofocus>
+    <text-tag
+      class="tag"
+      :etapas="prop.etapas" />
     <div class="links">
       <p
         class="small-text-field"
@@ -37,6 +40,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FasesProgress from './expanded/FasesProgress'
 import EtapaProposicao from './EtapaProposicao'
+import TextTag from './collapsed/TextTag'
 import { mapState } from 'vuex'
 
 export default {
@@ -56,7 +60,8 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     FasesProgress,
-    EtapaProposicao
+    EtapaProposicao,
+    TextTag
   },
   methods: {
     hasNumber (myString) {
@@ -107,5 +112,9 @@ export default {
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
+}
+.tag {
+  padding-bottom: 5px;
+  font-size: 11pt;
 }
 </style>

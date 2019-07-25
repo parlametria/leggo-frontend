@@ -6,7 +6,9 @@
         :key="i"
         :pauta="pauta"
         :date-ref="dateRef"/>
-      <text-tag :etapas="prop.etapas" />
+      <text-tag
+        class="tag"
+        :etapas="prop.etapas" />
     </div>
     <temas :temas="prop.temas"/>
     <div>
@@ -152,5 +154,9 @@ export default {
  .arrow-down {
   margin-top: 0.6rem;
   border-width: 2px 0px 0px 2px;
+}
+
+.tag {
+  font-size: 9pt;
 }
 </style>
