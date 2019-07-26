@@ -1,76 +1,86 @@
-/*
-roxo base:    #a963b3
-roxo escuro:  #5b2762
-roxo claro:   #ddc1e1
-verde:        #41c083
-*/
-@import url('https://unpkg.com/normalize.css@7.0.0/normalize.css');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
-
-@import 'icons.css';
-@import 'overhide.css';
-@import 'layout.css';
-@import 'navbar.css';
-@import 'nav.css';
-@import 'accordion.css';
-
-@import 'type.css';
-@import 'question.css';
-@import 'person.css';
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  font-size: 15px;
-  background-color: #ffffff;
-  color: #5b2762;
-}
-a {
-    color: #000;
-}
-a:hover {
-    color: #a963b3;
-}
-footer {
-  padding-top: 2rem;
-  padding-bottom: 20rem;
-  border-top: solid 5px #a963b3;
+  font-family: Montserrat;
 }
 
-.footer-title {
-  display: inline-block;
-  padding: 0.5rem;
-  background-color: #41c083;
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 700;
+a:link,
+a:visited {
+  color: #20201e;
 }
 
-.footer-logo {
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #7f3c8b;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  h3 {
+    font-size: 1.3rem;
+  }
+}
+
+.navbar {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid #E55C61;
+  margin-bottom: 3rem;
+}
+
+.reports {
   margin-bottom: 2rem;
 }
 
-.icon-secondary {
-  color: #41c083;
+.img-reports {
+  margin-bottom: 1.5rem;
 }
 
-.form-control-secondary {
-  color: #fff;
-  background-color: #41c083;
-  border: 1px solid #41c083;
-  border-radius: 24px;
+.main-title {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 3rem;
+  font-weight: 700;
+  font-size: 1.5rem;
 }
-.form-control-secondary:focus {
-  color: #ffffff;
-  background-color: #41c083;
-  border-color: #41c083;
-  outline: 0;
-  box-shadow: none;
+@media (min-width: 768px) {
+  .main-title {
+    font-size: 1.8rem;
+  }
 }
-.input-group-text-secondary {
-  background-color: #41c083;
-  border: 1px solid #41c083;
+@media (min-width: 992px) {
+  .main-title {
+    font-size: 2rem;
+  }
 }
-.btn-square {
-  border-radius: 0;
+@media (min-width: 1200px) {
+  .main-title {
+    font-size: 2.2rem;
+  }
+}
+
+.title {
+  border-left: 3px solid #20201e;
+  padding-left: 1rem;
+  font-size: 1rem;
+}
+
+.title > small {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 1.1rem;
+  }
+}
+@media (min-width: 992px) {
+  .title {
+    font-size: 1.3rem;
+  }
 }
