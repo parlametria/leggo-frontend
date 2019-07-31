@@ -30,6 +30,7 @@
             type="date"
             placeholder="Data de referência"
             format="dd/MM/yyyy"
+            :clearable="false"
             :picker-options="datePickerOptions"/>
         </template>
       </el-menu-item>
@@ -137,10 +138,10 @@ export default {
     ...mapMutations([
       'filtraNomeProposicao'
     ]),
-    ...mapActions(['updateDateRef']),
+    ...mapActions(['updateDateRef', 'setFilter']),
     handleChangeSelect (filterName, option) {
       this.models[filterName][option] = !this.models[filterName][option]
-      store.commit('setFilter', { filter: filterName, value: this.models[filterName] })
+      this.setFilter({ filter: filterName, value: this.models[filterName] })
     }
   }
 }

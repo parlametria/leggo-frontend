@@ -32,11 +32,15 @@ export default {
     limit: {
       type: Number,
       default: 5
+    },
+    initial: {
+      type: Number,
+      default: 0
     }
   },
   data () {
     return {
-      actual: 0,
+      actual: this.initial,
       window: {
         initial: 0,
         final: this.limit
@@ -92,7 +96,6 @@ export default {
     }
   },
   watch: {
-
     actual (newValue, oldValue) {
       if (newValue === this.window.final) {
         this.window.initial = newValue
@@ -102,6 +105,9 @@ export default {
         this.window.initial = newValue - this.limit + 1
       }
       this.$emit('change', newValue)
+    },
+    initial (newValue, oldValue) {
+      this.actual = newValue
     }
   }
 }

@@ -16,6 +16,7 @@ const filtro = {
         'status': false
       }
     ],
+    pageNumber: 0,
     dateRef: new Date(),
     semanas: 12,
     temperatureOrder: 'desc'
@@ -28,7 +29,7 @@ const filtro = {
       state.emPautaFilter = pautas
     },
     updateDateRef (state, date) {
-      state.dateRef = date == null ? new Date(): date
+      state.dateRef = date == null ? new Date() : date
     },
     updateTemperatureOrder (state, order) {
       state.temperatureOrder = order
@@ -37,11 +38,13 @@ const filtro = {
       // Se payload é no formato { filter, value }, seta filter como value,
       // caso contrário substitui o obj com todos os filtros por payload
       if (payload.filter) {
-
         Vue.set(state.current, payload.filter, payload.value)
       } else {
         state.current = payload
       }
+    },
+    setPageNumber (state, number) {
+      state.pageNumber = number
     }
   },
   getters: {
@@ -66,6 +69,11 @@ const filtro = {
           date: getters.formattedDateRef
         }
       })
+      commit('setPageNumber', 0)
+    },
+    setFilter ({ commit }, payload) {
+      commit('setPageNumber', 0)
+      commit('setFilter', payload)
     }
   }
 }

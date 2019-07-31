@@ -24,7 +24,18 @@ export default {
   data () {
     return {
       state: {
-        date: new Date(2016, 9, 16)
+        date: new Date()
+      }
+    }
+  },
+  watch: {
+    date: {
+      immediate: true,
+      deep: true,
+      handler (newValue, oldValue) {
+        if (newValue) {
+          this.date = new Date()
+        }
       }
     }
   }

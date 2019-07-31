@@ -35,6 +35,7 @@
             <pagination-bar
               :size="Math.ceil(notEmPauta.length / quantityProp)"
               :limit="10"
+              :initial="pageNumber"
               @change="(number) => updatePageNumber(number)"
             />
           </div>
@@ -62,13 +63,12 @@ export default {
   data () {
     return {
       activeNames: [],
-      pageNumber: 0,
       quantityProp: 10
     }
   },
   methods: {
     ...mapActions(['listProposicoes']),
-    ...mapMutations(['setFilter']),
+    ...mapMutations(['setPageNumber']),
 
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
@@ -111,7 +111,7 @@ export default {
       this.updateSticky(this.$refs.notEmPautaHeader, this.$refs.notEmPautaSession)
     },
     updatePageNumber (number) {
-      this.pageNumber = number
+      this.setPageNumber(number)
     }
   },
   computed: {
@@ -156,6 +156,7 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
+      pageNumber: state => state.filter.pageNumber,
       temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas
     }),
