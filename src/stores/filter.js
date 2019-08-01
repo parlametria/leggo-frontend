@@ -7,9 +7,7 @@ const filtro = {
     filters: ['temas', 'regime_tramitacao', 'forma_apreciacao', 'casa'],
     // Valores usados atualmente pelos filtros
     current: {},
-    nomeProposicaoFilter: {
-      'nomeProposicao': ''
-    },
+    nomeProposicaoFilter: '',
     emPautaFilter: [
       {
         'tipo': 'Na Pauta',
@@ -23,7 +21,7 @@ const filtro = {
   },
   mutations: {
     filtraNomeProposicao (state, nomeProposicao) {
-      state.searchFilter = nomeProposicao
+      state.nomeProposicaoFilter = nomeProposicao
     },
     filtraEmPauta (state, pautas) {
       state.emPautaFilter = pautas
@@ -62,6 +60,7 @@ const filtro = {
   },
   actions: {
     updateDateRef ({ commit, dispatch, state, getters }, date) {
+      commit('setPageNumber', 0)
       commit('updateDateRef', date)
       dispatch('listProposicoes', {
         params: {
@@ -69,11 +68,14 @@ const filtro = {
           date: getters.formattedDateRef
         }
       })
-      commit('setPageNumber', 0)
     },
     setFilter ({ commit }, payload) {
       commit('setPageNumber', 0)
       commit('setFilter', payload)
+    },
+    filtraNomeProposicao ({ commit }, payload) {
+      commit('setPageNumber', 0)
+      commit('filtraNomeProposicao', payload)
     }
   }
 }

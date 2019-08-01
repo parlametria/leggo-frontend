@@ -83,7 +83,7 @@ export default {
     },
     checkApelidoFilter (prop) {
       const apelido = removeAcentos(prop.sigla.toLowerCase() + prop.apelido.toLowerCase())
-      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.toLowerCase())
       return apelido.match(filtro)
     },
     checkPropMatchesFilter (prop) {
