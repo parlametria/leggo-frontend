@@ -7,28 +7,27 @@ const filtro = {
     filters: ['temas', 'regime_tramitacao', 'forma_apreciacao', 'casa'],
     // Valores usados atualmente pelos filtros
     current: {},
-    nomeProposicaoFilter: {
-      'nomeProposicao': ''
-    },
+    nomeProposicaoFilter: '',
     emPautaFilter: [
       {
         'tipo': 'Na Pauta',
         'status': false
       }
     ],
+    pageNumber: 0,
     dateRef: new Date(),
     semanas: 12,
     temperatureOrder: 'desc'
   },
   mutations: {
     filtraNomeProposicao (state, nomeProposicao) {
-      state.searchFilter = nomeProposicao
+      state.nomeProposicaoFilter = nomeProposicao
     },
     filtraEmPauta (state, pautas) {
       state.emPautaFilter = pautas
     },
     updateDateRef (state, date) {
-      state.dateRef = date
+      state.dateRef = date == null ? new Date() : date
     },
     updateTemperatureOrder (state, order) {
       state.temperatureOrder = order
@@ -41,6 +40,9 @@ const filtro = {
       } else {
         state.current = payload
       }
+    },
+    setPageNumber (state, number) {
+      state.pageNumber = number
     }
   },
   getters: {
@@ -58,6 +60,7 @@ const filtro = {
   },
   actions: {
     updateDateRef ({ commit, dispatch, state, getters }, date) {
+      commit('setPageNumber', 0)
       commit('updateDateRef', date)
       dispatch('listProposicoes', {
         params: {
@@ -65,6 +68,14 @@ const filtro = {
           date: getters.formattedDateRef
         }
       })
+    },
+    setFilter ({ commit }, payload) {
+      commit('setPageNumber', 0)
+      commit('setFilter', payload)
+    },
+    filtraNomeProposicao ({ commit }, payload) {
+      commit('setPageNumber', 0)
+      commit('filtraNomeProposicao', payload)
     }
   }
 }

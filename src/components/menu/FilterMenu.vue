@@ -13,10 +13,9 @@
           @click="isCollapse = !isCollapse"/>
         <template slot="title">
           <el-input
-            @change="filtraNomeProposicao(nomeProposicaoFilter)"
             id="el-input"
             placeholder="Pesquisar Projeto"
-            v-model="nomeProposicaoFilter.nomeProposicao"
+            v-model="searchField"
             @keyup.enter="this.focus = false"/>
         </template>
       </el-menu-item>
@@ -30,6 +29,7 @@
             type="date"
             placeholder="Data de referência"
             format="dd/MM/yyyy"
+            :clearable="false"
             :picker-options="datePickerOptions"/>
         </template>
       </el-menu-item>
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
 import Login from '@/components/menu/Login'
 import store from '@/stores/store'
@@ -108,6 +108,7 @@ export default {
     return {
       isCollapse: true,
       windowWidth: 0,
+      searchField: '',
       datePickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now()
@@ -136,13 +137,19 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'filtraNomeProposicao'
-    ]),
-    ...mapActions(['updateDateRef']),
+    ...mapActions(['updateDateRef', 'setFilter', 'filtraNomeProposicao']),
     handleChangeSelect (filterName, option) {
       this.models[filterName][option] = !this.models[filterName][option]
-      store.commit('setFilter', { filter: filterName, value: this.models[filterName] })
+      this.setFilter({ filter: filterName, value: this.models[filterName] })
+    }
+  },
+  watch: {
+    searchField: {
+      immediate: true,
+      deep: true,
+      handler (newValue, oldValue) {
+        this.filtraNomeProposicao(newValue)
+      }
     }
   }
 }
