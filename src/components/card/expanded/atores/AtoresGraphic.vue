@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="sigla.substring(0,3) === 'MPV' && casa !== 'senado'">
+    <div v-if="senadoOuMPV">
       <p class="sem-atores">Nas MPVs, atualmente, temos dados de atores apenas para emendas</p>
       <div ref="anchor" />
     </div>
@@ -76,6 +76,11 @@ export default {
       return this.atores.filter(e =>
         maioresContribuidores.includes(e.id_autor)
       )
+    },
+    senadoOuMPV() {
+      const sigla = this.sigla.substring(0,3) 
+      const casa = this.casa
+      return sigla === 'MPV' && casa !== 'senado'
     }
   },
   methods: {
