@@ -77,8 +77,8 @@ export default {
         maioresContribuidores.includes(e.id_autor)
       )
     },
-    senadoOuMPV() {
-      const sigla = this.sigla.substring(0,3) 
+    senadoOuMPV () {
+      const sigla = this.sigla.substring(0, 3)
       const casa = this.casa
       return sigla === 'MPV' && casa !== 'senado'
     }
