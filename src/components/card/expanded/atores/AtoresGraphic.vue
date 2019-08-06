@@ -1,10 +1,17 @@
 <template>
   <div>
+    <div v-if="senadoOuMPV">
+      <p class="sem-atores">Nas MPVs, atualmente, temos dados de atores apenas para emendas</p>
+      <div ref="anchor" />
+    </div>
     <div
-      v-if="verificaSeMostraAtores"
+      v-else-if="verificaSeMostraAtores"
       class="graphic"
       id="grafico">
       <div ref="anchor" />
+    </div>
+    <div v-else-if="casa === 'senado'">
+      <p class="sem-atores">Não estamos capturando atores em Senado</p>
     </div>
     <div v-else>
       <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
@@ -24,6 +31,14 @@ export default {
       default () {
         return []
       }
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
+    sigla: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -61,6 +76,11 @@ export default {
       return this.atores.filter(e =>
         maioresContribuidores.includes(e.id_autor)
       )
+    },
+    senadoOuMPV () {
+      const sigla = this.sigla.substring(0, 3)
+      const casa = this.casa
+      return sigla === 'MPV' && casa !== 'senado'
     }
   },
   methods: {

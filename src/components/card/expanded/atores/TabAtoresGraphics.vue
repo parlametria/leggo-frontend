@@ -2,7 +2,10 @@
   <div>
     <el-tabs>
       <el-tab-pane label="Geral">
-        <atores-graphic :atores="atores" />
+        <atores-graphic
+          :atores="atores"
+          :casa="casa"
+          :sigla="sigla"/>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
@@ -24,6 +27,14 @@ export default {
     id: {
       type: Number,
       default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
+    sigla: {
+      type: String,
+      default: ''
     }
   },
   filters: {
