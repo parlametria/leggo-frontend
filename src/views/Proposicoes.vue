@@ -81,6 +81,9 @@ export default {
 
       return (!this.filter.emPautaFilter.some(options => options.status) ? true : emPauta)
     },
+    checkStatusFilter (prop) {
+      return this.filter.showFinalizadas.status || prop.status === ''
+    },
     checkApelidoFilter (prop) {
       const apelido = removeAcentos(prop.sigla.toLowerCase() + prop.apelido.toLowerCase())
       const filtro = removeAcentos(this.filter.nomeProposicaoFilter.toLowerCase())
@@ -120,7 +123,8 @@ export default {
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
-          return this.checkPropMatchesFilter(prop.lastEtapa)
+          return this.checkPropMatchesFilter(prop.lastEtapa) &&
+          this.checkStatusFilter(prop)
         }).sort((a, b) => {
           let idA = a.lastEtapa.id
           let idB = b.lastEtapa.id
