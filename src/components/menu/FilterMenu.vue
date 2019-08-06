@@ -53,6 +53,17 @@
         </el-checkbox>
       </el-menu-item>
 
+      <!-- Finalizada -->
+      <el-menu-item
+        index="5"
+        class="no-padding">
+        <el-checkbox
+          v-model="showFinalizadas.status"
+          class="filterMenus">
+          {{ showFinalizadas.tipo }}
+        </el-checkbox>
+      </el-menu-item>
+
       <!-- Vários Filtros -->
       <el-submenu
         v-for="(filterName, i) of filter.filters"
@@ -124,7 +135,8 @@ export default {
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
-      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
+      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter,
+      showFinalizadas: state => state.filter.showFinalizadas
     }),
     ...mapGetters(['perFilterOptions']),
     dateRef: {

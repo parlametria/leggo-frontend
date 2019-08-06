@@ -14,6 +14,10 @@ const filtro = {
         'status': false
       }
     ],
+    showFinalizadas: {
+      'tipo': 'Proposições Paradas',
+      'status': false
+    },
     pageNumber: 0,
     dateRef: new Date(),
     semanas: 12,

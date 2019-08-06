@@ -5,6 +5,7 @@ import temps from './temperaturas'
 import pautas from './pautas'
 import atores from './atores'
 import axios from './axios'
+import retornaProposicaoComStatusGeral from '../utils'
 
 const proposicoes = new Vapi({
   axios: axios,
@@ -28,6 +29,7 @@ const proposicoes = new Vapi({
     let pautasTmp = {}
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
+      prop.status = retornaProposicaoComStatusGeral(prop)
       prop.lastEtapa = prop.etapas.slice(-1)[0]
       temperaturas[prop.lastEtapa.id] = prop.lastEtapa.temperatura_historico
       coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente

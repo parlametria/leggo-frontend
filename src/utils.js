@@ -14,3 +14,25 @@ export function resumirFases (fases) {
 export function removeAcentos (word) {
   return word.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 }
+
+// Verifica as etapas de uma proposição e retorna o status da proposicao
+export default function retornaProposicaoComStatusGeral (prop) {
+  let result = ''
+  for (let etapa of prop.etapas) {
+    switch (etapa.status) {
+      case 'Lei':
+        result = 'Transformada em Lei'
+        break
+      case 'Arquivada':
+        result = 'Arquivada'
+        break
+      case 'Caducou':
+        result = 'Caducou'
+        break
+      case 'Rejeitada':
+        result = 'Rejeitada'
+        break
+    }
+  }
+  return result
+}
