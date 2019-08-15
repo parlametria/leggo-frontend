@@ -61,7 +61,7 @@ export default {
     ProposicaoItem,
     UltimosEventos,
     FilterButton,
-    PaginationBar,
+    PaginationBar
   },
   data () {
     return {
