@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <filter-button />
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
@@ -52,13 +53,15 @@ import UltimosEventos from '@/components/UltimosEventos'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 import PaginationBar from '@/components/utils/PaginationBar'
+import FilterButton from '@/components/menu/FilterButton'
 
 export default {
   name: 'Proposicoes',
   components: {
     ProposicaoItem,
     UltimosEventos,
-    PaginationBar
+    FilterButton,
+    PaginationBar,
   },
   data () {
     return {
