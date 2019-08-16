@@ -34,9 +34,7 @@
     </div>
     <h5>Atividade Parlamentar</h5>
     <tab-atores-graphics
-      :id="etapa.id"
-      :casa="etapa.casa"
-      :sigla="etapa.sigla"/>
+      :etapa="etapa"/>
     <h5>Análise das Emendas</h5>
     <emendas-info
       :id="etapa.id_ext"

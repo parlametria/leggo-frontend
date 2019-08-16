@@ -3,7 +3,6 @@ import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import temps from './temperaturas'
 import pautas from './pautas'
-import atores from './atores'
 import axios from './axios'
 import retornaProposicaoComStatusGeral from '../utils'
 
@@ -24,26 +23,32 @@ const proposicoes = new Vapi({
     state.proposicoes = data
     let temperaturas = {}
     let coeficientes = {}
-    let atoresTmp = {}
-    let atoresImportantTmp = {}
     let pautasTmp = {}
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
       prop.lastEtapa = prop.etapas.slice(-1)[0]
+      prop.detailed = false
       temperaturas[prop.lastEtapa.id] = prop.lastEtapa.temperatura_historico
       coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
-      prop.etapas.forEach((etapa) => {
-        atoresTmp[etapa.id] = etapa.top_atores
-        atoresImportantTmp[etapa.id] = etapa.top_important_atores
-      })
     })
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
-    Vue.set(atores.state, 'atores', atoresTmp)
-    Vue.set(atores.state, 'atoresLocaisImportantes', atoresImportantTmp)
+  }
+}).get({
+  action: 'detailProposicao',
+  path: ({ id }) =>
+    `proposicoes/${id}`,
+  onSuccess: (state, { data }) => {
+    const dataProp = data[0]
+    dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
+    dataProp.status = retornaProposicaoComStatusGeral(dataProp)
+    const props = state.proposicoes.map(e => {
+      return e.id === dataProp.id ? {...dataProp, detailed : true } : e
+    })
+    state.proposicoes = props
   }
 }).get({
   action: 'getMetaInfo',
