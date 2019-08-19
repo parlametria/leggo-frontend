@@ -26,6 +26,12 @@
             :id="etapa.id_ext"
             class="temperature-info" />
         </el-col>
+        <el-col>
+          <pressure-graphic 
+            :id="etapa.id" 
+            :casa="etapa.casa"
+          />
+        </el-col>
       </el-row>
       <eventos-info
         :id="etapa.id_ext"
@@ -62,6 +68,7 @@ import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
+import PressureGraphic from './expanded/pressao/PressureGraphic'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -97,7 +104,8 @@ export default {
     EmendasInfo,
     AuthorName,
     ComposicaoLink,
-    TabAtoresGraphics
+    TabAtoresGraphics,
+    PressureGraphic
   },
   methods: {
     hasNumber (myString) {
