@@ -10,15 +10,14 @@
 
 <script>
 import PressureGraphicModel from './PressureGraphicModel.js'
-import _ from 'lodash'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'PressureGraphic',
   props: {
     id: {
-      type: String,
-      default: ''
+      type: Number,
+      default: 0
     },
     casa: {
       type: String,
@@ -27,39 +26,35 @@ export default {
   },
   computed: {
     ...mapState({
-      pressoes: state => state.pressao
+      pressoes: state => state.pressao.pressao
     }),
     verificaSeMostraPressao () {
-      return this.pressao && this.pressao.length
+      return this.pressoes && this.pressoes[this.id] !== undefined
     }
   },
   methods: {
     ...mapActions(['getPressao']),
     async mountGraphic () {
-        console.log(this.pressoes)
-      if (verificaSeMostraPressao) {
-        let model = new PressaoGraphicModel(this.tamanhoGrafico)
+      if (this.verificaSeMostraPressao) {
+        let model = new PressureGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
-          .change("pressao", vega.changeset().remove("pressao", d => true))
-          .insert('pressao', this.pressao)
+          .change("pressoes", vega.changeset().remove("pressoes", d => true))
+          .insert('pressoes', this.pressoes[this.id])
           .run()
       }
     }
   },
-  mounted () {
-    this.$watch('pressao', this.mountGraphic, { immediate: true, deep: true })
-  },
-    async mounted () {
+  async mounted () {
     try {
       await this.getPressao({
         params: { id: this.id, casa: this.casa }
       })
-
     } catch (exc) {
       this.composicao = undefined
     }
+    this.$watch('pressoes', this.mountGraphic, { immediate: true, deep: true })
   }
 }
 </script>
@@ -77,5 +72,4 @@ export default {
 .title {
   line-height: 15px;
 }
-
 </style>

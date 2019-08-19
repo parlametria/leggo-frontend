@@ -27,8 +27,8 @@
             class="temperature-info" />
         </el-col>
         <el-col>
-          <pressure-graphic 
-            :id="etapa.id" 
+          <pressure-graphic
+            :id="etapa.id_ext"
             :casa="etapa.casa"
           />
         </el-col>
