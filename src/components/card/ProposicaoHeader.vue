@@ -28,6 +28,9 @@
     <temperature-bar
       class="temperatura"
       :id="prop.lastEtapa.id"/>
+    <pressure-bar
+      class="pressao"
+      :id="prop.lastEtapa.id_ext"/>
   </div>
 </template>
 
@@ -36,6 +39,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
+import PressureBar from './collapsed/PressureBar.vue'
 import PautaTag from './collapsed/PautaTag'
 import TextTag from './collapsed/TextTag'
 import Temas from './collapsed/Temas.vue'
@@ -59,6 +63,7 @@ export default {
     FormaApreciacao,
     Fases,
     TemperatureBar,
+    PressureBar,
     PautaTag,
     TextTag,
     Temas
@@ -99,6 +104,11 @@ export default {
   grid-row: 1/6;
   border: 2px solid #dadada;
 }
+.pressao {
+  grid-column: 3/3;
+  grid-row: 1/6;
+  border: 2px solid #dadada;
+}
 .tags {
   grid-column: 1/2;
   grid-row: 5/6;
@@ -119,7 +129,7 @@ export default {
 }
 .prop-apelido {
   grid-column: 1/2;
-  grid-row: 3/4;
+  grid-row: 3/6;
   font-size: 14pt;
   margin: .2rem 0;
 }
