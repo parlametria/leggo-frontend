@@ -1,16 +1,20 @@
 <template>
   <div>
     <div
-      class="graphic"
-      id="grafico">
+      class="graphic2"
+      id="grafico2"
+      v-if="verificaSeMostraPressao">
       <div ref="anchor" />
+      <p class="graphic-info">Pressão dos últimos 3 meses</p>
     </div>
+    <div v-else>Não há dados sobre pressão!</div>
   </div>
 </template>
 
 <script>
 import PressureGraphicModel from './PressureGraphicModel.js'
 import { mapState, mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'PressureGraphic',
@@ -29,7 +33,20 @@ export default {
       pressoes: state => state.pressao.pressao
     }),
     verificaSeMostraPressao () {
-      return this.pressoes && this.pressoes[this.id] !== undefined
+      return (
+        this.pressoes &&
+        this.pressoes[this.id] !== undefined &&
+        this.pressoes[this.id].length !== 0
+      )
+    },
+    tamanhoGrafico () {
+      return document.getElementById('grafico2').offsetWidth
+    },
+    filteredPressoes () {
+      console.log(this.pressoes)
+      return this.pressoes[this.id].filter(e =>
+        moment(e.date).isAfter(moment(new Date()).subtract(3, 'months'))
+      )
     }
   },
   methods: {
@@ -40,8 +57,8 @@ export default {
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
-          .change("pressoes", vega.changeset().remove("pressoes", d => true))
-          .insert('pressoes', this.pressoes[this.id])
+          .change('filteredPressoes', vega.changeset().remove('filteredPressoes', d => true))
+          .insert('filteredPressoes', this.filteredPressoes)
           .run()
       }
     }
@@ -60,16 +77,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.graphic {
+.graphic-info {
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+}
+.graphic2 {
   details {
     display: none;
   }
 }
-.graphic {
-  text-align: left;
-  overflow-x: auto;
-}
-.title {
-  line-height: 15px;
+.graphic2 {
+  text-align: center;
 }
 </style>

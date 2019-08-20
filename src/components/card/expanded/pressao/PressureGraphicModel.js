@@ -1,39 +1,67 @@
 export default class PressureGraphicModel {
-  constructor () {
+  constructor (width) {
     this.vsSpec = {
-      $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+      description: 'Últimos 30 dias',
+      $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
+      height: 100,
+      width: width * 0.8,
+      autosize: {
+        type: 'fit',
+        contains: 'padding'
+      },
+      title: '',
       data: {
-        name: 'pressoes'
+        name: 'filteredPressoes'
       },
-      vconcat: [{
-        width: 480,
-        mark: 'area',
-        encoding: {
-          x: {
-            field: 'date',
-            type: 'temporal',
-            axis: { 'title': '' }
+      mark: {
+        type: 'bar',
+        color: '#feb24c',
+        fillOpacity: 0.5
+      },
+      transform: [
+        { 'calculate': 'datum.maximo_geral/100', 'as': 'maximo_geral' }],
+
+      encoding: {
+        x: {
+          field: 'date',
+          type: 'ordinal',
+          format: '%Y-%m-%d',
+          scale: {
+            type: 'band'
           },
-          y: { 'field': 'maximo_geral', 'type': 'quantitative' }
-        }
-      },
-      {
-        width: 480,
-        mark: {
-          type: 'bar',
-          fillOpacity: 0.5
+          axis: {
+            title: '',
+            grid: false,
+            ticks: false,
+            labels: false
+          }
         },
-        encoding: {
-          x: {
-            field: 'date',
-            type: 'temporal',
-            axis: { 'title': '' }
+        y: {
+          field: 'maximo_geral',
+          type: 'quantitative',
+          axis: {
+            format: '%',
+            title: '',
+            grid: false,
+            ticks: false,
+            labels: false
           },
-          y: { 'field': 'maximo_geral', 'type': 'quantitative' }
+          scale: { type: 'sqrt' }
+        },
+        tooltip: [
+          { 'field': 'maximo_geral', 'type': 'quantitative', 'title': 'Máximo Geral', axis: { format: '.0%' } },
+          { 'field': 'date', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
+        ]
+      },
+      config: {
+        view: {
+          stroke: 'transparent'
+        },
+        axisY: {
+          minExtent: 0,
+          domain: false
         }
       }
-
-      ]
     }
   }
 

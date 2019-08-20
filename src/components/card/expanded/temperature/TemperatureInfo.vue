@@ -1,17 +1,20 @@
 <template>
   <el-tooltip
     placement="bottom"
-    effect="light">
+    effect="light"
+  >
     <div
       class="tooltip-content"
-      slot="content">
+      slot="content"
+      v-if="mostraTooltip"
+    >
       <p v-if="this.temperatureInfo === 'subiu'">
         A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
       </p>
       <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
     </div>
     <div class="info">
-      Temperatura dos últimos 3 meses
+      {{ this.texto }}
     </div>
   </el-tooltip>
 </template>
@@ -25,6 +28,14 @@ export default {
     id: {
       type: Number,
       default: undefined
+    },
+    texto: {
+      type: String,
+      default: ''
+    },
+    mostraTooltip: {
+      type: Boolean,
+      default: false
     }
   },
   computed: mapState({
