@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
+    <h4>Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
     <div v-if="isLastEtapa">
       <composicao-link
         :data-local-atual="dataLocalAtual"
@@ -17,20 +17,17 @@
           <p class="small-text-field small-margin-top">Relator(a)</p>
           <p class="medium-text-field">{{ etapa.relator_nome }}</p>
         </el-col>
-        <el-col
-          :span="12"
-          :xs="24"
-          class="temperaturas-container">
+        <el-col class="graphics-container">
           <temperature-graphic :id="etapa.id" />
           <temperature-info
             :id="etapa.id_ext"
-            class="temperature-info" />
-        </el-col>
-        <el-col>
+            :texto="'Temperatura dos últimos 3 meses'"
+            :mostra-tooltip="true"
+            class="graphic-info"
+          />
           <pressure-graphic
             :id="etapa.id_ext"
-            :casa="etapa.casa"
-          />
+            :casa="etapa.casa" />
         </el-col>
       </el-row>
       <eventos-info
@@ -42,7 +39,7 @@
     <tab-atores-graphics
       :id="etapa.id"
       :casa="etapa.casa"
-      :sigla="etapa.sigla"/>
+      :sigla="etapa.sigla" />
     <h5>Análise das Emendas</h5>
     <emendas-info
       :id="etapa.id_ext"
@@ -123,7 +120,7 @@ export default {
       return this.etapa.emPauta
     },
     isLastEtapa () {
-      return (this.etapa.id === this.idLastEtapa)
+      return this.etapa.id === this.idLastEtapa
     },
     dataLocalAtual () {
       const data = this.etapa.resumo_tramitacao.slice(-1)[0].data
@@ -200,13 +197,16 @@ export default {
   font-size: 12pt;
   margin: 0;
 }
-.temperature-info {
+.graphic-info {
   font-size: 12px;
 }
 .temperature-area {
   margin-bottom: 20px;
 }
 .temperaturas-container {
+  padding-top: 15px;
+}
+.graphics-container {
   padding-top: 15px;
 }
 </style>
