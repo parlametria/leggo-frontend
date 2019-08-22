@@ -79,7 +79,7 @@ export default {
       function dataApresCasa (a, b) {
         if (a.data_apresentacao < b.data_apresentacao) return 1
         if (a.data_apresentacao > b.data_apresentacao) return -1
-          return (a.casa === a.casa_origem )
+        return (a.casa === a.casa_origem)
       }
       return [...this.prop.etapas].sort(dataApresCasa)
     },
