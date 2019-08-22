@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="graphic2"
+      class="graphic"
       id="grafico2"
       v-if="verificaSeMostraPressao">
       <div ref="anchor" />
@@ -43,7 +43,6 @@ export default {
       return document.getElementById('grafico2').offsetWidth
     },
     filteredPressoes () {
-      console.log(this.pressoes)
       return this.pressoes[this.id].filter(e =>
         moment(e.date).isAfter(moment(new Date()).subtract(3, 'months'))
       )
@@ -82,12 +81,12 @@ export default {
   color: #555;
   text-align: center;
 }
-.graphic2 {
+.graphic {
   details {
     display: none;
   }
 }
-.graphic2 {
+.graphic {
   text-align: center;
 }
 </style>

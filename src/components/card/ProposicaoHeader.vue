@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="header-tags">
       <pauta-tag
         v-for="(pauta, i) in filteredPautas"
@@ -13,9 +14,6 @@
     <temas :temas="prop.temas"/>
     <div>
       <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
-      <i
-        class="arrow"
-        :class="{'arrow-down': clicked}"/>
     </div>
     <fases
       class="fases"
@@ -30,7 +28,7 @@
       :id="prop.lastEtapa.id"/>
     <pressure-bar
       class="pressao"
-      :id="prop.lastEtapa.id_ext"/>
+      :ultima_pressao="prop.lastEtapa.ultima_pressao"/>
   </div>
 </template>
 
@@ -69,7 +67,8 @@ export default {
     Temas
   },
   methods: {
-    ...mapActions(['getPautas'])
+    ...mapActions(['getPautas']),
+
   },
   computed: {
     ...mapState({
@@ -91,12 +90,12 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: grid;
-  grid-template-columns: auto 41px;
+  grid-template-columns: auto 41px 41px;
   grid-template-rows: auto 16px auto 16px 16px;
   color: #222;
   border: 3px solid #dadada;
   padding: 1rem;
-  grid-column-gap: 3rem;
+  grid-column-gap: 1.5rem;
   grid-row-gap: .5rem;
 }
 .temperatura {
@@ -114,7 +113,7 @@ export default {
   grid-row: 5/6;
   margin-top: -6px;
   .tag {
-    font-size: 9pt;
+    font-size: pt;
     user-select: none;
     color: #222;
     border-color: #222;
@@ -129,7 +128,7 @@ export default {
 }
 .prop-apelido {
   grid-column: 1/2;
-  grid-row: 3/6;
+  grid-row: 2/3;
   font-size: 14pt;
   margin: .2rem 0;
 }
@@ -145,6 +144,7 @@ export default {
     font-size: 17pt;
   }
 }
+
 .tema {
   grid-column: 1/2;
   grid-row: 2/3;

@@ -12,7 +12,7 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'PressureBar',
   props: {
-    id: {
+    ultima_pressao: {
       type: Number,
       default: undefined
     }
@@ -23,11 +23,8 @@ export default {
     }),
     ...mapGetters(['maxTemperatura']),
     pressao () {
-      const pressoes = this.listaPressoes[this.id]
-      console.log(pressoes)
-      if (pressoes && pressoes[0]) {
-        console.log(pressoes[pressoes.length - 1].maximo_geral)
-        return pressoes[pressoes.length - 1].maximo_geral
+      if (this.ultima_pressao) {
+        return this.ultima_pressao
       } else {
         return 0
       }
