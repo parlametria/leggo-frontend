@@ -4,8 +4,8 @@
       <el-tab-pane label="Geral">
         <atores-graphic
           :atores="atores"
-          :casa="casa"
-          :sigla="sigla"/>
+          :casa="etapa.casa"
+          :sigla="etapa.sigla"/>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
@@ -24,7 +24,7 @@ export default {
   name: 'TabAtoresGraphic',
   props: {
     etapa: {
-      type: Number,
+      type: Object,
       default: undefined
     }
   },
