@@ -6,7 +6,6 @@ import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
-import FilterMenu from '@/components/menu/FilterMenu.vue'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
 
@@ -33,8 +32,7 @@ const router = new Router({
       path: '/proposicoes',
       name: 'proposicoes',
       components: {
-        default: Proposicoes,
-        menu: FilterMenu
+        default: Proposicoes
       }
     },
     {

@@ -219,8 +219,7 @@ export default {
   }
 }
 .content {
-  padding: 5vh 0.5rem 0 0.5rem;
-
+  padding: 0vh 0.5rem 0 0.5rem;
 }
 .sticky {
   display: block;

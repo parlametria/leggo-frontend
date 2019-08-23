@@ -1,130 +1,70 @@
 <template>
-  <div>
+  <div class="container">
+    <el-input
+      placeholder="Pesquisar Projeto"
+      v-model="searchField"
+      @keyup.enter="this.focus = false">
+      <i
+        slot="prefix"
+        class="el-input__icon el-icon-search"/>
+    </el-input>
     <el-button
-      type="text"
-      @click="outerVisible = true">open the outer Dialog</el-button>
-
+      @click="outerVisible = true">Filtros</el-button>
     <el-dialog
-      title="Outer Dialog"
-      :visible.sync="outerVisible">
-      <el-dialog
-        width="30%"
-        title="Inner Dialog"
-        :visible.sync="innerVisible"
-        append-to-body/>
-      <div
-        slot="footer"
-        class="dialog-footer">
-        <el-button @click="outerVisible = false">Cancel</el-button>
-        <el-button
-          type="primary"
-          @click="innerVisible = true">open the inner Dialog</el-button>
-      </div>
+      title="Filtros"
+      :visible.sync="outerVisible"
+      :width="widthDialog">
+      <span>
+        <filter-menu />
+      </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import FilterMenu from '@/components/menu/FilterMenu'
+import { mapActions } from 'vuex'
 export default {
   name: 'FilterButton',
+  components: {
+    FilterMenu
+  },
   data () {
     return {
-      outerVisible: false,
-      innerVisible: false
+      isCollapse: true,
+      searchField: '',
+      outerVisible: false
+    }
+  },
+  computed: {
+    widthScreen () {
+      return screen.width
+    },
+    widthDialog () {
+      return this.widthScreen > 500 ? '400px' : '90vw'
+    }
+  },
+  methods: {
+    ...mapActions(['filtraNomeProposicao'])
+  },
+  watch: {
+    searchField: {
+      immediate: true,
+      deep: true,
+      handler (newValue, oldValue) {
+        this.filtraNomeProposicao(newValue)
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-h1 {
-  text-align: center;
-  font-family: Tahoma, Arial, sans-serif;
-  color: #06D85F;
-  margin: 80px 0;
-}
-
-.box {
-  width: 40%;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.2);
-  padding: 35px;
-  border: 2px solid #fff;
-  border-radius: 20px/50px;
-  background-clip: padding-box;
-  text-align: center;
-}
-
-.button {
-  font-size: 1em;
-  padding: 10px;
-  color: #fff;
-  border: 2px solid #06D85F;
-  border-radius: 20px/50px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-.button:hover {
-  background: #06D85F;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
-}
-
-.popup {
-  margin: 70px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
-}
-
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
-}
-.popup .close:hover {
-  color: #06D85F;
-}
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
-
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
+.container {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 10px 20px;
+  padding: 0 0 5vh 0;
 }
 </style>
