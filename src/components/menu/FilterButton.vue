@@ -3,10 +3,8 @@
     <el-input
       placeholder="Pesquisar Projeto"
       v-model="searchField"
+      prefix-icon="el-icon-search"
       @keyup.enter="this.focus = false">
-      <i
-        slot="prefix"
-        class="el-input__icon el-icon-search"/>
     </el-input>
     <el-button
       @click="outerVisible = true">Filtros</el-button>
