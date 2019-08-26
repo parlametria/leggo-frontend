@@ -4,8 +4,8 @@
       <el-tab-pane label="Geral">
         <atores-graphic
           :atores="atores"
-          :casa="etapa.casa"
-          :sigla="etapa.sigla"/>
+          :casa="casa"
+          :sigla="sigla"/>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
@@ -23,9 +23,21 @@ import AtoresGraphic from './AtoresGraphic.vue'
 export default {
   name: 'TabAtoresGraphic',
   props: {
-    etapa: {
-      type: Object,
+    top_atores: {
+      type: Array,
       default: undefined
+    },
+    top_important_atores: {
+      type: Array,
+      default: undefined
+    },
+    casa: {
+      type: String,
+      default: ''
+    },
+    sigla: {
+      type: String,
+      default: ''
     }
   },
   filters: {
@@ -44,14 +56,14 @@ export default {
   },
   computed: {
     atores () {
-      if (this.etapa.top_atores) {
-        return this.etapa.top_atores
+      if (this.top_atores) {
+        return this.top_atores
       }
     },
     atoresLocaisImportantes () {
       let atoresLocais = {}
-      if (this.etapa.top_important_atores) {
-        for (let ator of this.etapa.top_important_atores) {
+      if (this.top_important_atores) {
+        for (let ator of this.top_important_atores) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local)) {
             atoresLocais[ator.sigla_local].push(ator)
           } else {
