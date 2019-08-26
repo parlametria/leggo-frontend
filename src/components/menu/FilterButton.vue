@@ -4,8 +4,8 @@
       placeholder="Pesquisar Projeto"
       v-model="searchField"
       prefix-icon="el-icon-search"
-      @keyup.enter="this.focus = false">
-    </el-input>
+      @keyup.enter="this.focus = false"
+    />
     <el-button
       @click="outerVisible = true">Filtros</el-button>
     <el-dialog
