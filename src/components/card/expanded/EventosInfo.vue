@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div     
+    <div
       v-if="formattedEventos.length">
       <header>
         <h5>Últimos Eventos</h5>
