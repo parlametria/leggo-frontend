@@ -82,7 +82,6 @@ export default {
         if (a.casa < b.casa) return -1
         if (a.casa > b.casa) return 1
         return 0
-
       }
       return [...this.prop.etapas].sort(dataApresCasa)
     },
