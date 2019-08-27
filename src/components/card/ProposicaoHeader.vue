@@ -68,10 +68,6 @@ export default {
   },
   methods: {
     ...mapActions(['getPautas'])
-<<<<<<< HEAD
-
-=======
->>>>>>> d4e0fa091d466ea333b77f9281b9d3280ea2f143
   },
   computed: {
     ...mapState({
