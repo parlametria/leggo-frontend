@@ -17,18 +17,6 @@
           <p class="small-text-field small-margin-top">Relator(a)</p>
           <p class="medium-text-field">{{ etapa.relator_nome }}</p>
         </el-col>
-        <el-col class="graphics-container">
-          <temperature-graphic :id="etapa.id" />
-          <temperature-info
-            :id="etapa.id_ext"
-            :texto="'Temperatura dos últimos 3 meses'"
-            :mostra-tooltip="true"
-            class="graphic-info"
-          />
-          <pressure-graphic
-            :id="etapa.id_ext"
-            :casa="etapa.casa" />
-        </el-col>
       </el-row>
       <eventos-info
         :id="etapa.id_ext"
@@ -197,16 +185,11 @@ export default {
   font-size: 12pt;
   margin: 0;
 }
-.graphic-info {
-  font-size: 12px;
-}
 .temperature-area {
   margin-bottom: 20px;
 }
 .temperaturas-container {
   padding-top: 15px;
 }
-.graphics-container {
-  padding-top: 15px;
-}
+
 </style>

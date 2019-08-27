@@ -138,8 +138,8 @@ export default {
             return n
           }
           if (this.temperaturas) {
-            let tempA = this.temperaturas[idA][0] === undefined ? 0 : this.temperaturas[idA][0].temperatura_recente
-            let tempB = this.temperaturas[idB][0] === undefined ? 0 : this.temperaturas[idB][0].temperatura_recente
+            let tempA = this.temperaturas[a.id][0] === undefined ? 0 : this.temperaturas[a.id][0].temperatura_recente
+            let tempB = this.temperaturas[b.id][0] === undefined ? 0 : this.temperaturas[b.id][0].temperatura_recente
             if (this.filter.temperatureOrder === 'desc') {
               return tempB - tempA
             } else {

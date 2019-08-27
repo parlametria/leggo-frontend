@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'PressureBar',
@@ -20,10 +19,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      listaPressoes: state => state.pressao.pressao
-    }),
-    ...mapGetters(['maxTemperatura']),
     pressao () {
       if (this.ultima_pressao) {
         return this.ultima_pressao

@@ -25,7 +25,7 @@
     </div>
     <temperature-bar
       class="temperatura"
-      :id="prop.lastEtapa.id"/>
+      :id="prop.id"/>
     <pressure-bar
       class="pressao"
       :ultima_pressao="prop.lastEtapa.ultima_pressao"/>
