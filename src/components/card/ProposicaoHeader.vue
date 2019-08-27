@@ -67,7 +67,7 @@ export default {
     Temas
   },
   methods: {
-    ...mapActions(['getPautas']),
+    ...mapActions(['getPautas'])
 
   },
   computed: {

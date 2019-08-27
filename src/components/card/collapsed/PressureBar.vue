@@ -1,8 +1,10 @@
 <template>
-  <div class="pressure-bar">
+  <div
+    class="pressure-bar"
+    :style="pressureStyle">
     <div
       :style="barStyle"
-      class="filled-bar"/>
+    />
   </div>
 </template>
 
@@ -31,7 +33,13 @@ export default {
     },
     barStyle () {
       return {
-        height: `${this.pressao > 3 ? this.pressao : 3}%`
+        height: `${this.pressao > 3 ? this.pressao : 3}%`,
+        background: `${this.pressao === 0 ? '#dadada' : '#feb24c'}`
+      }
+    },
+    pressureStyle () {
+      return {
+        background: `${this.pressao === 0 ? '#dadada' : '#ffffff'}`
       }
     }
   }
@@ -49,7 +57,4 @@ export default {
   box-sizing: border-box;
 }
 
-.filled-bar {
-  background: #feb24c;
-}
 </style>

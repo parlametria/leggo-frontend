@@ -2,17 +2,19 @@
   <div>
     <div
       class="graphic"
-      id="grafico2"
-      v-if="verificaSeMostraPressao">
+      id="grafico2">
       <div ref="anchor" />
-      <p class="graphic-info">Pressão dos últimos 3 meses</p>
+      <div class="graphic-info">
+        <p v-if="verificaSeMostraPressao">Pressão dos últimos 3 meses</p>
+        <p v-else>Não há dados de pressão para esta proposição</p>
+      </div>
     </div>
-    <div v-else>Não há dados sobre pressão!</div>
   </div>
 </template>
 
 <script>
 import PressureGraphicModel from './PressureGraphicModel.js'
+import EmptyPressureGraphic from './EmptyPressureGraphic.js'
 import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
 
@@ -56,8 +58,16 @@ export default {
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
-          .change('filteredPressoes', vega.changeset().remove('filteredPressoes', d => true))
+          .change(
+            'filteredPressoes',
+            vega.changeset().remove('filteredPressoes', d => true)
+          )
           .insert('filteredPressoes', this.filteredPressoes)
+          .run()
+      } else {
+        let model = new EmptyPressureGraphic(this.tamanhoGrafico)
+        await // eslint-disable-next-line
+        (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           .run()
       }
     }
