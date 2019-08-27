@@ -2,82 +2,82 @@
   <div class="status-bar">
     <span class="small-text-field">
       {{ geraFrase() }}
-      <router-link
-        v-if="hasComposicao"
-        :to="linkComissao"
-        class="link">{{ siglaComissaoFront }}</router-link>
-      <span v-else >{{ siglaComissaoFront }}</span>
+      <router-link v-if="hasComposicao" :to="linkComissao" class="link">{{ siglaComissaoFront }}</router-link>
+      <span v-else>{{ siglaComissaoFront }}</span>
     </span>
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
-  name: 'ComposicaoLink',
+  name: "ComposicaoLink",
   props: {
     siglaComissaoLink: {
       type: String,
-      default: ''
+      default: ""
     },
     siglaComissaoFront: {
       type: String,
-      default: ''
+      default: ""
     },
     casaComissao: {
       type: String,
-      default: ''
+      default: ""
     },
     dataLocalAtual: {
       type: String,
-      default: ''
+      default: ""
     }
   },
-  data () {
+  data() {
     return {
       composicao: Object
-    }
+    };
   },
   methods: {
-    ...mapActions(['getComissao']),
-    geraFrase: function () {
-      return ['Plenário', 'PLEN'].includes(this.siglaComissaoFront)
-        ? 'Desde ' + this.dataLocalAtual + ' no'
-        : 'Desde ' + this.dataLocalAtual + ' na'
+    ...mapActions(["getComissao"]),
+    geraFrase: function() {
+      return ["Plenário", "PLEN"].includes(this.siglaComissaoFront)
+        ? "Desde " + this.dataLocalAtual + " no"
+        : "Desde " + this.dataLocalAtual + " na";
     }
   },
   computed: {
-    linkComissao () {
+    linkComissao() {
       return {
-        name: 'comissao',
+        name: "comissao",
         params: {
           casaComissao: this.casaComissao,
           siglaComissao: this.siglaComissaoLink
         }
-      }
+      };
     },
-    hasComposicao () {
-      return this.composicao === undefined ? 0 : this.composicao.length
+    hasComposicao() {
+      return this.composicao === undefined ? 0 : this.composicao.length;
     },
     ...mapState({
       orgao: state => state.comissoes.orgao
     })
   },
-  async mounted () {
+  async mounted() {
     try {
       await this.getComissao({
-
         params: { casa: this.casaComissao, sigla: this.siglaComissaoLink }
-      })
-      this.composicao = this.orgao[this.siglaComissaoLink]
+      });
+      this.composicao = this.orgao[this.siglaComissaoLink];
     } catch (exc) {
-      this.composicao = undefined
+      this.composicao = undefined;
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .link {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.status-bar {
+  padding-bottom: 5px;
 }
 </style>
