@@ -1,6 +1,10 @@
 <template>
   <div class="tagTemas">
-    <span class="tag">{{ temas }}</span>
+    <div
+      v-for="(tema, i) in temas"
+      :key="i">
+      <span class="tag">{{ tema }}</span>
+    </div>
   </div>
 </template>
 
@@ -9,8 +13,8 @@ export default {
   name: 'Temas',
   props: {
     temas: {
-      type: String,
-      default: ''
+      type: Array,
+      default () { return [] }
     }
   }
 }

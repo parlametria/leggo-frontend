@@ -3,23 +3,7 @@
     mode="vertical"
     :collapse="false"
     :collapse-transition="false">
-    <!-- <Login /> -->
-    <el-menu-item-group title="Filtros:">
-
-      <!-- Search -->
-      <el-menu-item index="2">
-        <i
-          class="el-icon-search"
-          @click="isCollapse = !isCollapse"/>
-        <template slot="title">
-          <el-input
-            @change="filtraNomeProposicao(nomeProposicaoFilter)"
-            id="el-input"
-            placeholder="Pesquisar Projeto"
-            v-model="nomeProposicaoFilter.nomeProposicao"
-            @keyup.enter="this.focus = false"/>
-        </template>
-      </el-menu-item>
+    <el-menu-item-group>
 
       <!-- Date -->
       <el-menu-item index="3">
@@ -30,6 +14,7 @@
             type="date"
             placeholder="Data de referência"
             format="dd/MM/yyyy"
+            :clearable="false"
             :picker-options="datePickerOptions"/>
         </template>
       </el-menu-item>
@@ -53,6 +38,17 @@
         </el-checkbox>
       </el-menu-item>
 
+      <!-- Finalizada -->
+      <el-menu-item
+        index="5"
+        class="no-padding">
+        <el-checkbox
+          v-model="showFinalizadas.status"
+          class="filterMenus">
+          {{ showFinalizadas.tipo }}
+        </el-checkbox>
+      </el-menu-item>
+
       <!-- Vários Filtros -->
       <el-submenu
         v-for="(filterName, i) of filter.filters"
@@ -60,7 +56,9 @@
         :index="filterName">
         <template slot="title">
           <i class="el-icon-edit-outline"/>
-          <span slot="title">{{ $t(filterName) }}</span>
+          <span
+            slot="title"
+            class="filter">{{ $t(filterName) }}</span>
         </template>
         <el-checkbox-group v-model="models[filterName]">
           <el-menu-item
@@ -82,7 +80,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import TemperatureSort from '@/components/menu/TemperatureSort'
 import Login from '@/components/menu/Login'
 import store from '@/stores/store'
@@ -104,7 +102,6 @@ export default {
   },
   data () {
     return {
-      isCollapse: true,
       windowWidth: 0,
       datePickerOptions: {
         disabledDate (time) {
@@ -121,7 +118,8 @@ export default {
       regimeFilter: state => state.filter.regimeFilter,
       casaFilter: state => state.filter.casaFilter,
       emPautaFilter: state => state.filter.emPautaFilter,
-      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter
+      nomeProposicaoFilter: state => state.filter.nomeProposicaoFilter,
+      showFinalizadas: state => state.filter.showFinalizadas
     }),
     ...mapGetters(['perFilterOptions']),
     dateRef: {
@@ -134,13 +132,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'filtraNomeProposicao'
-    ]),
-    ...mapActions(['updateDateRef']),
+    ...mapActions(['updateDateRef', 'setFilter']),
     handleChangeSelect (filterName, option) {
       this.models[filterName][option] = !this.models[filterName][option]
-      store.commit('setFilter', { filter: filterName, value: this.models[filterName] })
+      this.setFilter({ filter: filterName, value: this.models[filterName] })
     }
   }
 }
@@ -154,6 +149,10 @@ export default {
     text-align: center;
     font-weight: normal;
     margin-bottom: .5em;
+}
+
+.filter {
+  text-transform: capitalize;
 }
 
 .filterMenus {

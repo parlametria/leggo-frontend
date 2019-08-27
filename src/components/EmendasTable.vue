@@ -28,7 +28,7 @@
               v-if="key === 'titulo'"
               :href="entry['inteiro_teor']+'&disposition=inline'"
               target="_blank"
-            >{{ formataTitulo(entry[key]) }}</a>
+            >{{ entry[key] }}</a>
             <div
               v-else-if="key === 'autor'"
               :class="{clickable: entry[key].length > MAX_TEXT_LENGTH}"
@@ -153,10 +153,6 @@ export default {
     },
     verificaSeEmenda (dadosEmendas) {
       return !dadosEmendas['titulo'].includes('nan')
-    },
-    formataTitulo (titulo) {
-      let arrayTitulo = titulo.split(' ')
-      return arrayTitulo[0].concat(' ', parseInt(arrayTitulo[1]))
     },
     updatePageNumber (pageCount) {
       this.pageNumber = pageCount

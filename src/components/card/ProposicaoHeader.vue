@@ -6,9 +6,11 @@
         :key="i"
         :pauta="pauta"
         :date-ref="dateRef"/>
-      <text-tag :status="prop.lastEtapa.status" />
+      <text-tag
+        class="tag"
+        :etapas="prop.etapas" />
     </div>
-    <temas :temas="prop.tema"/>
+    <temas :temas="prop.temas"/>
     <div>
       <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
       <i
@@ -152,5 +154,9 @@ export default {
  .arrow-down {
   margin-top: 0.6rem;
   border-width: 2px 0px 0px 2px;
+}
+
+.tag {
+  font-size: 9pt;
 }
 </style>

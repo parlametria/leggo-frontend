@@ -1,7 +1,7 @@
 <template>
   <el-select
     v-model="temperatureOrder"
-    clearable
+    :clearable="false"
     placeholder="Ordenar por"
     size="large">
     <el-option

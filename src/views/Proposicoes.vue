@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <filter-button />
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
@@ -35,6 +36,7 @@
             <pagination-bar
               :size="Math.ceil(notEmPauta.length / quantityProp)"
               :limit="10"
+              :initial="pageNumber"
               @change="(number) => updatePageNumber(number)"
             />
           </div>
@@ -51,28 +53,29 @@ import UltimosEventos from '@/components/UltimosEventos'
 import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 import PaginationBar from '@/components/utils/PaginationBar'
+import FilterButton from '@/components/menu/FilterButton'
 
 export default {
   name: 'Proposicoes',
   components: {
     ProposicaoItem,
     UltimosEventos,
+    FilterButton,
     PaginationBar
   },
   data () {
     return {
       activeNames: [],
-      pageNumber: 0,
       quantityProp: 10
     }
   },
   methods: {
     ...mapActions(['listProposicoes']),
-    ...mapMutations(['setFilter']),
+    ...mapMutations(['setPageNumber']),
 
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].includes(prop[filter])
+        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].some(v => prop[filter].includes(v))
       )
     },
     checkPautaFilter (prop) {
@@ -81,9 +84,12 @@ export default {
 
       return (!this.filter.emPautaFilter.some(options => options.status) ? true : emPauta)
     },
+    checkStatusFilter (prop) {
+      return this.filter.showFinalizadas.status || prop.status === ''
+    },
     checkApelidoFilter (prop) {
       const apelido = removeAcentos(prop.sigla.toLowerCase() + prop.apelido.toLowerCase())
-      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.nomeProposicao.toLowerCase())
+      const filtro = removeAcentos(this.filter.nomeProposicaoFilter.toLowerCase())
       return apelido.match(filtro)
     },
     checkPropMatchesFilter (prop) {
@@ -111,7 +117,7 @@ export default {
       this.updateSticky(this.$refs.notEmPautaHeader, this.$refs.notEmPautaSession)
     },
     updatePageNumber (number) {
-      this.pageNumber = number
+      this.setPageNumber(number)
     }
   },
   computed: {
@@ -120,7 +126,8 @@ export default {
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
-          return this.checkPropMatchesFilter(prop.lastEtapa)
+          return this.checkPropMatchesFilter(prop.lastEtapa) &&
+          this.checkStatusFilter(prop)
         }).sort((a, b) => {
           let idA = a.lastEtapa.id
           let idB = b.lastEtapa.id
@@ -130,12 +137,13 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.temperaturas && this.temperaturas[idA] && this.temperaturas[idA][0] &&
-              this.temperaturas[idB] && this.temperaturas[idB][0]) {
+          if (this.temperaturas) {
+            let tempA = this.temperaturas[idA][0] === undefined ? 0 : this.temperaturas[idA][0].temperatura_recente
+            let tempB = this.temperaturas[idB][0] === undefined ? 0 : this.temperaturas[idB][0].temperatura_recente
             if (this.filter.temperatureOrder === 'desc') {
-              return this.temperaturas[idB][0].temperatura_recente - this.temperaturas[idA][0].temperatura_recente
+              return tempB - tempA
             } else {
-              return this.temperaturas[idA][0].temperatura_recente - this.temperaturas[idB][0].temperatura_recente
+              return tempA - tempB
             }
           } else {
             return 0
@@ -155,6 +163,7 @@ export default {
       pending: state => state.proposicoes.pending,
       error: state => state.proposicoes.error,
       filter: state => state.filter,
+      pageNumber: state => state.filter.pageNumber,
       temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas
     }),
@@ -210,8 +219,7 @@ export default {
   }
 }
 .content {
-  padding: 5vh 0.5rem 0 0.5rem;
-
+  padding: 0vh 0.5rem 0 0.5rem;
 }
 .sticky {
   display: block;
