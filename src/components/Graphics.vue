@@ -2,14 +2,14 @@
   <el-col class="graphics-container">
     <temperature-graphic :id="prop.id" />
     <temperature-info
-      :id="2192459"
+      :id="prop.lastEtapa.id_ext"
       :texto="'Temperatura dos últimos 3 meses'"
       :mostra-tooltip="true"
       class="graphic-info"
     />
     <pressure-graphic
-      :id="2192459"
-      :casa="'camara'" />
+      :id="prop.lastEtapa.id_ext"
+      :casa="prop.lastEtapa.casa" />
   </el-col>
 </template>
 

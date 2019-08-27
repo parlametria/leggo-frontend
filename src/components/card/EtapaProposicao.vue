@@ -44,16 +44,13 @@
 </template>
 
 <script>
-import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
 import PautasInfo from './expanded/PautasInfo'
 import TemperatureBar from './collapsed/TemperatureBar'
-import TemperatureInfo from './expanded/temperature/TemperatureInfo'
 import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
 import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
-import PressureGraphic from './expanded/pressao/PressureGraphic'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -81,16 +78,13 @@ export default {
     }
   },
   components: {
-    TemperatureGraphic,
     PautasInfo,
     TemperatureBar,
-    TemperatureInfo,
     EventosInfo,
     EmendasInfo,
     AuthorName,
     ComposicaoLink,
-    TabAtoresGraphics,
-    PressureGraphic
+    TabAtoresGraphics
   },
   methods: {
     hasNumber (myString) {
