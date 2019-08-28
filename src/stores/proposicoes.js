@@ -4,6 +4,7 @@ import filterStore from './filter'
 import temps from './temperaturas'
 import pautas from './pautas'
 import axios from './axios'
+import store from './store'
 import retornaProposicaoComStatusGeral from '../utils'
 
 const proposicoes = new Vapi({
@@ -44,6 +45,9 @@ const proposicoes = new Vapi({
   onSuccess: (state, { data }) => {
     const dataProp = data[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
+    const { id, temperaturaHistorico, temperaturaCoeficiente } = dataProp.lastEtapa
+    store.commit('setTemperatura', { id, temperatura: temperaturaHistorico })
+    store.commit('setCoeficiente', { id, coeficiente: temperaturaCoeficiente })
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id === dataProp.id ? { ...dataProp, detailed: true } : e
