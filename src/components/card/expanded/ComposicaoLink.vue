@@ -80,4 +80,8 @@ export default {
 .link {
     text-decoration: underline;
 }
+
+.status-bar {
+      padding-bottom: 5px;
+}
 </style>
