@@ -57,9 +57,8 @@ export default {
         let model = new PressureGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
-          // eslint-disable-next-line
           .change(
-            'filteredPressoes',
+            'filteredPressoes', // eslint-disable-next-line
             vega.changeset().remove('filteredPressoes', d => true)
           )
           .insert('filteredPressoes', this.filteredPressoes)
