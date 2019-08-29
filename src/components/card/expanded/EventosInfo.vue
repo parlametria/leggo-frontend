@@ -1,11 +1,10 @@
 <template>
-  <el-collapse
-    v-if="formattedEventos.length"
-    v-model="activeNames">
-    <el-collapse-item name="1">
-      <template slot="title">
-        <span class="title">Últimos Eventos</span>
-      </template>
+  <div>
+    <div
+      v-if="formattedEventos.length">
+      <header>
+        <h5>Últimos Eventos</h5>
+      </header>
       <table class="eventos-tram">
         <div
           v-for="(eventos, key) in groupEventos"
@@ -36,8 +35,8 @@
           </td>
         </div>
       </table>
-    </el-collapse-item>
-  </el-collapse>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -172,9 +171,6 @@ export default {
 @import "@/base.scss";
 .el-collapse {
   margin-top: 1rem;
-}
-.title {
-  font-size: 0.97rem;
 }
 .eventos-tram {
   font-size: 10pt;

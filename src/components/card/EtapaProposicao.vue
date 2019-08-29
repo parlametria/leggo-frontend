@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
+    <h5> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h5>
     <div v-if="isLastEtapa">
       <composicao-link
         :data-local-atual="dataLocalAtual"
@@ -10,12 +10,13 @@
       />
       <el-row>
         <el-col :span="12">
-          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
           <author-name
+            class="small-margin-top"
             :author="etapa.autores"
             :casa="casa" />
+          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
+          <p class="medium-text-field small-margin-top">{{ etapa.relator_nome }}</p>
           <p class="small-text-field small-margin-top">Relator(a)</p>
-          <p class="medium-text-field">{{ etapa.relator_nome }}</p>
         </el-col>
         <el-col class="graphics-container">
           <temperature-graphic :id="etapa.id" />
@@ -206,7 +207,10 @@ export default {
 .temperaturas-container {
   padding-top: 15px;
 }
+
 .graphics-container {
-  padding-top: 15px;
+
+.small-margin-top {
+  padding-top: 5px;
 }
 </style>
