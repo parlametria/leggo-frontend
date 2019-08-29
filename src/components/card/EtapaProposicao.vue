@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
+    <h5> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h5>
     <div v-if="isLastEtapa">
       <composicao-link
         :data-local-atual="dataLocalAtual"
@@ -10,12 +10,13 @@
       />
       <el-row>
         <el-col :span="12">
-          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
           <author-name
+            class="small-margin-top"
             :author="etapa.autores"
             :casa="casa" />
+          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
+          <p class="medium-text-field small-margin-top">{{ etapa.relator_nome }}</p>
           <p class="small-text-field small-margin-top">Relator(a)</p>
-          <p class="medium-text-field">{{ etapa.relator_nome }}</p>
         </el-col>
         <el-col
           :span="12"
@@ -36,7 +37,7 @@
     <tab-atores-graphics
       :id="etapa.id"
       :casa="etapa.casa"
-      :sigla="etapa.sigla"/>
+      :sigla="etapa.sigla" />
     <h5>Análise das Emendas</h5>
     <emendas-info
       :id="etapa.id_ext"
@@ -115,7 +116,7 @@ export default {
       return this.etapa.emPauta
     },
     isLastEtapa () {
-      return (this.etapa.id === this.idLastEtapa)
+      return this.etapa.id === this.idLastEtapa
     },
     dataLocalAtual () {
       const data = this.etapa.resumo_tramitacao.slice(-1)[0].data
@@ -200,5 +201,8 @@ export default {
 }
 .temperaturas-container {
   padding-top: 15px;
+}
+.small-margin-top {
+  padding-top: 5px;
 }
 </style>

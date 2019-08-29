@@ -3,22 +3,7 @@
     mode="vertical"
     :collapse="false"
     :collapse-transition="false">
-    <!-- <Login /> -->
-    <el-menu-item-group title="Filtros:">
-
-      <!-- Search -->
-      <el-menu-item index="2">
-        <i
-          class="el-icon-search"
-          @click="isCollapse = !isCollapse"/>
-        <template slot="title">
-          <el-input
-            id="el-input"
-            placeholder="Pesquisar Projeto"
-            v-model="searchField"
-            @keyup.enter="this.focus = false"/>
-        </template>
-      </el-menu-item>
+    <el-menu-item-group>
 
       <!-- Date -->
       <el-menu-item index="3">
@@ -117,9 +102,7 @@ export default {
   },
   data () {
     return {
-      isCollapse: true,
       windowWidth: 0,
-      searchField: '',
       datePickerOptions: {
         disabledDate (time) {
           return time.getTime() > Date.now()
@@ -149,19 +132,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['updateDateRef', 'setFilter', 'filtraNomeProposicao']),
+    ...mapActions(['updateDateRef', 'setFilter']),
     handleChangeSelect (filterName, option) {
       this.models[filterName][option] = !this.models[filterName][option]
       this.setFilter({ filter: filterName, value: this.models[filterName] })
-    }
-  },
-  watch: {
-    searchField: {
-      immediate: true,
-      deep: true,
-      handler (newValue, oldValue) {
-        this.filtraNomeProposicao(newValue)
-      }
     }
   }
 }
