@@ -26,10 +26,18 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
+    font-size: 9pt;
 }
 .tag {
     margin-right: 10px;
     border-radius: 5%;
+}
+
+@media (min-width: 321px) {
+  .tagTemas {
+    font-size: 12pt;
+  }
+
 }
 
 </style>
