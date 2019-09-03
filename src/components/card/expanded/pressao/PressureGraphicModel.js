@@ -19,7 +19,7 @@ export default class PressureGraphicModel {
         fillOpacity: 0.5
       },
       transform: [
-        { 'calculate': 'datum.maximo_geral/100', 'as': 'maximo_geral' }],
+        { 'calculate': 'datum.maximo_geral > 0 ? datum.maximo_geral/100 : 0.001', 'as': 'maximo_geral' }],
 
       encoding: {
         x: {
