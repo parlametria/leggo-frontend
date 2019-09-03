@@ -112,7 +112,7 @@ export default {
   grid-row: 5/6;
   margin-top: -6px;
   .tag {
-    font-size: pt;
+    font-size: 9pt;
     user-select: none;
     color: #222;
     border-color: #222;

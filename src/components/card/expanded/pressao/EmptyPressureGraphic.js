@@ -21,7 +21,7 @@ export default class EmptyPressureGraphicModel {
       encoding: {
         x: {
           field: 'date',
-          type: 'quantitative',
+          type: 'ordinal',
           axis: {
             title: '',
             grid: false,
