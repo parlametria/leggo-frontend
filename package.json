@@ -12,7 +12,9 @@
     "test_all": "vue-cli-service lint && vue-cli-service test:e2e --headless",
     "cy:verify": "cypress verify",
     "docker_test": "export GUI=false; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test",
-    "docker_test_gui": "export GUI=true; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test"
+    "docker_test_gui": "export GUI=true; docker-compose -f docker_extra/test.yml up --build --exit-code-from frontend_test",
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "husky": {
     "hooks": {
@@ -31,6 +33,9 @@
     "vue-nprogress": "^0.1.5",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
+    "axios": "^0.18.1",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1",
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
@@ -40,7 +45,6 @@
     "@vue/cli-service": "^3.7.0",
     "@vue/eslint-config-standard": "^3.0.5",
     "@vue/test-utils": "^1.0.0-beta.25",
-    "axios": "^0.18.1",
     "chai": "^4.2.0",
     "eslint-plugin-cypress": "^2.1.1",
     "husky": "^1.1.3",
