@@ -208,6 +208,7 @@ export default {
 .temperaturas-container {
   padding-top: 15px;
 }
+
 .small-margin-top {
   padding-top: 5px;
 }

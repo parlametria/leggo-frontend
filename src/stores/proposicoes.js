@@ -45,9 +45,10 @@ const proposicoes = new Vapi({
   onSuccess: (state, { data }) => {
     const dataProp = data[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
-    const { id, temperaturaHistorico, temperaturaCoeficiente } = dataProp.lastEtapa
-    store.commit('setTemperatura', { id, temperatura: temperaturaHistorico })
-    store.commit('setCoeficiente', { id, coeficiente: temperaturaCoeficiente })
+    const last = dataProp.lastEtapa
+    const { id } = last
+    store.commit('setTemperatura', { id, temperatura: last['temperatura_historico'] })
+    store.commit('setCoeficiente', { id, coeficiente: last['temperatura_coeficiente'] })
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id === dataProp.id ? { ...dataProp, detailed: true } : e
