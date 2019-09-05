@@ -2,12 +2,13 @@
   <div>
     <div v-if="prop === undefined">Falha no carregamento</div>
     <div v-else>
+      <temas
+        class="tema"
+        :temas="prop.temas" />
       <router-link :to="{ path: $store.state.route.from.fullPath }">
-        <span class="titulo">
-          {{ this.prop.apelido }}
-        </span>
+        <span class="titulo">{{ this.prop.apelido }}</span>
       </router-link>
-      <proposicao-expanded :prop="this.prop"/>
+      <proposicao-expanded :prop="this.prop" />
     </div>
   </div>
 </template>
@@ -15,6 +16,7 @@
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
 import ProposicaoExpanded from '@/components/card/ProposicaoExpanded'
+import Temas from '@/components/card/collapsed/Temas.vue'
 
 export default {
   name: 'Proposicoes',
@@ -26,7 +28,8 @@ export default {
   },
   components: {
     ProposicaoItem,
-    ProposicaoExpanded
+    ProposicaoExpanded,
+    Temas
   }
 }
 </script>
@@ -51,4 +54,7 @@ export default {
   display: inline-block;
 }
 
+.tema {
+  padding-left: 20px;
+}
 </style>

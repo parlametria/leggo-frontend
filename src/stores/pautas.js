@@ -16,4 +16,9 @@ const pautas = new Vapi({
   }
 }).getStore()
 
+pautas.mutations = {
+  setPauta (state, { id, pautaHistorico }) {
+    state.pautas[id] = pautaHistorico
+  }
+}
 export default pautas

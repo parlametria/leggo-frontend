@@ -9,32 +9,31 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'PressureBar',
   props: {
     ultima_pressao: {
       type: Number,
-      default: undefined
+      default: -1
     }
   },
   computed: {
-    pressao () {
-      if (this.ultima_pressao) {
-        return this.ultima_pressao
-      } else {
-        return 0
-      }
-    },
+    ...mapState({
+      listaPressoes: state => state.pressao.pressao
+    }),
+    ...mapGetters(['maxTemperatura']),
+
     barStyle () {
       return {
-        height: `${this.pressao > 3 ? this.pressao : 3}%`,
-        background: `${this.pressao === 0 ? '#dadada' : '#feb24c'}`
+        height: `${this.ultima_pressao > 3 ? this.ultima_pressao : 3}%`,
+        background: `${this.ultima_pressao === -1 ? '#dadada' : '#feb24c'}`
       }
     },
     pressureStyle () {
       return {
-        background: `${this.pressao === 0 ? '#dadada' : '#ffffff'}`
+        background: `${this.ultima_pressao === -1 ? '#dadada' : '#ffffff'}`
       }
     }
   }

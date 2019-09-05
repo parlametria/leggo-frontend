@@ -18,7 +18,7 @@
       </p>
     </div>
     <graphics :prop="prop"/>
-    <h4>Progresso da Tramitação</h4>
+    <h5>Progresso da Tramitação</h5>
     <fases-progress
       class="fases-progress"
       :class="{'visible': true}"
