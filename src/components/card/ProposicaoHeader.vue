@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="header-tags">
       <pauta-tag
         v-for="(pauta, i) in filteredPautas"
@@ -13,9 +14,6 @@
     <temas :temas="prop.temas"/>
     <div>
       <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
-      <i
-        class="arrow"
-        :class="{'arrow-down': clicked}"/>
     </div>
     <fases
       class="fases"
@@ -28,6 +26,9 @@
     <temperature-bar
       class="temperatura"
       :id="prop.lastEtapa.id"/>
+    <pressure-bar
+      class="pressao"
+      :ultima_pressao="prop.lastEtapa.ultima_pressao"/>
   </div>
 </template>
 
@@ -36,6 +37,7 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
 import TemperatureBar from './collapsed/TemperatureBar.vue'
+import PressureBar from './collapsed/PressureBar.vue'
 import PautaTag from './collapsed/PautaTag'
 import TextTag from './collapsed/TextTag'
 import Temas from './collapsed/Temas.vue'
@@ -59,6 +61,7 @@ export default {
     FormaApreciacao,
     Fases,
     TemperatureBar,
+    PressureBar,
     PautaTag,
     TextTag,
     Temas
@@ -86,16 +89,21 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: grid;
-  grid-template-columns: auto 41px;
+  grid-template-columns: auto 41px 41px;
   grid-template-rows: auto 16px auto 16px 16px;
   color: #222;
   border: 3px solid #dadada;
   padding: 1rem;
-  grid-column-gap: 3rem;
+  grid-column-gap: 1.5rem;
   grid-row-gap: .5rem;
 }
 .temperatura {
   grid-column: 2/3;
+  grid-row: 1/6;
+  border: 2px solid #dadada;
+}
+.pressao {
+  grid-column: 3/3;
   grid-row: 1/6;
   border: 2px solid #dadada;
 }
@@ -119,7 +127,7 @@ export default {
 }
 .prop-apelido {
   grid-column: 1/2;
-  grid-row: 3/4;
+  grid-row: 2/3;
   font-size: 14pt;
   margin: .2rem 0;
 }
@@ -135,6 +143,7 @@ export default {
     font-size: 17pt;
   }
 }
+
 .tema {
   grid-column: 1/2;
   grid-row: 2/3;

@@ -8,7 +8,7 @@ import eventosTramitacaoStore from './eventos_tramitacao'
 import emendasStore from './emendas'
 import comissoesStore from './comissoes'
 import authStore from './auth'
-import atoresStore from './atores'
+import pressaoStore from './pressao'
 
 Vue.use(Vuex)
 
@@ -22,6 +22,6 @@ export default new Vuex.Store({
     emendas: emendasStore,
     comissoes: comissoesStore,
     auth: authStore,
-    atores: atoresStore
+    pressao: pressaoStore
   }
 })

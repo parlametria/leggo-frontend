@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h4>
+    <h5> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h5>
     <div v-if="isLastEtapa">
       <composicao-link
         :data-local-atual="dataLocalAtual"
@@ -18,14 +18,17 @@
           <p class="medium-text-field small-margin-top">{{ etapa.relator_nome }}</p>
           <p class="small-text-field small-margin-top">Relator(a)</p>
         </el-col>
-        <el-col
-          :span="12"
-          :xs="24"
-          class="temperaturas-container">
+        <el-col class="graphics-container">
           <temperature-graphic :id="etapa.id" />
           <temperature-info
             :id="etapa.id_ext"
-            class="temperature-info" />
+            :texto="'Temperatura dos últimos 3 meses'"
+            :mostra-tooltip="true"
+            class="graphic-info"
+          />
+          <pressure-graphic
+            :id="etapa.id_ext"
+            :casa="etapa.casa" />
         </el-col>
       </el-row>
       <eventos-info
@@ -35,9 +38,10 @@
     </div>
     <h5>Atividade Parlamentar</h5>
     <tab-atores-graphics
-      :id="etapa.id"
       :casa="etapa.casa"
-      :sigla="etapa.sigla" />
+      :sigla="etapa.sigla"
+      :top_important_atores="etapa.top_important_atores"
+      :top_atores="etapa.top_atores"/>
     <h5>Análise das Emendas</h5>
     <emendas-info
       :id="etapa.id_ext"
@@ -63,6 +67,7 @@ import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
+import PressureGraphic from './expanded/pressao/PressureGraphic'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -98,7 +103,8 @@ export default {
     EmendasInfo,
     AuthorName,
     ComposicaoLink,
-    TabAtoresGraphics
+    TabAtoresGraphics,
+    PressureGraphic
   },
   methods: {
     hasNumber (myString) {
@@ -193,7 +199,7 @@ export default {
   font-size: 12pt;
   margin: 0;
 }
-.temperature-info {
+.graphic-info {
   font-size: 12px;
 }
 .temperature-area {
@@ -202,6 +208,7 @@ export default {
 .temperaturas-container {
   padding-top: 15px;
 }
+
 .small-margin-top {
   padding-top: 5px;
 }

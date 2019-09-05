@@ -18,14 +18,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import AtoresGraphic from './AtoresGraphic.vue'
 
 export default {
   name: 'TabAtoresGraphic',
   props: {
-    id: {
-      type: Number,
+    top_atores: {
+      type: Array,
+      default: undefined
+    },
+    top_important_atores: {
+      type: Array,
       default: undefined
     },
     casa: {
@@ -53,14 +56,14 @@ export default {
   },
   computed: {
     atores () {
-      if (this.listaAtores[this.id]) {
-        return this.listaAtores[this.id]
+      if (this.top_atores) {
+        return this.top_atores
       }
     },
     atoresLocaisImportantes () {
       let atoresLocais = {}
-      if (this.listaAtoresLocaisImportantes[this.id]) {
-        for (let ator of this.listaAtoresLocaisImportantes[this.id]) {
+      if (this.top_important_atores) {
+        for (let ator of this.top_important_atores) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local)) {
             atoresLocais[ator.sigla_local].push(ator)
           } else {
@@ -69,13 +72,8 @@ export default {
           }
         }
       }
-
       return atoresLocais
-    },
-    ...mapState({
-      listaAtores: state => state.atores.atores,
-      listaAtoresLocaisImportantes: state => state.atores.atoresLocaisImportantes
-    })
+    }
   }
 }
 </script>

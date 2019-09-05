@@ -2,18 +2,18 @@ import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import axios from './axios'
 
-const atores = new Vapi({
+const pressao = new Vapi({
   axios: axios,
   state: {
-    atores: {}
+    pressao: {}
   } }).get({
-  action: 'getAtores',
-  property: 'atores',
+  action: 'getPressao',
+  property: 'pressao',
   path: ({ casa, id }) =>
-    `atores/${casa}/${id}`,
+    `pressao/${casa}/${id}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    Vue.set(state.atores, params.id, data)
+    Vue.set(state.pressao, params.id, data)
   }
 }).getStore()
 
-export default atores
+export default pressao
