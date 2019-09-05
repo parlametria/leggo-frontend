@@ -38,9 +38,10 @@
     </div>
     <h5>Atividade Parlamentar</h5>
     <tab-atores-graphics
-      :id="etapa.id"
       :casa="etapa.casa"
-      :sigla="etapa.sigla" />
+      :sigla="etapa.sigla"
+      :top_important_atores="etapa.top_important_atores"
+      :top_atores="etapa.top_atores"/>
     <h5>Análise das Emendas</h5>
     <emendas-info
       :id="etapa.id_ext"
@@ -205,10 +206,6 @@ export default {
   margin-bottom: 20px;
 }
 .temperaturas-container {
-  padding-top: 15px;
-}
-
-.graphics-container {
   padding-top: 15px;
 }
 

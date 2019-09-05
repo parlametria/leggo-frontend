@@ -9,6 +9,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
+import moment from 'moment'
 
 export default {
   name: 'TemperatureGraphic',
@@ -26,7 +27,8 @@ export default {
     ...mapGetters(['maxTemperatura']),
     temperaturas () {
       if (this.listaTemperaturas[this.id]) {
-        return this.listaTemperaturas[this.id]
+        return this.listaTemperaturas[this.id].filter(e =>
+          moment(e.periodo).isAfter(moment(new Date()).subtract(3, 'months')))
       }
     },
     coeficiente () {
