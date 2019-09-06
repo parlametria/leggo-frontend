@@ -1,6 +1,6 @@
 <template>
   <el-col class="graphics-container">
-    <temperature-graphic :id="prop.id" />
+    <temperature-graphic :temp_historico="prop.lastEtapa.temperatura_historico" :id="prop.id" />
     <temperature-info
       :id="prop.lastEtapa.id_ext"
       :texto="'Temperatura dos últimos 3 meses'"
@@ -30,9 +30,7 @@ export default {
     TemperatureGraphic,
     TemperatureInfo,
     PressureGraphic
-  },
-  computed: {},
-  methods: {}
+  }
 }
 </script>
 

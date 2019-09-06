@@ -47,7 +47,6 @@
 
 <script>
 import PautasInfo from './expanded/PautasInfo'
-import TemperatureBar from './collapsed/TemperatureBar'
 import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
 import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
@@ -81,7 +80,6 @@ export default {
   },
   components: {
     PautasInfo,
-    TemperatureBar,
     EventosInfo,
     EmendasInfo,
     AuthorName,
@@ -181,13 +179,6 @@ export default {
   font-size: 12pt;
   margin: 0;
 }
-.temperature-area {
-  margin-bottom: 20px;
-}
-.temperaturas-container {
-  padding-top: 15px;
-}
-
 .small-margin-top {
   padding-top: 5px;
 }

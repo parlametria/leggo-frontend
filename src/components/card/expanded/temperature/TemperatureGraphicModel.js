@@ -1,5 +1,5 @@
 export default class TemperatureGraphicModel {
-  constructor (temperaturas, maxTemperatura, width) {
+  constructor (width) {
     this.vsSpec = {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',

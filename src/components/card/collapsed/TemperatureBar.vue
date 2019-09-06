@@ -19,19 +19,15 @@ export default {
   },
   computed: {
     ...mapState({
-      listaTemperaturas: state => state.temperaturas.temperaturas,
-      listaCoeficientes: state => state.temperaturas.coeficiente
+      listaTemperaturas: state => state.temperaturas.temperaturas
     }),
     ...mapGetters(['maxTemperatura']),
     temperatura () {
-      if (this.listaTemperaturas[this.id] && this.listaTemperaturas[this.id][0]) {
-        return this.listaTemperaturas[this.id][0].temperatura_recente
+      if (this.listaTemperaturas[this.id]) {
+        return this.listaTemperaturas[this.id]
       } else {
         return 0
       }
-    },
-    coeficiente () {
-      return this.listaCoeficientes[this.id] || 0
     },
     porcentagem () {
       return (this.temperatura * 100) / this.maxTemperatura
