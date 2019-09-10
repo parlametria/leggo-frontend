@@ -23,12 +23,17 @@
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
     </div>
-    <temperature-bar
+    <bar
       class="temperatura"
-      :id="prop.id"/>
-    <pressure-bar
+      :ultimo_valor="prop.lastEtapa.ultima_temperatura"
+      :cor="'#dc6060'"
+      :max_valor="maxTemperatura"
+    />
+    <bar
       class="pressao"
-      :ultima_pressao="prop.lastEtapa.ultima_pressao"/>
+      :ultimo_valor="prop.lastEtapa.ultima_pressao"
+      :cor="'#feb24c'"
+      :max_valor="100"/>
   </div>
 </template>
 
@@ -36,13 +41,12 @@
 import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import Fases from './collapsed/Fases.vue'
-import TemperatureBar from './collapsed/TemperatureBar.vue'
-import PressureBar from './collapsed/PressureBar.vue'
+import Bar from './collapsed/Bar.vue'
 import PautaTag from './collapsed/PautaTag'
 import TextTag from './collapsed/TextTag'
 import Temas from './collapsed/Temas.vue'
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'Proposicaoheader',
@@ -60,8 +64,7 @@ export default {
     RegimeTramitacao,
     FormaApreciacao,
     Fases,
-    TemperatureBar,
-    PressureBar,
+    Bar,
     PautaTag,
     TextTag,
     Temas
@@ -74,6 +77,7 @@ export default {
       dateRef: state => state.filter.dateRef,
       pautas: state => state.pautas.pautas
     }),
+    ...mapGetters(['maxTemperatura']),
     filteredPautas () {
       const id = this.prop.lastEtapa.id
       if (this.pautas && this.pautas[id] && this.pautas[id].length > 0) {

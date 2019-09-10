@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import TemperatureGraphic from './card/expanded/temperature/TemperatureGraphic'
-import TemperatureInfo from './card/expanded/temperature/TemperatureInfo'
-import PressureGraphic from './card/expanded/pressao/PressureGraphic'
+import TemperatureGraphic from './temperature/TemperatureGraphic'
+import TemperatureInfo from './temperature/TemperatureInfo'
+import PressureGraphic from './pressao/PressureGraphic'
 
 export default {
   name: 'Graphics',
