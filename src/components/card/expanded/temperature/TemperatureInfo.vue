@@ -61,7 +61,4 @@ export default {
       color: gray;
   }
 }
-.temperatura-tendencia {
-  font-weight: bold;
-}
 </style>

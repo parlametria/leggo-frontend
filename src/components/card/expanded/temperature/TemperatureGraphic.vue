@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
 import moment from 'moment'
 
@@ -17,22 +16,18 @@ export default {
     id: {
       type: Number,
       default: undefined
+    },
+    temp_historico: {
+      type: Array,
+      default () { return [] }
     }
   },
   computed: {
-    ...mapState({
-      listaTemperaturas: state => state.temperaturas.temperaturas,
-      listaCoeficientes: state => state.temperaturas.coeficiente
-    }),
-    ...mapGetters(['maxTemperatura']),
     temperaturas () {
-      if (this.listaTemperaturas[this.id]) {
-        return this.listaTemperaturas[this.id].filter(e =>
+      if (this.temp_historico) {
+        return this.temp_historico.filter(e =>
           moment(e.periodo).isAfter(moment(new Date()).subtract(3, 'months')))
       }
-    },
-    coeficiente () {
-      return this.listaCoeficientes[this.id] || 0
     },
     tamanhoGrafico () {
       return document.getElementById('grafico').offsetWidth
@@ -41,8 +36,7 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.temperaturas && this.temperaturas.length) {
-        let model = new TemperatureGraphicModel(
-          this.temperaturas, this.maxTemperatura, this.tamanhoGrafico)
+        let model = new TemperatureGraphicModel(this.tamanhoGrafico)
         await (
           // eslint-disable-next-line
           (await vegaEmbed(this.$refs.anchor, model.vsSpec))

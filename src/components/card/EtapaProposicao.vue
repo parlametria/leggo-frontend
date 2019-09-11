@@ -18,18 +18,6 @@
           <p class="medium-text-field small-margin-top">{{ etapa.relator_nome }}</p>
           <p class="small-text-field small-margin-top">Relator(a)</p>
         </el-col>
-        <el-col class="graphics-container">
-          <temperature-graphic :id="etapa.id" />
-          <temperature-info
-            :id="etapa.id_ext"
-            :texto="'Temperatura dos últimos 3 meses'"
-            :mostra-tooltip="true"
-            class="graphic-info"
-          />
-          <pressure-graphic
-            :id="etapa.id_ext"
-            :casa="etapa.casa" />
-        </el-col>
       </el-row>
       <eventos-info
         :id="etapa.id_ext"
@@ -58,16 +46,12 @@
 </template>
 
 <script>
-import TemperatureGraphic from './expanded/temperature/TemperatureGraphic'
 import PautasInfo from './expanded/PautasInfo'
-import TemperatureBar from './collapsed/TemperatureBar'
-import TemperatureInfo from './expanded/temperature/TemperatureInfo'
 import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
 import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
-import PressureGraphic from './expanded/pressao/PressureGraphic'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -95,16 +79,12 @@ export default {
     }
   },
   components: {
-    TemperatureGraphic,
     PautasInfo,
-    TemperatureBar,
-    TemperatureInfo,
     EventosInfo,
     EmendasInfo,
     AuthorName,
     ComposicaoLink,
-    TabAtoresGraphics,
-    PressureGraphic
+    TabAtoresGraphics
   },
   methods: {
     hasNumber (myString) {
@@ -199,16 +179,6 @@ export default {
   font-size: 12pt;
   margin: 0;
 }
-.graphic-info {
-  font-size: 12px;
-}
-.temperature-area {
-  margin-bottom: 20px;
-}
-.temperaturas-container {
-  padding-top: 15px;
-}
-
 .small-margin-top {
   padding-top: 5px;
 }

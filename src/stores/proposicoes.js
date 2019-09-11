@@ -30,7 +30,7 @@ const proposicoes = new Vapi({
       prop.status = retornaProposicaoComStatusGeral(prop)
       prop.lastEtapa = prop.etapas.slice(-1)[0]
       prop.detailed = false
-      temperaturas[prop.lastEtapa.id] = prop.lastEtapa.temperatura_historico
+      temperaturas[prop.id] = prop.lastEtapa.ultima_temperatura
       coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
