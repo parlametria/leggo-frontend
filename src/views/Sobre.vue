@@ -22,7 +22,7 @@
 
       <h2>Como é feito o cálculo da pressão:</h2>
       <p>
-        Para calcular a pressão de uma proposição, nós utilizamos a API do Google Trends e realizamos 3 passos que são:
+        Para o cálculo de pressão de uma proposição utilizamos a API do Google Trends e realizamos os seguintes passos:
       </p><p>
         1 - Pesquisar os termos mais populares relacionados a uma proposição (exemplo: para a Pec 06/19,
         os termos relacionados são reforma da previdência, nova previdência e previdência).
