@@ -17,6 +17,7 @@
         - {{ $t(etapa.casa) }}
       </p>
     </div>
+    <graphics :prop="prop"/>
     <h5>Progresso da Tramitação</h5>
     <fases-progress
       class="fases-progress"
@@ -41,6 +42,7 @@ import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FasesProgress from './expanded/FasesProgress'
 import EtapaProposicao from './EtapaProposicao'
 import TextTag from './collapsed/TextTag'
+import Graphics from './expanded/Graphics'
 import { mapState } from 'vuex'
 
 export default {
@@ -61,7 +63,8 @@ export default {
     FormaApreciacao,
     FasesProgress,
     EtapaProposicao,
-    TextTag
+    TextTag,
+    Graphics
   },
   methods: {
     hasNumber (myString) {

@@ -138,8 +138,8 @@ export default {
             return n
           }
           if (this.temperaturas) {
-            let tempA = this.temperaturas[idA][0] === undefined ? 0 : this.temperaturas[idA][0].temperatura_recente
-            let tempB = this.temperaturas[idB][0] === undefined ? 0 : this.temperaturas[idB][0].temperatura_recente
+            let tempA = this.temperaturas[a.id] === undefined ? 0 : this.temperaturas[a.id]
+            let tempB = this.temperaturas[b.id] === undefined ? 0 : this.temperaturas[b.id]
             if (this.filter.temperatureOrder === 'desc') {
               return tempB - tempA
             } else {
@@ -193,10 +193,6 @@ export default {
 .flex {
     display: flex;
     flex-wrap: wrap;
-}
-.logo {
-  max-width: 100%;
-  height: auto;
 }
 .session {
   position: relative;
