@@ -32,7 +32,7 @@
         esses termos quais são os mais pequisados.
       </p>
       <p>
-        3 - Então consideramos o máximo dessas porcentagens e mostramos no Leg.go.
+        3 - Por fim, é considerado o máximo dessas porcentagens para mostrar no Leg.go.
       </p>
     </div>
 
