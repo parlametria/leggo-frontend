@@ -5,9 +5,9 @@
       <temas
         class="tema"
         :temas="prop.temas" />
-      <router-link :to="{ path: $store.state.route.from.fullPath }">
+      <a @click="$router.go(-1)">
         <span class="titulo">{{ this.prop.apelido }}</span>
-      </router-link>
+      </a>
       <proposicao-expanded :prop="this.prop" />
     </div>
   </div>
@@ -37,6 +37,9 @@ export default {
 <style lang="scss" scoped>
 @import "@/base.scss";
 
+a {
+  cursor: pointer;
+}
 .titulo {
   color: #656565;
   font-size: 2rem;
@@ -45,10 +48,11 @@ export default {
 .titulo::before {
   height: 12px;
   width: 12px;
+
   border: solid #dc6060;
   border-width: 0px 3px 3px 0;
   margin-bottom: 4px;
-  margin-right: -5px;
+  margin-right: 5px;
   transform: rotate(130deg);
   content: "";
   display: inline-block;
