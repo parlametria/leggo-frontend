@@ -1,11 +1,11 @@
 <template>
   <div class="comissao">
-    <router-link :to="{ name: 'proposicoes' }">
+    <a @click="$router.go(-1)">
       <span class="titulo">
         Comissão
         <span class="sigla">{{ siglaComissao }} - {{ casaFormatada }}</span>
       </span>
-    </router-link>
+    </a>
     <composicao
       :casa-comissao="casaComissao"
       :sigla-comissao="siglaComissao"/>
@@ -37,6 +37,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+a {
+  cursor: pointer;
+}
 .comissao {
   display: flex;
   flex-direction: column;
