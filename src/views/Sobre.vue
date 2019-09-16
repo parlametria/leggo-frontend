@@ -28,7 +28,7 @@
         os termos relacionados são reforma da previdência, nova previdência e previdência).
       </p>
       <p>
-        2 - Verificar o quanto os usuários estão pesquisando sobre esses termos, o Google retorna em porcentagem entre
+        2 - Verificar o quanto os usuários estão pesquisando sobre esses termos e como resultado, é retornado a porcentagem entre
         esses termos quais são os mais pequisados.
       </p>
       <p>
