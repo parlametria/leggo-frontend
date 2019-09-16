@@ -29,7 +29,7 @@
       </p>
       <p>
         2 - Verificar o quanto os usuários estão pesquisando sobre esses termos e como resultado, é retornado a porcentagem entre
-        esses termos quais são os mais pequisados.
+        os termos.
       </p>
       <p>
         3 - Por fim, é considerado o máximo dessas porcentagens para mostrar no Leg.go.
