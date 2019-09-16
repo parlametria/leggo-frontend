@@ -80,10 +80,11 @@ export default {
   computed: {
     revChronSortedEtapas () {
       function dataApresCasa (a, b) {
-        if (a.data_apresentacao < b.data_apresentacao) return 1
+        if (a.sigla_tipo !== 'MPV') { if (a.data_apresentacao < b.data_apresentacao) return 1 }
         if (a.data_apresentacao > b.data_apresentacao) return -1
-        if (a.casa < b.casa) return -1
-        if (a.casa > b.casa) return 1
+        if (a.casa < b.casa) return 1
+        if (a.casa > b.casa) return -1
+
         return 0
       }
       return [...this.prop.etapas].sort(dataApresCasa)
