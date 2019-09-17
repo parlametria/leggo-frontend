@@ -35,7 +35,7 @@ export default {
       return {
         name: 'proposicao',
         params: {
-          id: this.prop.id
+          id_leggo: this.prop.id_leggo
         }
       }
     }

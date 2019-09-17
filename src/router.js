@@ -60,15 +60,15 @@ const router = new Router({
       }
     },
     {
-      path: '/proposicao/:id',
+      path: '/proposicao/:id_leggo',
       name: 'proposicao',
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
-        let prop = store.state.proposicoes.proposicoes.filter(e => e.id === parseInt(params.id))[0]
+        let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         if (!prop.detailed) {
-          await store.dispatch('detailProposicao', { params: { id: prop.id } })
-          prop = store.state.proposicoes.proposicoes.filter(e => e.id === parseInt(params.id))[0]
+          await store.dispatch('detailProposicao', { params: { id_leggo: prop.id_leggo } })
+          prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         }
         params.prop = prop
         next()

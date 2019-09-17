@@ -30,8 +30,8 @@ const proposicoes = new Vapi({
       prop.status = retornaProposicaoComStatusGeral(prop)
       prop.lastEtapa = prop.etapas.slice(-1)[0]
       prop.detailed = false
-      temperaturas[prop.id] = prop.lastEtapa.ultima_temperatura
-      coeficientes[prop.lastEtapa.id] = prop.lastEtapa.temperatura_coeficiente
+      temperaturas[prop.id_leggo] = prop.ultima_temperatura
+      coeficientes[prop.id_leggo] = prop.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
     Vue.set(temps.state, 'temperaturas', temperaturas)
@@ -40,18 +40,18 @@ const proposicoes = new Vapi({
   }
 }).get({
   action: 'detailProposicao',
-  path: ({ id }) =>
-    `proposicoes/${id}`,
+  path: ({ id_leggo }) =>
+    `proposicoes/${id_leggo}`,
   onSuccess: (state, { data }) => {
     const dataProp = data[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     const last = dataProp.lastEtapa
-    const { id } = last
-    store.commit('setTemperatura', { id, temperatura: last['temperatura_historico'] })
-    store.commit('setCoeficiente', { id, coeficiente: last['temperatura_coeficiente'] })
+    const { id_leggo } = last
+    store.commit('setTemperatura', { id_leggo, temperatura: last['temperatura_historico'] })
+    store.commit('setCoeficiente', { id_leggo, coeficiente: last['temperatura_coeficiente'] })
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
-      return e.id === dataProp.id ? { ...dataProp, detailed: true } : e
+      return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
     })
     state.proposicoes = props
   }
@@ -85,7 +85,7 @@ proposicoes.getters = {
     return options
   },
   getPropById (state) {
-    return (id) => state.proposicoes.find(prop => prop.id === id)
+    return (id_leggo) => state.proposicoes.find(prop => prop.id_leggo === id_leggo)
   }
 }
 
