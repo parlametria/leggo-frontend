@@ -40,15 +40,14 @@ const proposicoes = new Vapi({
   }
 }).get({
   action: 'detailProposicao',
-  path: ({ id_leggo }) =>
-    `proposicoes/${id_leggo}`,
+  path: ({ idLeggo }) =>
+    `proposicoes/${idLeggo}`,
   onSuccess: (state, { data }) => {
     const dataProp = data[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     const last = dataProp.lastEtapa
-    const { id_leggo } = last
-    store.commit('setTemperatura', { id_leggo, temperatura: last['temperatura_historico'] })
-    store.commit('setCoeficiente', { id_leggo, coeficiente: last['temperatura_coeficiente'] })
+    store.commit('setTemperatura', { id_leggo: last['id_leggo'], temperatura: last['temperatura_historico'] })
+    store.commit('setCoeficiente', { id_leggo: last['id_leggo'], coeficiente: last['temperatura_coeficiente'] })
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
@@ -85,7 +84,7 @@ proposicoes.getters = {
     return options
   },
   getPropById (state) {
-    return (id_leggo) => state.proposicoes.find(prop => prop.id_leggo === id_leggo)
+    return (idLeggo) => state.proposicoes.find(prop => prop.id_leggo === idLeggo)
   }
 }
 
