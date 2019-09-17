@@ -19,6 +19,21 @@
         Leg.go é uma parceria da Dado Capital com a Universidade Federal de Campina Grande
         e a Universidade Federal de Minas Gerais.
       </p>
+
+      <h2>Como é feito o cálculo da pressão:</h2>
+      <p>
+        Para o cálculo de pressão de uma proposição utilizamos a API do Google Trends e realizamos os seguintes passos:
+      </p><p>
+        1 - Pesquisar os termos mais populares relacionados a uma proposição (exemplo: para a Pec 06/19,
+        os termos relacionados são reforma da previdência, nova previdência e previdência).
+      </p>
+      <p>
+        2 - Verificar o quanto os usuários estão pesquisando sobre esses termos e como resultado, é retornado a porcentagem entre
+        os termos.
+      </p>
+      <p>
+        3 - Por fim, é considerado o máximo dessas porcentagens para mostrar no Leg.go.
+      </p>
     </div>
 
     <h2 class="center">Equipe:</h2>
