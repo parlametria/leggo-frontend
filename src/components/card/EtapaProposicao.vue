@@ -105,7 +105,6 @@ export default {
       return this.etapa.id === this.idLastEtapa
     },
     dataLocalAtual () {
-      console.log(this.etapa)
       const data = this.etapa.resumo_tramitacao.slice(-1)[0].data
       return moment(data).format('DD/MM/YYYY')
     },
