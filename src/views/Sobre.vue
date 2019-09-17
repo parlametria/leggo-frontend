@@ -20,8 +20,8 @@
         e a Universidade Federal de Minas Gerais.
       </p>
     </div>
+    <h2 class="center">Equipe:</h2>
     <div class="equipe">
-      <h2 class="center">Equipe:</h2>
       <div>
         <h3>Dado Capital</h3>
         <ul>
@@ -139,7 +139,12 @@ h3 {
 .equipe {
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   flex-wrap: wrap;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 }
 @media screen and (max-width: 1270px) {
   .equipe {
