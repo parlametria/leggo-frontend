@@ -17,7 +17,9 @@
             :show-texto-explicacao="showTextoExplicacao"
           />
         </el-tab-pane>
-        <el-tab-pane label="Mudanças Mais Sutis">
+        <el-tab-pane
+          v-if="verificaSeMostraEmendasSutis"
+          label="Mudanças Mais Sutis">
           <emendas-tab-content
             :emendas="getSemelhantes"
             :categoria="'pontuais'"
@@ -141,9 +143,7 @@ export default {
     verificaSeMostraEmendas () {
       return (
         this.propEmendas &&
-        this.propEmendas.length &&
-        this.orderedEmendas[0] &&
-        this.orderedEmendas[0].distancia !== -1
+        this.propEmendas.length
       )
     },
     getAnalisadas () {
@@ -166,6 +166,9 @@ export default {
       return (
         this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
       )
+    },
+    verificaSeMostraEmendasSutis () {
+      return this.orderedEmendas.length > 0
     },
     showTextoExplicacao () {
       return this.propEmendas.length !== this.getAnalisadas
