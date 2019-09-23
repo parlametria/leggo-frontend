@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(etapa.casa) }}</h5>
+    <h5> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(casa) }}</h5>
     <div v-if="isLastEtapa">
       <composicao-link
         :data-local-atual="dataLocalAtual"
@@ -13,7 +13,7 @@
           <author-name
             class="small-margin-top"
             :author="etapa.autores"
-            :casa="casa" />
+            :casa="casaAutores" />
           <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
           <p class="medium-text-field small-margin-top">{{ etapa.relator_nome }}</p>
           <p class="small-text-field small-margin-top">Relator(a)</p>
@@ -76,6 +76,10 @@ export default {
       default: function () {
         return moment()
       }
+    },
+    casa: {
+      type: String,
+      default: ''
     }
   },
   components: {
@@ -146,7 +150,7 @@ export default {
       const siglaLocalAtual = locais[locais.length - 1].sigla_local
       return siglaLocalAtual
     },
-    casa () {
+    casaAutores () {
       let autores = this.etapa.autores
       let casaOrigem = this.etapa.casa_origem
       let casa = ''
