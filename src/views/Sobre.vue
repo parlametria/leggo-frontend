@@ -19,10 +19,23 @@
         Leg.go é uma parceria da Dado Capital com a Universidade Federal de Campina Grande
         e a Universidade Federal de Minas Gerais.
       </p>
+
+      <h2>Como é feito o cálculo da pressão:</h2>
+      <p>
+        Para o cálculo de pressão de uma proposição utilizamos a API do Google Trends e realizamos os seguintes passos:
+      </p><p>
+        1 - Pesquisar os termos mais populares relacionados a uma proposição (exemplo: para a Pec 06/19,
+        os termos relacionados são reforma da previdência, nova previdência e previdência).
+      </p>
+      <p>
+        2 - Verificar o quanto os usuários estão pesquisando sobre esses termos e como resultado, é retornado a porcentagem entre
+        os termos.
+      </p>
+      <p>
+        3 - Por fim, é considerado o máximo dessas porcentagens para mostrar no Leg.go.
+      </p>
     </div>
-
     <h2 class="center">Equipe:</h2>
-
     <div class="equipe">
       <div>
         <h3>Dado Capital</h3>
@@ -70,40 +83,35 @@
         </ul>
       </div>
     </div>
-
-    <h2 class="center">Relatórios</h2>
-    <ul class="contribua">
-      <li>
-        <a
-          href="http://rpubs.com/tarcisob/balanco-2019-temperatura-leggo"
-          target="_blank">Balanço Temperatura 2019</a>
-      </li>
-      <li>
-        <a
-          href="http://rpubs.com/MatheusHALeal/leggo-progresso-2"
-          target="_blank">Balanço Progresso 2019</a>
-      </li>
-    </ul>
-
-    <h2 class="center">Contribua</h2>
-    <ul class="contribua">
-      <li>
-        <a
-          href="https://github.com/analytics-ufcg/leggoR"
-          target="_blank">Pacote R</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/analytics-ufcg/leggo-frontend"
-          target="_blank">Leg.go Frontend</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/analytics-ufcg/leggo-backend"
-          target="_blank">Leg.go Backend</a>
-      </li>
-    </ul>
-
+    <div class="grid">
+      <div class="relatorios">
+        <h2>
+          <a
+            href="https://analytics-ufcg.github.io/leggo-frontend/"
+            target="_blank">Relatórios</a>
+        </h2>
+      </div>
+      <div class="contribua">
+        <h2 class="center">Contribua</h2>
+        <ul>
+          <li>
+            <a
+              href="https://github.com/analytics-ufcg/leggoR"
+              target="_blank">Pacote R</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/analytics-ufcg/leggo-frontend"
+              target="_blank">Leg.go Frontend</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/analytics-ufcg/leggo-backend"
+              target="_blank">Leg.go Backend</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -119,6 +127,22 @@
   list-style: none;
   padding: 0;
   text-align: center;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}
+.relatorios {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+.grid {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "contribua relatorios";
 }
 h2 {
   font-family: "Rajdhani", sans-serif;
@@ -130,7 +154,12 @@ h3 {
 .equipe {
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   flex-wrap: wrap;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 }
 @media screen and (max-width: 1270px) {
   .equipe {

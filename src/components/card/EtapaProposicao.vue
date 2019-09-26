@@ -102,6 +102,9 @@ export default {
       return this.etapa.emPauta
     },
     isLastEtapa () {
+      if (this.etapa.sigla_tipo === 'MPV') {
+        return this.etapa.id !== this.idLastEtapa
+      }
       return this.etapa.id === this.idLastEtapa
     },
     dataLocalAtual () {
