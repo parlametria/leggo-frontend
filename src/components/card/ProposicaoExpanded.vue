@@ -25,6 +25,12 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
+    <div title="Advocacy Box">
+      <a
+        :href="prop.advocacy_link"
+        target="_blank"
+        class="el-icon-takeaway-box"/>
+    </div>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
@@ -98,6 +104,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
 .sigla {
   font-size: 14px;
 }
@@ -121,5 +128,9 @@ export default {
 .tag {
   padding-bottom: 5px;
   font-size: 11pt;
+}
+.el-icon-takeaway-box {
+  color: $--color-primary;
+  font-size: 2rem;
 }
 </style>

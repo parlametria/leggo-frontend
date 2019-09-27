@@ -168,6 +168,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
 .small-text-field {
   font-size: 10pt;
   color: gray;
@@ -184,5 +185,8 @@ export default {
 }
 .small-margin-top {
   padding-top: 5px;
+}
+.btn {
+  background-color: transparent;
 }
 </style>
