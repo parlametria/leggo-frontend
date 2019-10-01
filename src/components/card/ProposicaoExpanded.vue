@@ -25,12 +25,6 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
-    <div title="Advocacy Box">
-      <a
-        :href="prop.advocacy_link"
-        target="_blank"
-        class="el-icon-takeaway-box"/>
-    </div>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
@@ -38,6 +32,13 @@
         :etapa="etapa"
         :id-last-etapa="prop.lastEtapa.id"
         :date="dateRef"/>
+    </div>
+    <div>
+      <h5>Advocacy Box</h5>
+      <a
+        :href="prop.advocacy_link"
+        target="_blank"
+        class="el-icon-takeaway-box"/>
     </div>
   </div>
 </template>
