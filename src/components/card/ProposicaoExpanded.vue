@@ -5,17 +5,23 @@
     <text-tag
       class="tag"
       :etapas="prop.etapas" />
-    <div class="links">
-      <p
-        class="small-text-field"
-        v-for="(etapa,i) in prop.etapas"
-        :key="i">
-        <a
-          class="sigla"
-          :href="etapa.url"
-          target="_blank">{{ etapa.sigla }}</a>
-        - {{ $t(etapa.casa) }}
-      </p>
+    <div class="container">
+      <div class="portal">
+        <p
+          class="small-text-field"
+          v-for="(etapa,i) in prop.etapas"
+          :key="i">
+          <a
+            class="sigla"
+            :href="etapa.url"
+            target="_blank">{{ etapa.sigla }}</a>
+          - {{ $t(etapa.casa) }}
+        </p>
+      </div>
+      <a
+        :href="prop.advocacy_link"
+        target="_blank"
+        class="el-icon-takeaway-box advocacy-box"/>
     </div>
     <graphics :prop="prop"/>
     <h5>Progresso da Tramitação</h5>
@@ -32,13 +38,6 @@
         :etapa="etapa"
         :id-last-etapa="prop.lastEtapa.id"
         :date="dateRef"/>
-    </div>
-    <div>
-      <h5>Advocacy Box</h5>
-      <a
-        :href="prop.advocacy_link"
-        target="_blank"
-        class="el-icon-takeaway-box"/>
     </div>
   </div>
 </template>
@@ -115,7 +114,7 @@ export default {
 .small-text-field {
   font-size: 10pt;
   color: gray;
-  margin: 0;
+  margin: 0 10px 0 0;
 }
 .fases-progress {
   visibility: hidden;
@@ -135,8 +134,17 @@ export default {
   font-size: 2rem;
 }
 .container {
-  justify-content: space-evenly;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
+}
+.portal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.advocacy-box {
+  justify-content: center;
 }
 </style>
