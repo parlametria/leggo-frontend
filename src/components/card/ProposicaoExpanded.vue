@@ -83,9 +83,8 @@ export default {
           return 'Congresso'
         }
       }
-      
+
       return etapa.casa
-      
     }
   },
   computed: {
