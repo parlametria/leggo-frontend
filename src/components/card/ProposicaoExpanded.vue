@@ -81,10 +81,11 @@ export default {
       if (this.prop.etapas[0].sigla_tipo === 'MPV') {
         if (this.prop.etapas.length === 1 || (this.prop.lastEtapa.casa === 'senado' && etapa.casa === 'senado')) {
           return 'Congresso'
-        } else {
-          return etapa.casa
         }
       }
+      
+      return etapa.casa
+      
     }
   },
   computed: {
