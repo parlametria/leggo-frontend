@@ -134,4 +134,9 @@ export default {
   color: $--color-primary;
   font-size: 2rem;
 }
+.container {
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 </style>
