@@ -31,6 +31,7 @@
       <etapa-proposicao
         :etapa="etapa"
         :id-last-etapa="prop.lastEtapa.id"
+        :casa="getCasa(etapa)"
         :date="dateRef"/>
     </div>
   </div>
@@ -75,6 +76,15 @@ export default {
     },
     capitalizeFirstLetter (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    getCasa (etapa) {
+      if (this.prop.etapas[0].sigla_tipo === 'MPV') {
+        if (this.prop.etapas.length === 1 || (this.prop.lastEtapa.casa === 'senado' && etapa.casa === 'senado')) {
+          return 'Congresso'
+        }
+      }
+
+      return etapa.casa
     }
   },
   computed: {
