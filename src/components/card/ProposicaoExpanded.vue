@@ -21,7 +21,7 @@
       <a
         :href="prop.advocacy_link"
         target="_blank"
-        class="el-icon-takeaway-box advocacy-box"/>
+        class="advocacy-box bx bx-box"/>
     </div>
     <graphics :prop="prop"/>
     <h5>Progresso da Tramitação</h5>
@@ -105,6 +105,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/base.scss";
+@import url('https://unpkg.com/boxicons@2.0.3/css/boxicons.min.css');
 .sigla {
   font-size: 14px;
 }
@@ -114,7 +115,7 @@ export default {
 .small-text-field {
   font-size: 10pt;
   color: gray;
-  margin: 0 10px 0 0;
+  margin: 10px 10px 10px 0;
 }
 .fases-progress {
   visibility: hidden;
@@ -129,22 +130,22 @@ export default {
   padding-bottom: 5px;
   font-size: 11pt;
 }
-.el-icon-takeaway-box {
-  color: $--color-primary;
-  font-size: 2rem;
-}
 .container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
 }
 .portal {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 .advocacy-box {
   justify-content: center;
+  color: $--color-primary;
+  font-size: 2rem;
 }
 </style>
