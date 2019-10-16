@@ -8,7 +8,11 @@
       :to="{ name: 'ajuda' }">Ajuda</router-link>
     <router-link
       :class="{selected: checkPage('sobre')}"
+      :to="{ name: 'relatorios' }">Relatórios</router-link>
+    <router-link
+      :class="{selected: checkPage('sobre')}"
       :to="{ name: 'sobre' }">Sobre</router-link>
+
   </div>
 </template>
 

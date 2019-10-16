@@ -6,6 +6,7 @@ import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
+import Relatorios from '@/views/Relatorios'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
 
@@ -27,6 +28,11 @@ const router = new Router({
       path: '/ajuda',
       name: 'ajuda',
       component: Ajuda
+    },
+    {
+      path: '/relatorios',
+      name: 'relatorios',
+      component: Relatorios
     },
     {
       path: '/proposicoes',
