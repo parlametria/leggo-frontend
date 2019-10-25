@@ -7,6 +7,7 @@ import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
 import Relatorios from '@/views/Relatorios'
+import Semanarios from '@/views/Semanarios'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
 
@@ -33,6 +34,11 @@ const router = new Router({
       path: '/relatorios',
       name: 'relatorios',
       component: Relatorios
+    },
+    {
+      path: '/semanarios',
+      name: 'semanarios',
+      component: Semanarios
     },
     {
       path: '/proposicoes',
