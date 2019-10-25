@@ -1,14 +1,19 @@
 <template>
   <div>
     <div>
-      <input id="menu-hamburguer" type="checkbox" v-model="openMenu">
+      <input
+        id="menu-hamburguer"
+        type="checkbox"
+        v-model="openMenu">
       <label for="menu-hamburguer" >
-          <div class="menu" >
-              <span class="hamburguer"></span>
-          </div>
+        <div class="menu" >
+          <span class="hamburguer"/>
+        </div>
       </label>
     </div>
-    <div class="menubar" :class="{ menuexpanded: openMenu }" >
+    <div
+      class="menubar"
+      :class="{ menuexpanded: openMenu }" >
       <router-link
         :to="{ name: 'semanarios' }">Semanário</router-link>
       <router-link
@@ -25,7 +30,7 @@
 <script>
 export default {
   name: 'NavigationButtons',
-  data() {
+  data () {
     return {
       openMenu: false
     }
