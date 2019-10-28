@@ -1,6 +1,6 @@
 <template>
   <div>
-    Relatorios
+    Relatórios
   </div>
 </template>
 
