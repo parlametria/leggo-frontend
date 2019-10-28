@@ -1,6 +1,6 @@
 <template>
   <div>
-    Semanarios
+    Semanários
   </div>
 </template>
 
