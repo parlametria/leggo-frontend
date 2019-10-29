@@ -105,6 +105,11 @@ export default {
         .domain([1, 10])
         .range([this.height * 0.1, this.height * 0.8])
     },
+    // scaleNodeSize () {
+    //   let OldRange = (OldMax - OldMin)  
+    //   let NewRange = (NewMax - NewMin)  
+    //   let NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
+    // },
     svg () {
       return d3.select('#graph')
     },
@@ -131,7 +136,7 @@ export default {
         .call(this.drag)
       const { tooltip } = this
       vertex.append('circle')
-        .attr('fill', 'blue')
+        .attr('fill', d => d.bancada == 'governo' ? '#436f82' : '#ae4544')
         .attr('stroke-width', 1)
         .attr('stroke', 'white')
         .attr('r', d => Math.sqrt(d.node_size) * 0.25)
