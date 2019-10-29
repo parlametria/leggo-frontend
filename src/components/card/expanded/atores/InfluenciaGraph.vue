@@ -1,26 +1,30 @@
 <template>
-  <d>
+  <div id="container">
     <svg
       id='graph'
       v-if='nodes.length != 0'
       :viewBox='`0 0 300 150`'
     />
-    <!--tooltip :node="nodeActive" /-->
-  </d>
+  </div>
 </template>
 
 <script>
 /* eslint-disable */
-import * as d3 from 'd3'
+import Tooltip from './Tooltip';
+import * as d3 from 'd3';
+import * as config from './InfluenciaGraphConfig.js';
+
 export default {
   name: 'InfluenciaGraph',
+  components: {
+    Tooltip
+  },
   data () {
     return {
       width: 0,
       height: 0,
       nodes: [],
-      edges: [],
-      nodeActive: null
+      edges: []
     }
   },
   computed: {
@@ -58,10 +62,10 @@ export default {
         .enter()
         .append('line')
         .attr('stroke', '#AAA')
-        .attr('stroke-width', d => Math.sqrt(d.value))
+        .attr('stroke-width', d => 1)
     },
     maxNodeSize () {
-      let max = 0
+      let max = -Infinity
       this.nodes.forEach((node) => {
         if (max < node.node_size) {
           max = node.node_size
@@ -70,7 +74,7 @@ export default {
       return max
     },
     minNodeSize () {
-      let min = 0
+      let min = Infinity
       this.nodes.forEach((node) => {
         if (min > node.node_size) {
           min = node.node_size
@@ -128,13 +132,21 @@ export default {
       const { tooltip } = this
       vertex.append('circle')
         .attr('fill', 'blue')
-        .attr('stroke', 'grey')
-        .attr('stroke-width', 1.5)
+        .attr('stroke-width', 1)
+        .attr('stroke', 'white')
         .attr('r', d => Math.sqrt(d.node_size) * 0.25)
         .on('mouseover', d => {
-          this.nodeActive = d
+          this.group
+            .append('text')
+            .text(d.nome_eleitoral)
+            .attr('x', d.x + 1)
+            .attr('y', d.y + 1)
         })
-        .on('mouseout', () => this.nodeActive = null)
+        .on('mouseout', () => {
+          this.group
+            .selectAll('text')
+            .remove()
+        })
 
       return vertex
     }
@@ -179,7 +191,6 @@ export default {
           source: parseInt(edge.source, 10),
           target: parseInt(edge.target, 10)
         }))
-        console.log('as')
       this.simulation
         .nodes(this.nodes)
         .force('link')
