@@ -179,6 +179,7 @@ export default {
           source: parseInt(edge.source, 10),
           target: parseInt(edge.target, 10)
         }))
+        console.log('as')
       this.simulation
         .nodes(this.nodes)
         .force('link')
@@ -191,7 +192,7 @@ export default {
           node_size: parseInt(node.node_size, 10),
           x: 0,
           y: 0,
-          id: parseInt(node.id, 10)
+          id: parseInt(node.id_autor, 10)
         }))
     },
     ticked (link, node) {
@@ -224,10 +225,10 @@ export default {
     },
     async fetchData () {
       this.setNodes(
-        await d3.csv(require('@/mocks/nodes.csv'))
+        await d3.csv('https://raw.githubusercontent.com/analytics-ufcg/leggo-frontend/8f5413b3c004724441222da01c5029566a1cd7f2/src/mocks/nodes.csv')
       )
       this.setEdges(
-        await d3.csv(require('@/mocks/edges.csv'))
+        await d3.csv('https://raw.githubusercontent.com/analytics-ufcg/leggo-frontend/8f5413b3c004724441222da01c5029566a1cd7f2/src/mocks/edges.csv')
       )
       this.buildGraphic()
     }
