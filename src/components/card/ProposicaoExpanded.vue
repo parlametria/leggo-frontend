@@ -25,7 +25,7 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
-    <influencia-graph />
+    <influencia-graph :id_leggo = "prop.id_leggo"/>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
