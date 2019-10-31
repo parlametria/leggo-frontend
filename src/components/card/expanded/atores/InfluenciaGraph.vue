@@ -1,6 +1,9 @@
 <template>
   <div id="container">
-    <svg id="graph" v-if="nodes.length != 0" :viewBox="`0 0 300 150`" />
+    <svg
+      id="graph"
+      v-if="nodes.length != 0"
+      :viewBox="`0 0 300 150`" />
   </div>
 </template>
 
@@ -90,11 +93,12 @@ export default {
             .forceLink()
             .id(d => d.id)
             .links(this.edges)
-        )
-        .force("charge", d3.forceManyBody().strength(-8))
-        .force("collision", d3.forceCollide().radius(d => 10))
-        .force('x', d3.forceX(150).strength(0.15))
-        .force('y', d3.forceY(75).strength(0.15));
+            .distance(d => d.value * 2)
+         )
+        .force("charge", d3.forceManyBody().strength(-18))
+        .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepertion))
+        .force('x', d3.forceX(150).strength(0.1))
+        .force('y', d3.forceY(75).strength(0.1));
     },
     scaleColor() {
       return d3

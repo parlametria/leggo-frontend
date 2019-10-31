@@ -14,21 +14,21 @@ export default {
   props: {
     node: {
       type: Object,
-      default: null,
-    },
+      default: null
+    }
   },
   computed: {
-    isActive() {
-      return this.node !== null;
+    isActive () {
+      return this.node !== null
     },
-    classObj() {
+    classObj () {
       return {
         tooltip: true,
-        active: this.isActive,
-      };
-    },
-  },
-};
+        active: this.isActive
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
