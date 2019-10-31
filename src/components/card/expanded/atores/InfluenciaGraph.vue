@@ -7,12 +7,12 @@
 <script>
 /* eslint-disable */
 import * as d3 from "d3";
-import * as config from "./InfluenciaGraphConfig.js";
-import { mapState, mapActions } from "vuex";
+import axios from "@/stores/axios"
+import config from "./InfluenciaGraphConfig.js";
 
 export default {
   name: "InfluenciaGraph",
-  prop: {
+  props: {
     id_leggo: {
       type: Number,
       default: 0
@@ -27,10 +27,6 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      nodes: state => state.nodes.nodes,
-      edges: state => state.edges.edges
-    }),
     drag() {
       const { simulation } = this;
       function dragstarted(d) {
@@ -65,7 +61,7 @@ export default {
         .enter()
         .append("line")
         .attr("stroke", "#AAA")
-        .attr("stroke-width", d => 1);
+        .attr("stroke-width", d => this.scaleLinkSize(d.value));
     },
     maxNodeSize() {
       let max = -Infinity;
@@ -97,7 +93,8 @@ export default {
         )
         .force("charge", d3.forceManyBody().strength(-8))
         .force("collision", d3.forceCollide().radius(d => 10))
-        .force("center", d3.forceCenter(150, 75));
+        .force('x', d3.forceX(150).strength(0.15))
+        .force('y', d3.forceY(75).strength(0.15));
     },
     scaleColor() {
       return d3
@@ -117,11 +114,18 @@ export default {
         .domain([1, 10])
         .range([this.height * 0.1, this.height * 0.8]);
     },
-    // scaleNodeSize () {
-    //   let OldRange = (OldMax - OldMin)
-    //   let NewRange = (NewMax - NewMin)
-    //   let NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin
-    // },
+    scaleNodeSize () {
+      return d3
+        .scaleLinear()
+        .domain([this.minNodeSize, this.maxNodeSize])
+        .range([config.sizeMinNode, config.sizeMaxNode]);
+    },
+    scaleLinkSize () {
+      return d3
+        .scaleLinear()
+        .domain([this.minNodeSize, this.maxNodeSize])
+        .range([config.sizeMinLink, config.sizeMaxLink]);
+    },
     svg() {
       return d3.select("#graph");
     },
@@ -151,7 +155,7 @@ export default {
         .attr("fill", d => (d.bancada == "governo" ? "#436f82" : "#ae4544"))
         .attr("stroke-width", 1)
         .attr("stroke", "white")
-        .attr("r", d => Math.sqrt(d.node_size) * 0.25)
+        .attr("r", d => this.scaleNodeSize(d.node_size))
         .on("mouseover", d => {
           this.group
             .append("text")
@@ -173,7 +177,6 @@ export default {
     this.fetchData();
   },
   methods: {
-    ...mapActions(["getNodes", "getEdges"]),
     buildGraphic() {
       const { group, links, vertex, title } = this;
       this.simulation.on("tick", function(d) {
@@ -199,9 +202,8 @@ export default {
     color(area) {
       return d3.scaleOrdinal(d3.schemeSet3)(area);
     },
-    setEdges(edges) {
-      this.edges = edges
-        .filter(e => e.id_leggo === "1")
+    setEdges({ data }) {
+      this.edges = data
         .map(edge => ({
           ...edge,
           source: parseInt(edge.source, 10),
@@ -212,9 +214,8 @@ export default {
         .force("link")
         .links(this.edges);
     },
-    setNodes(nodes) {
-      this.nodes = nodes
-        .filter(e => e["id_leggo"] === "1")
+    setNodes({ data }) {
+      this.nodes = data
         .map(node => ({
           ...node,
           node_size: parseInt(node.node_size, 10),
@@ -252,18 +253,11 @@ export default {
         });
     },
     async fetchData() {
-      try {
-        await this.getNodes({
-          params: { id: this.id_leggo}
-        });
-      } catch (exc) {
-        this.composicao = undefined;
-      }
       this.setNodes(
-        await d3.json(nodes)
+        await axios.get(`/nodes/${this.id_leggo}`)
       );
       this.setEdges(
-        await d3.json(edges)
+        await axios.get(`/edges/${this.id_leggo}`)
       );
       this.buildGraphic();
     }
