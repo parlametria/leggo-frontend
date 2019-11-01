@@ -1,9 +1,9 @@
 const config = {
   sizeMinNode: 1,
-  sizeMaxNode: 6,
-  sizeMaxLink: 1,
-  sizeMinLink: 0.2,
-  nodeRepertion: 0.1
+  sizeMaxNode: 10,
+  sizeMaxLink: 2,
+  sizeMinLink: 0.1,
+  nodeRepertion: 1
 
 }
 export default config

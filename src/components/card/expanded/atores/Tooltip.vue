@@ -2,7 +2,8 @@
   <text
     v-if="isActive"
     :class="classObj"
-    :y="node.y" :x="node.x"
+    :y="node.y +5"
+    :x="node.x + 10"
   >{{ node.nome_eleitoral }}
   </text>
 </template>
@@ -37,12 +38,8 @@ export default {
   text-align: center;
   width: auto;
   height: auto;
-  padding: 5px 20px;
-  font: 12px sans-serif;
+  font-size: 6px;
   font-family: 'Ubuntu', sans-serif;
-  background: rgba(51,51,51,0.9);
-  border-radius: 8px;
-  z-index: 1000;
   visibility: hidden;
 }
 .active {

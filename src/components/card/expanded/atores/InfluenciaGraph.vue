@@ -4,7 +4,7 @@
       id="graph"
       v-if="nodes.length != 0"
       :viewBox="`0 0 300 150`">
-      <g class="everything"></g>
+      <g class="everything"/>
       <tooltip :node="nodeActive" />
     </svg>
 
@@ -124,8 +124,8 @@ export default {
          )
         .force("charge", d3.forceManyBody().strength(-18))
         .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepertion))
-        .force('x', d3.forceX(150).strength(0.1))
-        .force('y', d3.forceY(75).strength(0.1));
+        .force('x', d3.forceX(d => d.bancada === "governo"? 225: 100).strength(0.6))
+        .force('y', d3.forceY(75).strength(0.5));
     },
     scaleColor() {
       return d3
