@@ -7,6 +7,7 @@
       <g class="everything"/>
       <tooltip :node="nodeActive" />
     </svg>
+    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
 
   </div>
 </template>
