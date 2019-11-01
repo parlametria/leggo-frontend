@@ -1,6 +1,7 @@
 <template>
   <div id="container">
     <svg id="graph" v-if="nodes.length != 0" :viewBox="`0 0 300 150`" />
+    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
   </div>
 </template>
 
