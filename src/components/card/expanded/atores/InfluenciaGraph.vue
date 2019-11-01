@@ -1,7 +1,14 @@
 <template>
   <div id="container">
-    <svg id="graph" v-if="nodes.length != 0" :viewBox="`0 0 300 150`" />
+    <svg
+      id="graph"
+      v-if="nodes.length != 0"
+      :viewBox="`0 0 300 150`">
+      <g class="everything"></g>
+      <tooltip :node="nodeActive" />
+    </svg>
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
+
   </div>
 </template>
 
@@ -10,9 +17,13 @@
 import * as d3 from "d3";
 import axios from "@/stores/axios"
 import config from "./InfluenciaGraphConfig.js";
+import Tooltip from "./Tooltip";
 
 export default {
   name: "InfluenciaGraph",
+  components: {
+    Tooltip,
+  },
   props: {
     id_leggo: {
       type: Number,
@@ -24,7 +35,8 @@ export default {
       width: 0,
       height: 0,
       nodes: [],
-      edges: []
+      edges: [],
+      nodeActive: null
     };
   },
   computed: {
@@ -51,7 +63,7 @@ export default {
         .on("drag", dragged);
     },
     group() {
-      return this.svg.append("g").attr("class", "everything");
+      return this.svg.select(".everything");
     },
     links() {
       return this.group
@@ -82,6 +94,24 @@ export default {
       });
       return min;
     },
+    maxLinkValue() {
+      let max = -Infinity;
+      this.edges.forEach(edge => {
+        if (max < edge.value) {
+          max = edge.value;
+        }
+      });
+      return max;
+    },
+    minLinkValue() {
+      let min = Infinity;
+      this.edges.forEach(edge => {
+        if (min > edge.value) {
+          min = edge.value;
+        }
+      });
+      return min;
+    },
     simulation() {
       return d3
         .forceSimulation(this.nodes)
@@ -91,11 +121,12 @@ export default {
             .forceLink()
             .id(d => d.id)
             .links(this.edges)
-        )
-        .force("charge", d3.forceManyBody().strength(-8))
-        .force("collision", d3.forceCollide().radius(d => 10))
-        .force('x', d3.forceX(150).strength(0.15))
-        .force('y', d3.forceY(75).strength(0.15));
+            .distance(d => this.scaleNodeSize(Math.min(d.source.node_size, d.target.node_size))*10)
+         )
+        .force("charge", d3.forceManyBody().strength(-18))
+        .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepertion))
+        .force('x', d3.forceX(150).strength(0.1))
+        .force('y', d3.forceY(75).strength(0.1));
     },
     scaleColor() {
       return d3
@@ -124,7 +155,7 @@ export default {
     scaleLinkSize () {
       return d3
         .scaleLinear()
-        .domain([this.minNodeSize, this.maxNodeSize])
+        .domain([this.minLinkValue, this.maxLinkValue])
         .range([config.sizeMinLink, config.sizeMaxLink]);
     },
     svg() {
@@ -154,19 +185,14 @@ export default {
       vertex
         .append("circle")
         .attr("fill", d => (d.bancada == "governo" ? "#436f82" : "#ae4544"))
-        .attr("stroke-width", 1)
+        .attr("stroke-width", d => d.r * 0.1)
         .attr("stroke", "white")
-        .attr("r", d => this.scaleNodeSize(d.node_size))
+        .attr("r", d => d.r)
         .on("mouseover", d => {
-          this.group
-            .append("text")
-            .text(d.nome_eleitoral)
-            .attr("x", d.x + 1)
-            .attr("y", d.y + 1)
-            .attr("font-size", "8px");
+          this.nodeActive = d
         })
         .on("mouseout", () => {
-          this.group.selectAll("text").remove();
+          this.nodeActive = null
         });
 
       return vertex;
@@ -222,8 +248,16 @@ export default {
           node_size: parseInt(node.node_size, 10),
           x: 0,
           y: 0,
-          id: parseInt(node.id_autor, 10)
-        }));
+          id: parseInt(node.id_autor, 10),
+        }))
+      // Primeiro é gerado o node_size convertido para int
+      // de todos para conseguir calcular o raio do maior
+      // e do menor e só então gerar os raios de todos.
+      this.nodes = this.nodes.map(node => ({
+          ...node,
+          r: this.scaleNodeSize(node.node_size)
+        })
+      );
     },
     ticked(link, node) {
       link
