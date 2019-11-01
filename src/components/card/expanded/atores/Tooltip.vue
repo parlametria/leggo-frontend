@@ -38,7 +38,7 @@ export default {
   text-align: center;
   width: auto;
   height: auto;
-  font-size: 6px;
+  font-size: 10px;
   font-family: 'Ubuntu', sans-serif;
   visibility: hidden;
 }
