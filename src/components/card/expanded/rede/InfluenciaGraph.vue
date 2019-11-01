@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <select-filter @filterChange="(payload) => filter = payload"/>
     <svg
       id="graph"
       v-if="nodes.length != 0"
@@ -18,11 +19,13 @@ import * as d3 from "d3";
 import axios from "@/stores/axios"
 import config from "./InfluenciaGraphConfig.js";
 import Tooltip from "./Tooltip";
+import SelectFilter from "./SelectFilter";
 
 export default {
   name: "InfluenciaGraph",
   components: {
     Tooltip,
+    SelectFilter
   },
   props: {
     id_leggo: {
@@ -36,7 +39,8 @@ export default {
       height: 0,
       nodes: [],
       edges: [],
-      nodeActive: null
+      nodeActive: null,
+      filter: ""
     };
   },
   computed: {
