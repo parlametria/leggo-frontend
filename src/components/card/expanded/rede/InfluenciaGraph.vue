@@ -217,9 +217,6 @@ export default {
     getForceByLength(length) {
       return 1 - length / (length + 20);
     },
-    color(area) {
-      return d3.scaleOrdinal(d3.schemeSet3)(area);
-    },
     setEdges({ data }) {
       this.edges = data
         .map(edge => ({
