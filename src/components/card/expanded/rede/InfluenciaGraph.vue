@@ -6,7 +6,7 @@
       v-if="nodes.length != 0"
       :viewBox="`0 0 300 150`">
       <g class="everything"/>
-      <tooltip :node="nodeActive" />
+      <tooltip :node="activeNode" />
     </svg>
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
 
@@ -39,7 +39,7 @@ export default {
       height: 0,
       nodes: [],
       edges: [],
-      nodeActive: null,
+      activeNode: null,
       filter: ""
     };
   },
@@ -128,39 +128,26 @@ export default {
             .distance(d => this.scaleNodeSize(Math.min(d.source.node_size, d.target.node_size))*10)
          )
         .force("charge", d3.forceManyBody().strength(-18))
-        .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepertion))
+        .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepulsion))
         .force('x', d3.forceX(d => d.bancada === "governo"? 225: 100).strength(0.6))
         .force('y', d3.forceY(75).strength(0.5));
     },
     scaleColor() {
       return d3
         .scaleOrdinal()
-        .domain(this.areas)
         .range(d3.schemePastel1);
-    },
-    scaleX() {
-      return d3
-        .scaleLinear()
-        .domain([0, this.areas.filter(e => e.areas !== "").length - 1])
-        .range([this.width * 0.15, this.width * 1]);
-    },
-    scaleY() {
-      return d3
-        .scaleLinear()
-        .domain([1, 10])
-        .range([this.height * 0.1, this.height * 0.8]);
     },
     scaleNodeSize () {
       return d3
         .scaleLinear()
         .domain([this.minNodeSize, this.maxNodeSize])
-        .range([config.sizeMinNode, config.sizeMaxNode]);
+        .range([config.minNodeSize, config.maxNodeSize]);
     },
     scaleLinkSize () {
       return d3
         .scaleLinear()
         .domain([this.minLinkValue, this.maxLinkValue])
-        .range([config.sizeMinLink, config.sizeMaxLink]);
+        .range([config.minLinkSize, config.maxLinkSize]);
     },
     svg() {
       return d3.select("#graph");
@@ -193,10 +180,10 @@ export default {
         .attr("stroke", "white")
         .attr("r", d => d.r)
         .on("mouseover", d => {
-          this.nodeActive = d
+          this.activeNode = d
         })
         .on("mouseout", () => {
-          this.nodeActive = null
+          this.activeNode = null
         });
 
       return vertex;
