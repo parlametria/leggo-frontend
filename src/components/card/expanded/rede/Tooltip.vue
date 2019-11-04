@@ -2,8 +2,8 @@
   <text
     v-if="isActive"
     :class="classObj"
-    :y="node.y +5"
-    :x="node.x + 10"
+    :y="20"
+    :x="0"
   >{{ node.nome_eleitoral }}
   </text>
 </template>
@@ -41,6 +41,11 @@ export default {
   font-size: 10px;
   font-family: 'Ubuntu', sans-serif;
   visibility: hidden;
+}
+@media (min-width: 414px) {
+  .tooltip {
+    font-size: 6px;
+  }
 }
 .active {
   opacity: 1;

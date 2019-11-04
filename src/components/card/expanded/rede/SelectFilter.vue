@@ -20,8 +20,8 @@
           value: 'bancada',
           label: 'Bancada'
         }, {
-          value: 'governismo',
-          label: 'Governismo'
+          value: 'aderencia',
+          label: 'Aderência'
         }],
         value: 'bancada'
       }
