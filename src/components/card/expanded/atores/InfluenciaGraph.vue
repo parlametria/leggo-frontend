@@ -12,6 +12,7 @@
 import * as d3 from "d3";
 import axios from "@/stores/axios"
 import config from "./InfluenciaGraphConfig.js";
+import vaxios from "@/stores/voz_ativa_axios";
 
 export default {
   name: "InfluenciaGraph",
@@ -26,7 +27,8 @@ export default {
       width: 0,
       height: 0,
       nodes: [],
-      edges: []
+      edges: [],
+      aderencia: [],
     };
   },
   computed: {
@@ -228,6 +230,9 @@ export default {
           id: parseInt(node.id_autor, 10)
         }));
     },
+    setAderencia({ data }) {
+      this.aderencia = data
+    },
     ticked(link, node) {
       link
         .attr("x1", d => {
@@ -262,6 +267,9 @@ export default {
       );
       this.setEdges(
         await axios.get(`/edges/${this.id_leggo}`)
+      );
+      this.setAderencia(
+        await vaxios.get(`/api/aderencia/parlamentar`)
       );
       this.buildGraphic();
     }
