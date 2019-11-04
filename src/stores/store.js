@@ -9,8 +9,6 @@ import emendasStore from './emendas'
 import comissoesStore from './comissoes'
 import authStore from './auth'
 import pressaoStore from './pressao'
-import nodesStore from './nodes'
-import edgesStore from './edges'
 
 Vue.use(Vuex)
 
@@ -24,8 +22,6 @@ export default new Vuex.Store({
     emendas: emendasStore,
     comissoes: comissoesStore,
     auth: authStore,
-    pressao: pressaoStore,
-    nodes: nodesStore,
-    edges: edgesStore
+    pressao: pressaoStore
   }
 })
