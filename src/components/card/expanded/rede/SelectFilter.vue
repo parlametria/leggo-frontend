@@ -20,8 +20,8 @@ export default {
         value: 'bancada',
         label: 'Bancada'
       }, {
-        value: 'aderencia',
-        label: 'Aderência'
+        value: 'influencia',
+        label: 'Influência'
       }],
       value: 'bancada'
     }

@@ -1,10 +1,9 @@
 <template>
   <div id="container">
-    <select-filter @filterChange="(payload) => filter = payload"/>
+    <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
     <svg
       id="graph"
-      v-if="nodes.length != 0"
-      :viewBox="`0 0 300 150`">
+      v-if="nodes.length != 0">
       <g class="everything"/>
       <tooltip :node="activeNode" />
     </svg>
@@ -40,7 +39,7 @@ export default {
       width: 0,
       height: 0,
       nodes: [],
-      aderencia: [],
+      influencia: [],
       edges: [],
       activeNode: null,
       filter: ""
@@ -132,7 +131,7 @@ export default {
          )
         .force("charge", d3.forceManyBody().strength(-18))
         .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepulsion))
-        .force('x', d3.forceX(d => d.bancada === "governo"? 225: 100).strength(0.6))
+        .force('x', d3.forceX(d => d.bancada === "governo"? 200: 100).strength(0.6))
         .force('y', d3.forceY(75).strength(0.5));
     },
     scaleColor() {
@@ -178,9 +177,9 @@ export default {
         .call(this.drag);
       vertex
         .append("circle")
-        .attr("fill", d => (d.bancada == "governo" ? "#436f82" : "#ae4544"))
-        .attr("stroke-width", d => d.r * 0.1)
-        .attr("stroke", "white")
+        .attr("fill", d => this.color(d))
+        .attr("stroke-width", d => 0.1)
+        .attr("stroke", "purple")
         .attr("r", d => d.r)
         .on("mouseover", d => {
           this.activeNode = d
@@ -200,6 +199,29 @@ export default {
   methods: {
     buildGraphic() {
       const { group, links, vertex, title } = this;
+              const width = 300
+              const height = 150
+              const padding_right = window.innerWidth <= 414 ? 50 : 30
+              const font_size = window.innerWidth <= 414 ? 10 : 6
+
+        const vis_box =  d3.select("#graph")
+                              .attr("viewBox", [0, 0, width, height])
+
+        vis_box.append("text")
+              .style("fill", "gray")
+              .text("Governo")
+              .attr("font-family", "sans-serif")
+              .attr("font-size", font_size)
+              .attr("x", width - padding_right)
+              .attr("y", height - 10)
+
+        vis_box.append("text")
+              .style("fill", "gray")
+              .text("Oposição")
+              .attr("font-family", "sans-serif")
+              .attr("font-size", font_size)
+              .attr("y", height - 10)    
+
       this.simulation.on("tick", function(d) {
         // position links
         links
@@ -220,9 +242,17 @@ export default {
     getForceByLength(length) {
       return 1 - length / (length + 20);
     },
-    color(area) {
-      return d3.scaleOrdinal(d3.schemeSet3)(area);
-    },
+    color(data) {
+      if (data.influencia === undefined) {
+        data.influencia = 0
+      }
+      const { influencia } = data
+      const scaleAux = d3.scaleLinear()
+                  .domain([d3.min(this.influencia, d => d.indice_influencia_parlamentar), 
+                          d3.max(this.influencia, d => d.indice_influencia_parlamentar)])
+                  .range([0.3, 1])
+      return d3.interpolatePurples(scaleAux(influencia))
+    },  
     setEdges({ data }) {
       this.edges = data
         .map(edge => ({
@@ -253,8 +283,15 @@ export default {
         })
       );
     },
-    setAderencia({ data }) {
-      this.aderencia = data
+    setInfluencia({ data }) {
+      this.influencia = data
+      this.nodes.forEach(node => {
+        this.influencia.forEach(parlamentar => {
+          if (parlamentar.id == node.id) {
+            node['influencia'] = parlamentar.indice_influencia_parlamentar
+          } 
+        })
+      })
     },
     ticked(link, node) {
       link
@@ -291,7 +328,7 @@ export default {
       this.setEdges(
         await axios.get(`/edges/${this.id_leggo}`)
       );
-      this.setAderencia(
+      this.setInfluencia(
         await vaxios.post(`/api/aderencia/parlamentar`, {})
       );
       this.buildGraphic();
