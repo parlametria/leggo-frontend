@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <h5>Rede de Influência (Coautorias)</h5>
     <svg
       id="graph"
       v-if="nodes.length != 0"
