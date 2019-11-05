@@ -1,6 +1,6 @@
 const config = {
-  minNodeSize: 1,
-  maxNodeSize: 10,
+  minNodeSize: 2,
+  maxNodeSize: 11,
   maxLinkSize: 2,
   minLinkSize: 0.1,
   nodeRepulsion: 1
