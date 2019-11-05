@@ -277,10 +277,10 @@ export default {
     },
     async fetchData() {
       this.setNodes(
-        await axios.get(`/nodes/${this.id_leggo}`)
+        await axios.get(`/node/${this.id_leggo}`)
       );
       this.setEdges(
-        await axios.get(`/edges/${this.id_leggo}`)
+        await axios.get(`/edge/${this.id_leggo}`)
       );
       this.buildGraphic();
     }
