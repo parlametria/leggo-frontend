@@ -25,11 +25,11 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
-    <influencia-graph :id_leggo = "prop.id_leggo"/>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
       <etapa-proposicao
+        :id_leggo="prop.id_leggo"
         :etapa="etapa"
         :id-last-etapa="prop.lastEtapa.id"
         :casa="getCasa(etapa)"
@@ -43,7 +43,6 @@ import RegimeTramitacao from './collapsed/RegimeTramitacao.vue'
 import FormaApreciacao from './collapsed/FormaApreciacao.vue'
 import FasesProgress from './expanded/FasesProgress'
 import EtapaProposicao from './EtapaProposicao'
-import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
 import TextTag from './collapsed/TextTag'
 import Graphics from './expanded/Graphics'
 import { mapState } from 'vuex'
@@ -67,8 +66,7 @@ export default {
     FasesProgress,
     EtapaProposicao,
     TextTag,
-    Graphics,
-    InfluenciaGraph
+    Graphics
   },
   methods: {
     hasNumber (myString) {
