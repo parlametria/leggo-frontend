@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h5> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(casa) }}</h5>
+    <br>
+    <h3> Etapa {{ isLastEtapa? 'Mais Recente' : 'Anterior' }}: {{ etapa.sigla }} - {{ capitalizeFirstLetter(casa) }}</h3>
+    <br>
     <div v-if="isLastEtapa">
       <composicao-link
         :data-local-atual="dataLocalAtual"
@@ -19,18 +21,21 @@
           <p class="small-text-field small-margin-top">Relator(a)</p>
         </el-col>
       </el-row>
+      <h4>Últimos Eventos</h4>
       <eventos-info
         :id="etapa.id_ext"
         :casa="etapa.casa"
         :date="date" />
+      <h4>Rede de Influência - Coautorias</h4>
+      <influencia-graph :id_leggo = "id_leggo"/>
     </div>
-    <h5>Atividade Parlamentar</h5>
+    <h4>Atividade Parlamentar</h4>
     <tab-atores-graphics
       :casa="etapa.casa"
       :sigla="etapa.sigla"
       :top_important_atores="etapa.top_important_atores"
       :top_atores="etapa.top_atores"/>
-    <h5>Análise das Emendas</h5>
+    <h4>Análise das Emendas</h4>
     <emendas-info
       :id="etapa.id_ext"
       :casa="etapa.casa"
@@ -52,6 +57,7 @@ import AuthorName from './expanded/AuthorName'
 import EventosInfo from './expanded/EventosInfo'
 import EmendasInfo from './expanded/EmendasInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
+import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -63,6 +69,10 @@ export default {
     }
   },
   props: {
+    id_leggo: {
+      type: Number,
+      default: -1
+    },
     etapa: {
       type: Object,
       default: undefined
@@ -88,7 +98,8 @@ export default {
     EmendasInfo,
     AuthorName,
     ComposicaoLink,
-    TabAtoresGraphics
+    TabAtoresGraphics,
+    InfluenciaGraph
   },
   methods: {
     hasNumber (myString) {

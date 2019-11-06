@@ -29,6 +29,7 @@
       v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
       <etapa-proposicao
+        :id_leggo="prop.id_leggo"
         :etapa="etapa"
         :id-last-etapa="prop.lastEtapa.id"
         :casa="getCasa(etapa)"
