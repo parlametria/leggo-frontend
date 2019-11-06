@@ -1,6 +1,7 @@
 <template>
   <div id="container">
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
+    <h5>Rede de Influência (Coautorias)</h5>
     <svg
       id="graph"
       v-if="nodes.length != 0">
@@ -323,10 +324,10 @@ export default {
     },
     async fetchData() {
       this.setNodes(
-        await axios.get(`/nodes/${this.id_leggo}`)
+        await axios.get(`/node/${this.id_leggo}`)
       );
       this.setEdges(
-        await axios.get(`/edges/${this.id_leggo}`)
+        await axios.get(`/edge/${this.id_leggo}`)
       );
       this.setInfluencia(
         await vaxios.post(`/api/aderencia/parlamentar`, {})
