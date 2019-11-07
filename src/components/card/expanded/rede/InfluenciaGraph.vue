@@ -1,9 +1,12 @@
 <template>
   <div id="container">
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
-    <svg id="graph" v-if="nodes.length != 0" vi>
-      <g class="everything"></g>
-      <tooltip :node="activeNode"></tooltip>
+    <svg
+      id="graph"
+      v-if="nodes.length != 0"
+      vi>
+      <g class="everything"/>
+      <tooltip :node="activeNode"/>
     </svg>
     <h5 v-else>Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
   </div>
@@ -294,6 +297,30 @@ export default {
          .attr("font-size", 3) 
          .attr("font-family", "sans-serif")
          .text("100%")
+
+      g.append("text")
+        .attr("class", "caption")
+        .attr("y", 19)
+        .attr("x", -15)
+        .attr("fill", "#000")
+        .attr("font-size", 3)
+        .attr("text-anchor", "start")
+        .attr("font-weight", "bold")
+        .attr("font-family", "sans-serif")
+        .text("Quantidade de documentos");
+
+      var radios = [1, 2, 3,4, 5]
+      var x0 = -18
+      var padding = 2
+
+      g.selectAll("circle")
+          .data(radios)
+          .enter()
+          .append("circle")
+          .attr("fill", "#D9DCEB")
+          .attr("cx", (r) => x0 = x0 + 2 * r + padding)
+          .attr("cy", 25)
+          .attr("r", r => r)
 
       this.simulation.on("tick", function(d) {
         // position links
