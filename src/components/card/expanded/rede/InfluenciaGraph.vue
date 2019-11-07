@@ -1,12 +1,10 @@
 <template>
   <div id="container">
+    <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
-    <svg
-      id="graph"
-      v-if="nodes.length != 0"
-      vi>
-      <g class="everything"/>
-      <tooltip :node="activeNode"/>
+    <svg id="graph" v-if="nodes.length != 0" vi>
+      <g class="everything"></g>
+      <tooltip :node="nodeHover"></tooltip>
     </svg>
     <h5 v-else>Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
   </div>
@@ -42,6 +40,7 @@ export default {
       influencia: [],
       edges: [],
       activeNode: null,
+      nodeHover: null,
       filter: "",
       padding_right: window.innerWidth <= 414 ? 50 : 30,
       font_size: window.innerWidth <= 414 ? 10 : 6
@@ -167,7 +166,7 @@ export default {
     svg() {
       return d3
         .select("#graph")
-        .attr("viewBox", `0 0 ${this.width} ${this.height}`);
+        .attr("viewBox", `0 0 ${this.width} ${this.height}`)
     },
     title() {
       return this.group
@@ -197,11 +196,34 @@ export default {
         .attr("stroke", "purple")
         .attr("r", d => d.r)
         .on("mouseover", d => {
-          this.activeNode = d;
+          this.nodeHover = d;
         })
-        .on("mouseout", () => {
-          this.activeNode = null;
-        });
+        .on("click", d => {
+          if ((this.activeNode == d)) {
+            this.activeNode = null;
+            vertex.selectAll("circle")
+              .attr("opacity", 1)
+              .attr("stroke-width", d => 0.1)
+              .attr("stroke-dasharray", "0,0")
+            d3.selectAll("line").attr("opacity", 1);
+          } else {
+            this.activeNode = d;
+            let idsNeighbors = [d.id].concat(
+              this.edges.filter(n => n.source.id == d.id).map(n => n.target.id)
+            );
+            idsNeighbors = idsNeighbors.concat(this.edges
+              .filter(n => n.target.id == d.id)
+              .map(n => n.source.id));
+            vertex.selectAll("circle")
+              .attr("opacity", n => (idsNeighbors.includes(n.id) ? 1 : 0.1))
+              .attr("stroke-dasharray", n => n.id == d.id ? "1,1": "0,0")
+              .attr("stroke-width", n => n.id == d.id ? 0.4: 0.1)
+            d3.selectAll("line").attr("opacity", n =>
+              n.source.id == d.id || n.target.id == d.id ? 1 : 0
+            );
+          }
+        })
+        .on("mouseout", ()=> this.nodeHover = null)
 
       return vertex;
     }
@@ -252,7 +274,7 @@ export default {
         .attr("x1", "0%")
         .attr("y1", "50%")
         .attr("x2", "100%")
-        .attr("y2", "50%")
+        .attr("y2", "50%");
 
       gradient
         .append("stop")
@@ -282,21 +304,21 @@ export default {
         .attr("text-anchor", "start")
         .attr("font-weight", "bold")
         .attr("font-family", "sans-serif")
-        .text("Índice de Influência Política");
+        .text("Influência Política");
 
       g.append("text")
-         .attr("x", -15)
-         .attr("y", 9)
-         .attr("font-size", 3) 
-         .attr("font-family", "sans-serif")
-         .text("0%")
+        .attr("x", -15)
+        .attr("y", 9)
+        .attr("font-size", 3)
+        .attr("font-family", "sans-serif")
+        .text("0%");
 
       g.append("text")
-         .attr("x", 20)
-         .attr("y", 9)
-         .attr("font-size", 3) 
-         .attr("font-family", "sans-serif")
-         .text("100%")
+        .attr("x", 20)
+        .attr("y", 9)
+        .attr("font-size", 3)
+        .attr("font-family", "sans-serif")
+        .text("100%");
 
       g.append("text")
         .attr("class", "caption")
@@ -309,18 +331,18 @@ export default {
         .attr("font-family", "sans-serif")
         .text("Quantidade de documentos");
 
-      var radios = [1, 2, 3, 4, 5]
-      var x0 = -18
-      var padding = 2
+      var radios = [1, 2, 3, 4, 5];
+      var x0 = -18;
+      var padding = 2;
 
       g.selectAll("circle")
-          .data(radios)
-          .enter()
-          .append("circle")
-          .attr("fill", "#D9DCEB")
-          .attr("cx", (r) => x0 = x0 + 2 * r + padding)
-          .attr("cy", 25)
-          .attr("r", r => r)
+        .data(radios)
+        .enter()
+        .append("circle")
+        .attr("fill", "#D9DCEB")
+        .attr("cx", r => (x0 = x0 + 2 * r + padding))
+        .attr("cy", 25)
+        .attr("r", r => r);
 
       this.simulation.on("tick", function(d) {
         // position links
