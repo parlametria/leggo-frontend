@@ -309,7 +309,7 @@ export default {
         .attr("font-family", "sans-serif")
         .text("Quantidade de documentos");
 
-      var radios = [1, 2, 3,4, 5]
+      var radios = [1, 2, 3, 4, 5]
       var x0 = -18
       var padding = 2
 
