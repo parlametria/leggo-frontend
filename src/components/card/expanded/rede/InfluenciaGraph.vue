@@ -18,6 +18,7 @@
 import * as d3 from "d3";
 import axios from "@/stores/axios";
 import config from "./InfluenciaGraphConfig.js";
+import _ from "lodash";
 import { vaxios } from "./mocks/vaxios";
 // "@/stores/voz_ativa_axios";
 import Tooltip from "./Tooltip";
@@ -38,7 +39,7 @@ export default {
   data() {
     return {
       width: 300,
-      height: 150,
+      height: 230,
       nodes: [],
       influencia: [],
       edges: [],
@@ -50,6 +51,13 @@ export default {
     };
   },
   computed: {
+    connectedNodes() {
+      return _.uniq(this.nodes.filter(n =>
+        this.edges.filter(edge =>
+           edge.source.id == n.id || edge.target.id == n.id
+          ).length != 0
+        ).map(n => n.id))
+    },
     drag() {
       const { simulation } = this;
       function dragstarted(d) {
@@ -86,24 +94,6 @@ export default {
         .attr("stroke", "#AAA")
         .attr("stroke-width", d => this.scaleLinkSize(d.value));
     },
-    maxNodeSize() {
-      let max = -Infinity;
-      this.nodes.forEach(node => {
-        if (max < node.node_size) {
-          max = node.node_size;
-        }
-      });
-      return max;
-    },
-    minNodeSize() {
-      let min = Infinity;
-      this.nodes.forEach(node => {
-        if (min > node.node_size) {
-          min = node.node_size;
-        }
-      });
-      return min;
-    },
     maxLinkValue() {
       let max = -Infinity;
       this.edges.forEach(edge => {
@@ -135,29 +125,37 @@ export default {
               d =>
                 this.scaleNodeSize(
                   Math.min(d.source.node_size, d.target.node_size)
-                ) * 10
+                ) *19 +10
             )
         )
-        .force("charge", d3.forceManyBody().strength(-18))
+        .force("charge", d3.forceManyBody().strength(-5))
         .force(
           "collision",
           d3
             .forceCollide()
-            .radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepulsion)
+            .radius(d => d.r * 1.1)
         )
         .force(
           "x",
-          d3.forceX(d => (d.bancada === "governo" ? 200 : 100)).strength(0.6)
+          d3.forceX(d => (d.bancada === "governo" ? 200 : 75)).strength(0.5)
         )
-        .force("y", d3.forceY(75).strength(0.5));
+        .force("y", d3.forceY(d => this.connectedNodes.includes(d.id) ? this.width * (2.7 /8): this.width *(4/8)).strength(0.40));
     },
     scaleColor() {
       return d3.scaleOrdinal().range(d3.schemePastel1);
     },
-    scaleNodeSize() {
-      return d3
+    scaleNodeSize(data) {
+      if (data.influencia === undefined) {
+        data.influencia = 0;
+      }
+      const { influencia } = data;
+
+       return d3
         .scaleLinear()
-        .domain([this.minNodeSize, this.maxNodeSize])
+        .domain([
+          d3.min(this.influencia, d => d.indice_influencia_parlamentar),
+          d3.max(this.influencia, d => d.indice_influencia_parlamentar)
+        ])
         .range([config.minNodeSize, config.maxNodeSize]);
     },
     scaleLinkSize() {
