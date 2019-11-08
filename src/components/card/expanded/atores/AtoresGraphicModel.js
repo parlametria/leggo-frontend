@@ -24,7 +24,7 @@ export default class AtoresGraphicModel {
           field: 'peso_total_documentos',
           type: 'quantitative',
           axis: {
-            title: 'Quantidade'
+            title: 'Peso dos documentos'
           }
         },
         y: {
