@@ -94,24 +94,6 @@ export default {
         .attr("stroke", "#AAA")
         .attr("stroke-width", d => this.scaleLinkSize(d.value));
     },
-    maxLinkValue() {
-      let max = -Infinity;
-      this.edges.forEach(edge => {
-        if (max < edge.value) {
-          max = edge.value;
-        }
-      });
-      return max;
-    },
-    minLinkValue() {
-      let min = Infinity;
-      this.edges.forEach(edge => {
-        if (min > edge.value) {
-          min = edge.value;
-        }
-      });
-      return min;
-    },
     simulation() {
       return d3
         .forceSimulation(this.nodes)
@@ -144,24 +126,22 @@ export default {
     scaleColor() {
       return d3.scaleOrdinal().range(d3.schemePastel1);
     },
-    scaleNodeSize(data) {
-      if (data.influencia === undefined) {
-        data.influencia = 0;
-      }
-      const { influencia } = data;
-
+    scaleNodeSize() {
        return d3
         .scaleLinear()
         .domain([
-          d3.min(this.influencia, d => d.indice_influencia_parlamentar),
-          d3.max(this.influencia, d => d.indice_influencia_parlamentar)
-        ])
+          d3.min(this.nodes, d => d.node_size), 
+          d3.max(this.nodes, d => d.node_size)
+          ])
         .range([config.minNodeSize, config.maxNodeSize]);
     },
     scaleLinkSize() {
       return d3
         .scaleLinear()
-        .domain([this.minLinkValue, this.maxLinkValue])
+        .domain([
+          d3.min(this.edges, d => d.value), 
+          d3.max(this.edges, d => d.value)
+          ])
         .range([config.minLinkSize, config.maxLinkSize]);
     },
     svg() {
