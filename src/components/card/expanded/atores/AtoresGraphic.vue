@@ -52,7 +52,7 @@ export default {
       const atores = {}
       this.atores.forEach(element => {
         if (atores[element.id_autor] === undefined) { atores[element.id_autor] = 0 }
-        atores[element.id_autor] += element.qtd_de_documentos
+        atores[element.id_autor] += element.peso_total_documentos
       })
       return atores
     },

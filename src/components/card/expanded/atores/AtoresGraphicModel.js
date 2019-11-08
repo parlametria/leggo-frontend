@@ -21,7 +21,7 @@ export default class AtoresGraphicModel {
       encoding: {
         x: {
           aggregate: 'sum',
-          field: 'qtd_de_documentos',
+          field: 'peso_total_documentos',
           type: 'quantitative',
           axis: {
             title: 'Quantidade'
@@ -64,7 +64,7 @@ export default class AtoresGraphicModel {
           }
         },
         tooltip: [
-          { 'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
+          { 'field': 'peso_total_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
           { 'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento' }
         ]
       },
