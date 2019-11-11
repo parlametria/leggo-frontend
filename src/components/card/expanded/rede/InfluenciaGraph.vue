@@ -126,15 +126,6 @@ export default {
     scaleColor() {
       return d3.scaleOrdinal().range(d3.schemePastel1);
     },
-    scaleNodeSize() {
-       return d3
-        .scaleLinear()
-        .domain([
-          d3.min(this.nodes, d => d.node_size), 
-          d3.max(this.nodes, d => d.node_size)
-          ])
-        .range([config.minNodeSize, config.maxNodeSize]);
-    },
     scaleLinkSize() {
       return d3
         .scaleLinear()
@@ -170,12 +161,14 @@ export default {
         .enter()
         .append("g")
         .call(this.drag);
+      
+      console.log(this.scaleNodeSize.scale);
       vertex
         .append("circle")
         .attr("fill", d => this.color(d))
         .attr("stroke-width", d => 0.1)
         .attr("stroke", "purple")
-        .attr("r", d => d.r)
+        .attr("r", d => this.scaleNodeSize(d.influencia))
         .on("mouseover", d => {
           this.nodeHover = d;
         })
@@ -359,6 +352,15 @@ export default {
         .range([0.3, 1]);
       return d3.interpolatePurples(scaleAux(influencia));
     },
+    scaleNodeSize(influencia) {
+       return d3
+        .scaleLinear()
+        .domain([
+          d3.min(this.nodes, d => d.influencia), 
+          d3.max(this.nodes, d => d.influencia)
+          ])
+        .range([config.minNodeSize, config.maxNodeSize])(influencia);
+    },
     setEdges({ data }) {
       this.edges = data.map(edge => ({
         ...edge,
@@ -378,17 +380,11 @@ export default {
         y: 0,
         id: parseInt(node.id_autor, 10)
       }));
-      // Primeiro é gerado o node_size convertido para int
-      // de todos para conseguir calcular o raio do maior
-      // e do menor e só então gerar os raios de todos.
-      this.nodes = this.nodes.map(node => ({
-        ...node,
-        r: this.scaleNodeSize(node.node_size)
-      }));
     },
     setInfluencia({ data }) {
       this.influencia = data;
       this.nodes.forEach(node => {
+        node["influencia"] = 0;
         this.influencia.forEach(parlamentar => {
           if (parlamentar.id == node.id) {
             node["influencia"] = parlamentar.indice_influencia_parlamentar;
