@@ -26,7 +26,8 @@ export default {
     temperaturas () {
       if (this.temp_historico) {
         return this.temp_historico.filter(e =>
-          moment(e.periodo).isAfter(moment(new Date()).subtract(3, 'months')))
+          moment(e.periodo).isAfter(moment(new Date()).subtract(3, 'months')) && moment(e.periodo).isBefore(moment(new Date()).subtract(1, 'week')) 
+        )
       }
     },
     tamanhoGrafico () {
