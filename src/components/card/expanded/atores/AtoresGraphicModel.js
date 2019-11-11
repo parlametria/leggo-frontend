@@ -5,7 +5,7 @@ export default class AtoresGraphicModel {
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
       title: {
-        text: 'Parlamentares mais Ativos',
+        text: 'Top 15 Parlamentares mais Ativos',
         fontSize: 15,
         offset: 5
       },
