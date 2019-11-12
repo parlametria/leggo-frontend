@@ -12,6 +12,16 @@ export default class AtoresGraphicModel {
       data: {
         name: 'ator'
       },
+      transform: [
+        {
+          aggregate: [{
+           op: "sum",
+           field: "peso_total_documentos",
+           as: "sum_peso_total_documentos"
+          }],
+          groupby: ["nome_partido_uf", "tipo_generico"]
+        }
+      ],
       mark: {
         type: 'bar',
         cornerRadius: 5,
@@ -20,8 +30,7 @@ export default class AtoresGraphicModel {
       },
       encoding: {
         x: {
-          aggregate: 'sum',
-          field: 'peso_total_documentos',
+          field: 'sum_peso_total_documentos',
           type: 'quantitative',
           axis: {
             title: 'Peso dos documentos'
@@ -64,7 +73,7 @@ export default class AtoresGraphicModel {
           }
         },
         tooltip: [
-          { 'field': 'peso_total_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
+          { 'field': 'sum_peso_total_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
           { 'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento' }
         ]
       },
