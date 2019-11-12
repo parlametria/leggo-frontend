@@ -13,15 +13,15 @@
     </div>
     <div
       class="menubar"
-      :class="{ menuexpanded: openMenu }" >
+      :class="{ menuexpanded: openMenu }">
       <router-link
-        :to="{ name: 'semanarios' }">Semanário</router-link>
+        :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link>
       <router-link
-        :to="{ name: 'ajuda' }">Ajuda</router-link>
+        :to="{ name: 'ajuda' }"><span @click="closeMenu">Ajuda</span></router-link>
       <router-link
-        :to="{ name: 'relatorios' }">Relatórios</router-link>
+        :to="{ name: 'relatorios' }"><span @click="closeMenu">Relatórios</span></router-link>
       <router-link
-        :to="{ name: 'sobre' }">Sobre</router-link>
+        :to="{ name: 'sobre' }"><span @click="closeMenu">Sobre</span></router-link>
     </div>
   </div>
 
@@ -38,6 +38,9 @@ export default {
   methods: {
     checkPage (page) {
       return this.$route.name === page
+    },
+    closeMenu () {
+      this.openMenu = false
     }
   }
 }
