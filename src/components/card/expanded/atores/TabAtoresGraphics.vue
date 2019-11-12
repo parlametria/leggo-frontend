@@ -14,6 +14,9 @@
         <atores-graphic :atores="atores_comissoes" />
       </el-tab-pane>
     </el-tabs>
+    <router-link :to="linkAtores">
+      <el-button class="btn" >Veja mais</el-button>
+    </router-link>
   </div>
 </template>
 
@@ -38,6 +41,14 @@ export default {
     sigla: {
       type: String,
       default: ''
+    },
+    id_ext: {
+      type: Number,
+      default: 0
+    },
+    apelido: {
+      type: String,
+      default: ''
     }
   },
   filters: {
@@ -60,6 +71,16 @@ export default {
         return this.top_atores
       }
     },
+    linkAtores () {
+      return {
+        name: 'atores',
+        params: {
+          casa: this.casa,
+          id_ext: this.id_ext,
+          apelido: this.apelido
+        }
+      }
+    },
     atoresLocaisImportantes () {
       let atoresLocais = {}
       if (this.top_important_atores) {
@@ -77,6 +98,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

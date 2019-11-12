@@ -5,6 +5,7 @@ import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
+import AtoresDetailed from '@/views/AtoresDetailed.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
@@ -73,6 +74,12 @@ const router = new Router({
         params.prop = prop
         next()
       }
+    },
+    {
+      path: '/atores/:casa/:id_ext',
+      name: 'atores',
+      component: AtoresDetailed,
+      props: true
     }
   ]
 })

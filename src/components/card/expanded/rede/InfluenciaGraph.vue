@@ -217,7 +217,7 @@ export default {
 
         vis_box.append("text")
               .style("fill", "gray")
-              .text("Oposição")
+              .text("Oposição *")
               .attr("font-family", "sans-serif")
               .attr("font-size", font_size)
               .attr("y", height - 10)    

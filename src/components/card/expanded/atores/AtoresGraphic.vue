@@ -86,7 +86,8 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico)
+        const num_atores_tops = this.filteredAutores.length < 15 ? this.filteredAutores.length : 15
+        let model = new AtoresGraphicModel(this.tamanhoGrafico, `Top ${num_atores_tops} parlamentares mais ativos`)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
@@ -111,6 +112,7 @@ export default {
 .graphic {
   text-align: left;
   overflow-x: auto;
+  margin-bottom: 15px;
 }
 .title {
   line-height: 15px;

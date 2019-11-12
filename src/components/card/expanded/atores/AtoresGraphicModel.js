@@ -1,11 +1,11 @@
 export default class AtoresGraphicModel {
-  constructor (width) {
+  constructor (width, title) {
     this.vsSpec = {
       description: 'Atores',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
       title: {
-        text: 'Top 15 Parlamentares mais Ativos',
+        text: title,
         fontSize: 15,
         offset: 5
       },
