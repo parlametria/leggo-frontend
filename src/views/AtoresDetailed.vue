@@ -2,67 +2,69 @@
   <div>
     <a @click="$router.go(-1)">
       <span class="titulo">
-        <span>{{apelido}}</span>
+        <span>{{ apelido }}</span>
       </span>
     </a>
-    <div class="graphic" id="grafico">
+    <div
+      class="graphic"
+      id="grafico">
       <div ref="anchor" />
     </div>
   </div>
 </template>
 
 <script>
-import AtoresGraphicModel from "../components/card/expanded/atores/AtoresGraphicModel.js";
-import axios from "@/stores/axios";
+import AtoresGraphicModel from '../components/card/expanded/atores/AtoresGraphicModel.js'
+import axios from '@/stores/axios'
 
 export default {
-  name: "AtoresDetailed",
+  name: 'AtoresDetailed',
   props: {
     casa: {
       type: String,
-      default: ""
+      default: ''
     },
     id_ext: {
       type: String,
-      default: ""
+      default: ''
     },
     apelido: {
-        type: String,
-        default: ""
+      type: String,
+      default: ''
     }
   },
-  data() {
+  data () {
     return {
       atores: []
-    };
+    }
   },
   computed: {
-    tamanhoGrafico() {
-      return document.getElementById("grafico").offsetWidth;
-    },
+    tamanhoGrafico () {
+      return document.getElementById('grafico').offsetWidth
+    }
   },
   methods: {
-    async fetchData() {
-      this.setAtores(await axios.get(`/atores/${this.casa}/${this.id_ext}`));
-      this.mountGraphic();
+    async fetchData () {
+      this.setAtores(await axios.get(`/atores/${this.casa}/${this.id_ext}`))
+      this.mountGraphic()
     },
-    setAtores({ data }) {
-      this.atores = data;
+    setAtores ({ data }) {
+      this.atores = data
     },
-    async mountGraphic() {
-      let model = new AtoresGraphicModel(this.tamanhoGrafico, 'Atividade parlamentar');
+    async mountGraphic () {
+      let model = new AtoresGraphicModel(this.tamanhoGrafico, 'Atividade parlamentar')
       await // eslint-disable-next-line
       (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
         // eslint-disable-next-line
         .change("ator", vega.changeset().remove("ator", d => true))
-        .insert("ator", this.atores)
-        .run();
+        .insert('ator', this.atores)
+        .run()
     }
   },
-  mounted() {
-    this.fetchData();
+  mounted () {
+    this.fetchData()
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

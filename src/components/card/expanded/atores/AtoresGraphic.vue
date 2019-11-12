@@ -86,8 +86,8 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        const num_atores_tops = this.filteredAutores.length < 15 ? this.filteredAutores.length : 15
-        let model = new AtoresGraphicModel(this.tamanhoGrafico, `Top ${num_atores_tops} parlamentares mais ativos`)
+        const numAtoresTops = this.filteredAutores.length < 15 ? this.filteredAutores.length : 15
+        let model = new AtoresGraphicModel(this.tamanhoGrafico, `Top ${numAtoresTops} parlamentares mais ativos`)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
