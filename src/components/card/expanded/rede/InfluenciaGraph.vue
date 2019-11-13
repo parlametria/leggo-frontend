@@ -104,33 +104,27 @@ export default {
             .id(d => d.id)
             .links(this.edges)
             .distance(
-              d =>
-                this.scaleNodeSize(
-                  Math.min(d.source.node_size, d.target.node_size)
-                ) *19 +10
-            )
+              d => 10 +this.scaleNodeSize(Math.max(d.source.influencia, d.target.influencia))*2 || 10)
         )
-        .force("charge", d3.forceManyBody().strength(-5))
+        .force("charge", d3.forceManyBody().strength(-25))
         .force(
           "collision",
           d3
             .forceCollide()
-            .radius(d => d.r * 1.1)
+            .radius(d => this.scaleNodeSize(d.influencia)*1.1 )
         )
         .force(
           "x",
-          d3.forceX(d => (d.bancada === "governo" ? 200 : 75)).strength(0.5)
+          d3.forceX(d => (d.bancada === "governo" ? 220 : 80)).strength(0.9)
         )
-        .force("y", d3.forceY(d => this.connectedNodes.includes(d.id) ? this.width * (2.7 /8): this.width *(4/8)).strength(0.40));
-    },
-    scaleColor() {
-      return d3.scaleOrdinal().range(d3.schemePastel1);
+        .force("y", d3.forceY(d => this.connectedNodes.includes(d.id) ? this.width * (2.7 /8): this.width *(4/8))
+              .strength(d => this.connectedNodes.includes(d.id) ? 0.8 : 1.5));
     },
     scaleLinkSize() {
       return d3
         .scaleLinear()
         .domain([
-          d3.min(this.edges, d => d.value), 
+          d3.min(this.edges, d => d.value),
           d3.max(this.edges, d => d.value)
           ])
         .range([config.minLinkSize, config.maxLinkSize]);
@@ -161,11 +155,9 @@ export default {
         .enter()
         .append("g")
         .call(this.drag);
-      
-      console.log(this.scaleNodeSize.scale);
       vertex
         .append("circle")
-        .attr("fill", d => this.color(d))
+        .attr("fill", d => this.scaleColor(d.node_size))
         .attr("stroke-width", d => 0.1)
         .attr("stroke", "purple")
         .attr("r", d => this.scaleNodeSize(d.influencia))
@@ -278,21 +270,7 @@ export default {
         .attr("text-anchor", "start")
         .attr("font-weight", "bold")
         .attr("font-family", "sans-serif")
-        .text("Influência Política");
-
-      g.append("text")
-        .attr("x", -15)
-        .attr("y", 9)
-        .attr("font-size", 3)
-        .attr("font-family", "sans-serif")
-        .text("0%");
-
-      g.append("text")
-        .attr("x", 20)
-        .attr("y", 9)
-        .attr("font-size", 3)
-        .attr("font-family", "sans-serif")
-        .text("100%");
+        .text("Contribuição do autor");
 
       g.append("text")
         .attr("class", "caption")
@@ -303,7 +281,7 @@ export default {
         .attr("text-anchor", "start")
         .attr("font-weight", "bold")
         .attr("font-family", "sans-serif")
-        .text("Quantidade de documentos");
+        .text("Influência Política");
 
       var radios = [1, 2, 3, 4, 5];
       var x0 = -18;
@@ -338,27 +316,22 @@ export default {
     getForceByLength(length) {
       return 1 - length / (length + 20);
     },
-    color(data) {
-      if (data.influencia === undefined) {
-        data.influencia = 0;
-      }
-      const { influencia } = data;
+    scaleColor(value) {
       const scaleAux = d3
         .scaleLinear()
+        .domain([
+          d3.min(this.nodes, d => d.node_size),
+          d3.max(this.nodes, d => d.node_size)
+        ])
+        .range([0.3, 1]);
+      return d3.interpolatePurples(scaleAux(value));
+    },
+    scaleNodeSize(influencia) {
+       return d3.scaleLinear()
         .domain([
           d3.min(this.influencia, d => d.indice_influencia_parlamentar),
           d3.max(this.influencia, d => d.indice_influencia_parlamentar)
         ])
-        .range([0.3, 1]);
-      return d3.interpolatePurples(scaleAux(influencia));
-    },
-    scaleNodeSize(influencia) {
-       return d3
-        .scaleLinear()
-        .domain([
-          d3.min(this.nodes, d => d.influencia), 
-          d3.max(this.nodes, d => d.influencia)
-          ])
         .range([config.minNodeSize, config.maxNodeSize])(influencia);
     },
     setEdges({ data }) {
