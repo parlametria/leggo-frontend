@@ -15,11 +15,11 @@ export default class AtoresGraphicModel {
       transform: [
         {
           aggregate: [{
-           op: "sum",
-           field: "peso_total_documentos",
-           as: "sum_peso_total_documentos"
+            op: 'sum',
+            field: 'peso_total_documentos',
+            as: 'sum_peso_total_documentos'
           }],
-          groupby: ["nome_partido_uf", "tipo_generico"]
+          groupby: ['nome_partido_uf', 'tipo_generico']
         }
       ],
       mark: {
