@@ -6,6 +6,7 @@
       v-if="nodes.length != 0">
       <g class="everything"/>
       <tooltip :node="activeNode" />
+      <autorias :node="activeNode" :id_leggo="id_leggo"/>
     </svg>
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
 
@@ -20,13 +21,15 @@ import config from "./InfluenciaGraphConfig.js";
 import { vaxios } from "./mocks/vaxios"
 // "@/stores/voz_ativa_axios";
 import Tooltip from "./Tooltip";
+import Autorias from "./Autorias"
 import SelectFilter from "./SelectFilter";
 
 export default {
   name: "InfluenciaGraph",
   components: {
     Tooltip,
-    SelectFilter
+    SelectFilter,
+    Autorias
   },
   props: {
     id_leggo: {
