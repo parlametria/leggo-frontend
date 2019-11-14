@@ -1,12 +1,21 @@
 <template>
-  <p>{{fetchData()}}</p>
+  <div v-if="isActive">
+    <leggo-table
+      :data="autorias"
+      :columns="['data', 'descricao_tipo_documento', 'nome_eleitoral']"
+      :is-emenda-table="false"/>
+  </div>
 </template>
 
 <script>
-import axios from "@/stores/axios"
+import axios from '@/stores/axios'
+import LeggoTable from '@/components/LeggoTable.vue'
 
 export default {
-  name: "Tooltip",
+  name: 'Autorias',
+  components: {
+    LeggoTable
+  },
   props: {
     node: {
       type: Object,
@@ -17,29 +26,30 @@ export default {
       default: 0
     }
   },
-  data() {
+  data () {
     return {
       autorias: []
-    };
+    }
   },
   computed: {
-    mounted() {
-      this.fetchData();
+    isActive () {
+      this.fetchData()
+      return this.node !== null
     }
   },
   methods: {
-    async fetchData() {
-      this.setAutorias(await axios.get(`/autorias/${this.id_leggo}`));
+    async fetchData () {
+      this.setAutorias(await axios.get(`/autorias/${this.id_leggo}`))
     },
-    setAutorias({ data }) {
-        console.log(this.node)
-        if (this.node !== null) {
-        this.autorias = data
-                            .filter(autoria => autoria.id_autor == this.node.id_autor)
-        }
+    setAutorias ({ data }) {
+      if (this.node !== null) {
+        this.autorias = data.filter(
+          autoria => autoria.id_autor === this.node.id_autor
+        )
+      }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
