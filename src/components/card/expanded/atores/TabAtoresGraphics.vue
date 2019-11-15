@@ -42,9 +42,9 @@ export default {
       type: String,
       default: ''
     },
-    id_ext: {
+    id_leggo: {
       type: Number,
-      default: 0
+      default: -1
     },
     apelido: {
       type: String,
@@ -75,8 +75,7 @@ export default {
       return {
         name: 'atores',
         params: {
-          casa: this.casa,
-          id_ext: this.id_ext,
+          id_leggo: this.id_leggo,
           apelido: this.apelido
         }
       }

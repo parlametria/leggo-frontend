@@ -35,7 +35,7 @@
       :sigla="etapa.sigla"
       :top_important_atores="etapa.top_important_atores"
       :top_atores="etapa.top_atores"
-      :id_ext="etapa.id_ext"
+      :id_leggo="id_leggo"
       :apelido="etapa.apelido"/>
     <h4>Análise das Emendas</h4>
     <emendas-info

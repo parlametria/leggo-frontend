@@ -20,13 +20,9 @@ import axios from '@/stores/axios'
 export default {
   name: 'AtoresDetailed',
   props: {
-    casa: {
-      type: String,
-      default: ''
-    },
-    id_ext: {
-      type: String,
-      default: ''
+    id_leggo: {
+      type: Number,
+      default: -1
     },
     apelido: {
       type: String,
@@ -45,7 +41,7 @@ export default {
   },
   methods: {
     async fetchData () {
-      this.setAtores(await axios.get(`/atores/${this.casa}/${this.id_ext}`))
+      this.setAtores(await axios.get(`/atores/${this.id_leggo}`))
       this.mountGraphic()
     },
     setAtores ({ data }) {
