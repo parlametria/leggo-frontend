@@ -54,8 +54,8 @@
     <tab-atores-graphics
       :casa="prop.lastEtapa.casa"
       :sigla="prop.lastEtapa.sigla"
-      :top_important_atores="prop.lastEtapa.top_important_atores"
-      :top_atores="prop.lastEtapa.top_atores"
+      :top_important_atores="prop.top_important_atores"
+      :top_atores="prop.top_atores"
       :id_leggo="prop.id_leggo"
       :apelido="prop.lastEtapa.apelido"/>
     <h5>Rede de Influência - Coautorias</h5>

@@ -53,8 +53,8 @@ export default {
   },
   filters: {
     formataLocal (value) {
-      if (value.toLowerCase() === 'plen') {
-        return 'Plenário'
+      if (value.toLowerCase().includes('plen')) {
+        return value.replace('PLEN', 'Plenário')
       } else if (/\d/.test(value)) {
         return value.concat(' - ', 'Com. Especial')
       } else {
@@ -84,11 +84,11 @@ export default {
       let atoresLocais = {}
       if (this.top_important_atores) {
         for (let ator of this.top_important_atores) {
-          if (Object.keys(atoresLocais).includes(ator.sigla_local)) {
-            atoresLocais[ator.sigla_local].push(ator)
+          if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+            atoresLocais[ator.sigla_local_formatada].push(ator)
           } else {
-            atoresLocais[ator.sigla_local] = []
-            atoresLocais[ator.sigla_local].push(ator)
+            atoresLocais[ator.sigla_local_formatada] = []
+            atoresLocais[ator.sigla_local_formatada].push(ator)
           }
         }
       }
