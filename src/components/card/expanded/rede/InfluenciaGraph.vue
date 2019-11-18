@@ -15,14 +15,13 @@
 
 <script>
 /* eslint-disable */
-import * as d3 from "d3";
-import axios from "@/stores/axios";
-import config from "./InfluenciaGraphConfig.js";
-import _ from "lodash";
-import { vaxios } from "./mocks/vaxios";
-// "@/stores/voz_ativa_axios";
-import Tooltip from "./Tooltip";
-import SelectFilter from "./SelectFilter";
+import * as d3 from "d3"
+import axios from "@/stores/axios"
+import config from "./InfluenciaGraphConfig.js"
+import _ from "lodash"
+import { vaxios } from "./mocks/vaxios"
+import Tooltip from "./Tooltip"
+import SelectFilter from "./SelectFilter"
 import legendas from "./mixins/legendas.js"
 
 export default {
@@ -48,7 +47,7 @@ export default {
       activeNode: null,
       nodeHover: null,
       filter: ""
-    };
+    }
   },
   computed: {
     connectedNodes() {
@@ -59,29 +58,29 @@ export default {
         ).map(n => n.id))
     },
     drag() {
-      const { simulation } = this;
+      const { simulation } = this
       function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+        d.fx = d.x
+        d.fy = d.y
       }
       function dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
+        d.fx = d3.event.x
+        d.fy = d3.event.y
       }
       function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+        if (!d3.event.active) simulation.alphaTarget(0)
+        d.fx = null
+        d.fy = null
       }
       return d3
         .drag()
         .on("start", dragstarted)
         .on("end", dragended)
-        .on("drag", dragged);
+        .on("drag", dragged)
     },
     group() {
-      return this.svg.select(".everything");
+      return this.svg.select(".everything")
     },
     links() {
       return this.group
@@ -92,7 +91,7 @@ export default {
         .enter()
         .append("line")
         .attr("stroke", "#AAA")
-        .attr("stroke-width", d => this.scaleLinkSize(d.value));
+        .attr("stroke-width", d => this.scaleLinkSize(d.value))
     },
     simulation() {
       return d3
@@ -127,7 +126,7 @@ export default {
           d3.min(this.edges, d => d.value),
           d3.max(this.edges, d => d.value)
           ])
-        .range([config.minLinkSize, config.maxLinkSize]);
+        .range([config.minLinkSize, config.maxLinkSize])
     },
     svg() {
       return d3
@@ -154,7 +153,7 @@ export default {
         .data(this.nodes)
         .enter()
         .append("g")
-        .call(this.drag);
+        .call(this.drag)
       vertex
         .append("circle")
         .attr("fill", d => this.scaleColor(d.node_size))
@@ -162,16 +161,16 @@ export default {
         .attr("stroke", "purple")
         .attr("r", d => this.scaleNodeSize(d.influencia))
         .on("mouseover", d => {
-          this.nodeHover = d;
+          this.nodeHover = d
         })
         .on("click", d => {
           if ((this.activeNode == d)) {
-            this.activeNode = null;
+            this.activeNode = null
             vertex.selectAll("circle")
               .attr("opacity", 1)
               .attr("stroke-width", d => 0.1)
               .attr("stroke-dasharray", "0,0")
-            d3.selectAll("line").attr("opacity", 1);
+            d3.selectAll("line").attr("opacity", 1)
           } else {
             this.activeNode = d;
             vertex.selectAll("circle")
@@ -180,16 +179,16 @@ export default {
               .attr("stroke-width", n => n.id == d.id ? 0.4: 0.1)
             d3.selectAll("line").attr("opacity", n =>
               n.source.id == d.id || n.target.id == d.id ? 1 : 0
-            );
+            )
           }
         })
         .on("mouseout", ()=> this.nodeHover = null)
 
-      return vertex;
+      return vertex
     }
   },
   mounted() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     buildGraphic() {
@@ -198,7 +197,7 @@ export default {
         links,
         vertex,
         title
-      } = this;
+      } = this
 
       this.createLegends()
       this.simulation.on("tick", function(d) {
@@ -207,15 +206,15 @@ export default {
           .attr("x1", d => d.source.x)
           .attr("x2", d => d.target.x)
           .attr("y1", d => d.source.y)
-          .attr("y2", d => d.target.y);
+          .attr("y2", d => d.target.y)
 
         // position nodes
-        vertex.attr("transform", d => `translate(${d.x} , ${d.y})`);
-        title.attr("transform", d => `translate(${d.x} , ${d.y})`);
-      });
+        vertex.attr("transform", d => `translate(${d.x} , ${d.y})`)
+        title.attr("transform", d => `translate(${d.x} , ${d.y})`)
+      })
     },
     getForceByLength(length) {
-      return 1 - length / (length + 20);
+      return 1 - length / (length + 20)
     },
     idsNeighbors(id) {
       [id].concat(
@@ -232,8 +231,8 @@ export default {
           d3.min(this.nodes, d => d.node_size),
           d3.max(this.nodes, d => d.node_size)
         ])
-        .range([0.3, 1]);
-      return d3.interpolatePurples(scaleAux(value));
+        .range([0.3, 1])
+      return d3.interpolatePurples(scaleAux(value))
     },
     scaleNodeSize(influencia) {
        return d3.scaleLinear()
@@ -241,18 +240,18 @@ export default {
           d3.min(this.influencia, d => d.indice_influencia_parlamentar),
           d3.max(this.influencia, d => d.indice_influencia_parlamentar)
         ])
-        .range([config.minNodeSize, config.maxNodeSize])(influencia);
+        .range([config.minNodeSize, config.maxNodeSize])(influencia)
     },
     setEdges({ data }) {
       this.edges = data.map(edge => ({
         ...edge,
         source: parseInt(edge.source, 10),
         target: parseInt(edge.target, 10)
-      }));
+      }))
       this.simulation
         .nodes(this.nodes)
         .force("link")
-        .links(this.edges);
+        .links(this.edges)
     },
     setNodes({ data }) {
       this.nodes = data.map(node => ({
@@ -261,55 +260,55 @@ export default {
         x: 0,
         y: 0,
         id: parseInt(node.id_autor, 10)
-      }));
+      }))
     },
     setInfluencia({ data }) {
-      this.influencia = data;
+      this.influencia = data
       this.nodes.forEach(node => {
-        node["influencia"] = 0;
+        node["influencia"] = 0
         this.influencia.forEach(parlamentar => {
           if (parlamentar.id == node.id) {
-            node["influencia"] = parlamentar.indice_influencia_parlamentar;
+            node["influencia"] = parlamentar.indice_influencia_parlamentar
           }
-        });
-      });
+        })
+      })
     },
     ticked(link, node) {
       link
         .attr("x1", d => {
-          d.source.x = Math.max(d.source.x, 0);
-          return d.source.x;
+          d.source.x = Math.max(d.source.x, 0)
+          return d.source.x
         })
         .attr("y1", d => {
-          d.source.y = Math.max(d.source.y, 0);
-          return Math.max(d.source.y, 0);
+          d.source.y = Math.max(d.source.y, 0)
+          return Math.max(d.source.y, 0)
         })
         .attr("x2", d => {
-          d.target.x = Math.max(d.target.x, 0);
-          return Math.max(d.target.x, 0);
+          d.target.x = Math.max(d.target.x, 0)
+          return Math.max(d.target.x, 0)
         })
         .attr("y2", d => {
-          d.target.y = Math.max(d.target.y, 0);
-          return Math.max(d.target.y, 0);
-        });
+          d.target.y = Math.max(d.target.y, 0)
+          return Math.max(d.target.y, 0)
+        })
       node
         .attr("cx", d => {
-          d.x = Math.max(d.x, 0);
-          return Math.max(d.x, 0);
+          d.x = Math.max(d.x, 0)
+          return Math.max(d.x, 0)
         })
         .attr("cy", d => {
-          d.y = Math.max(d.y, 0);
-          return Math.max(d.y, 0);
-        });
+          d.y = Math.max(d.y, 0)
+          return Math.max(d.y, 0)
+        })
     },
     async fetchData() {
-      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`));
-      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`));
-      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}));
-      this.buildGraphic();
+      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
+      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
+      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
+      this.buildGraphic()
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
