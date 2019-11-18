@@ -10,7 +10,6 @@
 
 <script>
 import EmendasInfo from './expanded/EmendasInfo'
-import { mapState } from 'vuex'
 import moment from 'moment'
 
 export default {
