@@ -117,7 +117,7 @@ export default {
           "x",
           d3.forceX(d => (d.bancada === "governo" ? 220 : 80)).strength(0.9)
         )
-        .force("y", d3.forceY(d => this.connectedNodes.includes(d.id) ? this.width * (2.7 /8): this.width *(4/8))
+        .force("y", d3.forceY(d => this.connectedNodes.includes(d.id) ? this.height * (4 /8): this.height *(5/8))
               .strength(d => this.connectedNodes.includes(d.id) ? 0.8 : 1.5));
     },
     scaleLinkSize() {
@@ -144,7 +144,7 @@ export default {
         .append("g")
         .append("text")
         .attr("font-size", "8px")
-        .attr("x", d => 5);
+        .attr("x", 5);
     },
     vertex() {
       const vertex = this.group
@@ -174,14 +174,8 @@ export default {
             d3.selectAll("line").attr("opacity", 1);
           } else {
             this.activeNode = d;
-            let idsNeighbors = [d.id].concat(
-              this.edges.filter(n => n.source.id == d.id).map(n => n.target.id)
-            );
-            idsNeighbors = idsNeighbors.concat(this.edges
-              .filter(n => n.target.id == d.id)
-              .map(n => n.source.id));
             vertex.selectAll("circle")
-              .attr("opacity", n => (idsNeighbors.includes(n.id) ? 1 : 0.1))
+              .attr("opacity", n => (this.idsNeighbors(id).includes(n.id) ? 1 : 0.1))
               .attr("stroke-dasharray", n => n.id == d.id ? "1,1": "0,0")
               .attr("stroke-width", n => n.id == d.id ? 0.4: 0.1)
             d3.selectAll("line").attr("opacity", n =>
@@ -222,6 +216,14 @@ export default {
     },
     getForceByLength(length) {
       return 1 - length / (length + 20);
+    },
+    idsNeighbors(id) {
+      [id].concat(
+          this.edges.filter(n => n.source.id == id).map(n => n.target.id)
+            );
+      return idsNeighbors.concat(this.edges
+              .filter(n => n.target.id == id)
+              .map(n => n.source.id));
     },
     scaleColor(value) {
       const scaleAux = d3
