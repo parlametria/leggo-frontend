@@ -35,7 +35,7 @@
     </table>
     <div class="paginationbar">
       <pagination-bar
-        :size="pageCount"
+        :size="pageSize"
         :limit="getLimitPages"
         @change="(number) => updatePageNumber(number)"/>
     </div>
@@ -109,7 +109,7 @@ export default {
       }
       return data
     },
-    pageCount () {
+    pageSize () {
       let l = this.data.length
       let s = this.size
       return Math.ceil(l / s)
@@ -133,8 +133,8 @@ export default {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
-    updatePageNumber (pageCount) {
-      this.pageNumber = pageCount
+    updatePageNumber (pageSize) {
+      this.pageNumber = pageSize
     }
   }
 }

@@ -57,7 +57,7 @@
             :key="index">
             <a
               v-if="key === 'descricao_tipo_documento'"
-              :href="entry['url_inteiro_teor']+'&disposition=inline'"
+              :href="getUrl(entry)"
               target="_blank"
             >{{ entry[key] }}</a>
             <p v-else>{{ entry[key] }}</p>
@@ -182,6 +182,9 @@ export default {
         this.MAX_TEXT_LENGTH,
         this.TEXT_TO_BE_SHOWED_LENGTH
       )
+    },
+    getUrl (entry) {
+      return entry['url_inteiro_teor'] + '&disposition=inline'
     }
   }
 }
