@@ -1,5 +1,5 @@
 export default {
-  data() {
+  data () {
     return {
       paddingRight: window.innerWidth <= 414 ? 50 : 30,
       fontSize: window.innerWidth <= 414 ? 10 : 6
