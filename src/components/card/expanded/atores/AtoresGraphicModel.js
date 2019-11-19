@@ -18,7 +18,13 @@ export default class AtoresGraphicModel {
             op: 'sum',
             field: 'peso_total_documentos',
             as: 'sum_peso_total_documentos'
-          }],
+          },
+          {
+            op: 'sum',
+            field: 'num_documentos',
+            as: 'sum_num_documentos'
+          }
+          ],
           groupby: ['nome_partido_uf', 'tipo_generico']
         }
       ],
@@ -73,7 +79,8 @@ export default class AtoresGraphicModel {
           }
         },
         tooltip: [
-          { 'field': 'sum_peso_total_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
+          { 'field': 'sum_num_documentos', 'type': 'quantitative', 'title': 'Número de Documentos' },
+          { 'field': 'sum_peso_total_documentos', 'type': 'quantitative', 'title': 'Contribuição do Autor', 'format': '.1f' },
           { 'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento' }
         ]
       },

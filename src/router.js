@@ -76,7 +76,7 @@ const router = new Router({
       }
     },
     {
-      path: '/atores/:casa/:id_ext',
+      path: '/atores/:id_leggo',
       name: 'atores',
       component: AtoresDetailed,
       props: true
