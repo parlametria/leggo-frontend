@@ -174,7 +174,7 @@ export default {
           } else {
             this.activeNode = d;
             vertex.selectAll("circle")
-              .attr("opacity", n => (this.idsNeighbors(id).includes(n.id) ? 1 : 0.1))
+              .attr("opacity", n => this.idsNeighbors(d.id).includes(n.id) ? 1 : 0.1)
               .attr("stroke-dasharray", n => n.id == d.id ? "1,1": "0,0")
               .attr("stroke-width", n => n.id == d.id ? 0.4: 0.1)
             d3.selectAll("line").attr("opacity", n =>
@@ -217,7 +217,7 @@ export default {
       return 1 - length / (length + 20)
     },
     idsNeighbors(id) {
-      [id].concat(
+      const idsNeighbors = [id].concat(
           this.edges.filter(n => n.source.id == id).map(n => n.target.id)
             );
       return idsNeighbors.concat(this.edges
