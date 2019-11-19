@@ -6,12 +6,13 @@
           :atores="atores"
           :casa="casa"
           :sigla="sigla"/>
+          <influencia-graph :id_leggo="id_leggo"/>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
         v-for="(atores_comissoes, index) in atoresLocaisImportantes"
         :key="index">
-        <atores-graphic :atores="atores_comissoes" />
+        <atores-graphic :atores="atores_comissoes"/>
       </el-tab-pane>
     </el-tabs>
     <router-link :to="linkAtores">
@@ -22,6 +23,8 @@
 
 <script>
 import AtoresGraphic from './AtoresGraphic.vue'
+import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
+import axios from "@/stores/axios"
 
 export default {
   name: 'TabAtoresGraphic',
@@ -63,7 +66,37 @@ export default {
     }
   },
   components: {
-    AtoresGraphic
+    AtoresGraphic,
+    InfluenciaGraph
+
+  },
+  methods: {
+    setEdges({ data }) {
+      this.edges = data
+        .map(edge => ({
+          ...edge,
+          source: parseInt(edge.source, 10),
+          target: parseInt(edge.target, 10)
+        }));
+    },
+    setNodes({ data }) {
+      this.nodes = data
+        .map(node => ({
+          ...node,
+          node_size: parseInt(node.node_size, 10),
+          x: 0,
+          y: 0,
+          id: parseInt(node.id_autor, 10),
+        }))
+    },
+    async fetchData() {
+      this.setNodes(
+        await axios.get(`/coautorias_node/${this.id_leggo}`)
+      );
+      this.setEdges(
+        await axios.get(`/coautorias_edge/${this.id_leggo}`)
+      );
+    }
   },
   computed: {
     atores () {
@@ -93,7 +126,11 @@ export default {
         }
       }
       return atoresLocais
+    },
+    influenciaLocaisImportantes () {
+      let coautoresLocais = {}
     }
+
   }
 }
 </script>
