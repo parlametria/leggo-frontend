@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h5>{{ propName }} - {{ capitalizeFirstLetter(casa) }}</h5>
     <div v-if="verificaSeMostraEmendas">
       <h5>Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</h5>
       <el-tabs>
@@ -94,6 +95,15 @@ export default {
   mounted () {
     this.getEmendas(this.query)
   },
+  methods: {
+    capitalizeFirstLetter (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY')
+    },
+    ...mapActions(['getEmendas'])
+  },
   computed: {
     propEmendas () {
       return this.emendas[this.id]
@@ -172,12 +182,6 @@ export default {
     },
     showTextoExplicacao () {
       return this.propEmendas.length !== this.getAnalisadas
-    }
-  },
-  methods: {
-    ...mapActions(['getEmendas']),
-    formatDate (date) {
-      return moment(date).format('DD/MM/YYYY')
     }
   },
   watch: {
