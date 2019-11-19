@@ -9,7 +9,7 @@
             :class="{ active: sortKey == key }"
             :key="key"
           >
-            {{ key | capitalize }}
+            {{ key | formatColumTitle }}
             <span
               class="arrow"
               :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"/>
@@ -162,6 +162,9 @@ export default {
   filters: {
     capitalize (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    formatColumTitle (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).replace(new RegExp('_', 'g'), ' ')
     }
   },
   methods: {
