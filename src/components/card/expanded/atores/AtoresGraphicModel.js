@@ -1,17 +1,33 @@
 export default class AtoresGraphicModel {
-  constructor (width) {
+  constructor (width, title) {
     this.vsSpec = {
       description: 'Atores',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
       width: width * 0.8,
       title: {
-        text: 'Parlamentares mais Ativos',
+        text: title,
         fontSize: 15,
         offset: 5
       },
       data: {
         name: 'ator'
       },
+      transform: [
+        {
+          aggregate: [{
+            op: 'sum',
+            field: 'peso_total_documentos',
+            as: 'sum_peso_total_documentos'
+          },
+          {
+            op: 'sum',
+            field: 'num_documentos',
+            as: 'sum_num_documentos'
+          }
+          ],
+          groupby: ['nome_partido_uf', 'tipo_generico']
+        }
+      ],
       mark: {
         type: 'bar',
         cornerRadius: 5,
@@ -20,11 +36,10 @@ export default class AtoresGraphicModel {
       },
       encoding: {
         x: {
-          aggregate: 'sum',
-          field: 'qtd_de_documentos',
+          field: 'sum_peso_total_documentos',
           type: 'quantitative',
           axis: {
-            title: 'Quantidade'
+            title: 'Peso dos documentos'
           }
         },
         y: {
@@ -64,7 +79,8 @@ export default class AtoresGraphicModel {
           }
         },
         tooltip: [
-          { 'field': 'qtd_de_documentos', 'type': 'quantitative', 'title': 'Num. de documentos' },
+          { 'field': 'sum_num_documentos', 'type': 'quantitative', 'title': 'Número de Documentos' },
+          { 'field': 'sum_peso_total_documentos', 'type': 'quantitative', 'title': 'Contribuição do Autor', 'format': '.1f' },
           { 'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento' }
         ]
       },
