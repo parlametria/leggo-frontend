@@ -7,7 +7,7 @@
       <g class="everything"/>
       <tooltip :node="activeNode" />
     </svg>
-    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
+    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses.</h5>
 
   </div>
 </template>
@@ -217,7 +217,7 @@ export default {
 
         vis_box.append("text")
               .style("fill", "gray")
-              .text("Oposição")
+              .text("Oposição *")
               .attr("font-family", "sans-serif")
               .attr("font-size", font_size)
               .attr("y", height - 10)    
