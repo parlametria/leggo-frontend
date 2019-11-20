@@ -25,7 +25,7 @@
     </div>
     <bar
       class="temperatura"
-      :ultimo_valor="prop.lastEtapa.ultima_temperatura"
+      :ultimo_valor="prop.ultima_temperatura"
       :cor="'#dc6060'"
       :max_valor="maxTemperatura"
     />

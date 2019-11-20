@@ -52,7 +52,7 @@ export default {
       const atores = {}
       this.atores.forEach(element => {
         if (atores[element.id_autor] === undefined) { atores[element.id_autor] = 0 }
-        atores[element.id_autor] += element.qtd_de_documentos
+        atores[element.id_autor] += element.peso_total_documentos
       })
       return atores
     },
@@ -86,7 +86,8 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico)
+        const numAtoresTops = this.filteredAutores.length < 15 ? this.filteredAutores.length : 15
+        let model = new AtoresGraphicModel(this.tamanhoGrafico, `Top ${numAtoresTops} parlamentares mais ativos`)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
@@ -111,6 +112,7 @@ export default {
 .graphic {
   text-align: left;
   overflow-x: auto;
+  margin-bottom: 15px;
 }
 .title {
   line-height: 15px;
