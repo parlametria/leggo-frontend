@@ -59,7 +59,7 @@
       :id_leggo="prop.id_leggo"
       :apelido="prop.lastEtapa.apelido"/>
     <h5>Rede de Influência - Coautorias</h5>
-    <influencia-graph :id_leggo="prop.id_leggo"/>
+    <!--<influencia-graph :id_leggo="prop.id_leggo"/>-->
     <h4>Análise das Emendas</h4>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
