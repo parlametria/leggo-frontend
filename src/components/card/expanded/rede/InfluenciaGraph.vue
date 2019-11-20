@@ -1,32 +1,33 @@
 <template>
   <div id="container">
+    <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
     <svg
       id="graph"
-      v-if="nodes.length != 0">
+      v-if="nodes.length != 0"
+      vi>
       <g class="everything"/>
       <tooltip
-        :node="activeNode"
-        :id_leggo="id_leggo"/>
+        :node="nodeHover"/>
     </svg>
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
     <autorias
       :node="clickedNode"
       :id_leggo="id_leggo"/>
-
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-import * as d3 from "d3";
+import * as d3 from "d3"
 import axios from "@/stores/axios"
-import config from "./InfluenciaGraphConfig.js";
+import config from "./InfluenciaGraphConfig.js"
+import _ from "lodash"
 import { vaxios } from "./mocks/vaxios"
-// "@/stores/voz_ativa_axios";
-import Tooltip from "./Tooltip";
+import Tooltip from "./Tooltip"
+import SelectFilter from "./SelectFilter"
+import legendas from "./mixins/legendas.js"
 import Autorias from "./Autorias"
-import SelectFilter from "./SelectFilter";
 
 export default {
   name: "InfluenciaGraph",
@@ -35,6 +36,7 @@ export default {
     SelectFilter,
     Autorias
   },
+  mixins: [legendas],
   props: {
     id_leggo: {
       type: Number,
@@ -43,41 +45,49 @@ export default {
   },
   data() {
     return {
-      width: 0,
-      height: 0,
+      width: 300,
+      height: 230,
       nodes: [],
       influencia: [],
       edges: [],
       activeNode: null,
       clickedNode: null,
+      nodeHover: null,
       filter: ""
-    };
+    }
   },
   computed: {
+    connectedNodes() {
+      return _.uniq(this.nodes.filter(n =>
+        this.edges.filter(edge =>
+           edge.source.id == n.id || edge.target.id == n.id
+          ).length != 0
+        ).map(n => n.id))
+    },
     drag() {
-      const { simulation } = this;
+      const { simulation } = this
       function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+        d.fx = d.x
+        d.fy = d.y
       }
       function dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
+        d.fx = d3.event.x
+        d.fy = d3.event.y
       }
       function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
+        if (!d3.event.active) simulation.alphaTarget(0)
+        d.fx = null
+        d.fy = null
       }
       return d3
         .drag()
         .on("start", dragstarted)
         .on("end", dragended)
-        .on("drag", dragged);
+        .on("drag", dragged)
     },
     group() {
-      return this.svg.select(".everything");
+      return this.svg.select(".everything")
     },
     links() {
       return this.group
@@ -88,43 +98,7 @@ export default {
         .enter()
         .append("line")
         .attr("stroke", "#AAA")
-        .attr("stroke-width", d => this.scaleLinkSize(d.value));
-    },
-    maxNodeSize() {
-      let max = -Infinity;
-      this.nodes.forEach(node => {
-        if (max < node.node_size) {
-          max = node.node_size;
-        }
-      });
-      return max;
-    },
-    minNodeSize() {
-      let min = Infinity;
-      this.nodes.forEach(node => {
-        if (min > node.node_size) {
-          min = node.node_size;
-        }
-      });
-      return min;
-    },
-    maxLinkValue() {
-      let max = -Infinity;
-      this.edges.forEach(edge => {
-        if (max < edge.value) {
-          max = edge.value;
-        }
-      });
-      return max;
-    },
-    minLinkValue() {
-      let min = Infinity;
-      this.edges.forEach(edge => {
-        if (min > edge.value) {
-          min = edge.value;
-        }
-      });
-      return min;
+        .attr("stroke-width", d => this.scaleLinkSize(d.value))
     },
     simulation() {
       return d3
@@ -135,32 +109,36 @@ export default {
             .forceLink()
             .id(d => d.id)
             .links(this.edges)
-            .distance(d => this.scaleNodeSize(Math.min(d.source.node_size, d.target.node_size))*10)
-         )
-        .force("charge", d3.forceManyBody().strength(-18))
-        .force("collision", d3.forceCollide().radius(d => this.scaleNodeSize(d.node_size) * config.nodeRepulsion))
-        .force('x', d3.forceX(d => d.bancada === "governo"? 200: 100).strength(0.6))
-        .force('y', d3.forceY(75).strength(0.5));
+            .distance(
+              d => 10 +this.scaleNodeSize(Math.max(d.source.influencia, d.target.influencia))*2 || 10)
+        )
+        .force("charge", d3.forceManyBody().strength(-25))
+        .force(
+          "collision",
+          d3
+            .forceCollide()
+            .radius(d => this.scaleNodeSize(d.influencia)*1.1 )
+        )
+        .force(
+          "x",
+          d3.forceX(d => (d.bancada === "governo" ? 220 : 80)).strength(0.9)
+        )
+        .force("y", d3.forceY(d => this.connectedNodes.includes(d.id) ? this.height * (4 /8): this.height *(5/8))
+              .strength(d => this.connectedNodes.includes(d.id) ? 0.8 : 1.5));
     },
-    scaleColor() {
-      return d3
-        .scaleOrdinal()
-        .range(d3.schemePastel1);
-    },
-    scaleNodeSize () {
+    scaleLinkSize() {
       return d3
         .scaleLinear()
-        .domain([this.minNodeSize, this.maxNodeSize])
-        .range([config.minNodeSize, config.maxNodeSize]);
-    },
-    scaleLinkSize () {
-      return d3
-        .scaleLinear()
-        .domain([this.minLinkValue, this.maxLinkValue])
-        .range([config.minLinkSize, config.maxLinkSize]);
+        .domain([
+          d3.min(this.edges, d => d.value),
+          d3.max(this.edges, d => d.value)
+          ])
+        .range([config.minLinkSize, config.maxLinkSize])
     },
     svg() {
-      return d3.select("#graph");
+      return d3
+        .select("#graph")
+        .attr("viewBox", `0 0 ${this.width} ${this.height}`)
     },
     title() {
       return this.group
@@ -172,7 +150,7 @@ export default {
         .append("g")
         .append("text")
         .attr("font-size", "8px")
-        .attr("x", d => 5);
+        .attr("x", 5);
     },
     vertex() {
       const vertex = this.group
@@ -182,175 +160,176 @@ export default {
         .data(this.nodes)
         .enter()
         .append("g")
-        .call(this.drag);
+        .call(this.drag)
       vertex
         .append("circle")
-        .attr("fill", d => this.color(d))
+        .attr("fill", d => this.scaleColor(d.node_size))
         .attr("stroke-width", d => 0.1)
         .attr("stroke", "purple")
-        .attr("r", d => d.r)
+        .attr("r", d => this.scaleNodeSize(d.influencia))
         .on("mouseover", d => {
-          this.activeNode = d
+          this.nodeHover = d
         })
         .on("mouseout", () => {
-          this.activeNode = null
+          this.nodeHover = null
         })
         .on("click", d => {
           this.clickedNode = d
+          if ((this.activeNode == d)) {
+            this.activeNode = null
+            vertex.selectAll("circle")
+              .attr("opacity", 1)
+              .attr("stroke-width", d => 0.1)
+              .attr("stroke-dasharray", "0,0")
+            d3.selectAll("line").attr("opacity", 1)
+          } else {
+            this.activeNode = d;
+            vertex.selectAll("circle")
+              .attr("opacity", n => this.idsNeighbors(d.id).includes(n.id) ? 1 : 0.1)
+              .attr("stroke-dasharray", n => n.id == d.id ? "1,1": "0,0")
+              .attr("stroke-width", n => n.id == d.id ? 0.4: 0.1)
+            d3.selectAll("line").attr("opacity", n =>
+              n.source.id == d.id || n.target.id == d.id ? 1 : 0
+            )
+          }
         });
 
-      return vertex;
+
+      return vertex
     }
   },
   mounted() {
-    window.addEventListener("resize", this.onResize);
-    this.onResize();
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     buildGraphic() {
-      const { group, links, vertex, title } = this;
-              const width = 300
-              const height = 150
-              const padding_right = window.innerWidth <= 414 ? 50 : 30
-              const font_size = window.innerWidth <= 414 ? 10 : 6
-
-        const vis_box =  d3.select("#graph")
-                              .attr("viewBox", [0, 0, width, height])
-
-        vis_box.append("text")
-              .style("fill", "gray")
-              .text("Governo")
-              .attr("font-family", "sans-serif")
-              .attr("font-size", font_size)
-              .attr("x", width - padding_right)
-              .attr("y", height - 10)
-
-        vis_box.append("text")
-              .style("fill", "gray")
-              .text("Oposição *")
-              .attr("font-family", "sans-serif")
-              .attr("font-size", font_size)
-              .attr("y", height - 10)    
-
+      const {
+        group,
+        links,
+        vertex,
+        title
+      } = this
+      this.createLegends()
       this.simulation.on("tick", function(d) {
         // position links
         links
           .attr("x1", d => d.source.x)
           .attr("x2", d => d.target.x)
           .attr("y1", d => d.source.y)
-          .attr("y2", d => d.target.y);
+          .attr("y2", d => d.target.y)
 
         // position nodes
-        vertex.attr("transform", d => `translate(${d.x} , ${d.y})`);
-        title.attr("transform", d => `translate(${d.x} , ${d.y})`);
-      });
-    },
-    onResize() {
-      this.width = this.$el.offsetWidth;
-      this.height = this.$el.offsetHeight;
+        vertex.attr("transform", d => `translate(${d.x} , ${d.y})`)
+        title.attr("transform", d => `translate(${d.x} , ${d.y})`)
+      })
     },
     getForceByLength(length) {
-      return 1 - length / (length + 20);
+      return 1 - length / (length + 20)
     },
-    color(data) {
-      if (data.influencia === undefined) {
-        data.influencia = 0
-      }
-      const { influencia } = data
-      const scaleAux = d3.scaleLinear()
-                  .domain([d3.min(this.influencia, d => d.indice_influencia_parlamentar), 
-                          d3.max(this.influencia, d => d.indice_influencia_parlamentar)])
-                  .range([0.3, 1])
-      return d3.interpolatePurples(scaleAux(influencia))
-    },  
+    idsNeighbors(id) {
+      const idsNeighbors = [id].concat(
+          this.edges.filter(n => n.source.id == id).map(n => n.target.id)
+            );
+      return idsNeighbors.concat(this.edges
+              .filter(n => n.target.id == id)
+              .map(n => n.source.id));
+    },
+    scaleColor(value) {
+      const scaleAux = d3
+        .scaleLinear()
+        .domain([
+          d3.min(this.nodes, d => d.node_size),
+          d3.max(this.nodes, d => d.node_size)
+        ])
+        .range([0.3, 1])
+      return d3.interpolatePurples(scaleAux(value))
+    },
+    scaleNodeSize(influencia) {
+       return d3.scaleLinear()
+        .domain([
+          d3.min(this.influencia, d => d.indice_influencia_parlamentar),
+          d3.max(this.influencia, d => d.indice_influencia_parlamentar)
+        ])
+        .range([config.minNodeSize, config.maxNodeSize])(influencia)
+    },
     setEdges({ data }) {
-      this.edges = data
-        .map(edge => ({
-          ...edge,
-          source: parseInt(edge.source, 10),
-          target: parseInt(edge.target, 10)
-        }));
+      this.edges = data.map(edge => ({
+        ...edge,
+        source: parseInt(edge.source, 10),
+        target: parseInt(edge.target, 10)
+      }))
       this.simulation
         .nodes(this.nodes)
         .force("link")
-        .links(this.edges);
+        .links(this.edges)
     },
     setNodes({ data }) {
-      this.nodes = data
-        .map(node => ({
-          ...node,
-          node_size: parseInt(node.node_size, 10),
-          x: 0,
-          y: 0,
-          id: parseInt(node.id_autor, 10),
-        }))
-      // Primeiro é gerado o node_size convertido para int
-      // de todos para conseguir calcular o raio do maior
-      // e do menor e só então gerar os raios de todos.
-      this.nodes = this.nodes.map(node => ({
-          ...node,
-          r: this.scaleNodeSize(node.node_size)
-        })
-      );
+      this.nodes = data.map(node => ({
+        ...node,
+        node_size: parseInt(node.node_size, 10),
+        x: 0,
+        y: 0,
+        id: parseInt(node.id_autor, 10)
+      }))
     },
     setInfluencia({ data }) {
       this.influencia = data
       this.nodes.forEach(node => {
+        node["influencia"] = 0
         this.influencia.forEach(parlamentar => {
           if (parlamentar.id == node.id) {
-            node['influencia'] = parlamentar.indice_influencia_parlamentar
-          } 
+            node["influencia"] = parlamentar.indice_influencia_parlamentar
+          }
         })
       })
     },
     ticked(link, node) {
       link
         .attr("x1", d => {
-          d.source.x = Math.max(d.source.x, 0);
-          return d.source.x;
+          d.source.x = Math.max(d.source.x, 0)
+          return d.source.x
         })
         .attr("y1", d => {
-          d.source.y = Math.max(d.source.y, 0);
-          return Math.max(d.source.y, 0);
+          d.source.y = Math.max(d.source.y, 0)
+          return Math.max(d.source.y, 0)
         })
         .attr("x2", d => {
-          d.target.x = Math.max(d.target.x, 0);
-          return Math.max(d.target.x, 0);
+          d.target.x = Math.max(d.target.x, 0)
+          return Math.max(d.target.x, 0)
         })
         .attr("y2", d => {
-          d.target.y = Math.max(d.target.y, 0);
-          return Math.max(d.target.y, 0);
-        });
+          d.target.y = Math.max(d.target.y, 0)
+          return Math.max(d.target.y, 0)
+        })
       node
         .attr("cx", d => {
-          d.x = Math.max(d.x, 0);
-          return Math.max(d.x, 0);
+          d.x = Math.max(d.x, 0)
+          return Math.max(d.x, 0)
         })
         .attr("cy", d => {
-          d.y = Math.max(d.y, 0);
-          return Math.max(d.y, 0);
-        });
+          d.y = Math.max(d.y, 0)
+          return Math.max(d.y, 0)
+        })
     },
     async fetchData() {
-      this.setNodes(
-        await axios.get(`/coautorias_node/${this.id_leggo}`)
-      );
-      this.setEdges(
-        await axios.get(`/coautorias_edge/${this.id_leggo}`)
-      );
-      this.setInfluencia(
-        await vaxios.post(`/api/aderencia/parlamentar`, {})
-      );
-      this.buildGraphic();
+      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
+      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
+      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
+      this.buildGraphic()
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
 .graph {
   width: 50vw;
   height: 50vh;
+}
+.line {
+  z-index: 0;
+}
+.circle {
+  z-index: 1;
 }
 </style>
