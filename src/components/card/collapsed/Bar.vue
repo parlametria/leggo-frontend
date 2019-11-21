@@ -1,11 +1,16 @@
 <template>
-  <div
-    class="bar"
-    :style="backgroundStyle">
+  <el-tooltip
+    placement="bottom"
+    effect="light"
+    :content="tooltipTexto">
     <div
-      :style="barStyle"
-    />
-  </div>
+      class="bar"
+      :style="backgroundStyle">
+      <div
+        :style="barStyle"
+      />
+    </div>
+  </el-tooltip>
 </template>
 
 <script>
@@ -24,6 +29,10 @@ export default {
     max_valor: {
       type: Number,
       default: 100
+    },
+    tooltipTexto: {
+      type: String,
+      default: ''
     }
   },
   computed: {

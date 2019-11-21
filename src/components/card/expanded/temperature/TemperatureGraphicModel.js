@@ -45,8 +45,7 @@ export default class TemperatureGraphicModel {
           scale: { type: 'sqrt' }
         },
         tooltip: [
-          { 'field': 'temperatura_recente', 'type': 'quantitative', 'title': 'Temperatura Acumulada' },
-          { 'field': 'temperatura_periodo', 'type': 'quantitative', 'title': 'Temperatura da Semana' },
+          { 'field': 'temperatura_recente', 'type': 'quantitative', 'title': 'Temperatura da Semana' },
           { 'field': 'periodo', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
         ]
       },

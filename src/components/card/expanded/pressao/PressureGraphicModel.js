@@ -49,7 +49,7 @@ export default class PressureGraphicModel {
           scale: { type: 'sqrt' }
         },
         tooltip: [
-          { 'field': 'maximo_geral', 'type': 'quantitative', 'title': 'Máximo Geral', axis: { format: '.0%' } },
+          { 'field': 'maximo_geral', 'type': 'quantitative', 'title': 'Pressão da Semana', axis: { format: '.0%' } },
           { 'field': 'date', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
         ]
       },
