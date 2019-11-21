@@ -87,7 +87,6 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        const numAtoresTops = this.filteredAutores.length < 15 ? this.filteredAutores.length : 15
         let model = new AtoresGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
