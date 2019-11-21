@@ -3,7 +3,7 @@ export default class AtoresGraphicModel {
     this.vsSpec = {
       description: 'Atores',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
-      width: width * 0.75,
+      width: width * 0.7,
       title: {
         text: title,
         fontSize: 15,
@@ -58,7 +58,8 @@ export default class AtoresGraphicModel {
           type: 'nominal',
           legend: {
             title: 'Ação',
-            orient: 'top'
+            orient: 'top',
+            columns: 3
           },
           scale: {
             domain: [
