@@ -36,25 +36,46 @@ export default {
         .append('g')
         .attr('transform', 'translate(' + (width - 30) + ',' + 10 + ')')
 
-      var gradient = svg
+      var redGradient = svg
         .append('defs')
         .append('linearGradient')
-        .attr('id', 'gradient')
+        .attr('id', 'redGradient')
         .attr('x1', '0%')
         .attr('y1', '50%')
         .attr('x2', '100%')
         .attr('y2', '50%')
 
-      gradient
+      redGradient
         .append('stop')
         .attr('offset', '0%')
-        .attr('stop-color', '#D9DCEB')
+        .attr('stop-color', '#fc8a6b')
         .attr('stop-opacity', 1)
 
-      gradient
+      redGradient
         .append('stop')
         .attr('offset', '100%')
-        .attr('stop-color', '#3E1D7E')
+        .attr('stop-color', '#67000d')
+        .attr('stop-opacity', 1)
+
+      var blueGradient = svg
+        .append('defs')
+        .append('linearGradient')
+        .attr('id', 'blueGradient')
+        .attr('x1', '0%')
+        .attr('y1', '50%')
+        .attr('x2', '100%')
+        .attr('y2', '50%')
+
+      blueGradient
+        .append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', '#93c3df')
+        .attr('stop-opacity', 1)
+
+      blueGradient
+        .append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', '#08306b')
         .attr('stop-opacity', 1)
 
       g.append('rect')
@@ -62,7 +83,14 @@ export default {
         .attr('x', -15)
         .attr('y', 2)
         .attr('width', 40)
-        .attr('fill', 'url(#gradient)')
+        .attr('fill', 'url(#redGradient)')
+
+      g.append('rect')
+        .attr('height', 4)
+        .attr('x', -15)
+        .attr('y', 7)
+        .attr('width', 40)
+        .attr('fill', 'url(#blueGradient)')
 
       g.append('text')
         .attr('class', 'caption')
@@ -94,7 +122,9 @@ export default {
         .data(radios)
         .enter()
         .append('circle')
-        .attr('fill', '#7566ae')
+        .attr('stroke', '#979899')
+        .attr('stroke-width', 0.4)
+        .attr('fill', 'white')
         .attr('cx', r => (x0 = x0 + 2 * r + padding))
         .attr('cy', 25)
         .attr('r', r => r)

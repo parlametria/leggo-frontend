@@ -58,7 +58,7 @@
       :top_atores="prop.top_atores"
       :id_leggo="prop.id_leggo"
       :apelido="prop.lastEtapa.apelido"/>
-    <h5>Rede de Influência - Coautorias</h5>
+    <h5>Rede de Influência</h5>
     <influencia-graph :id_leggo="prop.id_leggo"/>
     <h4>Análise das Emendas</h4>
     <div
