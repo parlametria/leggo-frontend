@@ -69,12 +69,12 @@ export default class AtoresGraphicModel {
               'Outros'
             ],
             range: [
-              '#FB9A99',
-              '#F9EE9D',
-              '#855D7C',
-              '#80B1D3',
-              '#B2DF8A',
-              '#587B7A'
+              '#D3F23C',
+              '#3C787E',
+              '#7EAA66',
+              '#67DBD1',
+              '#8C4871',
+              '#CCCCCC'
             ]
           }
         },

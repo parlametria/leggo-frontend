@@ -1,6 +1,12 @@
 <template>
   <div>
     <el-tabs>
+      <el-tab-pane label="Geral">
+        <atores-graphic
+          :atores="atores"
+          :casa="casa"
+          :sigla="sigla"/>
+      </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
         v-for="(atores_comissoes, index) in atoresLocaisImportantes"
