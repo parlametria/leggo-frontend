@@ -1,7 +1,7 @@
 export default {
   data () {
     return {
-      paddingRight: window.innerWidth <= 414 ? 50 : 30,
+      paddingRight: window.innerWidth <= 414 ? 80 : 48,
       fontSize: window.innerWidth <= 414 ? 10 : 6
     }
   },
@@ -18,7 +18,7 @@ export default {
         .select('.everything')
         .append('text')
         .style('fill', 'gray')
-        .text('Governo')
+        .text('Centro/Governo')
         .attr('font-family', 'sans-serif')
         .attr('font-size', fontSize)
         .attr('x', width - paddingRight)
@@ -35,6 +35,16 @@ export default {
       const g = svg
         .append('g')
         .attr('transform', 'translate(' + (width - 30) + ',' + 10 + ')')
+
+      g.append('rect')
+        .attr('height', 30)
+        .attr('x', -78)
+        .attr('y', -9)
+        .attr('width', 107)
+        .attr('fill', "#f7f7f7")
+        .attr('stroke', "gray")
+        .attr('stroke-width', 0.1)
+      
 
       var redGradient = svg
         .append('defs')
@@ -80,39 +90,57 @@ export default {
 
       g.append('rect')
         .attr('height', 4)
-        .attr('x', -15)
-        .attr('y', 2)
+        .attr('x', -75)
+        .attr('y', 10)
         .attr('width', 45)
         .attr('fill', 'url(#redGradient)')
 
       g.append('rect')
         .attr('height', 4)
-        .attr('x', -15)
-        .attr('y', 7)
+        .attr('x', -75)
+        .attr('y', 15)
         .attr('width', 45)
         .attr('fill', 'url(#blueGradient)')
 
       g.append('text')
         .attr('class', 'caption')
         .attr('y', 1)
-        .attr('x', -15)
-        .attr('fill', '#000')
-        .attr('font-size', 4.2)
+        .attr('x', -75)
+        .attr('fill', 'gray')
+        .attr('font-size', 7)
         .attr('text-anchor', 'start')
-        .attr('font-weight', 'bold')
         .attr('font-family', 'sans-serif')
-        .text('Contribuição do autor')
+        .text('Contribuição')
+
+        g.append('text')
+        .attr('class', 'caption')
+        .attr('y', 8)
+        .attr('x', -75)
+        .attr('fill', 'gray')
+        .attr('font-size', 7)
+        .attr('text-anchor', 'start')
+        .attr('font-family', 'sans-serif')
+        .text('do autor')
 
       g.append('text')
         .attr('class', 'caption')
-        .attr('y', 19)
+        .attr('y', 1)
         .attr('x', -15)
-        .attr('fill', '#000')
-        .attr('font-size', 4.2)
+        .attr('fill', 'gray')
+        .attr('font-size', 7)
         .attr('text-anchor', 'start')
-        .attr('font-weight', 'bold')
         .attr('font-family', 'sans-serif')
-        .text('Influência Política')
+        .text('Influência')
+
+        g.append('text')
+        .attr('class', 'caption')
+        .attr('y', 8)
+        .attr('x', -15)
+        .attr('fill', 'gray')
+        .attr('font-size', 7)
+        .attr('text-anchor', 'start')
+        .attr('font-family', 'sans-serif')
+        .text('política')
 
       var radios = [1, 2, 3, 4, 5]
       var x0 = -18
@@ -124,9 +152,9 @@ export default {
         .append('circle')
         .attr('stroke', '#979899')
         .attr('stroke-width', 0.4)
-        .attr('fill', 'white')
+        .attr('fill', '#f7f7f7')
         .attr('cx', r => (x0 = x0 + 2 * r + padding))
-        .attr('cy', 25)
+        .attr('cy', 15)
         .attr('r', r => r)
     }
   }
