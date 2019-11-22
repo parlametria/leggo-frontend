@@ -13,7 +13,8 @@
         <router-link :to="{ name: 'proposicoes' }">
           <img
             class="logo"
-            src="@/assets/PNGleggo.png">
+            src="@/assets/PNGleggo.png"
+          >
         </router-link>
         <navigation-buttons class="navigation"/>
       </div>
