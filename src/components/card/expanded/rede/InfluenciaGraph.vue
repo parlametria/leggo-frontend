@@ -231,7 +231,7 @@ export default {
           d3.min(this.nodes, d => d.node_size),
           d3.max(this.nodes, d => d.node_size)
         ])
-        .range([0.4, 1])
+        .range([0.2, 1])
       
       if (node.bancada === "oposição") {
         return d3.interpolateReds(scaleAux(node.node_size))
