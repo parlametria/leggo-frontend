@@ -3,7 +3,7 @@ export default class AtoresGraphicModel {
     this.vsSpec = {
       description: 'Atores',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
-      width: width * 0.8,
+      width: width * 0.7,
       title: {
         text: title,
         fontSize: 15,
@@ -39,7 +39,7 @@ export default class AtoresGraphicModel {
           field: 'sum_peso_total_documentos',
           type: 'quantitative',
           axis: {
-            title: 'Peso dos documentos'
+            title: 'Participação do Autor nos Documentos'
           }
         },
         y: {
@@ -57,7 +57,9 @@ export default class AtoresGraphicModel {
           field: 'tipo_generico',
           type: 'nominal',
           legend: {
-            title: 'Ação'
+            title: 'Ação',
+            orient: 'top',
+            columns: 3
           },
           scale: {
             domain: [
@@ -80,7 +82,7 @@ export default class AtoresGraphicModel {
         },
         tooltip: [
           { 'field': 'sum_num_documentos', 'type': 'quantitative', 'title': 'Número de Documentos' },
-          { 'field': 'sum_peso_total_documentos', 'type': 'quantitative', 'title': 'Contribuição do Autor', 'format': '.1f' },
+          { 'field': 'sum_peso_total_documentos', 'type': 'quantitative', 'title': 'Participação do Autor', 'format': '.1f' },
           { 'field': 'tipo_generico', 'type': 'nominal', 'title': 'Tipo de documento' }
         ]
       },

@@ -9,6 +9,7 @@
       class="graphic"
       id="grafico">
       <div ref="anchor" />
+      <p style="font-size: 10pt">* Oposição</p>
     </div>
     <div v-else-if="casa === 'senado'">
       <p class="sem-atores">Não estamos capturando atores em Senado</p>
@@ -86,8 +87,7 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        const numAtoresTops = this.filteredAutores.length < 15 ? this.filteredAutores.length : 15
-        let model = new AtoresGraphicModel(this.tamanhoGrafico, `Top ${numAtoresTops} parlamentares mais ativos`)
+        let model = new AtoresGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line

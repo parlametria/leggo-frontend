@@ -50,7 +50,7 @@
         :date="dateRef" />
     </div>
     <h4>Atividade Parlamentar</h4>
-    <h5>Top Autores</h5>
+    <h5>Os 15 Parlamentares mais ativos</h5>
     <tab-atores-graphics
       :casa="prop.lastEtapa.casa"
       :sigla="prop.lastEtapa.sigla"
