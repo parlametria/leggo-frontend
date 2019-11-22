@@ -9,6 +9,7 @@
       class="graphic"
       id="grafico">
       <div ref="anchor" />
+      <p style="font-size: 10pt">* Oposição</p>
     </div>
   </div>
 </template>
