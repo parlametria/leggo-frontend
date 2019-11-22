@@ -11,7 +11,9 @@
       :xl="8">
       <div class="navbar">
         <router-link :to="{ name: 'proposicoes' }">
-          <img class="logo" src="@/assets/PNGleggo.png"/>
+          <img
+            class="logo"
+            src="@/assets/PNGleggo.png">
         </router-link>
         <navigation-buttons class="navigation"/>
       </div>
@@ -89,7 +91,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: solid 2px #dc6060;
+    border-bottom: solid 2px $--color-primary;
     padding-bottom: 7px;
     flex-wrap: wrap;
     padding-right: 0.5rem;
