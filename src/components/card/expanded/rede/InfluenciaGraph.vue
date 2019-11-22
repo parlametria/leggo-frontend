@@ -177,6 +177,7 @@ export default {
           this.clickedNode = d
           if ((this.activeNode == d)) {
             this.activeNode = null
+            this.clickedNode = null
             vertex.selectAll("circle")
               .attr("opacity", 1)
               .attr("stroke-width", d => 0.1)
