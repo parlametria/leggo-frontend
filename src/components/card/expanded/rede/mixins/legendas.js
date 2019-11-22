@@ -109,7 +109,7 @@ export default {
         .attr('font-size', 7)
         .attr('text-anchor', 'start')
         .attr('font-family', 'sans-serif')
-        .text('Contribuição')
+        .text('Participação')
 
       g.append('text')
         .attr('class', 'caption')
