@@ -41,10 +41,9 @@ export default {
         .attr('x', -78)
         .attr('y', -9)
         .attr('width', 107)
-        .attr('fill', "#f7f7f7")
-        .attr('stroke', "gray")
+        .attr('fill', '#f7f7f7')
+        .attr('stroke', 'gray')
         .attr('stroke-width', 0.1)
-      
 
       var redGradient = svg
         .append('defs')
@@ -112,7 +111,7 @@ export default {
         .attr('font-family', 'sans-serif')
         .text('Contribuição')
 
-        g.append('text')
+      g.append('text')
         .attr('class', 'caption')
         .attr('y', 8)
         .attr('x', -75)
@@ -132,7 +131,7 @@ export default {
         .attr('font-family', 'sans-serif')
         .text('Influência')
 
-        g.append('text')
+      g.append('text')
         .attr('class', 'caption')
         .attr('y', 8)
         .attr('x', -15)
