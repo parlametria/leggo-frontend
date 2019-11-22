@@ -12,7 +12,7 @@
     </svg>
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
     <autorias
-      :node="clickedNode"
+      :node="activeNode"
       :id_leggo="id_leggo"/>
   </div>
 </template>
@@ -51,7 +51,6 @@ export default {
       influencia: [],
       edges: [],
       activeNode: null,
-      clickedNode: null,
       nodeHover: null,
       filter: ""
     }
@@ -174,10 +173,8 @@ export default {
           this.nodeHover = null
         })
         .on("click", d => {
-          this.clickedNode = d
           if ((this.activeNode == d)) {
             this.activeNode = null
-            this.clickedNode = null
             vertex.selectAll("circle")
               .attr("opacity", 1)
               .attr("stroke-width", d => 0.1)
