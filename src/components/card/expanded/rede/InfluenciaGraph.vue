@@ -7,9 +7,13 @@
       v-if="nodes.length != 0"
       vi>
       <g class="everything"/>
-      <tooltip :node="nodeHover"/>
+      <tooltip
+        :node="nodeHover"/>
     </svg>
-    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses.</h5>
+    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
+    <autorias
+      :node="activeNode"
+      :id_leggo="id_leggo"/>
   </div>
 </template>
 
@@ -23,12 +27,14 @@ import { vaxios } from "./mocks/vaxios"
 import Tooltip from "./Tooltip"
 import SelectFilter from "./SelectFilter"
 import legendas from "./mixins/legendas.js"
+import Autorias from "./Autorias"
 
 export default {
   name: "InfluenciaGraph",
   components: {
     Tooltip,
-    SelectFilter
+    SelectFilter,
+    Autorias
   },
   mixins: [legendas],
   props: {
@@ -163,6 +169,9 @@ export default {
         .on("mouseover", d => {
           this.nodeHover = d
         })
+        .on("mouseout", () => {
+          this.nodeHover = null
+        })
         .on("click", d => {
           if ((this.activeNode == d)) {
             this.activeNode = null
@@ -181,8 +190,8 @@ export default {
               n.source.id == d.id || n.target.id == d.id ? 1 : 0
             )
           }
-        })
-        .on("mouseout", ()=> this.nodeHover = null)
+        });
+
 
       return vertex
     }
