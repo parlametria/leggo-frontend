@@ -174,12 +174,7 @@ export default {
         })
         .on("click", d => {
           if ((this.activeNode == d)) {
-            this.activeNode = null
-            vertex.selectAll("circle")
-              .attr("opacity", 1)
-              .attr("stroke-width", d => 0.1)
-              .attr("stroke-dasharray", "0,0")
-            d3.selectAll("line").attr("opacity", 1)
+
           } else {
             this.activeNode = d;
             vertex.selectAll("circle")
@@ -205,8 +200,20 @@ export default {
         group,
         links,
         vertex,
-        title
+        title,
+        svg
       } = this
+      svg.on("click", (d) => {
+        console.log(d)
+        if (this.activeNode == d) {
+          this.activeNode = null
+          vertex.selectAll("circle")
+            .attr("opacity", 1)
+            .attr("stroke-width", d => 0.1)
+            .attr("stroke-dasharray", "0,0")
+          d3.selectAll("line").attr("opacity", 1)
+        }
+      })
       this.createLegends()
       this.simulation.on("tick", function(d) {
         // position links
@@ -233,7 +240,7 @@ export default {
               .map(n => n.source.id));
     },
     scaleColor(node) {
-      
+
       const scaleAux = d3
         .scaleLinear()
         .domain([
@@ -241,7 +248,7 @@ export default {
           d3.max(this.nodes, d => d.node_size)
         ])
         .range([0.2, 1])
-      
+
       if (node.bancada === "oposição") {
         return d3.interpolateReds(scaleAux(node.node_size))
       }
