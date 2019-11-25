@@ -50,7 +50,7 @@
         :date="dateRef" />
     </div>
     <h4>Atividade Parlamentar</h4>
-    <h5>Top Autores</h5>
+    <h5>Os 15 Parlamentares mais ativos</h5>
     <tab-atores-graphics
       :casa="prop.lastEtapa.casa"
       :sigla="prop.lastEtapa.sigla"
@@ -58,8 +58,8 @@
       :top_atores="prop.top_atores"
       :id_leggo="prop.id_leggo"
       :apelido="prop.lastEtapa.apelido"/>
-    <!--<h5>Rede de Influência - Coautorias</h5>-->
-    <!--<influencia-graph :id_leggo="prop.id_leggo"/>-->
+    <h5>Rede de Influência</h5>
+    <influencia-graph :id_leggo="prop.id_leggo"/>
     <h4>Análise das Emendas</h4>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"

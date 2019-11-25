@@ -10,7 +10,7 @@
             :categoria="'todas'" />
         </el-tab-pane>
         <el-tab-pane
-          v-if="verificaSeMostraEmendasAparentes"
+          v-if="verificaSeMostraEmendasAnalisadas"
           label="Mudanças Mais Aparentes">
           <emendas-tab-content
             :emendas="getDiscrepantes"
@@ -19,7 +19,7 @@
           />
         </el-tab-pane>
         <el-tab-pane
-          v-if="verificaSeMostraEmendasSutis"
+          v-if="verificaSeMostraEmendasAnalisadas"
           label="Mudanças Mais Sutis">
           <emendas-tab-content
             :emendas="getSemelhantes"
@@ -172,13 +172,12 @@ export default {
         ? 'Congresso Nacional'
         : this.casa
     },
-    verificaSeMostraEmendasAparentes () {
+    verificaSeMostraEmendasAnalisadas () {
       return (
-        this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
+        this.verificaSeMostraEmendas &&
+        this.getAnalisadas &&
+        this.propEmendas.length > this.LIMIAR
       )
-    },
-    verificaSeMostraEmendasSutis () {
-      return this.orderedEmendas.length > 0
     },
     showTextoExplicacao () {
       return this.propEmendas.length !== this.getAnalisadas

@@ -9,17 +9,18 @@
             :class="{ active: sortKey == key }"
             :key="key"
           >
-            {{ key | capitalize }}
+            {{ key | formatColumTitle }}
             <span
               class="arrow"
               :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"/>
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="isEmendaTable">
         <tr
           v-for="(entry, indexData) in filteredData"
           :key="indexData">
+
           <td
             v-for="(key, index) in columns"
             :key="index"
@@ -47,6 +48,22 @@
           </td>
         </tr>
       </tbody>
+      <tbody v-else>
+        <tr
+          v-for="(entry, indexData) in filteredData"
+          :key="indexData">
+          <td
+            v-for="(key, index) in columns"
+            :key="index">
+            <a
+              v-if="key === 'descricao_tipo_documento'"
+              :href="getUrl(entry)"
+              target="_blank"
+            >{{ entry[key] }}</a>
+            <p v-else>{{ entry[key] }}</p>
+          </td>
+        </tr>
+      </tbody>
     </table>
     <div class="paginationbar">
       <pagination-bar
@@ -62,7 +79,7 @@ import mixin from '@/mixins/ExpandedTexts.js'
 import PaginationBar from '@/components/utils/PaginationBar'
 
 export default {
-  name: 'EmendasTable',
+  name: 'LeggoTable',
   props: {
     data: {
       type: Array,
@@ -72,14 +89,14 @@ export default {
       type: Array,
       default () { return [] }
     },
-    filterKey: {
-      type: String,
-      default: ''
-    },
     size: {
       type: Number,
       required: false,
       default: 10
+    },
+    isEmendaTable: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
@@ -95,7 +112,8 @@ export default {
       MAX_TEXT_LENGTH: 100,
       TEXT_TO_BE_SHOWED_LENGTH: 30,
       sortKey: '',
-      sortOrders: sortOrders
+      sortOrders: sortOrders,
+      filterKey: ''
     }
   },
   mixins: [mixin],
@@ -144,6 +162,9 @@ export default {
   filters: {
     capitalize (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    formatColumTitle (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).replace(new RegExp('_', 'g'), ' ')
     }
   },
   methods: {
@@ -164,6 +185,9 @@ export default {
         this.MAX_TEXT_LENGTH,
         this.TEXT_TO_BE_SHOWED_LENGTH
       )
+    },
+    getUrl (entry) {
+      return entry['url_inteiro_teor'] + '&disposition=inline'
     }
   }
 }
