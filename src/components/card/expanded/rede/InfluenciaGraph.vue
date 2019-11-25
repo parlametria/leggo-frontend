@@ -135,9 +135,20 @@ export default {
         .range([config.minLinkSize, config.maxLinkSize])
     },
     svg() {
-      return d3
+      const svg = d3
         .select("#graph")
         .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+      svg.on("click", () => {
+        if(this.activeNode != this.nodeHover){
+          d3.selectAll("circle")
+            .attr("opacity", 1)
+            .attr("stroke-width", d => 0.1)
+            .attr("stroke-dasharray", "0,0")
+          d3.selectAll("line").attr("opacity", 1)
+          this.activeNode = null
+        }
+      })
+      return svg;
     },
     title() {
       return this.group
@@ -173,8 +184,14 @@ export default {
           this.nodeHover = null
         })
         .on("click", d => {
-          if ((this.activeNode == d)) {
-
+          if (this.activeNode == d) {
+            this.activeNode = null
+            this.nodeHover = null
+            d3.selectAll("circle")
+              .attr("opacity", 1)
+              .attr("stroke-width", d => 0.1)
+              .attr("stroke-dasharray", "0,0")
+            d3.selectAll("line").attr("opacity", 1)
           } else {
             this.activeNode = d;
             vertex.selectAll("circle")
@@ -186,8 +203,6 @@ export default {
             )
           }
         });
-
-
       return vertex
     }
   },
@@ -203,17 +218,6 @@ export default {
         title,
         svg
       } = this
-      svg.on("click", (d) => {
-        console.log(d)
-        if (this.activeNode == d) {
-          this.activeNode = null
-          vertex.selectAll("circle")
-            .attr("opacity", 1)
-            .attr("stroke-width", d => 0.1)
-            .attr("stroke-dasharray", "0,0")
-          d3.selectAll("line").attr("opacity", 1)
-        }
-      })
       this.createLegends()
       this.simulation.on("tick", function(d) {
         // position links
