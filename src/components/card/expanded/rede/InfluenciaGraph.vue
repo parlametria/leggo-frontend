@@ -137,9 +137,20 @@ export default {
         .range([config.minLinkSize, config.maxLinkSize])
     },
     svg() {
-      return d3
+      const svg = d3
         .select("#graph")
         .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+      svg.on("click", () => {
+        if(this.activeNode != this.nodeHover){
+          d3.selectAll("circle")
+            .attr("opacity", 1)
+            .attr("stroke-width", d => 0.1)
+            .attr("stroke-dasharray", "0,0")
+          d3.selectAll("line").attr("opacity", 1)
+          this.activeNode = null
+        }
+      })
+      return svg;
     },
     title() {
       return this.group
@@ -175,9 +186,10 @@ export default {
           this.nodeHover = null
         })
         .on("click", d => {
-          if ((this.activeNode == d)) {
+          if (this.activeNode == d) {
             this.activeNode = null
-            vertex.selectAll("circle")
+            this.nodeHover = null
+            d3.selectAll("circle")
               .attr("opacity", 1)
               .attr("stroke-width", d => 0.1)
               .attr("stroke-dasharray", "0,0")
@@ -193,8 +205,6 @@ export default {
             )
           }
         });
-
-
       return vertex
     }
   },
@@ -207,7 +217,8 @@ export default {
         group,
         links,
         vertex,
-        title
+        title,
+        svg
       } = this
       this.createLegends()
       this.simulation.on("tick", function(d) {
@@ -235,7 +246,7 @@ export default {
               .map(n => n.source.id));
     },
     scaleColor(node) {
-      
+
       const scaleAux = d3
         .scaleLinear()
         .domain([
@@ -243,7 +254,7 @@ export default {
           d3.max(this.nodes, d => d.node_size)
         ])
         .range([0.2, 1])
-      
+
       if (node.bancada === "oposição") {
         return d3.interpolateReds(scaleAux(node.node_size))
       }
