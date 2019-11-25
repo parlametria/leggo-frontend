@@ -11,7 +11,10 @@
       :xl="8">
       <div class="navbar">
         <router-link :to="{ name: 'proposicoes' }">
-          <h1>Leg<span class="dot">.</span>go</h1>
+          <img
+            class="logo"
+            src="@/assets/PNGleggo.png"
+          >
         </router-link>
         <navigation-buttons class="navigation"/>
       </div>
@@ -73,11 +76,23 @@ a {
       margin-right: 1rem;
     }
 }
+.logo {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  margin-bottom: -25px;
+  margin-left: -40px;
+  @media screen and (max-width: 600px) {
+    max-width: 300px;
+    margin-bottom: -25px;
+    margin-left: -25px;
+  }
+}
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: solid 2px #dc6060;
+    border-bottom: solid 2px $--color-primary;
     padding-bottom: 7px;
     flex-wrap: wrap;
     padding-right: 0.5rem;
