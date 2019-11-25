@@ -333,7 +333,7 @@ export default {
   fill: gray;
   text-anchor: start;
   font-family: sans-serif;
-  font-size: 0.4rem;
+  font-size: 0.35rem;
   @media screen and (max-width: 414px) {
     font-size: 0.6rem;
   }

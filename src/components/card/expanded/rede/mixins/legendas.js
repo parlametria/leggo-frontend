@@ -39,7 +39,7 @@ export default {
       g.append('rect')
         .attr('height', 30)
         .attr('x', -78)
-        .attr('y', -9)
+        .attr('y', -6)
         .attr('width', 107)
         .attr('fill', '#f7f7f7')
         .attr('stroke', 'gray')
