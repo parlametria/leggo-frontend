@@ -162,9 +162,9 @@ export default {
         .call(this.drag)
       vertex
         .append("circle")
-        .attr("fill", d => this.scaleColor(d.node_size))
+        .attr("fill", d => this.scaleColor(d))
         .attr("stroke-width", d => 0.1)
-        .attr("stroke", "purple")
+        .attr("stroke", d => d.bancada === "oposição" ? "red" : "blue" )
         .attr("r", d => this.scaleNodeSize(d.influencia))
         .on("mouseover", d => {
           this.nodeHover = d
@@ -232,15 +232,20 @@ export default {
               .filter(n => n.target.id == id)
               .map(n => n.source.id));
     },
-    scaleColor(value) {
+    scaleColor(node) {
+      
       const scaleAux = d3
         .scaleLinear()
         .domain([
           d3.min(this.nodes, d => d.node_size),
           d3.max(this.nodes, d => d.node_size)
         ])
-        .range([0.3, 1])
-      return d3.interpolatePurples(scaleAux(value))
+        .range([0.2, 1])
+      
+      if (node.bancada === "oposição") {
+        return d3.interpolateReds(scaleAux(node.node_size))
+      }
+      return d3.interpolateBlues(scaleAux(node.node_size))
     },
     scaleNodeSize(influencia) {
        return d3.scaleLinear()
@@ -329,5 +334,17 @@ export default {
 }
 .circle {
   z-index: 1;
+}
+</style>
+
+<style lang="scss">
+.caption {
+  fill: gray;
+  text-anchor: start;
+  font-family: sans-serif;
+  font-size: 0.35rem;
+  @media screen and (max-width: 414px) {
+    font-size: 0.6rem;
+  }
 }
 </style>
