@@ -128,13 +128,13 @@ input {
     border-radius: 50%;
     width: 60px;
     height: 30px;
-    position: fixed;
+    position: absolute;
     top: 48px;
     right: 0px;
   }
 
   .hamburguer {
-    position: relative;
+    position: absolute;
     display: block;
     background: $--color-primary-dark;
     width: 30px;
