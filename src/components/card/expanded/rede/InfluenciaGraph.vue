@@ -41,15 +41,21 @@ export default {
     id_leggo: {
       type: Number,
       default: 0
+    },
+    nodes: {
+      type: Array,
+      default () { return [] }
+    }, 
+    edges: {
+      type: Array,
+      default () { return [] }
     }
   },
   data() {
     return {
       width: 300,
       height: 230,
-      nodes: [],
       influencia: [],
-      edges: [],
       activeNode: null,
       nodeHover: null,
       filter: ""
@@ -255,26 +261,6 @@ export default {
         ])
         .range([config.minNodeSize, config.maxNodeSize])(influencia)
     },
-    setEdges({ data }) {
-      this.edges = data.map(edge => ({
-        ...edge,
-        source: parseInt(edge.source, 10),
-        target: parseInt(edge.target, 10)
-      }))
-      this.simulation
-        .nodes(this.nodes)
-        .force("link")
-        .links(this.edges)
-    },
-    setNodes({ data }) {
-      this.nodes = data.map(node => ({
-        ...node,
-        node_size: parseInt(node.node_size, 10),
-        x: 0,
-        y: 0,
-        id: parseInt(node.id_autor, 10)
-      }))
-    },
     setInfluencia({ data }) {
       this.influencia = data
       this.nodes.forEach(node => {
@@ -314,9 +300,11 @@ export default {
           return Math.max(d.y, 0)
         })
     },
-    async fetchData() {
-      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
-      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
+    async fetchData() {    
+      this.simulation
+        .nodes(this.nodes)
+        .force("link")
+        .links(this.edges)
       this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
       this.buildGraphic()
     }

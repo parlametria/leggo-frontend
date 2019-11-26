@@ -2,29 +2,29 @@
   <div>
     <el-tabs>
       <el-tab-pane label="Geral">
-        <atores-graphic
-          :atores="atores"
-          :casa="casa"
-          :sigla="sigla"/>
+        <atores-graphic :atores="atores" :casa="casa" :sigla="sigla"/>
+        <influencia-graph :id_leggo="id_leggo" :nodes="nodes" :edges="edges"/>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
         v-for="(atores_comissoes, index) in atoresLocaisImportantes"
-        :key="index">
-        <atores-graphic :atores="atores_comissoes" />
+        :key="index"
+      >
+        <atores-graphic :atores="atores_comissoes"/>
       </el-tab-pane>
     </el-tabs>
     <router-link :to="linkAtores">
-      <el-button class="btn" >Veja mais</el-button>
+      <el-button class="btn">Veja mais</el-button>
     </router-link>
   </div>
 </template>
 
 <script>
-import AtoresGraphic from './AtoresGraphic.vue'
+import AtoresGraphic from "./AtoresGraphic.vue";
+import InfluenciaGraph from "@/components/card/expanded/rede/InfluenciaGraph.vue";
 
 export default {
-  name: 'TabAtoresGraphic',
+  name: "TabAtoresGraphic",
   props: {
     top_atores: {
       type: Array,
@@ -36,11 +36,11 @@ export default {
     },
     casa: {
       type: String,
-      default: ''
+      default: ""
     },
     sigla: {
       type: String,
-      default: ''
+      default: ""
     },
     id_leggo: {
       type: Number,
@@ -48,52 +48,91 @@ export default {
     },
     apelido: {
       type: String,
-      default: ''
+      default: ""
+    }
+  },
+  data() {
+    return {
+      nodes: [],
+      edges: []
+    };
+  },
+  methods: {
+    setEdges({ data }) {
+      this.edges = data.map(edge => ({
+        ...edge,
+        source: parseInt(edge.source, 10),
+        target: parseInt(edge.target, 10)
+      }));
+    },
+    setNodes({ data }) {
+      this.nodes = data.map(node => ({
+        ...node,
+        node_size: parseInt(node.node_size, 10),
+        x: 0,
+        y: 0,
+        id: parseInt(node.id_autor, 10)
+      }));
+    },
+    async fetchData() {
+      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`));
+      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`));
     }
   },
   filters: {
-    formataLocal (value) {
-      if (value.toLowerCase().includes('plen')) {
-        return value.replace('PLEN', 'Plenário')
+    formataLocal(value) {
+      if (value.toLowerCase().includes("plen")) {
+        return value.replace("PLEN", "Plenário");
       } else if (/\d/.test(value)) {
-        return value.concat(' - ', 'Com. Especial')
+        return value.concat(" - ", "Com. Especial");
       } else {
-        return value
+        return value;
       }
     }
   },
   components: {
-    AtoresGraphic
+    AtoresGraphic,
+    InfluenciaGraph
   },
   computed: {
-    atores () {
+    atores() {
       if (this.top_atores) {
-        return this.top_atores
+        return this.top_atores;
       }
     },
-    linkAtores () {
+    linkAtores() {
       return {
-        name: 'atores',
+        name: "atores",
         params: {
           id_leggo: this.id_leggo,
           apelido: this.apelido
         }
-      }
+      };
     },
-    atoresLocaisImportantes () {
-      let atoresLocais = {}
+    atoresLocaisImportantes() {
+      let atoresLocais = {};
       if (this.top_important_atores) {
         for (let ator of this.top_important_atores) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
-            atoresLocais[ator.sigla_local_formatada].push(ator)
+            atoresLocais[ator.sigla_local_formatada].push(ator);
           } else {
-            atoresLocais[ator.sigla_local_formatada] = []
-            atoresLocais[ator.sigla_local_formatada].push(ator)
+            atoresLocais[ator.sigla_local_formatada] = [];
+            atoresLocais[ator.sigla_local_formatada].push(ator);
           }
         }
       }
-      return atoresLocais
+      return atoresLocais;
+    },
+    nodesLocaisImportantes() {
+      let nodes = this.nodes;
+
+      return nodes;
+    },
+    edgesLocaisImportantes() {
+      let edges = this.edges;
+
+      return edges;
     }
   }
-}
+};
 </script>
