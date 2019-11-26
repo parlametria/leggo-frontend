@@ -1,5 +1,12 @@
 <template>
   <div>
+    <router-link :to="{ name: 'proposicoes' }">
+      <img
+        class="logo"
+        src="@/assets/PNGleggo.png"
+        @click="closeMenu"
+      >
+    </router-link>
     <div>
       <input
         id="menu-hamburguer"
@@ -47,14 +54,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
 .menubar {
   display: flex;
   flex-wrap: wrap;
     * {
-        font-family: sans-serif;
-        margin-right: 1rem;
-        text-transform: uppercase;
-        color: grey;
+      color: gray;
+      font-family: sans-serif;
+      padding-right: 1rem;
+      text-transform: uppercase;
     }
     &:last-child {
         margin-right: 0;
@@ -69,25 +77,49 @@ input {
   display: none;
 }
 
+.logo {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  margin-bottom: -20px;
+  margin-left: -40px;
+  background-color: rgba(0, 0, 0, 0);
+  @media screen and (max-width: 600px) {
+    max-width: 300px;
+    margin-top: -15px;
+    margin-bottom: -15px;
+    margin-left: -20px;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .menubar {
-    background: wheat;
+    background: white;
     flex-wrap: nowrap;
+    border: $--color-primary-dark solid 0px;
     flex-direction: column;
     z-index: 1;
     position: absolute;
     right: 20px;
-    top: 63px;
+    top: 70px;
     width: 170px;
     height: 0px;
     overflow: hidden;
-    -webkit-transition: height 1s, font-size 1s; /* For Safari 3.1 to 6.0 */
-    transition: height 1s, font-size 1s;
+    -webkit-transition: height 1s, font-size 1s, border 1s; /* For Safari 3.1 to 6.0 */
+    transition: height 1s, font-size 1s, border 1s;
     a {
-      font-size: 18px;
-      padding: 10px;
-      display: block;
-      white-space: nowrap;
+      padding: 0px;
+      span{
+        color: $--color-primary-dark;
+        padding: 10px;
+        font-size: 18px;
+        display: block;
+        white-space: nowrap;
+      }
+    }
+    a.router-link-exact-active > span{
+      background-color:  $--color-primary-dark;
+      color: white;
     }
   }
 
@@ -97,14 +129,14 @@ input {
     width: 60px;
     height: 30px;
     position: fixed;
-    top: 40px;
-    right: 10px;
+    top: 48px;
+    right: 0px;
   }
 
   .hamburguer {
     position: relative;
     display: block;
-    background: #000;
+    background: $--color-primary-dark;
     width: 30px;
     height: 2px;
     transition: .5s ease-in-out;
@@ -112,7 +144,7 @@ input {
 
   .hamburguer:before,
   .hamburguer:after {
-    background: #000;
+    background: $--color-primary-dark;
     content: '';
     display: block;
     width: 100%;
@@ -124,6 +156,7 @@ input {
     display: block;
     width: 170px;
     height: 170px;
+    border: $--color-primary-dark solid 1px;
   }
 
   .hamburguer:before {
