@@ -5,6 +5,7 @@ import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
+import AtoresDetailed from '@/views/AtoresDetailed.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
 import Relatorios from '@/views/Relatorios'
 import Semanarios from '@/views/Semanarios'
@@ -85,6 +86,12 @@ const router = new Router({
         params.prop = prop
         next()
       }
+    },
+    {
+      path: '/atores/:id_leggo',
+      name: 'atores',
+      component: AtoresDetailed,
+      props: true
     }
   ]
 })

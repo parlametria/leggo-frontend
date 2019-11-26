@@ -2,7 +2,6 @@
   <div class="proposicao-card">
     <router-link
       :to="linkProp"
-      tag="div"
       class="card-header">
       <proposicao-header
         :prop="prop"

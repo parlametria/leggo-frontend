@@ -2,9 +2,6 @@
   <div>
     <div
       v-if="formattedEventos.length">
-      <header>
-        <h5>Últimos Eventos</h5>
-      </header>
       <table class="eventos-tram">
         <div
           v-for="(eventos, key) in groupEventos"

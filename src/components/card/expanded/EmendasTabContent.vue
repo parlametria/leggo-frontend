@@ -13,10 +13,9 @@
         class="loader"
         v-show="loading"/>
     </div>
-    <emendas-table
+    <leggo-table
       :data="emendas"
-      :columns="['titulo', 'autor', 'local']"
-      :filter-key="query"/>
+      :columns="['titulo', 'autor', 'local']"/>
     <span
       v-if="showTextoExplicacao"
       class="explicacao_emendas"
@@ -25,7 +24,7 @@
 </template>
 
 <script>
-import EmendasTable from '@/components/EmendasTable.vue'
+import LeggoTable from '@/components/LeggoTable.vue'
 import _ from 'lodash'
 
 export default {
@@ -38,7 +37,7 @@ export default {
     }
   },
   components: {
-    EmendasTable
+    LeggoTable
   },
   props: {
     emendas: {

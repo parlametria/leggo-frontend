@@ -9,6 +9,7 @@
       class="graphic"
       id="grafico">
       <div ref="anchor" />
+      <p style="font-size: 10pt">* Oposição</p>
     </div>
     <div v-else-if="casa === 'senado'">
       <p class="sem-atores">Não estamos capturando atores em Senado</p>
@@ -52,7 +53,7 @@ export default {
       const atores = {}
       this.atores.forEach(element => {
         if (atores[element.id_autor] === undefined) { atores[element.id_autor] = 0 }
-        atores[element.id_autor] += element.qtd_de_documentos
+        atores[element.id_autor] += element.peso_total_documentos
       })
       return atores
     },
@@ -111,6 +112,7 @@ export default {
 .graphic {
   text-align: left;
   overflow-x: auto;
+  margin-bottom: 15px;
 }
 .title {
   line-height: 15px;
