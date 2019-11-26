@@ -49,13 +49,16 @@ export default {
     edges: {
       type: Array,
       default () { return [] }
+    },
+    influencia: {
+      type: Array, 
+      default () { return [] }
     }
   },
   data() {
     return {
       width: 300,
       height: 230,
-      influencia: [],
       activeNode: null,
       nodeHover: null,
       filter: ""
@@ -202,7 +205,7 @@ export default {
       return vertex
     }
   },
-  mounted() {
+  beforeMount() {
     this.fetchData()
   },
   methods: {
@@ -261,17 +264,6 @@ export default {
         ])
         .range([config.minNodeSize, config.maxNodeSize])(influencia)
     },
-    setInfluencia({ data }) {
-      this.influencia = data
-      this.nodes.forEach(node => {
-        node["influencia"] = 0
-        this.influencia.forEach(parlamentar => {
-          if (parlamentar.id == node.id) {
-            node["influencia"] = parlamentar.indice_influencia_parlamentar
-          }
-        })
-      })
-    },
     ticked(link, node) {
       link
         .attr("x1", d => {
@@ -300,12 +292,11 @@ export default {
           return Math.max(d.y, 0)
         })
     },
-    async fetchData() {    
+    async fetchData() {
       this.simulation
         .nodes(this.nodes)
         .force("link")
         .links(this.edges)
-      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
       this.buildGraphic()
     }
   }
