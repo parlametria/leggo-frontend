@@ -2,7 +2,7 @@
   <div id="container">
     <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
-    <svg id="graph" v-if="nodes.length != 0" vi>
+    <svg :id="`graph${graphId}`" v-if="nodes.length != 0">
       <g class="everything"></g>
       <tooltip :node="nodeHover"></tooltip>
     </svg>
@@ -35,6 +35,10 @@ export default {
     id_leggo: {
       type: Number,
       default: 0
+    },
+    graphId: {
+      type: String,
+      default: "0"
     },
     nodes: {
       type: Array,
@@ -139,7 +143,7 @@ export default {
     },
     svg() {
       return d3
-        .select("#graph")
+        .select(`#graph${this.graphId}`)
         .attr("viewBox", `0 0 ${this.width} ${this.height}`)
     },
     title() {

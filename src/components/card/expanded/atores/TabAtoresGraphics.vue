@@ -3,16 +3,25 @@
     <el-tabs>
       <el-tab-pane label="Geral">
         <atores-graphic :atores="atores" :casa="casa" :sigla="sigla"/>
+        <influencia-graph
+          v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
+          :id_leggo="id_leggo"
+          :nodes="nodes"
+          :edges="edges"
+          :graphId="'geral'"
+          :influencia="influencia"
+        />
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
-        v-for="(atores_comissoes, index) in atoresLocaisImportantes"
+        v-for="(atores_comissoes, index) in atoresLocaisImportantes.atoresLocais"
         :key="index"
       >
         <atores-graphic :atores="atores_comissoes"/>
         <influencia-graph
           v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
           :id_leggo="id_leggo"
+          :graphId="atoresLocaisImportantes.dictLocalIndex[index]"
           :nodes="nodesLocaisImportantes[index]"
           :edges="edgesLocaisImportantes[index]"
           :influencia="influencia"
@@ -135,17 +144,21 @@ export default {
     },
     atoresLocaisImportantes() {
       let atoresLocais = {};
+      let count = 1;
+      let dictLocalIndex = {}
       if (this.top_important_atores) {
         for (let ator of this.top_important_atores) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
             atoresLocais[ator.sigla_local_formatada].push(ator);
           } else {
             atoresLocais[ator.sigla_local_formatada] = [];
+            dictLocalIndex[ator.sigla_local_formatada] = count;
             atoresLocais[ator.sigla_local_formatada].push(ator);
+            count++;
           }
         }
       }
-      return atoresLocais;
+      return{atoresLocais, dictLocalIndex};
     },
     nodesLocaisImportantes() {
       let nodesLocais = {};
