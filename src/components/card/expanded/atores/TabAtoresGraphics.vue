@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-tabs>
-      <el-tab-pane label="Geral">
+    <el-tabs v-model="activeTab">
+      <el-tab-pane label="Geral" lazy="true">
         <atores-graphic :atores="atores" :casa="casa" :sigla="sigla"/>
         <influencia-graph
           v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
@@ -16,21 +16,25 @@
         :label="index | formataLocal"
         v-for="(atores_comissoes, index) in atoresLocaisImportantes.atoresLocais"
         :key="index"
+        :name="index"
+        lazy="true"
       >
-        <atores-graphic :atores="atores_comissoes"/>
-        <influencia-graph
-          v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-          :id_leggo="id_leggo"
-          :graphId="atoresLocaisImportantes.dictLocalIndex[index]"
-          :nodes="nodesLocaisImportantes[index]"
-          :edges="edgesLocaisImportantes[index]"
-          :influencia="influencia"
-        />
+        <div v-if="index === activeTab">
+          <atores-graphic :atores="atores_comissoes"/>
+          <router-link :to="linkAtores">
+            <el-button class="btn">Veja mais</el-button>
+          </router-link>
+          <influencia-graph
+            v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
+            :id_leggo="id_leggo"
+            :nodes="nodesLocaisImportantes[index]"
+            :edges="edgesLocaisImportantes[index]"
+            :influencia="influencia"
+          />
+        </div>
       </el-tab-pane>
     </el-tabs>
-    <router-link :to="linkAtores">
-      <el-button class="btn">Veja mais</el-button>
-    </router-link>
+
   </div>
 </template>
 
@@ -72,7 +76,8 @@ export default {
     return {
       nodes: [],
       edges: [],
-      influencia: []
+      influencia: [],
+      activeTab: "Geral"
     };
   },
   mounted() {

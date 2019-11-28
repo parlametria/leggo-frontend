@@ -2,7 +2,7 @@
   <div id="container">
     <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
-    <svg :id="`graph${graphId}`" v-if="nodes.length != 0">
+    <svg id="graph" v-if="nodes.length != 0">
       <g class="everything"></g>
       <tooltip :node="nodeHover"></tooltip>
     </svg>
@@ -36,20 +36,16 @@ export default {
       type: Number,
       default: 0
     },
-    graphId: {
-      type: String,
-      default: "0"
-    },
     nodes: {
       type: Array,
       default () { return [] }
-    }, 
+    },
     edges: {
       type: Array,
       default () { return [] }
     },
     influencia: {
-      type: Array, 
+      type: Array,
       default () { return [] }
     }
   },
@@ -143,7 +139,7 @@ export default {
     },
     svg() {
       return d3
-        .select(`#graph${this.graphId}`)
+        .select("#graph")
         .attr("viewBox", `0 0 ${this.width} ${this.height}`)
     },
     title() {
@@ -240,7 +236,7 @@ export default {
               .map(n => n.source.id));
     },
     scaleColor(node) {
-      
+
       const scaleAux = d3
         .scaleLinear()
         .domain([
@@ -248,7 +244,7 @@ export default {
           d3.max(this.nodes, d => d.node_size)
         ])
         .range([0.2, 1])
-      
+
       if (node.bancada === "oposição") {
         return d3.interpolateReds(scaleAux(node.node_size))
       }
