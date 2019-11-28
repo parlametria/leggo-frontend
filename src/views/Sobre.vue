@@ -34,6 +34,29 @@
       <p>
         3 - Por fim, é considerado o máximo dessas porcentagens para mostrarmos no Leg.go.
       </p>
+
+      <h2>Glossário dos documentos utilizados em atores</h2>
+      <p>
+        Emenda: tem intuito de alterar determinado trecho do texto, ou seja, 
+        a proposição ao ser apresentada, os parlamentares podem criar documentos desse tipo para 
+        modificar um determinado trecho dessa proposta.
+      </p>
+      <p>
+        Requerimento: tem como objetivo solicitar um pedido, necessidade ou interesse em algo.
+      </p>
+      <p>
+        Parecer:
+      </p>
+      <p>
+        Proposição apensada:
+      </p>
+      <p>
+        Voto em separado:
+      </p>
+      <p>
+        Outros: existe outros tipos de documentos apresentados no Congresso, e agrupamos eles aqui.
+      </p>
+
     </div>
     <h2 class="center">Equipe:</h2>
     <div class="equipe">
