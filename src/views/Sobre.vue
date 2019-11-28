@@ -37,24 +37,28 @@
 
       <h2>Glossário dos documentos utilizados em atores</h2>
       <p>
-        Emenda: tem intuito de alterar determinado trecho do texto, ou seja, 
-        a proposição ao ser apresentada, os parlamentares podem criar documentos desse tipo para 
-        modificar um determinado trecho dessa proposta.
+        <b>Emenda:</b> destina-se a alterar o texto da proposição principal, seja 
+        suprimindo ou acrescentando disposições, modificando ou substituindo
+        as já existentes (Não confundir com Ementa, que se trata apenas de uma breve 
+        apresentação dos pontos relevantes de uma proposição).
       </p>
       <p>
-        Requerimento: tem como objetivo solicitar um pedido, necessidade ou interesse em algo.
+        <b>Requerimento:</b> tem como objetivo solicitar um pedido, necessidade ou interesse em algo.
       </p>
       <p>
-        Parecer:
+        <b>Parecer:</b> espécie de proposição legislativa acessória, na qual se expressa uma opinião 
+        favorável ou contrária à proposição à qual se refere.
       </p>
       <p>
-        Proposição apensada:
+        <b>Proposição apensada:</b> anexação de uma proposição ao processo de outra da mesma espécie
+        que trate de matéria análoga ou conexa, para que sejam apreciadas conjuntamente.
       </p>
       <p>
-        Voto em separado:
+        <b>Voto em separado:</b> espécie de manifestação alternativa à do relator em uma comissão, 
+        podendo ser apresentado por qualquer dos demais membros.
       </p>
       <p>
-        Outros: existe outros tipos de documentos apresentados no Congresso, e agrupamos eles aqui.
+        <b>Outros:</b> existe outros tipos de documentos apresentados no Congresso, e agrupamos eles aqui.
       </p>
 
     </div>
