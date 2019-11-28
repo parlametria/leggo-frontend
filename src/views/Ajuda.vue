@@ -2,7 +2,7 @@
   <div>
     <div class="ajuda-sm">
       <img
-        :src="require(`@/assets/ajuda_mobile.png`)"
+        :src="require(`@/assets/mobileleggo.png`)"
         class="responsive"
         alt="">
     </div>
