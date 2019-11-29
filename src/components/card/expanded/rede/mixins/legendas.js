@@ -39,7 +39,7 @@ export default {
       g.append('rect')
         .attr('height', 30)
         .attr('x', -78)
-        .attr('y', -6)
+        .attr('y', -7.5)
         .attr('width', 107)
         .attr('fill', '#f7f7f7')
         .attr('stroke', 'gray')
@@ -111,7 +111,7 @@ export default {
         .attr('class', 'caption')
         .attr('y', 8)
         .attr('x', -75)
-        .text('do autor')
+        .text('do autor¹')
 
       g.append('text')
         .attr('class', 'caption')
@@ -123,7 +123,7 @@ export default {
         .attr('class', 'caption')
         .attr('y', 8)
         .attr('x', -15)
-        .text('política')
+        .text('política²')
 
       var radios = [1, 2, 3, 4, 5]
       var x0 = -18

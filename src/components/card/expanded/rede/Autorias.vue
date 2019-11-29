@@ -1,8 +1,9 @@
 <template>
   <div v-if="isActive">
+    <h5>Documentos - {{ this.node.nome_eleitoral }}</h5>
     <leggo-table
       :data="autorias"
-      :columns="['data', 'descricao_tipo_documento', 'nome_eleitoral']"
+      :columns="['data', 'descricao_tipo_documento', 'autores']"
       :is-emenda-table="false"/>
   </div>
 </template>

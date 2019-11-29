@@ -8,7 +8,9 @@
       <g class="everything"/>
       <tooltip :node="nodeHover"/>
     </svg>
-    <h5 v-else>Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
+    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
+    <p class="footnote">¹: A participação do parlamentar em um documento é de 1 sobre a quantidade de parlamentares que assinaram o documento.</p>
+    <p class="footnote">²: A influência política do parlamentar é calculada levando em consideração os cargos que ele ocupa e a verba do fundo partidário despendida a ele pelo partido.</p>
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
@@ -142,9 +144,20 @@ export default {
         .range([config.minLinkSize, config.maxLinkSize])
     },
     svg() {
-      return d3
+      const svg = d3
         .select("#graph")
         .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+      svg.on("click", () => {
+        if(this.activeNode != this.nodeHover){
+          d3.selectAll("circle")
+            .attr("opacity", 1)
+            .attr("stroke-width", d => 0.1)
+            .attr("stroke-dasharray", "0,0")
+          d3.selectAll("line").attr("opacity", 1)
+          this.activeNode = null
+        }
+      })
+      return svg;
     },
     title() {
       return this.group
@@ -180,9 +193,10 @@ export default {
           this.nodeHover = null
         })
         .on("click", d => {
-          if ((this.activeNode == d)) {
+          if (this.activeNode == d) {
             this.activeNode = null
-            vertex.selectAll("circle")
+            this.nodeHover = null
+            d3.selectAll("circle")
               .attr("opacity", 1)
               .attr("stroke-width", d => 0.1)
               .attr("stroke-dasharray", "0,0")
@@ -198,8 +212,6 @@ export default {
             )
           }
         });
-
-
       return vertex
     }
   },
@@ -212,7 +224,8 @@ export default {
         group,
         links,
         vertex,
-        title
+        title,
+        svg
       } = this
       this.createLegends()
       this.simulation.on("tick", function(d) {
@@ -311,6 +324,9 @@ export default {
 }
 .circle {
   z-index: 1;
+}
+.footnote {
+  font-size: 0.75rem
 }
 </style>
 

@@ -3,7 +3,7 @@
     <el-tabs v-model="activeTab">
       <el-tab-pane
         label="Geral"
-        lazy="true"
+        :lazy="true"
         :name="'Geral'"
       >
         <div v-if="'Geral' === activeTab">
@@ -16,7 +16,6 @@
             :id_leggo="id_leggo"
             :nodes="nodes"
             :edges="edges"
-            :graph-id="'geral'"
             :influencia="influencia"
           />
         </div>
@@ -26,7 +25,7 @@
         v-for="(atores_comissoes, index) in atoresLocaisImportantes.atoresLocais"
         :key="index"
         :name="index"
-        lazy="true"
+        :lazy="true"
       >
         <div v-if="index === activeTab">
           <atores-graphic :atores="atores_comissoes"/>
