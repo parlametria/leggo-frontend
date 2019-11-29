@@ -1,14 +1,13 @@
 <template>
   <div>
     <el-tabs v-model="activeTab">
-      <el-tab-pane label="Geral" lazy="true">
+      <el-tab-pane label="Geral" :lazy="true">
         <atores-graphic :atores="atores" :casa="casa" :sigla="sigla"/>
         <influencia-graph
           v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
           :id_leggo="id_leggo"
           :nodes="nodes"
           :edges="edges"
-          :graphId="'geral'"
           :influencia="influencia"
         />
       </el-tab-pane>
@@ -17,7 +16,7 @@
         v-for="(atores_comissoes, index) in atoresLocaisImportantes.atoresLocais"
         :key="index"
         :name="index"
-        lazy="true"
+        :lazy="true"
       >
         <div v-if="index === activeTab">
           <atores-graphic :atores="atores_comissoes"/>

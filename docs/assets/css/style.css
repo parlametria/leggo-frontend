@@ -25,10 +25,27 @@ h3 {
   }
 }
 
+.logo {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  margin-bottom: -25px;
+  margin-left: -40px;
+  margin-top: -20px;
+}
+
+@media screen and (max-width: 600px) {
+  .logo{
+    max-width: 300px;
+    margin-bottom: -25px;
+    margin-left: -25px;
+  }
+}
+
 .navbar {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid #E55C61;
+  border-bottom: 2px solid #7f3c8b;
   margin-bottom: 3rem;
 }
 

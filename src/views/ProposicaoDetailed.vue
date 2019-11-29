@@ -49,7 +49,7 @@ a {
   height: 12px;
   width: 12px;
 
-  border: solid #dc6060;
+  border: solid $--color-primary;;
   border-width: 0px 3px 3px 0;
   margin-bottom: 4px;
   margin-right: 5px;
