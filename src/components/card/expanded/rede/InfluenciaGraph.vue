@@ -2,12 +2,16 @@
   <div id="container">
     <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
-    <svg id="graph" v-if="nodes.length != 0">
-      <g class="everything"></g>
-      <tooltip :node="nodeHover"></tooltip>
+    <svg
+      id="graph"
+      v-if="nodes.length != 0">
+      <g class="everything"/>
+      <tooltip :node="nodeHover"/>
     </svg>
     <h5 v-else>Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
-    <autorias :node="activeNode" :id_leggo="id_leggo"/>
+    <autorias
+      :node="activeNode"
+      :id_leggo="id_leggo"/>
   </div>
 </template>
 

@@ -1,16 +1,25 @@
 <template>
   <div>
     <el-tabs v-model="activeTab">
-      <el-tab-pane label="Geral" lazy="true">
-        <atores-graphic :atores="atores" :casa="casa" :sigla="sigla"/>
-        <influencia-graph
-          v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-          :id_leggo="id_leggo"
-          :nodes="nodes"
-          :edges="edges"
-          :graphId="'geral'"
-          :influencia="influencia"
-        />
+      <el-tab-pane
+        label="Geral"
+        lazy="true"
+        :name="'Geral'"
+      >
+        <div v-if="'Geral' === activeTab">
+          <atores-graphic
+            :atores="atores"
+            :casa="casa"
+            :sigla="sigla"/>
+          <influencia-graph
+            v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
+            :id_leggo="id_leggo"
+            :nodes="nodes"
+            :edges="edges"
+            :graph-id="'geral'"
+            :influencia="influencia"
+          />
+        </div>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
@@ -39,13 +48,13 @@
 </template>
 
 <script>
-import AtoresGraphic from "./AtoresGraphic.vue";
-import InfluenciaGraph from "@/components/card/expanded/rede/InfluenciaGraph.vue";
-import axios from "@/stores/axios";
-import { vaxios } from "../rede/mocks/vaxios";
+import AtoresGraphic from './AtoresGraphic.vue'
+import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
+import axios from '@/stores/axios'
+import { vaxios } from '../rede/mocks/vaxios'
 
 export default {
-  name: "TabAtoresGraphic",
+  name: 'TabAtoresGraphic',
   props: {
     top_atores: {
       type: Array,
@@ -57,11 +66,11 @@ export default {
     },
     casa: {
       type: String,
-      default: ""
+      default: ''
     },
     sigla: {
       type: String,
-      default: ""
+      default: ''
     },
     id_leggo: {
       type: Number,
@@ -69,62 +78,62 @@ export default {
     },
     apelido: {
       type: String,
-      default: ""
+      default: ''
     }
   },
-  data() {
+  data () {
     return {
       nodes: [],
       edges: [],
       influencia: [],
-      activeTab: "Geral"
-    };
+      activeTab: 'Geral'
+    }
   },
-  mounted() {
-    this.fetchData();
+  mounted () {
+    this.fetchData()
   },
   methods: {
-    setEdges({ data }) {
+    setEdges ({ data }) {
       this.edges = data.map(edge => ({
         ...edge,
         source: parseInt(edge.source, 10),
         target: parseInt(edge.target, 10)
-      }));
+      }))
     },
-    setNodes({ data }) {
+    setNodes ({ data }) {
       this.nodes = data.map(node => ({
         ...node,
         node_size: parseInt(node.node_size, 10),
         x: 0,
         y: 0,
         id: parseInt(node.id_autor, 10)
-      }));
+      }))
     },
-    setInfluencia({ data }) {
-      this.influencia = data;
+    setInfluencia ({ data }) {
+      this.influencia = data
       this.nodes.forEach(node => {
-        node["influencia"] = 0;
+        node['influencia'] = 0
         this.influencia.forEach(parlamentar => {
           if (parlamentar.id === node.id) {
-            node["influencia"] = parlamentar.indice_influencia_parlamentar;
+            node['influencia'] = parlamentar.indice_influencia_parlamentar
           }
-        });
-      });
+        })
+      })
     },
-    async fetchData() {
-      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`));
-      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`));
-      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}));
+    async fetchData () {
+      this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
+      this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
+      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
     }
   },
   filters: {
-    formataLocal(value) {
-      if (value.toLowerCase().includes("plen")) {
-        return value.replace("PLEN", "Plenário");
+    formataLocal (value) {
+      if (value.toLowerCase().includes('plen')) {
+        return value.replace('PLEN', 'Plenário')
       } else if (/\d/.test(value)) {
-        return value.concat(" - ", "Com. Especial");
+        return value.concat(' - ', 'Com. Especial')
       } else {
-        return value;
+        return value
       }
     }
   },
@@ -133,69 +142,69 @@ export default {
     InfluenciaGraph
   },
   computed: {
-    atores() {
+    atores () {
       if (this.top_atores) {
-        return this.top_atores;
+        return this.top_atores
       }
     },
-    linkAtores() {
+    linkAtores () {
       return {
-        name: "atores",
+        name: 'atores',
         params: {
           id_leggo: this.id_leggo,
           apelido: this.apelido
         }
-      };
+      }
     },
-    atoresLocaisImportantes() {
-      let atoresLocais = {};
-      let count = 1;
+    atoresLocaisImportantes () {
+      let atoresLocais = {}
+      let count = 1
       let dictLocalIndex = {}
       if (this.top_important_atores) {
         for (let ator of this.top_important_atores) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
-            atoresLocais[ator.sigla_local_formatada].push(ator);
+            atoresLocais[ator.sigla_local_formatada].push(ator)
           } else {
-            atoresLocais[ator.sigla_local_formatada] = [];
-            dictLocalIndex[ator.sigla_local_formatada] = count;
-            atoresLocais[ator.sigla_local_formatada].push(ator);
-            count++;
+            atoresLocais[ator.sigla_local_formatada] = []
+            dictLocalIndex[ator.sigla_local_formatada] = count
+            atoresLocais[ator.sigla_local_formatada].push(ator)
+            count++
           }
         }
       }
-      return{atoresLocais, dictLocalIndex};
+      return { atoresLocais, dictLocalIndex }
     },
-    nodesLocaisImportantes() {
-      let nodesLocais = {};
+    nodesLocaisImportantes () {
+      let nodesLocais = {}
       if (this.nodes) {
         for (let node of this.nodes) {
           if (Object.keys(nodesLocais).includes(node.sigla_local_formatada)) {
-            nodesLocais[node.sigla_local_formatada].push(node);
+            nodesLocais[node.sigla_local_formatada].push(node)
           } else {
-            nodesLocais[node.sigla_local_formatada] = [];
-            nodesLocais[node.sigla_local_formatada].push(node);
+            nodesLocais[node.sigla_local_formatada] = []
+            nodesLocais[node.sigla_local_formatada].push(node)
           }
         }
       }
 
-      return nodesLocais;
+      return nodesLocais
     },
 
-    edgesLocaisImportantes() {
-      let edgesLocais = {};
+    edgesLocaisImportantes () {
+      let edgesLocais = {}
       if (this.edges) {
         for (let edge of this.edges) {
           if (Object.keys(edgesLocais).includes(edge.sigla_local_formatada)) {
-            edgesLocais[edge.sigla_local_formatada].push(edge);
+            edgesLocais[edge.sigla_local_formatada].push(edge)
           } else {
-            edgesLocais[edge.sigla_local_formatada] = [];
-            edgesLocais[edge.sigla_local_formatada].push(edge);
+            edgesLocais[edge.sigla_local_formatada] = []
+            edgesLocais[edge.sigla_local_formatada].push(edge)
           }
         }
       }
 
-      return edgesLocais;
+      return edgesLocais
     }
   }
-};
+}
 </script>
