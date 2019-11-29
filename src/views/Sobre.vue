@@ -28,8 +28,8 @@
         os termos relacionados são "reforma da previdência", "nova previdência" e "previdência").
       </p>
       <p>
-        2 - Verificamos o quanto os usuários estão pesquisando sobre esses termos e, como resultado, é retornado a porcentagem entre
-        os termos.
+        2 - Verificamos o quanto os usuários estão pesquisando sobre esses termos e, como resultado, é retornado 
+        a porcentagem entre os termos.
       </p>
       <p>
         3 - Por fim, é considerado o máximo dessas porcentagens para mostrarmos no Leg.go.
@@ -37,16 +37,16 @@
 
       <h2>Glossário dos documentos utilizados em atores</h2>
       <p>
-        <b>Emenda:</b> destina-se a alterar o texto da proposição principal, seja 
+        <b>Emenda:</b> destina-se a alterar o texto da proposição principal, seja
         suprimindo ou acrescentando disposições, modificando ou substituindo
-        as já existentes (Não confundir com Ementa, que se trata apenas de uma breve 
+        as já existentes (não confundir com Ementa, que se trata apenas de uma breve
         apresentação dos pontos relevantes de uma proposição).
       </p>
       <p>
         <b>Requerimento:</b> tem como objetivo solicitar um pedido, necessidade ou interesse em algo.
       </p>
       <p>
-        <b>Parecer:</b> espécie de proposição legislativa acessória, na qual se expressa uma opinião 
+        <b>Parecer:</b> espécie de proposição legislativa acessória, na qual se expressa uma opinião
         favorável ou contrária à proposição à qual se refere.
       </p>
       <p>
@@ -54,7 +54,7 @@
         que trate de matéria análoga ou conexa, para que sejam apreciadas conjuntamente.
       </p>
       <p>
-        <b>Voto em separado:</b> espécie de manifestação alternativa à do relator em uma comissão, 
+        <b>Voto em separado:</b> espécie de manifestação alternativa à do relator em uma comissão,
         podendo ser apresentado por qualquer dos demais membros.
       </p>
       <p>
