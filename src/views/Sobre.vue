@@ -9,8 +9,8 @@
       </p>
 
       <p>
-        Nosso objetivo é complementar as informações de acompanhamento já disponíveis.
-        Usamos ciência de dados e aprendizagem de máquina para facilitar o trabalho de advocacy.
+        Nosso objetivo é complementar as informações de acompanhamento já disponíveis, usando
+        ciência de dados e aprendizagem de máquina para facilitar o trabalho de advocacy.
         Acreditamos no poder da tecnologia para diminuir a assimetria de informação e empoderar o
         cidadão e a sociedade civil na construção de uma democracia colaborativa.
       </p>
@@ -24,15 +24,15 @@
       <p>
         Para o cálculo de pressão de uma proposição utilizamos a API do Google Trends e realizamos os seguintes passos:
       </p><p>
-        1 - Pesquisar os termos mais populares relacionados a uma proposição (exemplo: para a Pec 06/19,
-        os termos relacionados são reforma da previdência, nova previdência e previdência).
+        1 - Pesquisamos os termos mais populares relacionados a uma proposição (exemplo: para a Pec 06/19,
+        os termos relacionados são "reforma da previdência", "nova previdência" e "previdência").
       </p>
       <p>
-        2 - Verificar o quanto os usuários estão pesquisando sobre esses termos e como resultado, é retornado a porcentagem entre
+        2 - Verificamos o quanto os usuários estão pesquisando sobre esses termos e, como resultado, é retornado a porcentagem entre
         os termos.
       </p>
       <p>
-        3 - Por fim, é considerado o máximo dessas porcentagens para mostrar no Leg.go.
+        3 - Por fim, é considerado o máximo dessas porcentagens para mostrarmos no Leg.go.
       </p>
     </div>
     <h2 class="center">Equipe:</h2>

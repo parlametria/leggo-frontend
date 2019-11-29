@@ -2,7 +2,6 @@
   <div class="proposicao-card">
     <router-link
       :to="linkProp"
-      tag="div"
       class="card-header">
       <proposicao-header
         :prop="prop"
@@ -35,7 +34,7 @@ export default {
       return {
         name: 'proposicao',
         params: {
-          id: this.prop.id
+          id_leggo: this.prop.id_leggo
         }
       }
     }

@@ -15,7 +15,7 @@
           </header>
           <div ref="emPautaSession">
             <proposicao-item
-              :id="prop.id"
+              :id="prop.id_leggo"
               :key="prop.apelido"
               v-for="prop in emPauta"
               :prop="prop"/>
@@ -29,7 +29,7 @@
             ref="notEmPautaSession"
             class="section">
             <proposicao-item
-              :id="prop.id"
+              :id="prop.id_leggo"
               :key="prop.apelido"
               v-for="prop in propPaged"
               :prop="prop"/>
@@ -138,8 +138,8 @@ export default {
             return n
           }
           if (this.temperaturas) {
-            let tempA = this.temperaturas[a.id] === undefined ? 0 : this.temperaturas[a.id]
-            let tempB = this.temperaturas[b.id] === undefined ? 0 : this.temperaturas[b.id]
+            let tempA = this.temperaturas[a.id_leggo] === undefined ? 0 : this.temperaturas[a.id_leggo]
+            let tempB = this.temperaturas[b.id_leggo] === undefined ? 0 : this.temperaturas[b.id_leggo]
             if (this.filter.temperatureOrder === 'desc') {
               return tempB - tempA
             } else {
