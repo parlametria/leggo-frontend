@@ -31,15 +31,60 @@
       :fases="prop.resumo_progresso"
       :etapas="prop.etapas"
     />
+    <div>
+      <composicao-link
+        :data-local-atual="dataLocalAtual"
+        :sigla-comissao-link="siglaParaLink"
+        :sigla-comissao-front="siglaFormatada"
+        :casa-comissao="prop.lastEtapa.casa"
+      />
+      <el-row>
+        <el-col :span="12">
+          <author-name
+            class="small-margin-top"
+            :author="prop.lastEtapa.autores"
+            :casa="casaAutores" />
+          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
+          <p class="medium-text-field small-margin-top">{{ prop.lastEtapa.relator_nome }}</p>
+          <p class="small-text-field small-margin-top">Relator(a)</p>
+        </el-col>
+      </el-row>
+      <h4>Últimos Eventos</h4>
+      <eventos-info
+        :id="prop.lastEtapa.id_ext"
+        :casa="prop.lastEtapa.casa"
+        :date="dateRef" />
+    </div>
+    <h4>Atividade Parlamentar</h4>
+    <h5>Os 15 Parlamentares mais ativos</h5>
+    <tab-atores-graphics
+      :casa="prop.lastEtapa.casa"
+      :sigla="prop.lastEtapa.sigla"
+      :top_important_atores="prop.top_important_atores"
+      :top_atores="prop.top_atores"
+      :id_leggo="prop.id_leggo"
+      :apelido="prop.lastEtapa.apelido"/>
+    <h5>Rede de Influência</h5>
+    <influencia-graph :id_leggo="prop.id_leggo"/>
+    <h4>Análise das Emendas</h4>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
       :key="i">
       <etapa-proposicao
+        :id_leggo="prop.id_leggo"
         :etapa="etapa"
         :id-last-etapa="prop.lastEtapa.id"
+        :casa="getCasa(etapa)"
         :date="dateRef"/>
     </div>
+    <div>
+      <pautas-info
+        :id="prop.lastEtapa.id_ext"
+        :casa="prop.lastEtapa.casa"
+        :date="dateRef" />
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -49,7 +94,14 @@ import FasesProgress from './expanded/FasesProgress'
 import EtapaProposicao from './EtapaProposicao'
 import TextTag from './collapsed/TextTag'
 import Graphics from './expanded/Graphics'
+import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
+import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
+import EventosInfo from './expanded/EventosInfo'
+import ComposicaoLink from './expanded/ComposicaoLink'
+import PautasInfo from './expanded/PautasInfo'
+import AuthorName from './expanded/AuthorName'
 import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'Proposicaoitem',
@@ -70,7 +122,13 @@ export default {
     FasesProgress,
     EtapaProposicao,
     TextTag,
-    Graphics
+    Graphics,
+    InfluenciaGraph,
+    TabAtoresGraphics,
+    EventosInfo,
+    ComposicaoLink,
+    PautasInfo,
+    AuthorName
   },
   methods: {
     hasNumber (myString) {
@@ -81,6 +139,15 @@ export default {
     },
     capitalizeFirstLetter (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    getCasa (etapa) {
+      if (this.prop.etapas[0].sigla_tipo === 'MPV') {
+        if (this.prop.etapas.length === 1 || (this.prop.lastEtapa.casa === 'senado' && etapa.casa === 'senado')) {
+          return 'Congresso'
+        }
+      }
+
+      return etapa.casa
     }
   },
   computed: {
@@ -96,8 +163,65 @@ export default {
       }
       return [...this.prop.etapas].sort(dataApresCasa)
     },
+    casaAutores () {
+      let autores = this.prop.lastEtapa.autores
+      let casaOrigem = this.prop.casa_origem
+      let casa = ''
+      if (autores === 'Poder Executivo') {
+        casa = ''
+      } else if (casaOrigem === 'senado' || casaOrigem === 'Senado Federal') {
+        casa = 'Senado Federal'
+      } else {
+        casa = 'Câmara dos Deputados'
+      }
+
+      return casa
+    },
+    siglaParaLink () {
+      let siglaParaLink = this.localAtual
+      if (
+        this.localAtual === 'Comissão Especial' ||
+        this.localAtual === 'Plenário' ||
+        this.localAtual === 'Presidência da República'
+      ) {
+        siglaParaLink = this.siglaLocalAtual
+      }
+      if (this.hasNumber(siglaParaLink)) {
+        siglaParaLink = siglaParaLink.replace(/\s/g, '').split('/')
+        siglaParaLink = siglaParaLink[0]
+      }
+      return siglaParaLink.replace(/\(|\)/g, '')
+    },
+    localAtual () {
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const localAtual = locais[locais.length - 1].local
+      return localAtual
+    },
+    siglaLocalAtual () {
+      const locais = this.prop.lastEtapa.resumo_tramitacao
+      const siglaLocalAtual = locais[locais.length - 1].sigla_local
+      return siglaLocalAtual
+    },
+    siglaFormatada () {
+      let siglaFormatada = this.localAtual
+      if (this.localAtual === 'Comissão Especial') {
+        siglaFormatada = this.siglaLocalAtual
+      }
+      if (this.hasNumber(siglaFormatada)) {
+        siglaFormatada = 'Comissão Especial - ' + siglaFormatada
+      }
+      return siglaFormatada
+    },
+    dataLocalAtual () {
+      const data = this.prop.lastEtapa.resumo_tramitacao.slice(-1)[0].data
+      return moment(data).format('DD/MM/YYYY')
+    },
+    emPauta () {
+      return this.etapa.emPauta
+    },
     ...mapState({
-      dateRef: state => state.filter.dateRef
+      dateRef: state => state.filter.dateRef,
+      pautas: state => state.pautas.pautas
     })
   }
 }

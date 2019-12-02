@@ -25,15 +25,17 @@
     </div>
     <bar
       class="temperatura"
-      :ultimo_valor="prop.lastEtapa.ultima_temperatura"
+      :ultimo_valor="prop.ultima_temperatura"
       :cor="'#dc6060'"
       :max_valor="maxTemperatura"
+      :tooltip-texto="'Temperatura da Semana'"
     />
     <bar
       class="pressao"
       :ultimo_valor="prop.lastEtapa.ultima_pressao"
       :cor="'#feb24c'"
-      :max_valor="100"/>
+      :max_valor="100"
+      :tooltip-texto="'Pressão da Semana'"/>
   </div>
 </template>
 

@@ -1,10 +1,10 @@
 <template>
   <el-col class="graphics-container">
     <temperature-graphic
-      :temp_historico="prop.lastEtapa.temperatura_historico"
-      :id="prop.id" />
+      :temp_historico="prop.temperatura_historico"
+      :id="prop.id_leggo" />
     <temperature-info
-      :id="prop.lastEtapa.id_ext"
+      :id="prop.id_leggo"
       :texto="'Temperatura dos últimos 3 meses'"
       :mostra-tooltip="true"
       class="graphic-info"

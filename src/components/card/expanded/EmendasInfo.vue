@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h5>{{ propName }} - {{ capitalizeFirstLetter(casa) }}</h5>
     <div v-if="verificaSeMostraEmendas">
       <h5>Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</h5>
       <el-tabs>
@@ -9,7 +10,7 @@
             :categoria="'todas'" />
         </el-tab-pane>
         <el-tab-pane
-          v-if="verificaSeMostraEmendasAparentes"
+          v-if="verificaSeMostraEmendasAnalisadas"
           label="Mudanças Mais Aparentes">
           <emendas-tab-content
             :emendas="getDiscrepantes"
@@ -17,7 +18,9 @@
             :show-texto-explicacao="showTextoExplicacao"
           />
         </el-tab-pane>
-        <el-tab-pane label="Mudanças Mais Sutis">
+        <el-tab-pane
+          v-if="verificaSeMostraEmendasAnalisadas"
+          label="Mudanças Mais Sutis">
           <emendas-tab-content
             :emendas="getSemelhantes"
             :categoria="'pontuais'"
@@ -92,6 +95,15 @@ export default {
   mounted () {
     this.getEmendas(this.query)
   },
+  methods: {
+    capitalizeFirstLetter (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    },
+    formatDate (date) {
+      return moment(date).format('DD/MM/YYYY')
+    },
+    ...mapActions(['getEmendas'])
+  },
   computed: {
     propEmendas () {
       return this.emendas[this.id]
@@ -141,9 +153,7 @@ export default {
     verificaSeMostraEmendas () {
       return (
         this.propEmendas &&
-        this.propEmendas.length &&
-        this.orderedEmendas[0] &&
-        this.orderedEmendas[0].distancia !== -1
+        this.propEmendas.length
       )
     },
     getAnalisadas () {
@@ -162,19 +172,15 @@ export default {
         ? 'Congresso Nacional'
         : this.casa
     },
-    verificaSeMostraEmendasAparentes () {
+    verificaSeMostraEmendasAnalisadas () {
       return (
-        this.verificaSeMostraEmendas && this.propEmendas.length > this.LIMIAR
+        this.verificaSeMostraEmendas &&
+        this.getAnalisadas &&
+        this.propEmendas.length > this.LIMIAR
       )
     },
     showTextoExplicacao () {
       return this.propEmendas.length !== this.getAnalisadas
-    }
-  },
-  methods: {
-    ...mapActions(['getEmendas']),
-    formatDate (date) {
-      return moment(date).format('DD/MM/YYYY')
     }
   },
   watch: {

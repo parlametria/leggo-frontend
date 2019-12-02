@@ -5,6 +5,7 @@ import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
 import Comissao from '@/views/Comissao.vue'
+import AtoresDetailed from '@/views/AtoresDetailed.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
@@ -60,19 +61,25 @@ const router = new Router({
       }
     },
     {
-      path: '/proposicao/:id',
+      path: '/proposicao/:id_leggo',
       name: 'proposicao',
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
-        let prop = store.state.proposicoes.proposicoes.filter(e => e.id === parseInt(params.id))[0]
+        let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         if (!prop.detailed) {
-          await store.dispatch('detailProposicao', { params: { id: prop.id } })
-          prop = store.state.proposicoes.proposicoes.filter(e => e.id === parseInt(params.id))[0]
+          await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo } })
+          prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         }
         params.prop = prop
         next()
       }
+    },
+    {
+      path: '/atores/:id_leggo',
+      name: 'atores',
+      component: AtoresDetailed,
+      props: true
     }
   ]
 })
