@@ -19,7 +19,7 @@
         </p>
       </div>
       <a
-        v-if="prop.advocacy_link !== null"
+        v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         :href="prop.advocacy_link"
         target="_blank"
         class="advocacy-box bx bx-box"/>
