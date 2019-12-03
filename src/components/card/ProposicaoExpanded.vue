@@ -5,17 +5,24 @@
     <text-tag
       class="tag"
       :etapas="prop.etapas" />
-    <div class="links">
-      <p
-        class="small-text-field"
-        v-for="(etapa,i) in prop.etapas"
-        :key="i">
-        <a
-          class="sigla"
-          :href="etapa.url"
-          target="_blank">{{ etapa.sigla }}</a>
-        - {{ $t(etapa.casa) }}
-      </p>
+    <div class="container">
+      <div class="portal">
+        <p
+          class="small-text-field"
+          v-for="(etapa,i) in prop.etapas"
+          :key="i">
+          <a
+            class="sigla"
+            :href="etapa.url"
+            target="_blank">{{ etapa.sigla }}</a>
+          - {{ $t(etapa.casa) }}
+        </p>
+      </div>
+      <a
+        v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
+        :href="prop.advocacy_link"
+        target="_blank"
+        class="advocacy-box bx bx-box"/>
     </div>
     <graphics :prop="prop"/>
     <h5>Progresso da Tramitação</h5>
@@ -222,6 +229,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/base.scss";
+@import url('https://unpkg.com/boxicons@2.0.3/css/boxicons.min.css');
 .sigla {
   font-size: 14px;
 }
@@ -231,7 +240,7 @@ export default {
 .small-text-field {
   font-size: 10pt;
   color: gray;
-  margin: 0;
+  margin: 10px 10px 10px 0;
 }
 .fases-progress {
   visibility: hidden;
@@ -245,5 +254,23 @@ export default {
 .tag {
   padding-bottom: 5px;
   font-size: 11pt;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
+}
+.portal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.advocacy-box {
+  justify-content: center;
+  color: $--color-primary;
+  font-size: 2rem;
 }
 </style>
