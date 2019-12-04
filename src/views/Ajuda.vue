@@ -20,7 +20,7 @@
               v-for="item in 5"
               :key="item">
               <img
-                :src="require(`@/assets/ajuda0${item}.jpg`)"
+                :src="require(`@/assets/ajuda0${item}.png`)"
                 class="responsive"
                 alt="">
             </el-carousel-item>
