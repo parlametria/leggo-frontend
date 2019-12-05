@@ -4,13 +4,12 @@
       <el-tab-pane
         label="Geral"
         :lazy="true"
-        :name="'Geral'"
-      >
+        :name="'Geral'">
         <div v-if="'Geral' === activeTab">
           <atores-graphic
-            :atores="atores"
+            :atores="this.top_atores"
             :casa="casa"
-            :sigla="sigla"/>
+            :sigla="sigla" />
           <influencia-graph
             v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
             :id_leggo="id_leggo"
@@ -22,13 +21,13 @@
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
-        v-for="(atores_comissoes, index) in atoresLocaisImportantes.atoresLocais"
+        v-for="(atores_comissoes, index) in atoresLocaisImportantes"
         :key="index"
         :name="index"
         :lazy="true"
       >
         <div v-if="index === activeTab">
-          <atores-graphic :atores="atores_comissoes"/>
+          <atores-graphic :atores="atores_comissoes" />
           <router-link :to="linkAtores">
             <el-button class="btn">Veja mais</el-button>
           </router-link>
@@ -42,7 +41,6 @@
         </div>
       </el-tab-pane>
     </el-tabs>
-
   </div>
 </template>
 
@@ -141,11 +139,6 @@ export default {
     InfluenciaGraph
   },
   computed: {
-    atores () {
-      if (this.top_atores) {
-        return this.top_atores
-      }
-    },
     linkAtores () {
       return {
         name: 'atores',
@@ -157,24 +150,34 @@ export default {
     },
     atoresLocaisImportantes () {
       let atoresLocais = {}
-      let count = 1
-      let dictLocalIndex = {}
+
       if (this.top_important_atores) {
         for (let ator of this.top_important_atores) {
           if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
             atoresLocais[ator.sigla_local_formatada].push(ator)
           } else {
-            atoresLocais[ator.sigla_local_formatada] = []
-            dictLocalIndex[ator.sigla_local_formatada] = count
-            atoresLocais[ator.sigla_local_formatada].push(ator)
-            count++
+            if (ator.sigla_local_formatada) {
+              atoresLocais[ator.sigla_local_formatada] = []
+              atoresLocais[ator.sigla_local_formatada].push(ator)
+            }
+          }
+          if (
+            ator.sigla_geral_formatada &&
+            Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)
+          ) {
+            atoresLocais[ator.sigla_geral_formatada].push(ator)
+          } else {
+            if (ator.sigla_geral_formatada) {
+              atoresLocais[ator.sigla_geral_formatada] = []
+              atoresLocais[ator.sigla_geral_formatada].push(ator)
+            }
           }
         }
       }
-      return { atoresLocais, dictLocalIndex }
+      return atoresLocais
     },
     nodesLocaisImportantes () {
-      let nodesLocais = {}
+      let nodesLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
       if (this.nodes) {
         for (let node of this.nodes) {
           if (Object.keys(nodesLocais).includes(node.sigla_local_formatada)) {
@@ -183,6 +186,16 @@ export default {
             nodesLocais[node.sigla_local_formatada] = []
             nodesLocais[node.sigla_local_formatada].push(node)
           }
+          if (
+            node.casa &&
+            node.casa === 'camara'
+          ) {
+            nodesLocais['Geral - Câmara'].push(node)
+          } else {
+            if (node.casa) {
+              nodesLocais['Geral - Senado'].push(node)
+            }
+          }
         }
       }
 
@@ -190,7 +203,7 @@ export default {
     },
 
     edgesLocaisImportantes () {
-      let edgesLocais = {}
+      let edgesLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
       if (this.edges) {
         for (let edge of this.edges) {
           if (Object.keys(edgesLocais).includes(edge.sigla_local_formatada)) {
@@ -198,6 +211,16 @@ export default {
           } else {
             edgesLocais[edge.sigla_local_formatada] = []
             edgesLocais[edge.sigla_local_formatada].push(edge)
+          }
+          if (
+            edge.casa &&
+            edge.casa === 'camara'
+          ) {
+            edgesLocais['Geral - Câmara'].push(edge)
+          } else {
+            if (edge.casa) {
+              edgesLocais['Geral - Senado'].push(edge)
+            }
           }
         }
       }
