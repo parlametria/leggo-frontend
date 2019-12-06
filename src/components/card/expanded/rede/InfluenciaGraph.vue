@@ -1,10 +1,9 @@
 <template>
   <div id="container">
     <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
-    <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
     <svg
       id="graph"
-      v-if="nodes.length != 0">
+      v-if="allNodes.length != 0">
       <g class="everything"/>
       <tooltip :node="nodeHover"/>
     </svg>
@@ -13,7 +12,7 @@
     <p class="footnote">²: A influência política do parlamentar é calculada levando em consideração os cargos que ele ocupa e a verba do fundo partidário despendida a ele pelo partido.</p>
     <autorias
       :node="activeNode"
-      :id_leggo="id_leggo"/>
+      :id_leggo="idLeggo"/>
   </div>
 </template>
 
@@ -38,15 +37,15 @@ export default {
   },
   mixins: [legendas],
   props: {
-    id_leggo: {
+    idLeggo: {
       type: Number,
       default: 0
     },
-    nodes: {
+    allNodes: {
       type: Array,
       default () { return [] }
     },
-    edges: {
+    allEdges: {
       type: Array,
       default () { return [] }
     },
@@ -61,10 +60,18 @@ export default {
       height: 230,
       activeNode: null,
       nodeHover: null,
-      filter: ""
+      filter: "",
+      nodes: [],
+      edges: []
     }
   },
   computed: {
+    acshuisihgu() {
+      return this.edges.filter(e => e.source.id == 204464 || e.target.id == 204464)
+    },
+    marcelo() {
+      return this.nodes.filter(n => n.id == 76874)
+    },
     connectedNodes() {
       return _.uniq(this.nodes.filter(n =>
         this.edges.filter(edge =>
@@ -216,17 +223,29 @@ export default {
     }
   },
   mounted() {
-    this.fetchData()
+    this.nodes = this.allNodes
+    this.edges = this.allEdges.map(edge => ({
+      ...edge,
+      source: parseInt(edge.source, 10),
+      target: parseInt(edge.target, 10)
+    }))
+    this.simulation
+      .nodes(this.nodes)
+      .force("link")
+      .links(this.edges)
+
+    this.buildGraphic()
   },
   methods: {
     buildGraphic() {
       const {
+        svg,
         group,
         links,
         vertex,
-        title,
-        svg
-      } = this
+        title
+      } = this      
+
       this.createLegends()
       this.simulation.on("tick", function(d) {
         // position links
@@ -253,7 +272,6 @@ export default {
               .map(n => n.source.id));
     },
     scaleColor(node) {
-
       const scaleAux = d3
         .scaleLinear()
         .domain([
@@ -303,13 +321,6 @@ export default {
           return Math.max(d.y, 0)
         })
     },
-    async fetchData() {
-      this.simulation
-        .nodes(this.nodes)
-        .force("link")
-        .links(this.edges)
-      this.buildGraphic()
-    }
   }
 }
 </script>

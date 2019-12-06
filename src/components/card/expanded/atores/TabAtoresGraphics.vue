@@ -13,9 +13,9 @@
             :sigla="sigla"/>
           <influencia-graph
             v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-            :id_leggo="id_leggo"
-            :nodes="nodes"
-            :edges="edges"
+            :id-leggo="id_leggo"
+            :all-nodes="nodes"
+            :all-edges="edges"
             :influencia="influencia"
           />
         </div>
@@ -34,9 +34,9 @@
           </router-link>
           <influencia-graph
             v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-            :id_leggo="id_leggo"
-            :nodes="nodesLocaisImportantes[index]"
-            :edges="edgesLocaisImportantes[index]"
+            :id-leggo="id_leggo"
+            :all-nodes="nodesLocaisImportantes[index]"
+            :all-edges="edgesLocaisImportantes[index]"
             :influencia="influencia"
           />
         </div>
@@ -171,6 +171,8 @@ export default {
           }
         }
       }
+
+      console.log('Atores', atoresLocais)
       return { atoresLocais, dictLocalIndex }
     },
     nodesLocaisImportantes () {
@@ -185,7 +187,7 @@ export default {
           }
         }
       }
-
+      console.log(nodesLocais)
       return nodesLocais
     },
 
