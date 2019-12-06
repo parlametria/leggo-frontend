@@ -15,7 +15,7 @@ export default class TemperatureGraphicModel {
       },
       mark: {
         type: 'bar',
-        color: '#dc6060',
+        color: '#9b5498',
         fillOpacity: 0.5
       },
       encoding: {

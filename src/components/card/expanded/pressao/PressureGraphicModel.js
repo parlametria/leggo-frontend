@@ -15,7 +15,7 @@ export default class PressureGraphicModel {
       },
       mark: {
         type: 'bar',
-        color: '#feb24c',
+        color: '#3ab37b',
         fillOpacity: 0.5
       },
       transform: [
