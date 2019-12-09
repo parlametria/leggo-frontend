@@ -12,6 +12,7 @@
         :etapas="prop.etapas" />
     </div>
     <temas :temas="prop.temas"/>
+
     <div>
       <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
     </div>
@@ -22,6 +23,9 @@
     <div class="tags">
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
+      <a
+        v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
+        class="advocacy-box bx bx-box"/>
     </div>
     <bar
       class="temperatura"
@@ -117,13 +121,17 @@ export default {
   grid-column: 1/2;
   grid-row: 5/6;
   margin-top: -6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   .tag {
     font-size: 9pt;
     user-select: none;
     color: #222;
     border-color: #222;
     width: 85px;
-    text-align: center;
+    text-align: start;
     margin-right: 1rem;
   }
 }
