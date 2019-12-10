@@ -33,7 +33,7 @@
     <bar
       class="pressao"
       :ultimo_valor="prop.lastEtapa.ultima_pressao"
-      :cor="'#247fb5'"
+      :cor="'#FFAB0F'"
       :max_valor="100"
       :tooltip-texto="'Pressão da Semana'"/>
   </div>
