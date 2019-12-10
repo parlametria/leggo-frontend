@@ -130,7 +130,7 @@ export default {
     user-select: none;
     color: #222;
     border-color: #222;
-    width: 85px;
+    width: auto;
     text-align: start;
     margin-right: 1rem;
   }
@@ -181,5 +181,10 @@ export default {
 
 .tag {
   font-size: 9pt;
+}
+
+.advocacy-box {
+  justify-content: center;
+  color: rgb(84, 84, 84);
 }
 </style>
