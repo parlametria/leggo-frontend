@@ -149,7 +149,7 @@ export default {
       }
     },
     atoresLocaisImportantes () {
-      let atoresLocais = {}
+      let atoresLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
 
       if (this.top_important_atores) {
         for (let ator of this.top_important_atores) {
@@ -186,19 +186,9 @@ export default {
             nodesLocais[node.sigla_local_formatada] = []
             nodesLocais[node.sigla_local_formatada].push(node)
           }
-          if (
-            node.casa &&
-            node.casa === 'camara'
-          ) {
-            nodesLocais['Geral - Câmara'].push(node)
-          } else {
-            if (node.casa) {
-              nodesLocais['Geral - Senado'].push(node)
-            }
-          }
+            nodesLocais[`Geral - ${node.casa && node.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(node)
         }
       }
-
       return nodesLocais
     },
 
@@ -212,16 +202,7 @@ export default {
             edgesLocais[edge.sigla_local_formatada] = []
             edgesLocais[edge.sigla_local_formatada].push(edge)
           }
-          if (
-            edge.casa &&
-            edge.casa === 'camara'
-          ) {
-            edgesLocais['Geral - Câmara'].push(edge)
-          } else {
-            if (edge.casa) {
-              edgesLocais['Geral - Senado'].push(edge)
-            }
-          }
+          edgesLocais[`Geral - ${edge.casa && edge.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(edge)
         }
       }
 
