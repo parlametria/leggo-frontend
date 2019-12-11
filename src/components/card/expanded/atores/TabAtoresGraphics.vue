@@ -172,6 +172,7 @@ export default {
               atoresLocais[ator.sigla_geral_formatada].push(ator)
             }
           }
+          atoresLocais[`Geral - ${ator.casa && ator.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(ator)
         }
       }
       return atoresLocais
@@ -186,7 +187,7 @@ export default {
             nodesLocais[node.sigla_local_formatada] = []
             nodesLocais[node.sigla_local_formatada].push(node)
           }
-            nodesLocais[`Geral - ${node.casa && node.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(node)
+          nodesLocais[`Geral - ${node.casa && node.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(node)
         }
       }
       return nodesLocais
