@@ -121,7 +121,21 @@ export default {
       this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
       this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
       this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
+    },
+    createDataTabFromList(list){
+      let object = { 'Geral - Senado': [], 'Geral - Câmara': [] }
+      for (let item of list || []) {
+        if (Object.keys(object).includes(item.sigla_local_formatada)) {
+          object[item.sigla_local_formatada].push(item)
+        } else {
+          object[item.sigla_local_formatada] = []
+          object[item.sigla_local_formatada].push(item)
+        }
+        object[`Geral - ${item.casa && item.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(item)
+      }
+      return object
     }
+
   },
   filters: {
     formataLocal (value) {
@@ -151,63 +165,36 @@ export default {
     atoresLocaisImportantes () {
       let atoresLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
 
-      if (this.top_important_atores) {
-        for (let ator of this.top_important_atores) {
-          if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+      for (let ator of this.top_important_atores || []) {
+        if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+          atoresLocais[ator.sigla_local_formatada].push(ator)
+        } else {
+          if (ator.sigla_local_formatada) {
+            atoresLocais[ator.sigla_local_formatada] = []
             atoresLocais[ator.sigla_local_formatada].push(ator)
-          } else {
-            if (ator.sigla_local_formatada) {
-              atoresLocais[ator.sigla_local_formatada] = []
-              atoresLocais[ator.sigla_local_formatada].push(ator)
-            }
           }
-          if (
-            ator.sigla_geral_formatada &&
-            Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)
-          ) {
-            atoresLocais[ator.sigla_geral_formatada].push(ator)
-          } else {
-            if (ator.sigla_geral_formatada) {
-              atoresLocais[ator.sigla_geral_formatada] = []
-              atoresLocais[ator.sigla_geral_formatada].push(ator)
-            }
-          }
-          atoresLocais[`Geral - ${ator.casa && ator.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(ator)
         }
+        if (
+          ator.sigla_geral_formatada &&
+          Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)
+        ) {
+          atoresLocais[ator.sigla_geral_formatada].push(ator)
+        } else {
+          if (ator.sigla_geral_formatada) {
+            atoresLocais[ator.sigla_geral_formatada] = []
+            atoresLocais[ator.sigla_geral_formatada].push(ator)
+          }
+        }
+        atoresLocais[`Geral - ${ator.casa && ator.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(ator)
       }
       return atoresLocais
     },
     nodesLocaisImportantes () {
-      let nodesLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
-      if (this.nodes) {
-        for (let node of this.nodes) {
-          if (Object.keys(nodesLocais).includes(node.sigla_local_formatada)) {
-            nodesLocais[node.sigla_local_formatada].push(node)
-          } else {
-            nodesLocais[node.sigla_local_formatada] = []
-            nodesLocais[node.sigla_local_formatada].push(node)
-          }
-          nodesLocais[`Geral - ${node.casa && node.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(node)
-        }
-      }
-      return nodesLocais
+      return this.createDataTabFromList(this.nodes);
     },
 
     edgesLocaisImportantes () {
-      let edgesLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
-      if (this.edges) {
-        for (let edge of this.edges) {
-          if (Object.keys(edgesLocais).includes(edge.sigla_local_formatada)) {
-            edgesLocais[edge.sigla_local_formatada].push(edge)
-          } else {
-            edgesLocais[edge.sigla_local_formatada] = []
-            edgesLocais[edge.sigla_local_formatada].push(edge)
-          }
-          edgesLocais[`Geral - ${edge.casa && edge.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(edge)
-        }
-      }
-
-      return edgesLocais
+      return this.createDataTabFromList(this.edges);
     }
   }
 }
