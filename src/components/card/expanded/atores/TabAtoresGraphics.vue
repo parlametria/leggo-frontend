@@ -122,7 +122,7 @@ export default {
       this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
       this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
     },
-    createDataTabFromList(list){
+    createDataTabFromList (list) {
       let object = { 'Geral - Senado': [], 'Geral - Câmara': [] }
       for (let item of list || []) {
         if (Object.keys(object).includes(item.sigla_local_formatada)) {
@@ -190,11 +190,11 @@ export default {
       return atoresLocais
     },
     nodesLocaisImportantes () {
-      return this.createDataTabFromList(this.nodes);
+      return this.createDataTabFromList(this.nodes)
     },
 
     edgesLocaisImportantes () {
-      return this.createDataTabFromList(this.edges);
+      return this.createDataTabFromList(this.edges)
     }
   }
 }
