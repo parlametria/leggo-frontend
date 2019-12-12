@@ -4,45 +4,43 @@
       <el-tab-pane
         label="Geral"
         :lazy="true"
-        :name="'Geral'"
-      >
+        :name="'Geral'">
         <div v-if="'Geral' === activeTab">
           <atores-graphic
-            :atores="atores"
+            :atores="this.top_atores"
             :casa="casa"
-            :sigla="sigla"/>
+            :sigla="sigla" />
           <influencia-graph
             v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-            :id_leggo="id_leggo"
-            :nodes="nodes"
-            :edges="edges"
+            :id-leggo="id_leggo"
+            :all-nodes="nodes"
+            :all-edges="edges"
             :influencia="influencia"
           />
         </div>
       </el-tab-pane>
       <el-tab-pane
         :label="index | formataLocal"
-        v-for="(atores_comissoes, index) in atoresLocaisImportantes.atoresLocais"
+        v-for="(atores_comissoes, index) in atoresLocaisImportantes"
         :key="index"
         :name="index"
         :lazy="true"
       >
         <div v-if="index === activeTab">
-          <atores-graphic :atores="atores_comissoes"/>
+          <atores-graphic :atores="atores_comissoes" />
           <router-link :to="linkAtores">
             <el-button class="btn">Veja mais</el-button>
           </router-link>
           <influencia-graph
             v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-            :id_leggo="id_leggo"
-            :nodes="nodesLocaisImportantes[index]"
-            :edges="edgesLocaisImportantes[index]"
+            :id-leggo="id_leggo"
+            :all-nodes="nodesLocaisImportantes[index]"
+            :all-edges="edgesLocaisImportantes[index]"
             :influencia="influencia"
           />
         </div>
       </el-tab-pane>
     </el-tabs>
-
   </div>
 </template>
 
@@ -123,7 +121,21 @@ export default {
       this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
       this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
       this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
+    },
+    createDataTabFromList (list) {
+      let object = { 'Geral - Senado': [], 'Geral - Câmara': [] }
+      for (let item of list || []) {
+        if (Object.keys(object).includes(item.sigla_local_formatada)) {
+          object[item.sigla_local_formatada].push(item)
+        } else {
+          object[item.sigla_local_formatada] = []
+          object[item.sigla_local_formatada].push(item)
+        }
+        object[`Geral - ${item.casa && item.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(item)
+      }
+      return object
     }
+
   },
   filters: {
     formataLocal (value) {
@@ -141,11 +153,6 @@ export default {
     InfluenciaGraph
   },
   computed: {
-    atores () {
-      if (this.top_atores) {
-        return this.top_atores
-      }
-    },
     linkAtores () {
       return {
         name: 'atores',
@@ -156,53 +163,38 @@ export default {
       }
     },
     atoresLocaisImportantes () {
-      let atoresLocais = {}
-      let count = 1
-      let dictLocalIndex = {}
-      if (this.top_important_atores) {
-        for (let ator of this.top_important_atores) {
-          if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
-            atoresLocais[ator.sigla_local_formatada].push(ator)
-          } else {
+      let atoresLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
+
+      for (let ator of this.top_important_atores || []) {
+        if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+          atoresLocais[ator.sigla_local_formatada].push(ator)
+        } else {
+          if (ator.sigla_local_formatada) {
             atoresLocais[ator.sigla_local_formatada] = []
-            dictLocalIndex[ator.sigla_local_formatada] = count
             atoresLocais[ator.sigla_local_formatada].push(ator)
-            count++
           }
         }
+        if (
+          ator.sigla_geral_formatada &&
+          Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)
+        ) {
+          atoresLocais[ator.sigla_geral_formatada].push(ator)
+        } else {
+          if (ator.sigla_geral_formatada) {
+            atoresLocais[ator.sigla_geral_formatada] = []
+            atoresLocais[ator.sigla_geral_formatada].push(ator)
+          }
+        }
+        atoresLocais[`Geral - ${ator.casa && ator.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(ator)
       }
-      return { atoresLocais, dictLocalIndex }
+      return atoresLocais
     },
     nodesLocaisImportantes () {
-      let nodesLocais = {}
-      if (this.nodes) {
-        for (let node of this.nodes) {
-          if (Object.keys(nodesLocais).includes(node.sigla_local_formatada)) {
-            nodesLocais[node.sigla_local_formatada].push(node)
-          } else {
-            nodesLocais[node.sigla_local_formatada] = []
-            nodesLocais[node.sigla_local_formatada].push(node)
-          }
-        }
-      }
-
-      return nodesLocais
+      return this.createDataTabFromList(this.nodes)
     },
 
     edgesLocaisImportantes () {
-      let edgesLocais = {}
-      if (this.edges) {
-        for (let edge of this.edges) {
-          if (Object.keys(edgesLocais).includes(edge.sigla_local_formatada)) {
-            edgesLocais[edge.sigla_local_formatada].push(edge)
-          } else {
-            edgesLocais[edge.sigla_local_formatada] = []
-            edgesLocais[edge.sigla_local_formatada].push(edge)
-          }
-        }
-      }
-
-      return edgesLocais
+      return this.createDataTabFromList(this.edges)
     }
   }
 }
