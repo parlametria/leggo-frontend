@@ -56,7 +56,7 @@
         :casa="prop.lastEtapa.casa"
         :date="dateRef" />
     </div>
-    <h4>Atividade Parlamentar</h4>
+    <h4>Atividade Parlamentar em 2019</h4>
     <h5>Os 15 Parlamentares mais ativos</h5>
     <tab-atores-graphics
       :casa="prop.lastEtapa.casa"
