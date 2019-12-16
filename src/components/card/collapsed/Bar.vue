@@ -61,6 +61,7 @@ export default {
   display: flex;
   flex-direction: column-reverse;
   box-sizing: border-box;
+  opacity: 0.75;
 
 }
 

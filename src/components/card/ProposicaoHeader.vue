@@ -30,14 +30,14 @@
     <bar
       class="temperatura"
       :ultimo_valor="prop.ultima_temperatura"
-      :cor="'#dc6060'"
+      :cor="'#9b5498'"
       :max_valor="maxTemperatura"
       :tooltip-texto="'Temperatura da Semana'"
     />
     <bar
       class="pressao"
       :ultimo_valor="prop.lastEtapa.ultima_pressao"
-      :cor="'#feb24c'"
+      :cor="'#FFAB0F'"
       :max_valor="100"
       :tooltip-texto="'Pressão da Semana'"/>
   </div>
