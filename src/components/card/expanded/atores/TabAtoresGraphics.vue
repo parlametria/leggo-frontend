@@ -1,24 +1,6 @@
 <template>
   <div>
     <el-tabs v-model="activeTab">
-      <!--el-tab-pane
-        label="Geral"
-        :lazy="true"
-        :name="'Geral'">
-        <div v-if="'Geral' === activeTab">
-          <atores-graphic
-            :atores="this.top_atores"
-            :casa="casa"
-            :sigla="sigla" />
-          <influencia-graph
-            v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
-            :id-leggo="id_leggo"
-            :all-nodes="nodes"
-            :all-edges="edges"
-            :influencia="influencia"
-          />
-        </div>
-      </el-tab-pane-->
       <el-tab-pane
         :label="index | formataLocal"
         v-for="(atores_comissoes, index) in atoresLocais"
@@ -165,14 +147,14 @@ export default {
 
       for (let ator of this.top_important_atores || []) {
         if (ator.sigla_local_formatada) {
-           if (!Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
-              atoresLocais[ator.sigla_local_formatada] = []
-            }
-            atoresLocais[ator.sigla_local_formatada].push(ator)
+          if (!Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+            atoresLocais[ator.sigla_local_formatada] = []
           }
-          if (Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)) {
+          atoresLocais[ator.sigla_local_formatada].push(ator)
         }
-        if ( ator.sigla_geral_formatada){
+        if (Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)) {
+        }
+        if (ator.sigla_geral_formatada) {
           if (!Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)) {
             atoresLocais[ator.sigla_geral_formatada] = []
           }
@@ -194,7 +176,7 @@ export default {
       return {
         'Geral': this.top_atores,
         ...this.atoresLocaisImportantes
-      };
+      }
     },
     nodesLocais () {
       return {
