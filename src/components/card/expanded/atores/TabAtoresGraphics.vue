@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-tabs v-model="activeTab">
-      <el-tab-pane
+      <!--el-tab-pane
         label="Geral"
         :lazy="true"
         :name="'Geral'">
@@ -18,10 +18,10 @@
             :influencia="influencia"
           />
         </div>
-      </el-tab-pane>
+      </el-tab-pane-->
       <el-tab-pane
         :label="index | formataLocal"
-        v-for="(atores_comissoes, index) in atoresLocaisImportantes"
+        v-for="(atores_comissoes, index) in atoresLocais"
         :key="index"
         :name="index"
         :lazy="true"
@@ -34,8 +34,8 @@
           <influencia-graph
             v-if="nodes.length !== 0 && edges.length !== 0 && influencia.length !== 0"
             :id-leggo="id_leggo"
-            :all-nodes="nodesLocaisImportantes[index]"
-            :all-edges="edgesLocaisImportantes[index]"
+            :all-nodes="nodesLocais[index]"
+            :all-edges="edgesLocais[index]"
             :influencia="influencia"
           />
         </div>
@@ -125,12 +125,10 @@ export default {
     createDataTabFromList (list) {
       let object = { 'Geral - Senado': [], 'Geral - Câmara': [] }
       for (let item of list || []) {
-        if (Object.keys(object).includes(item.sigla_local_formatada)) {
-          object[item.sigla_local_formatada].push(item)
-        } else {
+        if (!Object.keys(object).includes(item.sigla_local_formatada)) {
           object[item.sigla_local_formatada] = []
-          object[item.sigla_local_formatada].push(item)
         }
+        object[item.sigla_local_formatada].push(item)
         object[`Geral - ${item.casa && item.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(item)
       }
       return object
@@ -166,35 +164,49 @@ export default {
       let atoresLocais = { 'Geral - Senado': [], 'Geral - Câmara': [] }
 
       for (let ator of this.top_important_atores || []) {
-        if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
-          atoresLocais[ator.sigla_local_formatada].push(ator)
-        } else {
-          if (ator.sigla_local_formatada) {
-            atoresLocais[ator.sigla_local_formatada] = []
+        if (ator.sigla_local_formatada) {
+           if (!Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+              atoresLocais[ator.sigla_local_formatada] = []
+            }
             atoresLocais[ator.sigla_local_formatada].push(ator)
           }
+          if (Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)) {
         }
-        if (
-          ator.sigla_geral_formatada &&
-          Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)
-        ) {
-          atoresLocais[ator.sigla_geral_formatada].push(ator)
-        } else {
-          if (ator.sigla_geral_formatada) {
+        if ( ator.sigla_geral_formatada){
+          if (!Object.keys(atoresLocais).includes(ator.sigla_geral_formatada)) {
             atoresLocais[ator.sigla_geral_formatada] = []
-            atoresLocais[ator.sigla_geral_formatada].push(ator)
           }
+          atoresLocais[ator.sigla_geral_formatada].push(ator)
         }
         atoresLocais[`Geral - ${ator.casa && ator.casa === 'camara' ? 'Câmara' : 'Senado'}`].push(ator)
       }
+      if (atoresLocais['Geral - Senado'].length === 0) delete atoresLocais['Geral - Senado']
+      if (atoresLocais['Geral - Câmara'].length === 0) delete atoresLocais['Geral - Câmara']
       return atoresLocais
     },
     nodesLocaisImportantes () {
       return this.createDataTabFromList(this.nodes)
     },
-
     edgesLocaisImportantes () {
       return this.createDataTabFromList(this.edges)
+    },
+    atoresLocais () {
+      return {
+        'Geral': this.top_atores,
+        ...this.atoresLocaisImportantes
+      };
+    },
+    nodesLocais () {
+      return {
+        'Geral': this.nodes,
+        ...this.nodesLocaisImportantes
+      }
+    },
+    edgesLocais () {
+      return {
+        'Geral': this.edges,
+        ...this.edgesLocaisImportantes
+      }
     }
   }
 }

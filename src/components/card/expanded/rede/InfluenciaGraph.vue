@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <h5>Rede de Influência</h5>
     <p>Parlamentares conectados pelos documentos autorados em conjunto</p>
     <svg
       id="graph"
@@ -244,7 +245,7 @@ export default {
         links,
         vertex,
         title
-      } = this      
+      } = this
 
       this.createLegends()
       this.simulation.on("tick", function(d) {
