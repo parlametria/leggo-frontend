@@ -9,10 +9,10 @@ const pressao = new Vapi({
   } }).get({
   action: 'getPressao',
   property: 'pressao',
-  path: ({ casa, id }) =>
-    `pressao/${casa}/${id}`,
+  path: ({ idLeggo }) =>
+    `pressao/${idLeggo}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    Vue.set(state.pressao, params.id, data)
+    Vue.set(state.pressao, params.idLeggo, data)
   }
 }).getStore()
 

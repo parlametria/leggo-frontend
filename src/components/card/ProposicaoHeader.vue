@@ -12,6 +12,7 @@
         :etapas="prop.etapas" />
     </div>
     <temas :temas="prop.temas"/>
+
     <div>
       <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
     </div>
@@ -22,18 +23,21 @@
     <div class="tags">
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
+      <a
+        v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
+        class="advocacy-box bx bx-box"/>
     </div>
     <bar
       class="temperatura"
       :ultimo_valor="prop.ultima_temperatura"
-      :cor="'#dc6060'"
+      :cor="'#9b5498'"
       :max_valor="maxTemperatura"
       :tooltip-texto="'Temperatura da Semana'"
     />
     <bar
       class="pressao"
-      :ultimo_valor="prop.lastEtapa.ultima_pressao"
-      :cor="'#feb24c'"
+      :ultimo_valor="prop.ultima_pressao"
+      :cor="'#FFAB0F'"
       :max_valor="100"
       :tooltip-texto="'Pressão da Semana'"/>
   </div>
@@ -117,13 +121,17 @@ export default {
   grid-column: 1/2;
   grid-row: 5/6;
   margin-top: -6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   .tag {
     font-size: 9pt;
     user-select: none;
     color: #222;
     border-color: #222;
-    width: 85px;
-    text-align: center;
+    width: auto;
+    text-align: start;
     margin-right: 1rem;
   }
 }
@@ -173,5 +181,10 @@ export default {
 
 .tag {
   font-size: 9pt;
+}
+
+.advocacy-box {
+  justify-content: center;
+  color: rgb(84, 84, 84);
 }
 </style>

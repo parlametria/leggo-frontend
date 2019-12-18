@@ -10,8 +10,7 @@
       class="graphic-info"
     />
     <pressure-graphic
-      :id="prop.lastEtapa.id_ext"
-      :casa="prop.lastEtapa.casa" />
+      :id="prop.id_leggo" />
   </el-col>
 </template>
 

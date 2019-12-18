@@ -2,7 +2,7 @@
   <div>
     <div class="ajuda-sm">
       <img
-        :src="require(`@/assets/ajuda_mobile.png`)"
+        :src="require(`@/assets/mobileleggo.png`)"
         class="responsive"
         alt="">
     </div>
@@ -20,7 +20,7 @@
               v-for="item in 5"
               :key="item">
               <img
-                :src="require(`@/assets/ajuda0${item}.jpg`)"
+                :src="require(`@/assets/ajuda0${item}.png`)"
                 class="responsive"
                 alt="">
             </el-carousel-item>

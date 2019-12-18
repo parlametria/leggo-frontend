@@ -24,10 +24,6 @@ export default {
     id: {
       type: Number,
       default: 0
-    },
-    casa: {
-      type: String,
-      default: ''
     }
   },
   computed: {
@@ -74,7 +70,7 @@ export default {
   async mounted () {
     try {
       await this.getPressao({
-        params: { id: this.id, casa: this.casa }
+        params: { idLeggo: this.id }
       })
     } catch (exc) {
       this.composicao = undefined
