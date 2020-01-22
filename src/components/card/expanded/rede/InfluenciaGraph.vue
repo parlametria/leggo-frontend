@@ -24,7 +24,7 @@
 import * as d3 from "d3"
 import axios from "@/stores/axios"
 import config from "./InfluenciaGraphConfig.js"
-import _ from "lodash"
+import { uniq } from "lodash/core"
 import { vaxios } from "./mocks/vaxios"
 import Tooltip from "./Tooltip"
 import SelectFilter from "./SelectFilter"
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     connectedNodes() {
-      return _.uniq(this.nodes.filter(n =>
+      return uniq(this.nodes.filter(n =>
         this.edges.filter(edge =>
            edge.source.id == n.id || edge.target.id == n.id
           ).length != 0

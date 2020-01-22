@@ -44,7 +44,7 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import moment from 'moment'
-import _ from 'lodash'
+import { take, ceil, takeRight, reverse, floor } from 'lodash/core'
 import EmendasTabContent from './EmendasTabContent'
 
 export default {
@@ -131,22 +131,22 @@ export default {
         : this.emendas[this.id]
     },
     getDiscrepantes () {
-      return _.take(
+      return take(
         this.orderedEmendas,
-        _.ceil(this.orderedEmendas.length / 2)
+        ceil(this.orderedEmendas.length / 2)
       )
     },
     getSemelhantes () {
-      const reversedEmendas = _.reverse(this.orderedEmendas)
+      const reversedEmendas = reverse(this.orderedEmendas)
       if (!this.verificaSeMostraEmendasAparentes) {
-        return _.takeRight(
+        return takeRight(
           reversedEmendas,
           Math.min(5, this.orderedEmendas.length)
         )
       } else {
-        return _.takeRight(
+        return takeRight(
           reversedEmendas,
-          _.floor(this.orderedEmendas.length / 2)
+          floor(this.orderedEmendas.length / 2)
         )
       }
     },

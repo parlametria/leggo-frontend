@@ -9,6 +9,8 @@
 <script>
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
 import moment from 'moment'
+import { vegaEmbed } from 'vega-embed/build/vega-embed'
+import { changeset } from 'vega/build/vega.min.js'
 
 export default {
   name: 'TemperatureGraphic',
@@ -44,12 +46,11 @@ export default {
     async mountGraphic () {
       if (this.temperaturas && this.temperaturas.length) {
         let model = new TemperatureGraphicModel(this.tamanhoGrafico)
-        await // eslint-disable-next-line
+        await
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           .change(
             'temperatura',
-            // eslint-disable-next-line
-            vega.changeset().remove('temperatura', d => true)
+            changeset().remove('temperatura', d => true)
           )
           .insert(
             'temperatura',

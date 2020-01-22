@@ -17,6 +17,8 @@ import PressureGraphicModel from './PressureGraphicModel.js'
 import EmptyPressureGraphic from './EmptyPressureGraphic.js'
 import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
+import { vegaEmbed } from 'vega-embed/build/vega-embed'
+import { changeset } from 'vega/build/vega.min.js'
 
 export default {
   name: 'PressureGraphic',
@@ -54,14 +56,14 @@ export default {
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           .change(
-            'filteredPressoes', // eslint-disable-next-line
-            vega.changeset().remove('filteredPressoes', d => true)
+            'filteredPressoes',
+            changeset().remove('filteredPressoes', d => true)
           )
           .insert('filteredPressoes', this.filteredPressoes)
           .run()
       } else {
         let model = new EmptyPressureGraphic(this.tamanhoGrafico)
-        await // eslint-disable-next-line
+        await
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           .run()
       }

@@ -22,7 +22,9 @@
 
 <script>
 import AtoresGraphicModel from './AtoresGraphicModel.js'
-import _ from 'lodash'
+import { take } from 'lodash'
+import { vegaEmbed } from 'vega-embed/build/vega-embed'
+import { changeset } from 'vega/build/vega.min.js'
 
 export default {
   name: 'AtoresGraphic',
@@ -63,7 +65,7 @@ export default {
       for (let idAutor in atoresAgregados) {
         sortable.push([idAutor, atoresAgregados[idAutor]])
       }
-      const top = _.take(
+      const top = take(
         sortable.sort((a, b) => {
           return b[1] - a[1]
         }),
@@ -91,7 +93,7 @@ export default {
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
-          .change("ator", vega.changeset().remove("ator", d => true))
+          .change("ator", changeset().remove("ator", d => true))
           .insert('ator', this.filteredAutores)
           .run()
       }

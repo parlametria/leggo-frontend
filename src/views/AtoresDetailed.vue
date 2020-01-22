@@ -17,6 +17,8 @@
 <script>
 import AtoresGraphicModel from '../components/card/expanded/atores/AtoresGraphicModel.js'
 import axios from '@/stores/axios'
+import { vegaEmbed } from 'vega-embed/build/vega-embed'
+import { changeset } from 'vega/build/vega.min.js'
 
 export default {
   name: 'AtoresDetailed',
@@ -50,10 +52,9 @@ export default {
     },
     async mountGraphic () {
       let model = new AtoresGraphicModel(this.tamanhoGrafico, 'Atividade parlamentar')
-      await // eslint-disable-next-line
+      await
       (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
-        // eslint-disable-next-line
-        .change("ator", vega.changeset().remove("ator", d => true))
+        .change('ator', changeset().remove('ator', d => true))
         .insert('ator', this.atores)
         .run()
     }

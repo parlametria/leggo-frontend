@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Proposicoes from '@/views/Proposicoes.vue'
-import Sobre from '@/views/Sobre.vue'
-import Cases from '@/views/Cases.vue'
-import Ajuda from '@/views/Ajuda.vue'
-import Comissao from '@/views/Comissao.vue'
-import AtoresDetailed from '@/views/AtoresDetailed.vue'
-import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
-import Relatorios from '@/views/Relatorios'
-import Semanarios from '@/views/Semanarios'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
+
+const Sobre = () => import(/* webpackChunkName: "sobre" */ '@/views/Sobre.vue')
+const Ajuda = () => import(/* webpackChunkName: "ajuda" */ '@/views/Ajuda.vue')
+const Relatorios = () => import(/* webpackChunkName: "relatorios" */ '@/views/Relatorios.vue')
+const Semanarios = () => import(/* webpackChunkName: "semanarios" */ '@/views/Semanarios.vue')
+const Proposicoes = () => import(/* webpackChunkName: "proposicoes" */ '@/views/Proposicoes.vue')
+const Cases = () => import(/* webpackChunkName: "cases" */ '@/views/Cases.vue')
+const Comissao = () => import(/* webpackChunkName: "comissao" */ '@/views/Comissao.vue')
+const ProposicaoDetailed = () => import(/* webpackChunkName: "proposicaodetailed" */ '@/views/ProposicaoDetailed.vue')
+const AtoresDetailed = () => import(/* webpackChunkName: "atoresdetailed" */ '@/views/AtoresDetailed.vue')
 
 Vue.use(Router)
 

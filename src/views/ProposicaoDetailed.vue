@@ -15,8 +15,9 @@
 
 <script>
 import ProposicaoItem from '@/components/card/ProposicaoItem'
-import ProposicaoExpanded from '@/components/card/ProposicaoExpanded'
 import Temas from '@/components/card/collapsed/Temas.vue'
+
+const ProposicaoExpanded = () => import(/* webpackChunkName: "proposicaoexpanded" */ '@/components/card/ProposicaoExpanded')
 
 export default {
   name: 'Proposicoes',

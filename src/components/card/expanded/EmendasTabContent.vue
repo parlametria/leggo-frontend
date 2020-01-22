@@ -25,7 +25,7 @@
 
 <script>
 import LeggoTable from '@/components/LeggoTable.vue'
-import _ from 'lodash'
+import { debounce } from 'lodash/core'
 
 export default {
   name: 'EmendasTabContent',
@@ -54,7 +54,7 @@ export default {
     }
   },
   created () {
-    this.delay = _.debounce(() => {
+    this.delay = debounce(() => {
       this.query = this.searchQuery
       this.loading = false
     }, 500)

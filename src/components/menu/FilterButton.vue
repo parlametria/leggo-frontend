@@ -22,6 +22,7 @@
 <script>
 import FilterMenu from '@/components/menu/FilterMenu'
 import { mapActions } from 'vuex'
+
 export default {
   name: 'FilterButton',
   components: {
