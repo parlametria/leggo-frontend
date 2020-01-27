@@ -157,7 +157,7 @@ input {
   .menuexpanded {
     display: block;
     width: 170px;
-    height: 170px;
+    height: 120px;
     border: $--color-primary-dark solid 1px;
   }
 
