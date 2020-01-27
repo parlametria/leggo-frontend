@@ -22,11 +22,13 @@
       class="menubar"
       :class="{ menuexpanded: openMenu }">
       <router-link
-        :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link>
+        :to="{ name: 'proposicoes' }"><span @click="closeMenu">Proposições</span></router-link>
+      <!--router-link
+        :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link-->
       <router-link
         :to="{ name: 'ajuda' }"><span @click="closeMenu">Ajuda</span></router-link>
-      <router-link
-        :to="{ name: 'relatorios' }"><span @click="closeMenu">Relatórios</span></router-link>
+      <!--router-link
+        :to="{ name: 'relatorios' }"><span @click="closeMenu">Relatórios</span></router-link-->
       <router-link
         :to="{ name: 'sobre' }"><span @click="closeMenu">Sobre</span></router-link>
     </div>
@@ -155,7 +157,7 @@ input {
   .menuexpanded {
     display: block;
     width: 170px;
-    height: 170px;
+    height: 120px;
     border: $--color-primary-dark solid 1px;
   }
 
