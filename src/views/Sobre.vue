@@ -87,7 +87,7 @@
       <div class="relatorios">
         <h2>
           <a
-            href="https://analytics-ufcg.github.io/leggo-frontend/"
+            href="https://parlametria.github.io/leggo-frontend/"
             target="_blank">Relatórios</a>
         </h2>
       </div>
@@ -96,17 +96,17 @@
         <ul>
           <li>
             <a
-              href="https://github.com/analytics-ufcg/leggoR"
+              href="https://github.com/parlametria/leggoR"
               target="_blank">Pacote R</a>
           </li>
           <li>
             <a
-              href="https://github.com/analytics-ufcg/leggo-frontend"
+              href="https://github.com/parlametria/leggo-frontend"
               target="_blank">Leg.go Frontend</a>
           </li>
           <li>
             <a
-              href="https://github.com/analytics-ufcg/leggo-backend"
+              href="https://github.com/parlametria/leggo-backend"
               target="_blank">Leg.go Backend</a>
           </li>
         </ul>
