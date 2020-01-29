@@ -4,7 +4,7 @@
     :class="classObj"
     :y="20"
     :x="0"
-  >{{ node.nome_eleitoral }}
+  >{{ node.nome + " (" + node.partido + "/" + node.uf + ")" }}
   </text>
 </template>
 
