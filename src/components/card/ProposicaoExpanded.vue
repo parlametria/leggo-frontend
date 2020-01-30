@@ -24,59 +24,66 @@
         target="_blank"
         class="advocacy-box bx bx-box"/>
     </div>
+    <div class="sessao">
+      <author-name
+        class="small-margin-top"
+        :author="prop.lastEtapa.autores"
+        :casa="casaAutores" />
+      <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
+      <p class="medium-text-field small-margin-top">{{ prop.lastEtapa.relator_nome }}</p>
+      <p class="small-text-field small-margin-top">Relator(a)</p>
+    </div>
+
+    <h2>Temperatura e Pressão</h2>
     <graphics :prop="prop"/>
-    <h5>Progresso da Tramitação</h5>
-    <fases-progress
-      class="fases-progress"
-      :class="{'visible': true}"
-      :fases="prop.resumo_progresso"
-      :etapas="prop.etapas"
-    />
-    <div>
+
+    <div class="sessao">
+      <h2>Progresso da Tramitação</h2>
+      <fases-progress
+        class="fases-progress"
+        :class="{'visible': true}"
+        :fases="prop.resumo_progresso"
+        :etapas="prop.etapas"
+      />
       <composicao-link
         :data-local-atual="dataLocalAtual"
         :sigla-comissao-link="siglaParaLink"
         :sigla-comissao-front="siglaFormatada"
         :casa-comissao="prop.lastEtapa.casa"
       />
-      <el-row>
-        <el-col :span="12">
-          <author-name
-            class="small-margin-top"
-            :author="prop.lastEtapa.autores"
-            :casa="casaAutores" />
-          <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
-          <p class="medium-text-field small-margin-top">{{ prop.lastEtapa.relator_nome }}</p>
-          <p class="small-text-field small-margin-top">Relator(a)</p>
-        </el-col>
-      </el-row>
-      <h4>Últimos Eventos</h4>
+    </div>
+    <div class="sessao">
+      <h2>Últimos Eventos</h2>
       <eventos-info
         :id="prop.lastEtapa.id_ext"
         :casa="prop.lastEtapa.casa"
         :date="dateRef" />
     </div>
-    <h4>Atividade Parlamentar</h4>
-    <h5>Os 15 Parlamentares mais ativos</h5>
-    <tab-atores-graphics
-      :casa="prop.lastEtapa.casa"
-      :sigla="prop.lastEtapa.sigla"
-      :top_important_atores="prop.top_important_atores"
-      :top_atores="prop.top_atores"
-      :id_leggo="prop.id_leggo"
-      :apelido="prop.lastEtapa.apelido"/>
-    <h5>Rede de Influência</h5>
-    <influencia-graph :id_leggo="prop.id_leggo"/>
-    <h4>Análise das Emendas</h4>
-    <div
-      v-for="(etapa,i) in revChronSortedEtapas"
-      :key="i">
-      <etapa-proposicao
+    <div class="sessao">
+      <h2>Atividade Parlamentar</h2>
+      <h3>Os 15 Parlamentares mais ativos</h3>
+      <tab-atores-graphics
+        :casa="prop.lastEtapa.casa"
+        :sigla="prop.lastEtapa.sigla"
+        :top_important_atores="prop.top_important_atores"
+        :top_atores="prop.top_atores"
         :id_leggo="prop.id_leggo"
-        :etapa="etapa"
-        :id-last-etapa="prop.lastEtapa.id"
-        :casa="getCasa(etapa)"
-        :date="dateRef"/>
+        :apelido="prop.lastEtapa.apelido"/>
+      <h3>Rede de Influência</h3>
+      <influencia-graph :id_leggo="prop.id_leggo"/>
+    </div>
+    <div class="sessao">
+      <h2>Análise das Emendas</h2>
+      <div
+        v-for="(etapa,i) in revChronSortedEtapas"
+        :key="i">
+        <etapa-proposicao
+          :id_leggo="prop.id_leggo"
+          :etapa="etapa"
+          :id-last-etapa="prop.lastEtapa.id"
+          :casa="getCasa(etapa)"
+          :date="dateRef"/>
+      </div>
     </div>
     <div>
       <pautas-info
@@ -240,11 +247,13 @@ export default {
 .small-text-field {
   font-size: 10pt;
   color: gray;
-  margin: 10px 10px 10px 0;
+  margin: 0 10px 10px 0;
 }
 .fases-progress {
   visibility: hidden;
   opacity: 0;
+  margin-top: 2rem;
+  // margin-bottom: 2rem;
 }
 .visible {
   visibility: visible;
@@ -278,5 +287,11 @@ export default {
   justify-content: center;
   color: $--color-primary;
   font-size: 2rem;
+}
+.medium-text-field {
+  margin: 0;
+}
+.sessao {
+  margin-bottom: 3rem;
 }
 </style>
