@@ -70,7 +70,7 @@
         :id_leggo="prop.id_leggo"
         :apelido="prop.lastEtapa.apelido"/>
       <h3>Rede de Influência</h3>
-      <influencia-graph :id_leggo="prop.id_leggo"/>
+      <peso-politico-graph :id_leggo="prop.id_leggo"/>
     </div>
     <div class="sessao">
       <h2>Análise das Emendas</h2>
@@ -79,10 +79,9 @@
         :key="i">
         <etapa-proposicao
           :id_leggo="prop.id_leggo"
-          :etapa="etapa"
-          :id-last-etapa="prop.lastEtapa.id"
-          :casa="getCasa(etapa)"
-          :date="dateRef"/>
+          :apelido="prop.lastEtapa.apelido"/>
+        <h3>Rede de Influência</h3>
+        <influencia-graph :id_leggo="prop.id_leggo"/>
       </div>
     </div>
     <div>
@@ -102,7 +101,7 @@ import FasesProgress from './expanded/FasesProgress'
 import EtapaProposicao from './EtapaProposicao'
 import TextTag from './collapsed/TextTag'
 import Graphics from './expanded/Graphics'
-import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
+import PesoPoliticoGraph from '@/components/card/expanded/rede/PesoPoliticoGraph.vue'
 import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
 import EventosInfo from './expanded/EventosInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
@@ -131,7 +130,7 @@ export default {
     EtapaProposicao,
     TextTag,
     Graphics,
-    InfluenciaGraph,
+    PesoPoliticoGraph,
     TabAtoresGraphics,
     EventosInfo,
     ComposicaoLink,
