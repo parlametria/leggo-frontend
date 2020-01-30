@@ -29,7 +29,7 @@ export default {
     font-size: 9pt;
 }
 .tag {
-    margin-right: 10px;
+    margin-left: 10px;
     border-radius: 5%;
 }
 

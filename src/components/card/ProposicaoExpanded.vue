@@ -5,19 +5,19 @@
     <text-tag
       class="tag"
       :etapas="prop.etapas" />
-    <div class="container">
-      <div class="portal">
-        <p
-          class="small-text-field"
-          v-for="(etapa,i) in prop.etapas"
-          :key="i">
-          <a
-            class="sigla"
-            :href="etapa.url"
-            target="_blank">{{ etapa.sigla }}</a>
-          - {{ $t(etapa.casa) }}
-        </p>
-      </div>
+    <div class="portal">
+      <p
+        class="small-text-field"
+        v-for="(etapa,i) in prop.etapas"
+        :key="i">
+        <a
+          class="sigla"
+          :href="etapa.url"
+          target="_blank">{{ etapa.sigla }}</a>
+        - {{ $t(etapa.casa) }}
+      </p>
+    </div>
+    <div class="container pl-actions">
       <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         :href="prop.advocacy_link"
@@ -235,7 +235,7 @@ export default {
   font-size: 14px;
 }
 .prop-item {
-  padding: 1.5rem 1rem;
+  padding: 0 1rem 1.5rem 1rem;
 }
 .small-text-field {
   font-size: 10pt;
@@ -263,10 +263,16 @@ export default {
   margin-right: 10px;
 }
 .portal {
+  margin-bottom: 1.5rem;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+}
+@media (min-width: 768px) {
+  .portal {
+    margin-left: 15px;
+  }
+}
+.pl-actions {
+  flex-direction: row-reverse;
 }
 .advocacy-box {
   justify-content: center;
