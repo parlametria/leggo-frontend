@@ -19,7 +19,6 @@
         </p>
       </div>
       <el-tooltip
-        class="tooltip-container"
         placement="bottom"
         effect="light">
         <div
@@ -27,12 +26,12 @@
           slot="content"> Aqui se encontram notas técnicas de OSCs sobre esta proposição.
         </div>
         <a
-        v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
-        :href="prop.advocacy_link"
-        target="_blank"
-        class="">
-        <i class='bx bx-box'></i>
-        Advocacy box
+          v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
+          :href="prop.advocacy_link"
+          target="_blank"
+          class="">
+          <i class='bx bx-box'/>
+          Advocacy box
         </a>
       </el-tooltip>
     </div>
