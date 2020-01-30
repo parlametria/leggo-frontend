@@ -117,13 +117,13 @@ export default {
         .attr('class', 'caption')
         .attr('y', 1)
         .attr('x', -15)
-        .text('Influência')
+        .text('Peso')
 
       g.append('text')
         .attr('class', 'caption')
         .attr('y', 8)
         .attr('x', -15)
-        .text('política²')
+        .text('político²')
 
       var radios = [1, 2, 3, 4, 5]
       var x0 = -18
