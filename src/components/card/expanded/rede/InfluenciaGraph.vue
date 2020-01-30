@@ -13,6 +13,8 @@
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
     <p class="footnote">¹: A participação do parlamentar em um documento é de 1 sobre a quantidade de parlamentares que assinaram o documento.</p>
     <p class="footnote">²: A influência política do parlamentar é calculada levando em consideração os cargos que ele ocupa e a verba do fundo partidário despendida a ele pelo partido.</p>
+    <p class="footnote" 
+      v-show="id_leggo=16">*: A ação dos parlamentares nesta proposição está sendo quantificada a partir de 2019.</p>
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
