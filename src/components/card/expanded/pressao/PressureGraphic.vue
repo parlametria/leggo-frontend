@@ -6,26 +6,29 @@
       <div ref="anchor" />
       <div class="graphic-info">
         <p v-if="verificaSeMostraPressao">Pressão dos últimos 3 meses</p>
-        <p v-else>Não houve buscas para esta proposição nos últimos 3 meses</p>        
+        <p v-else>Não houve buscas para esta proposição nos últimos 3 meses</p>
         <el-tooltip
           placement="bottom"
           effect="light">
-          <div 
+          <div
             class="tooltip-content"
             slot="content">
-            O cálculo da pressão utiliza o 
-            <a        
+            O cálculo da pressão utiliza o
+            <a
               target="_blank"
               href="https://trends.google.com.br/trends/?geo=BR">
               <b>Google Trends</b>
-            </a> para analisar o quanto usuários estão pesquisando pela proposição.            
+            </a> para analisar o quanto usuários estão pesquisando pela proposição.
+            <a
+              class="link"
+              @click="goToSobre()">Mais detalhes</a>
           </div>
           <span
             target="_blank"
-            class="info">
-            <i class="bx bx-info-circle"></i>
-          </span>     
-        </el-tooltip>        
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
       </div>
     </div>
   </div>
@@ -84,6 +87,9 @@ export default {
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           .run()
       }
+    },
+    goToSobre () {
+      this.$router.push({ path: '/sobre' })
     }
   },
   async mounted () {
@@ -118,10 +124,12 @@ export default {
 .tooltip-content {
   max-width: 200px;
 }
-.info {
-  margin: 12px 4px 10px 8px;
-  font-size: 1rem;    
-  cursor: pointer;  
+.link {
+  cursor: pointer;
   color: #AA67AE;
+}
+.icon-info {
+  margin: 12px 4px 10px 8px;
+  font-size: 1rem;
 }
 </style>
