@@ -19,6 +19,7 @@
         </p>
       </div>
       <el-tooltip
+        class="tooltip-container"
         placement="bottom"
         effect="light">
         <div
@@ -283,6 +284,12 @@ export default {
   justify-content: center;
   color: $--color-primary;
   font-size: 2rem;
+}
+
+@media screen and (max-width: 600px) {
+  .tooltip-content {
+    max-width: 250px;
+  }
 }
 .tooltip-content {
   color: gray;
