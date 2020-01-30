@@ -18,11 +18,22 @@
           - {{ $t(etapa.casa) }}
         </p>
       </div>
-      <a
+      <el-tooltip
+        placement="bottom"
+        effect="light">
+        <div
+          class="tooltip-content"
+          slot="content"> Aqui se encontram notas técnicas de OSCs sobre esta proposição.
+        </div>
+        <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         :href="prop.advocacy_link"
         target="_blank"
-        class="advocacy-box bx bx-box"/>
+        class="">
+        <i class='bx bx-box'></i>
+        Advocacy box
+        </a>
+      </el-tooltip>
     </div>
     <graphics :prop="prop"/>
     <h5>Progresso da Tramitação</h5>
@@ -272,5 +283,8 @@ export default {
   justify-content: center;
   color: $--color-primary;
   font-size: 2rem;
+}
+.tooltip-content {
+  color: gray;
 }
 </style>
