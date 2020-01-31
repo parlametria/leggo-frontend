@@ -11,9 +11,9 @@
         :node="nodeHover"/>
     </svg>
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
-    <p class="footnote">¹: A participação do parlamentar em um documento é de 1 sobre a quantidade de parlamentares que assinaram o documento.</p>
-    <p class="footnote">²: A influência política do parlamentar é calculada levando em consideração os cargos que ele ocupa e a verba do fundo partidário despendida a ele pelo partido.</p>
-    <p class="footnote">A ação dos parlamentares está sendo quantificada desde o início de 2019. </p>
+    <p class="footnote">¹: A participação do parlamentar em um documento é inversamente proporcional à quantidade de parlamentares que assinaram o documento juntos: um documento feito por dois parlamentares terá valor de participação igual a 1/2 = 0.5.</p>
+    <p class="footnote">²: O peso político do parlamentar é calculado levando em consideração os cargos que ele ocupa, como lideranças em partidos, bloco partidários, titularidades em comissões e cargos na Mesa Diretora; a verba do fundo partidário despendida a ele pelo partido e a quantidade de mandatos exercidos pelo parlamentar.</p>
+    <p class="footnote">A ação dos parlamentares está sendo quantificada desde o início de 2019.</p>
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
@@ -24,7 +24,7 @@
 /* eslint-disable */
 import * as d3 from "d3"
 import axios from "@/stores/axios"
-import config from "./InfluenciaGraphConfig.js"
+import config from "./PesoPoliticoGraphConfig.js"
 import _ from "lodash"
 import { vaxios } from "./mocks/vaxios"
 import Tooltip from "./Tooltip"
@@ -33,7 +33,7 @@ import legendas from "./mixins/legendas.js"
 import Autorias from "./Autorias"
 
 export default {
-  name: "InfluenciaGraph",
+  name: "PesoPoliticoGraph",
   components: {
     Tooltip,
     SelectFilter,
@@ -51,7 +51,7 @@ export default {
       width: 300,
       height: 230,
       nodes: [],
-      influencia: [],
+      peso_politico: [],
       edges: [],
       activeNode: null,
       nodeHover: null,
@@ -112,14 +112,14 @@ export default {
             .id(d => d.id)
             .links(this.edges)
             .distance(
-              d => 10 +this.scaleNodeSize(Math.max(d.source.influencia, d.target.influencia))*2 || 10)
+              d => 10 +this.scaleNodeSize(Math.max(d.source.peso_politico, d.target.peso_politico))*2 || 10)
         )
         .force("charge", d3.forceManyBody().strength(-25))
         .force(
           "collision",
           d3
             .forceCollide()
-            .radius(d => this.scaleNodeSize(d.influencia)*1.1 )
+            .radius(d => this.scaleNodeSize(d.peso_politico)*1.1 )
         )
         .force(
           "x",
@@ -179,7 +179,7 @@ export default {
         .attr("fill", d => this.scaleColor(d))
         .attr("stroke-width", d => 0.1)
         .attr("stroke", d => d.bancada === "oposição" ? "red" : "blue" )
-        .attr("r", d => this.scaleNodeSize(d.influencia))
+        .attr("r", d => this.scaleNodeSize(d.peso_politico))
         .on("mouseover", d => {
           this.nodeHover = d
         })
@@ -261,13 +261,13 @@ export default {
       }
       return d3.interpolateBlues(scaleAux(node.node_size))
     },
-    scaleNodeSize(influencia) {
+    scaleNodeSize(peso_politico) {
        return d3.scaleLinear()
         .domain([
-          d3.min(this.influencia, d => d.indice_influencia_parlamentar),
-          d3.max(this.influencia, d => d.indice_influencia_parlamentar)
+          d3.min(this.peso_politico, d => d.indice_influencia_parlamentar),
+          d3.max(this.peso_politico, d => d.indice_influencia_parlamentar)
         ])
-        .range([config.minNodeSize, config.maxNodeSize])(influencia)
+        .range([config.minNodeSize, config.maxNodeSize])(peso_politico)
     },
     setEdges({ data }) {
       this.edges = data.map(edge => ({
@@ -289,13 +289,13 @@ export default {
         id: parseInt(node.id_autor, 10)
       }))
     },
-    setInfluencia({ data }) {
-      this.influencia = data
+    setPesoPolitico({ data }) {
+      this.peso_politico = data
       this.nodes.forEach(node => {
-        node["influencia"] = 0
-        this.influencia.forEach(parlamentar => {
+        node["peso_politico"] = 0
+        this.peso_politico.forEach(parlamentar => {
           if (parlamentar.id == node.id) {
-            node["influencia"] = parlamentar.indice_influencia_parlamentar
+            node["peso_politico"] = parlamentar.indice_influencia_parlamentar
           }
         })
       })
@@ -331,7 +331,7 @@ export default {
     async fetchData() {
       this.setNodes(await axios.get(`/coautorias_node/${this.id_leggo}`))
       this.setEdges(await axios.get(`/coautorias_edge/${this.id_leggo}`))
-      this.setInfluencia(await vaxios.post(`/api/aderencia/parlamentar`, {}))
+      this.setPesoPolitico(await vaxios.post(`/api/aderencia/parlamentar`, {}))
       this.buildGraphic()
     }
   }
