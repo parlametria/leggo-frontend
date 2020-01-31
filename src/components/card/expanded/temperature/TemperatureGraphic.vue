@@ -55,7 +55,7 @@ export default {
             'temperatura',
             this.temperaturas.map(temperatura => ({
               ...temperatura,
-              temperatura_recente: temperatura.temperatura_recente + 2
+              temperatura_recente: temperatura.temperatura_recente
             }))
           )
           .run()
