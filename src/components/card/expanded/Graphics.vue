@@ -41,6 +41,6 @@ export default {
 }
 
 .graphics-container {
-  padding-top: 15px;
+  padding-bottom: 3rem;
 }
 </style>
