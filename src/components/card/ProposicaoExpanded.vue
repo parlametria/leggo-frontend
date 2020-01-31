@@ -67,6 +67,7 @@
         :date="dateRef" />
     </div>
     <h4>Atividade Parlamentar</h4>
+    <p class="explicacao_feature">Atuação parlamentar <span class="destaque_cor">a partir de 2019.</span></p>
     <h5>Os 15 Parlamentares mais ativos</h5>
     <tab-atores-graphics
       :casa="prop.lastEtapa.casa"
@@ -291,5 +292,12 @@ export default {
 }
 .tooltip-content {
   color: gray;
+}
+.explicacao_feature {
+  font-size: 0.85rem;
+}
+.destaque_cor {
+  color: $--color-primary;
+  font-weight: bold;
 }
 </style>
