@@ -26,11 +26,11 @@
           slot="content"> Aqui se encontram notas técnicas de OSCs sobre esta proposição.
         </div>
         <a
-        v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
-        :href="prop.advocacy_link"
-        target="_blank">
-        <i class='bx bx-box'/>
-        Advocacy box
+          v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
+          :href="prop.advocacy_link"
+          target="_blank">
+          <i class='bx bx-box'/>
+          Advocacy box
         </a>
       </el-tooltip>
     </div>
@@ -89,9 +89,10 @@
         :key="i">
         <etapa-proposicao
           :id_leggo="prop.id_leggo"
-          :apelido="prop.lastEtapa.apelido"/>
-        <h3>Rede de Influência</h3>
-        <influencia-graph :id_leggo="prop.id_leggo"/>
+          :etapa="etapa"
+          :id-last-etapa="prop.lastEtapa.id"
+          :casa="getCasa(etapa)"
+          :date="dateRef"/>
       </div>
     </div>
     <div>
