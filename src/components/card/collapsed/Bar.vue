@@ -49,7 +49,6 @@ export default {
     },
     porcentagem () {
       return (Math.min((this.ultimo_valor * 100) / this.max_valor, 100))
-      
     }
   }
 }
