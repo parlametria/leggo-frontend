@@ -182,5 +182,4 @@ strong {
     transform: scale(1.7);
     z-index: 1;
 }
-
 </style>
