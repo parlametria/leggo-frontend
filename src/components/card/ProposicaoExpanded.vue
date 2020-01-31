@@ -317,7 +317,6 @@ export default {
   font-size: 0.85rem;
 }
 .destaque_cor {
-  color: $--color-primary;
   font-weight: bold;
 }
 </style>
