@@ -89,9 +89,10 @@
         :key="i">
         <etapa-proposicao
           :id_leggo="prop.id_leggo"
-          :apelido="prop.lastEtapa.apelido"/>
-        <h3>Rede de Influência</h3>
-        <influencia-graph :id_leggo="prop.id_leggo"/>
+          :etapa="etapa"
+          :id-last-etapa="prop.lastEtapa.id"
+          :casa="getCasa(etapa)"
+          :date="dateRef"/>
       </div>
     </div>
     <div>
