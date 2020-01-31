@@ -36,7 +36,7 @@
       >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}
       </div>
       <div
-        else
+        v-else
         class="title sem-emendas">
         As emendas {{ getCasa | toFormattedName }} estão temporariamente indisponíveis. Estamos trabalhando nisso.
       </div>
