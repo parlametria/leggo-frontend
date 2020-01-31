@@ -42,7 +42,7 @@ export default class TemperatureGraphicModel {
             labels: false,
             ticks: false
           },
-          scale: { type: 'sqrt' }
+          scale: { domain:[0, 100] }
         },
         tooltip: [
           { 'field': 'temperatura_recente', 'type': 'quantitative', 'title': 'Temperatura da Semana' },

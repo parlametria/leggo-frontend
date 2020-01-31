@@ -48,7 +48,11 @@ export default {
       }
     },
     porcentagem () {
-      return (this.ultimo_valor * 100) / this.max_valor
+      console.log('sasasd', this.ultimo_valor);
+      console.log(Math.min((this.ultimo_valor * 100) / this.max_valor, 100));
+      // return (Math.min((Math.log10(this.ultimo_valor) * 100) / this.max_valor, 100))
+      return (Math.min((this.ultimo_valor * 100) / this.max_valor, 100))
+
     }
   }
 }
