@@ -10,12 +10,12 @@ const filtro = {
     nomeProposicaoFilter: '',
     emPautaFilter: [
       {
-        'tipo': 'Na Pauta',
+        'tipo': 'Na pauta',
         'status': false
       }
     ],
     showFinalizadas: {
-      'tipo': 'Proposições Paradas',
+      'tipo': 'Incluir proposições paradas',
       'status': false
     },
     pageNumber: 0,

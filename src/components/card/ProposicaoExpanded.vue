@@ -18,11 +18,21 @@
           - {{ $t(etapa.casa) }}
         </p>
       </div>
-      <a
+      <el-tooltip
+        placement="bottom"
+        effect="light">
+        <div
+          class="tooltip-content"
+          slot="content"> Aqui se encontram notas técnicas de OSCs sobre esta proposição.
+        </div>
+        <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         :href="prop.advocacy_link"
-        target="_blank"
-        class="advocacy-box bx bx-box"/>
+        target="_blank">
+        <i class='bx bx-box'/>
+        Advocacy box
+        </a>
+      </el-tooltip>
     </div>
     <graphics :prop="prop"/>
     <h5>Progresso da Tramitação</h5>
@@ -66,7 +76,7 @@
       :id_leggo="prop.id_leggo"
       :apelido="prop.lastEtapa.apelido"/>
     <h5>Rede de Influência</h5>
-    <influencia-graph :id_leggo="prop.id_leggo"/>
+    <peso-politico-graph :id_leggo="prop.id_leggo"/>
     <h4>Análise das Emendas</h4>
     <div
       v-for="(etapa,i) in revChronSortedEtapas"
@@ -95,7 +105,7 @@ import FasesProgress from './expanded/FasesProgress'
 import EtapaProposicao from './EtapaProposicao'
 import TextTag from './collapsed/TextTag'
 import Graphics from './expanded/Graphics'
-import InfluenciaGraph from '@/components/card/expanded/rede/InfluenciaGraph.vue'
+import PesoPoliticoGraph from '@/components/card/expanded/rede/PesoPoliticoGraph.vue'
 import TabAtoresGraphics from './expanded/atores/TabAtoresGraphics'
 import EventosInfo from './expanded/EventosInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
@@ -124,7 +134,7 @@ export default {
     EtapaProposicao,
     TextTag,
     Graphics,
-    InfluenciaGraph,
+    PesoPoliticoGraph,
     TabAtoresGraphics,
     EventosInfo,
     ComposicaoLink,
@@ -272,5 +282,14 @@ export default {
   justify-content: center;
   color: $--color-primary;
   font-size: 2rem;
+}
+
+@media screen and (max-width: 600px) {
+  .tooltip-content {
+    max-width: 250px;
+  }
+}
+.tooltip-content {
+  color: gray;
 }
 </style>
