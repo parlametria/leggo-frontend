@@ -6,8 +6,8 @@
       <span
         v-if="!show"
         class="el-icon-circle-plus-outline"/>
-      <span 
-        v-else 
+      <span
+        v-else
         class="el-icon-remove-outline"/>
     </div>
     <table
