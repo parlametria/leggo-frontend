@@ -13,6 +13,7 @@
     <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
     <p class="footnote">¹: A participação do parlamentar em um documento é inversamente proporcional à quantidade de parlamentares que assinaram o documento juntos: um documento feito por dois parlamentares terá valor de participação igual a 1/2 = 0.5.</p>
     <p class="footnote">²: O peso político do parlamentar é calculado levando em consideração os cargos que ele ocupa, como lideranças em partidos, bloco partidários, titularidades em comissões e cargos na Mesa Diretora; a verba do fundo partidário despendida a ele pelo partido e a quantidade de mandatos exercidos pelo parlamentar.</p>
+    <p class="footnote">A ação dos parlamentares está sendo quantificada desde o início de 2019.</p>
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
