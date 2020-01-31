@@ -19,9 +19,9 @@ const temperaturas = {
       const temperaturas = state.temperaturas
       let maxTemperatura = 0
       Object.keys(temperaturas).forEach(function (key) {
-        let scaled_temperatura = temperaturas[key]
-        if (scaled_temperatura && scaled_temperatura > maxTemperatura) {
-          maxTemperatura = scaled_temperatura
+        let temperatura = temperaturas[key]
+        if (temperatura && temperatura > maxTemperatura) {
+          maxTemperatura = temperatura
         }
       })
       return maxTemperatura === 0 ? 10 : maxTemperatura
