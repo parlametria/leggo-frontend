@@ -30,11 +30,14 @@
       </el-tabs>
     </div>
     <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
-      <div v-if="getCasa === 'camara'"
+      <div
+        v-if="getCasa === 'camara'"
         class="title sem-emendas"
       >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}
       </div>
-      <div else class="title sem-emendas">
+      <div
+        else
+        class="title sem-emendas">
         As emendas {{ getCasa | toFormattedName }} estão temporariamente indisponível. Estamos trabalhando nisso.
       </div>
     </div>
