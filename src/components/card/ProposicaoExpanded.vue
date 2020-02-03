@@ -37,7 +37,7 @@
     <div class="sessao">
       <author-name
         class="small-margin-top"
-        :author="prop.lastEtapa.autores"
+        :author="prop.firstEtapa.autores"
         :casa="casaAutores" />
       <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
       <p class="medium-text-field small-margin-top">{{ prop.lastEtapa.relator_nome }}</p>
@@ -154,7 +154,7 @@ export default {
       return /\d/.test(myString)
     },
     getNomeAutor () {
-      return this.prop.lastEtapa.autores.length > 1 ? 'Autores' : 'Autor'
+      return this.prop.firstEtapa.autores.length > 1 ? 'Autores' : 'Autor'
     },
     capitalizeFirstLetter (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
@@ -183,7 +183,7 @@ export default {
       return [...this.prop.etapas].sort(dataApresCasa)
     },
     casaAutores () {
-      let autores = this.prop.lastEtapa.autores
+      let autores = this.prop.firstEtapa.autores
       let casaOrigem = this.prop.casa_origem
       let casa = ''
       if (autores === 'Poder Executivo') {
