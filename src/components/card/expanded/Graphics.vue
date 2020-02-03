@@ -3,12 +3,6 @@
     <temperature-graphic
       :temp_historico="prop.temperatura_historico"
       :id="prop.id_leggo" />
-    <temperature-info
-      :id="prop.id_leggo"
-      :texto="'Temperatura dos últimos 3 meses'"
-      :mostra-tooltip="true"
-      class="graphic-info"
-    />
     <pressure-graphic
       :id="prop.id_leggo" />
   </el-col>
@@ -16,7 +10,6 @@
 
 <script>
 import TemperatureGraphic from './temperature/TemperatureGraphic'
-import TemperatureInfo from './temperature/TemperatureInfo'
 import PressureGraphic from './pressao/PressureGraphic'
 
 export default {
@@ -29,7 +22,6 @@ export default {
   },
   components: {
     TemperatureGraphic,
-    TemperatureInfo,
     PressureGraphic
   }
 }

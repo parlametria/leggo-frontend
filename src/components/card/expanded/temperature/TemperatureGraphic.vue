@@ -3,11 +3,18 @@
     class="graphic"
     id="grafico">
     <div ref="anchor"/>
+    <temperature-info
+      :id="id"
+      :mostra-tooltip="true"
+      :tem-temperatura="verificaSeMostraTemperatura"
+      class="graphic-info"
+    />
   </div>
 </template>
 
 <script>
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
+import TemperatureInfo from './TemperatureInfo'
 import moment from 'moment'
 
 export default {
@@ -36,13 +43,21 @@ export default {
         )
       }
     },
+    verificaSeMostraTemperatura () {
+      if (this.temperaturas) {
+        return this.temperaturas.filter(
+          temperatura =>
+            temperatura.temperatura_recente >= 1).length !== 0
+      }
+      return false
+    },
     tamanhoGrafico () {
       return document.getElementById('grafico').offsetWidth
     }
   },
   methods: {
     async mountGraphic () {
-      if (this.temperaturas && this.temperaturas.length) {
+      if (this.verificaSeMostraTemperatura && this.temperaturas && this.temperaturas.length) {
         let model = new TemperatureGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
@@ -68,6 +83,9 @@ export default {
       deep: true
     })
     this.$watch('tamanhoGrafico', this.mountGraphic)
+  },
+  components: {
+    TemperatureInfo
   }
 }
 </script>
@@ -80,5 +98,9 @@ export default {
 }
 .graphic {
   text-align: center;
+}
+
+.graphic-info {
+  font-size: 12px;
 }
 </style>

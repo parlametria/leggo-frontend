@@ -1,30 +1,52 @@
 <template>
   <div>
     <div class="info">
-      {{ this.texto }}
-      <el-tooltip
-        placement="bottom"
-        effect="light"
-      >
-        <div
-          class="tooltip-content"
-          slot="content"
-          v-if="mostraTooltip"
+      <div v-if="temTemperatura">
+        Temperatura dos últimos 3 meses
+        <el-tooltip
+          placement="bottom"
+          effect="light"
         >
-          <p v-if="this.temperatureInfo === 'subiu'">
-            A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
-          </p>
-          <p v-else-if="this.temperatureInfo === 'desceu'">
-            A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.
-          </p>
-          <p v-else>A temperatura <strong>se manteve constante</strong> considerando eventos nas últimas semanas.</p>
-        </div>
-        <span
-          target="_blank"
-          class="link icon-info">
-          <i class="bx bx-info-circle"/>
-        </span>
-      </el-tooltip>
+          <div
+            class="tooltip-content"
+            slot="content"
+            v-if="mostraTooltip"
+          >
+            <p v-if="this.temperatureInfo === 'subiu'">
+              A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
+            </p>
+            <p v-else-if="this.temperatureInfo === 'desceu'">
+              A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.
+            </p>
+            <p v-else>A temperatura <strong>se manteve constante</strong> considerando eventos nas últimas semanas.</p>
+          </div>
+          <span
+            target="_blank"
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
+      </div>
+      <div v-else>
+        Não houve temperatura significativa nos últimos 3 meses.
+        <el-tooltip
+          placement="bottom"
+          effect="light"
+        >
+          <div
+            class="tooltip-content"
+            slot="content"
+            v-if="mostraTooltip"
+          >
+            <p>Temperaturas <strong>abaixo de 1</strong> não são exibidas no gráfico.</p>
+          </div>
+          <span
+            target="_blank"
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -39,11 +61,11 @@ export default {
       type: Number,
       default: undefined
     },
-    texto: {
-      type: String,
-      default: ''
-    },
     mostraTooltip: {
+      type: Boolean,
+      default: false
+    },
+    temTemperatura: {
       type: Boolean,
       default: false
     }
