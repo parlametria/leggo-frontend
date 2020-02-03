@@ -25,7 +25,7 @@
         </el-tooltip>
       </div>
       <div v-else>
-        Não houve temperatura significativa nas últimas semanas.
+        Não houve temperatura significativa nos últimos 3 meses.
         <el-tooltip
           placement="bottom"
           effect="light"
@@ -35,7 +35,7 @@
             slot="content"
             v-if="mostraTooltip"
           >
-            <p>Temperaturas abaixo de valor 1 não são exibidas no gráfico.</p>
+            <p>Temperaturas <strong>abaixo de 1</strong> não são exibidas no gráfico.</p>
           </div>
           <span
             target="_blank"
@@ -69,17 +69,11 @@ export default {
   },
   computed: mapState({
     coefficients: state => state.temperaturas.coeficiente,
-    temperaturas: state => state.temperaturas,
     coefficient () {
       return this.coefficients[this.id] || 0
     },
     temperatureInfo () {
       if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient >= 0) { return 'subiu' } else { return 'se manteve constante' }
-    },
-    possuiGraficoTemperatura () {
-      if (this.temperaturas) {
-        console.log(this.temperaturas)
-      }
     }
   })
 }

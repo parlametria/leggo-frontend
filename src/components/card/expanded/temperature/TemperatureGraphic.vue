@@ -46,9 +46,9 @@ export default {
     verificaSeMostraTemperatura () {
       if (this.temperaturas) {
         return this.temperaturas.filter(
-          temperatura => 
+          temperatura =>
             temperatura.temperatura_recente >= 1).length !== 0
-      } 
+      }
       return false
     },
     tamanhoGrafico () {
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     async mountGraphic () {
-      if(this.verificaSeMostraTemperatura && this.temperaturas && this.temperaturas.length) {
+      if (this.verificaSeMostraTemperatura && this.temperaturas && this.temperaturas.length) {
         let model = new TemperatureGraphicModel(this.tamanhoGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
