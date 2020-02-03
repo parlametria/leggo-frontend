@@ -1,22 +1,32 @@
 <template>
-  <el-tooltip
-    placement="bottom"
-    effect="light"
-  >
-    <div
-      class="tooltip-content"
-      slot="content"
-      v-if="mostraTooltip"
-    >
-      <p v-if="this.temperatureInfo === 'subiu'">
-        A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
-      </p>
-      <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
-    </div>
+  <div>
     <div class="info">
       {{ this.texto }}
+      <el-tooltip
+        placement="bottom"
+        effect="light"
+      >
+        <div
+          class="tooltip-content"
+          slot="content"
+          v-if="mostraTooltip"
+        >
+          <p v-if="this.temperatureInfo === 'subiu'">
+            A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
+          </p>
+          <p v-else-if="this.temperatureInfo === 'desceu'">
+            A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.
+          </p>
+          <p v-else>A temperatura <strong>se manteve constante</strong> considerando eventos nas últimas semanas.</p>
+        </div>
+        <span
+          target="_blank"
+          class="link icon-info">
+          <i class="bx bx-info-circle"/>
+        </span>
+      </el-tooltip>
     </div>
-  </el-tooltip>
+  </div>
 </template>
 
 <script>
@@ -44,7 +54,7 @@ export default {
       return this.coefficients[this.id] || 0
     },
     temperatureInfo () {
-      if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient >= 0) { return 'subiu' } else { return 'se manteve constante' }
+      if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient > 0) { return 'subiu' } else { return 'se manteve constante' }
     }
   })
 }
@@ -58,7 +68,17 @@ export default {
 .tooltip-content {
   p {
       margin: 0;
-      color: gray;
   }
+  max-width: 200px;
+}
+.link {
+  cursor: pointer;
+  color: #AA67AE;
+}
+.icon-info {
+  margin: 12px 4px 10px 4px;
+  font-size: 1rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

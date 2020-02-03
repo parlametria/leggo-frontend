@@ -57,7 +57,7 @@ export default {
       return data.replace(/,/g, '\n')
     },
     formataAutor: function () {
-      return this.author.length > 1 ? this.author[0] + ' + ' : this.author[0]
+      return this.author.length > 1 ? this.author[0] + ' e ' + this.author.length + ' outros ' : this.author[0]
     }
   }
 }
