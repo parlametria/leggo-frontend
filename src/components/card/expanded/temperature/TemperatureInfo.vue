@@ -23,7 +23,7 @@
           <span
             target="_blank"
             class="link icon-info">
-              <i class="bx bx-info-circle"/>
+            <i class="bx bx-info-circle"/>
           </span>
         </el-tooltip>
       </div>
