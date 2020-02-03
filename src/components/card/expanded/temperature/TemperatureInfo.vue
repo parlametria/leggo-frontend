@@ -15,12 +15,15 @@
             <p v-if="this.temperatureInfo === 'subiu'">
               A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
             </p>
-            <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
+            <p v-else-if="this.temperatureInfo === 'desceu'">
+              A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.
+            </p>
+            <p v-else>A temperatura <strong>se manteve constante</strong> considerando eventos nas últimas semanas.</p>
           </div>
           <span
-            target="_blank"
-            class="link icon-info">
-            <i class="bx bx-info-circle"/>
+          target="_blank"
+          class="link icon-info">
+          <i class="bx bx-info-circle"/>
           </span>
         </el-tooltip>
       </div>
@@ -73,7 +76,7 @@ export default {
       return this.coefficients[this.id] || 0
     },
     temperatureInfo () {
-      if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient >= 0) { return 'subiu' } else { return 'se manteve constante' }
+      if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient > 0) { return 'subiu' } else { return 'se manteve constante' }
     }
   })
 }
