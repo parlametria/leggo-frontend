@@ -1,27 +1,49 @@
 <template>
   <div>
     <div class="info">
-      {{ this.texto }}
-      <el-tooltip
-        placement="bottom"
-        effect="light"
-      >
-        <div
-          class="tooltip-content"
-          slot="content"
-          v-if="mostraTooltip"
+      <div v-if="temTemperatura">
+        Temperatura dos últimos 3 meses
+        <el-tooltip
+          placement="bottom"
+          effect="light"
         >
-          <p v-if="this.temperatureInfo === 'subiu'">
-            A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
-          </p>
-          <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
-        </div>
-        <span
-          target="_blank"
-          class="link icon-info">
-          <i class="bx bx-info-circle"/>
-        </span>
-      </el-tooltip>
+          <div
+            class="tooltip-content"
+            slot="content"
+            v-if="mostraTooltip"
+          >
+            <p v-if="this.temperatureInfo === 'subiu'">
+              A temperatura <strong>subiu</strong> por causa dos eventos ocorridos nas últimas semanas.
+            </p>
+            <p v-else>A temperatura <strong>desceu</strong> porque não houveram (muitos) eventos nas últimas semanas.</p>
+          </div>
+          <span
+            target="_blank"
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
+      </div>
+      <div v-else>
+        Não houve temperatura significativa nas últimas semanas.
+        <el-tooltip
+          placement="bottom"
+          effect="light"
+        >
+          <div
+            class="tooltip-content"
+            slot="content"
+            v-if="mostraTooltip"
+          >
+            <p>Temperaturas abaixo de valor 1 não são exibidas no gráfico.</p>
+          </div>
+          <span
+            target="_blank"
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -36,22 +58,28 @@ export default {
       type: Number,
       default: undefined
     },
-    texto: {
-      type: String,
-      default: ''
-    },
     mostraTooltip: {
+      type: Boolean,
+      default: false
+    },
+    temTemperatura: {
       type: Boolean,
       default: false
     }
   },
   computed: mapState({
     coefficients: state => state.temperaturas.coeficiente,
+    temperaturas: state => state.temperaturas,
     coefficient () {
       return this.coefficients[this.id] || 0
     },
     temperatureInfo () {
       if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient >= 0) { return 'subiu' } else { return 'se manteve constante' }
+    },
+    possuiGraficoTemperatura () {
+      if (this.temperaturas) {
+        console.log(this.temperaturas)
+      }
     }
   })
 }
