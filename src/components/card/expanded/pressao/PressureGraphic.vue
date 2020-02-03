@@ -59,7 +59,7 @@ export default {
       )
     },
     tamanhoGrafico () {
-      return document.getElementById('grafico2') ? document.getElementById('grafico2').offsetWidth : 0
+      return document.getElementById('grafico2').offsetWidth
     },
     filteredPressoes () {
       return this.pressoes[this.id].filter(e =>

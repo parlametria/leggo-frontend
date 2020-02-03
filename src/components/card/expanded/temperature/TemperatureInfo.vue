@@ -21,9 +21,9 @@
             <p v-else>A temperatura <strong>se manteve constante</strong> considerando eventos nas últimas semanas.</p>
           </div>
           <span
-          target="_blank"
-          class="link icon-info">
-          <i class="bx bx-info-circle"/>
+            target="_blank"
+            class="link icon-info">
+              <i class="bx bx-info-circle"/>
           </span>
         </el-tooltip>
       </div>
