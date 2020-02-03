@@ -2,7 +2,26 @@
   <div>
     <h5>{{ propName }} - {{ capitalizeFirstLetter(casa) }}</h5>
     <div v-if="verificaSeMostraEmendas">
-      <h5>Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</h5>
+      <div class="emendas-info">
+        <span class="emendas-info-text">Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</span>
+        <el-tooltip
+          placement="bottom"
+          effect="light"
+        >
+          <div
+            class="tooltip-content"
+            slot="content"          
+          >
+            Analisamos todas as <strong>emendas disponibilizadas como texto</strong> por meio do serviço de Dados Abertos da Câmara e do Senado.
+            Não analisamos emendas disponibilizadas como imagem ou fotocópias.
+          </div>
+          <span
+            target="_blank"
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
+      </div>
       <el-tabs>
         <el-tab-pane label="Todas as emendas">
           <emendas-tab-content
@@ -199,7 +218,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
   font-size: 0.97rem;
   line-height: 15px;
@@ -220,5 +239,24 @@ td {
 .sem-emendas {
   color: #969696;
   font-size: 0.8em;
+}
+.link {
+  cursor: pointer;
+  color: #AA67AE;
+}
+.tooltip-content {  
+  max-width: 200px;
+}
+.emendas-info {
+  display: flex;
+  margin-bottom: 10px;
+}
+.icon-info {
+  margin: 1px 4px 0px 8px;
+  font-size: 1rem;
+}
+.emendas-info-text {
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 </style>
