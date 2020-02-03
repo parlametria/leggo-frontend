@@ -15,7 +15,7 @@
     </div>
     <leggo-table
       :data="emendas"
-      :columns="['titulo', 'autor', 'local']"/>    
+      :columns="['titulo', 'autor', 'local']"/>
   </div>
 </template>
 

@@ -10,7 +10,7 @@
         >
           <div
             class="tooltip-content"
-            slot="content"          
+            slot="content"
           >
             Analisamos todas as <strong>emendas disponibilizadas como texto</strong> por meio do serviço de Dados Abertos da Câmara e do Senado.
             Não analisamos emendas disponibilizadas como imagem ou fotocópias.
@@ -244,7 +244,7 @@ td {
   cursor: pointer;
   color: #AA67AE;
 }
-.tooltip-content {  
+.tooltip-content {
   max-width: 200px;
 }
 .emendas-info {
