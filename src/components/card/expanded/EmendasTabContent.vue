@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="explicacao_emendas"> {{ getTextoExplicacao }}</span>
-    <div class="search-input">
+    <div class="search-input" :class="getClassLabel()">
       <input
         type="text"
         v-model="searchQuery" >
@@ -15,7 +15,9 @@
     </div>
     <leggo-table
       :data="emendas"
-      :columns="['titulo', 'autor', 'local']"/>
+      :columns="['titulo', 'autor', 'local']"
+      :isEmendaTable="true"
+      :filterKey="query"/>
   </div>
 </template>
 
@@ -48,6 +50,13 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    getClassLabel () {
+      return {
+        searched: this.query
+      }
+    },
   },
   created () {
     this.delay = _.debounce(() => {
@@ -214,6 +223,12 @@ td {
   opacity: 1;
   width: 100%;
   margin-left: 0;
+}
+
+.searched label {
+  top: 0;
+  font-size: 0.75rem;
+  color: $--color-primary;
 }
 
 .loader {

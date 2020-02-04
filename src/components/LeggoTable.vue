@@ -97,6 +97,10 @@ export default {
     isEmendaTable: {
       type: Boolean,
       default: true
+    },
+    filterKey: {
+      type: String,
+      default: undefined
     }
   },
   components: {
@@ -112,13 +116,12 @@ export default {
       MAX_TEXT_LENGTH: 100,
       TEXT_TO_BE_SHOWED_LENGTH: 30,
       sortKey: '',
-      sortOrders: sortOrders,
-      filterKey: ''
+      sortOrders: sortOrders
     }
   },
   mixins: [mixin],
   computed: {
-    filteredData () {
+    filteredData () {      
       let sortKey = this.sortKey
       let filterKey = this.filterKey && this.filterKey.toLowerCase()
       filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
