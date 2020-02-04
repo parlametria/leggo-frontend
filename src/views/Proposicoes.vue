@@ -140,10 +140,12 @@ export default {
           if (this.temperaturas) {
             let tempA = this.temperaturas[a.id_leggo] === undefined ? 0 : this.temperaturas[a.id_leggo]
             let tempB = this.temperaturas[b.id_leggo] === undefined ? 0 : this.temperaturas[b.id_leggo]
+            let pressaoA = this.pressoes[a.id_leggo] === undefined ? 0 : this.pressoes[a.id_leggo]
+            let pressaoB = this.pressoes[b.id_leggo] === undefined ? 0 : this.pressoes[b.id_leggo]
             if (this.filter.temperatureOrder === 'desc') {
-              return tempB - tempA
+              return Math.abs(tempB - tempA) > 1 ? tempB - tempA : pressaoB - pressaoA
             } else {
-              return tempA - tempB
+              return Math.abs(tempA - tempB) > 1 ? tempA - tempB : pressaoA - pressaoB
             }
           } else {
             return 0
@@ -165,7 +167,8 @@ export default {
       filter: state => state.filter,
       pageNumber: state => state.filter.pageNumber,
       temperaturas: state => state.temperaturas.temperaturas,
-      pautas: state => state.pautas.pautas
+      pautas: state => state.pautas.pautas,
+      pressoes: state => state.pressao.ultimasPressoes
     }),
     emPauta () {
       return this.filteredProps.filter(prop => {
