@@ -123,11 +123,12 @@ export default {
   computed: {
     filteredData () {
       let sortKey = this.sortKey
-      let filterKey = this.filterKey && this.filterKey.toLowerCase()
-      filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       let order = this.sortOrders[sortKey] || 1
       let data = this.data
-      if (filterKey) {
+
+      if(this.filterKey) {
+        let filterKey = this.filterKey && this.filterKey.toLowerCase()
+        filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         data = data.filter(function (row) {
           return Object.keys(row).some(function (key) {
             return (
