@@ -82,6 +82,9 @@ export default {
 }
 
 .status-bar {
-      padding-bottom: 5px;
+  padding-bottom: 2rem;
+}
+.small-text-field {
+  font-size: 0.85rem;
 }
 </style>

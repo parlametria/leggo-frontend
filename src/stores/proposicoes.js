@@ -30,6 +30,7 @@ const proposicoes = new Vapi({
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
+      prop.firstEtapa = prop.etapas.slice(0, 1)[0]
       prop.lastEtapa = prop.etapas.slice(-1)[0]
       prop.detailed = false
       temperaturas[prop.id_leggo] = prop.ultima_temperatura
@@ -48,6 +49,7 @@ const proposicoes = new Vapi({
     `proposicoes/${idLeggo}`,
   onSuccess: (state, { data }) => {
     const dataProp = data[0]
+    dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     const last = dataProp.lastEtapa
     store.commit('setTemperatura', { id_leggo: last['id_leggo'], temperatura: last['temperatura_historico'] })

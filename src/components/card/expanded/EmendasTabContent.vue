@@ -16,10 +16,6 @@
     <leggo-table
       :data="emendas"
       :columns="['titulo', 'autor', 'local']"/>
-    <span
-      v-if="showTextoExplicacao"
-      class="explicacao_emendas"
-    >*Não analisamos todas pois algumas emendas estão no sistema como imagem e não como texto.</span>
   </div>
 </template>
 
