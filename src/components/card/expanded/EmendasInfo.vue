@@ -2,7 +2,26 @@
   <div>
     <h5>{{ propName }} - {{ capitalizeFirstLetter(casa) }}</h5>
     <div v-if="verificaSeMostraEmendas">
-      <h5>Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</h5>
+      <div class="emendas-info">
+        <span class="emendas-info-text">Total: {{ propEmendas.length }} | Analisadas: {{ getAnalisadas }}</span>
+        <el-tooltip
+          placement="bottom"
+          effect="light"
+        >
+          <div
+            class="tooltip-content"
+            slot="content"
+          >
+            Analisamos todas as <strong>emendas disponibilizadas como texto</strong> por meio do serviço de Dados Abertos da Câmara e do Senado.
+            Não analisamos emendas disponibilizadas como imagem ou fotocópias.
+          </div>
+          <span
+            target="_blank"
+            class="link icon-info">
+            <i class="bx bx-info-circle"/>
+          </span>
+        </el-tooltip>
+      </div>
       <el-tabs>
         <el-tab-pane label="Todas as emendas">
           <emendas-tab-content
@@ -31,12 +50,20 @@
     </div>
     <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
       <div
+        v-if="getCasa === 'camara'"
         class="title sem-emendas"
-      >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}</div>
+      >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}
+      </div>
+      <div
+        v-else
+        class="title sem-emendas">
+        As emendas {{ getCasa | toFormattedName }} estão temporariamente indisponíveis. Estamos trabalhando nisso.
+      </div>
     </div>
     <div v-else>
       <div class="title sem-emendas">
-        Não foi possível analisar as emendas {{ getCasa | toFormattedName }}.</div>
+        Não foi possível analisar as emendas {{ getCasa | toFormattedName }}.
+      </div>
     </div>
   </div>
 </template>
@@ -191,7 +218,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .title {
   font-size: 0.97rem;
   line-height: 15px;
@@ -212,5 +239,24 @@ td {
 .sem-emendas {
   color: #969696;
   font-size: 0.8em;
+}
+.link {
+  cursor: pointer;
+  color: #AA67AE;
+}
+.tooltip-content {
+  max-width: 200px;
+}
+.emendas-info {
+  display: flex;
+  margin-bottom: 10px;
+}
+.icon-info {
+  margin: 1px 4px 0px 8px;
+  font-size: 1rem;
+}
+.emendas-info-text {
+  font-size: 0.9rem;
+  font-weight: bold;
 }
 </style>

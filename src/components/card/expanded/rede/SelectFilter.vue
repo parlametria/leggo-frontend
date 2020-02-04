@@ -20,8 +20,8 @@ export default {
         value: 'bancada',
         label: 'Bancada'
       }, {
-        value: 'influencia',
-        label: 'Influência'
+        value: 'peso_politico',
+        label: 'Peso político'
       }],
       value: 'bancada'
     }
