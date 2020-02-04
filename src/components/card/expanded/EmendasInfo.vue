@@ -164,18 +164,10 @@ export default {
       )
     },
     getSemelhantes () {
-      const reversedEmendas = _.reverse(this.orderedEmendas)
-      if (!this.verificaSeMostraEmendasAparentes) {
-        return _.takeRight(
-          reversedEmendas,
-          Math.min(5, this.orderedEmendas.length)
-        )
-      } else {
-        return _.takeRight(
-          reversedEmendas,
-          _.floor(this.orderedEmendas.length / 2)
-        )
-      }
+      return _.reverse(_.takeRight(
+        this.orderedEmendas,
+        _.floor(this.orderedEmendas.length / 2)
+      ))
     },
     verificaSeMostraEmendas () {
       return (
@@ -203,7 +195,7 @@ export default {
       return (
         this.verificaSeMostraEmendas &&
         this.getAnalisadas &&
-        this.propEmendas.length > this.LIMIAR
+        this.getAnalisadas > this.LIMIAR
       )
     },
     showTextoExplicacao () {
