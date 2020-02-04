@@ -4,7 +4,7 @@
     :class="classObj"
     :y="20"
     :x="0"
-  >{{ node.nome + " (" + node.partido + "/" + node.uf + ")" }}
+  > {{ nome }}
   </text>
 </template>
 
@@ -26,6 +26,10 @@ export default {
         tooltip: true,
         active: this.isActive
       }
+    },
+    nome () {
+      const { node } = this
+      return `${node.nome} (${node.partido}/${node.uf === "nan" ? "-": node.uf})`
     }
   }
 }
