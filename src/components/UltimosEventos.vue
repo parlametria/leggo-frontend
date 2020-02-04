@@ -22,7 +22,7 @@
         </td>
         <td>
           <div class="evento-title">
-            <span>{{ evento.titulo }}</span> - <a :href="`#${ evento.propId }`">{{ evento.propName }}</a>
+            <span>{{ evento.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: evento.propId }}">{{ evento.propName }}</router-link>
           </div>
           <div>
             {{ evento.texto }}
