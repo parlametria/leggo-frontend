@@ -19,7 +19,7 @@ export default class PressureGraphicModel {
         fillOpacity: 0.5
       },
       transform: [
-        { 'calculate': 'datum.maximo_geral > 0 ? datum.maximo_geral/100 : 0.001', 'as': 'maximo_geral' }],
+        { 'calculate': 'datum.maximo_geral > 0 ? datum.maximo_geral/100 : 0', 'as': 'maximo_geral' }],
 
       encoding: {
         x: {
@@ -46,7 +46,7 @@ export default class PressureGraphicModel {
             ticks: false,
             labels: false
           },
-          scale: { type: 'sqrt' }
+          scale: { domain: [0, 1] }
         },
         tooltip: [
           { 'field': 'maximo_geral', 'type': 'quantitative', 'title': 'Pressão da Semana', axis: { format: '.0%' } },
