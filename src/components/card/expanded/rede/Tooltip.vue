@@ -29,7 +29,7 @@ export default {
     },
     nome () {
       const { node } = this
-      return `${node.nome} (${node.partido}/${node.uf === "nan" ? "-": node.uf})`
+      return `${node.nome} (${node.partido === 'nan' ? '-' : node.partido}/${node.uf === 'nan' ? '-' : node.uf})`
     }
   }
 }
