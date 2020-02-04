@@ -1,6 +1,6 @@
 <template>
   <div v-if="isActive">
-    <h5>Documentos - {{ this.node.nome_eleitoral }}</h5>
+    <h5>Documentos - {{ nome }}</h5>
     <leggo-table
       :data="autorias"
       :columns="['data', 'descricao_tipo_documento', 'autores']"
@@ -36,6 +36,10 @@ export default {
     isActive () {
       this.fetchData()
       return this.node !== null
+    },
+    nome () {
+      const { node } = this
+      return `${node.nome} (${node.partido === 'nan' ? '-' : node.partido}/${node.uf === 'nan' ? '-' : node.uf})`
     }
   },
   methods: {
