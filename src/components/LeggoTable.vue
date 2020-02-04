@@ -18,7 +18,7 @@
       </thead>
       <tbody v-if="isEmendaTable">
         <tr
-          v-for="(entry, indexData) in filteredData"
+          v-for="(entry, indexData) in paginatedData"
           :key="indexData">
 
           <td
@@ -50,7 +50,7 @@
       </tbody>
       <tbody v-else>
         <tr
-          v-for="(entry, indexData) in filteredData"
+          v-for="(entry, indexData) in paginatedData"
           :key="indexData">
           <td
             v-for="(key, index) in columns"
@@ -126,7 +126,7 @@ export default {
       let filterKey = this.filterKey && this.filterKey.toLowerCase()
       filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       let order = this.sortOrders[sortKey] || 1
-      let data = this.paginatedData
+      let data = this.data
       if (filterKey) {
         data = data.filter(function (row) {
           return Object.keys(row).some(function (key) {
@@ -149,14 +149,14 @@ export default {
       return data
     },
     pageCount () {
-      let l = this.data.length
+      let l = this.filteredData.length
       let s = this.size
       return Math.ceil(l / s)
     },
     paginatedData () {
       const start = this.pageNumber * this.size
       const end = start + this.size
-      return this.data.slice(start, end)
+      return this.filteredData.slice(start, end)
     },
     getLimitPages () {
       return Math.floor(window.innerWidth / 150)
