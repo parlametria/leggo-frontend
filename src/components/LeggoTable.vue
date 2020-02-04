@@ -121,7 +121,7 @@ export default {
   },
   mixins: [mixin],
   computed: {
-    filteredData () {      
+    filteredData () {
       let sortKey = this.sortKey
       let filterKey = this.filterKey && this.filterKey.toLowerCase()
       filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')

@@ -1,7 +1,9 @@
 <template>
   <div>
     <span class="explicacao_emendas"> {{ getTextoExplicacao }}</span>
-    <div class="search-input" :class="getClassLabel()">
+    <div
+      class="search-input"
+      :class="getClassLabel()">
       <input
         type="text"
         v-model="searchQuery" >
@@ -16,8 +18,8 @@
     <leggo-table
       :data="emendas"
       :columns="['titulo', 'autor', 'local']"
-      :isEmendaTable="true"
-      :filterKey="query"/>
+      :is-emenda-table="true"
+      :filter-key="query"/>
   </div>
 </template>
 
@@ -56,7 +58,7 @@ export default {
       return {
         searched: this.query
       }
-    },
+    }
   },
   created () {
     this.delay = _.debounce(() => {
