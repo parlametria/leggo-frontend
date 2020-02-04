@@ -143,9 +143,9 @@ export default {
             let pressaoA = this.pressoes[a.id_leggo] === undefined ? 0 : this.pressoes[a.id_leggo]
             let pressaoB = this.pressoes[b.id_leggo] === undefined ? 0 : this.pressoes[b.id_leggo]
             if (this.filter.temperatureOrder === 'desc') {
-              return Math.abs(tempB - tempA) > 1 ? tempB - tempA : pressaoB - pressaoA
+              return Math.abs(tempB - tempA) > 5 ? tempB - tempA : pressaoB - pressaoA
             } else {
-              return Math.abs(tempA - tempB) > 1 ? tempA - tempB : pressaoA - pressaoB
+              return Math.abs(tempA - tempB) > 5 ? tempA - tempB : pressaoA - pressaoB
             }
           } else {
             return 0
