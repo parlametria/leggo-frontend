@@ -6,7 +6,7 @@ const pressao = new Vapi({
   axios: axios,
   state: {
     pressao: {},
-    ultimasPressoes: {},
+    ultimasPressoes: {}
   } }).get({
   action: 'getPressao',
   property: 'pressao',
