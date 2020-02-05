@@ -9,7 +9,7 @@
         v-model="searchQuery" >
       <span class="highlight"/>
       <span class="bar"/>
-      <label>Pesquise autores e tipos</label>
+      <label>Busque autores, tipos e locais</label>
       <span class="el-icon-search"/>
       <span
         class="loader"
