@@ -18,7 +18,7 @@
       </thead>
       <tbody v-if="isEmendaTable">
         <tr
-          v-for="(entry, indexData) in filteredData"
+          v-for="(entry, indexData) in paginatedData"
           :key="indexData">
 
           <td
@@ -50,7 +50,7 @@
       </tbody>
       <tbody v-else>
         <tr
-          v-for="(entry, indexData) in filteredData"
+          v-for="(entry, indexData) in paginatedData"
           :key="indexData">
           <td
             v-for="(key, index) in columns"
@@ -97,6 +97,10 @@ export default {
     isEmendaTable: {
       type: Boolean,
       default: true
+    },
+    filterKey: {
+      type: String,
+      default: undefined
     }
   },
   components: {
@@ -112,19 +116,19 @@ export default {
       MAX_TEXT_LENGTH: 100,
       TEXT_TO_BE_SHOWED_LENGTH: 30,
       sortKey: '',
-      sortOrders: sortOrders,
-      filterKey: ''
+      sortOrders: sortOrders
     }
   },
   mixins: [mixin],
   computed: {
     filteredData () {
       let sortKey = this.sortKey
-      let filterKey = this.filterKey && this.filterKey.toLowerCase()
-      filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       let order = this.sortOrders[sortKey] || 1
-      let data = this.paginatedData
-      if (filterKey) {
+      let data = this.data
+
+      if (this.filterKey) {
+        let filterKey = this.filterKey && this.filterKey.toLowerCase()
+        filterKey = filterKey.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         data = data.filter(function (row) {
           return Object.keys(row).some(function (key) {
             return (
@@ -146,14 +150,14 @@ export default {
       return data
     },
     pageCount () {
-      let l = this.data.length
+      let l = this.filteredData.length
       let s = this.size
       return Math.ceil(l / s)
     },
     paginatedData () {
       const start = this.pageNumber * this.size
       const end = start + this.size
-      return this.data.slice(start, end)
+      return this.filteredData.slice(start, end)
     },
     getLimitPages () {
       return Math.floor(window.innerWidth / 150)
