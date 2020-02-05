@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
 import temps from './temperaturas'
+import pressoes from './pressao'
 import pautas from './pautas'
 import axios from './axios'
 import store from './store'
@@ -25,6 +26,7 @@ const proposicoes = new Vapi({
     let temperaturas = {}
     let coeficientes = {}
     let pautasTmp = {}
+    let ultimasPressoes = {}
     data.forEach((prop) => {
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
@@ -32,12 +34,14 @@ const proposicoes = new Vapi({
       prop.lastEtapa = prop.etapas.slice(-1)[0]
       prop.detailed = false
       temperaturas[prop.id_leggo] = prop.ultima_temperatura
+      ultimasPressoes[prop.id_leggo] = prop.ultima_pressao
       coeficientes[prop.id_leggo] = prop.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
+    Vue.set(pressoes.state, 'ultimasPressoes', ultimasPressoes)
   }
 }).get({
   action: 'detailProposicao',

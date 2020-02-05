@@ -5,7 +5,8 @@ import axios from './axios'
 const pressao = new Vapi({
   axios: axios,
   state: {
-    pressao: {}
+    pressao: {},
+    ultimasPressoes: {},
   } }).get({
   action: 'getPressao',
   property: 'pressao',
