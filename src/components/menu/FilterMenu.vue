@@ -5,7 +5,7 @@
     :collapse-transition="false">
     <el-menu-item-group>
 
-      <!-- Date -->
+      <!-- Date >
       <el-menu-item index="3">
         <i class="el-icon-date"/>
         <template slot="title">
@@ -17,7 +17,7 @@
             :clearable="false"
             :picker-options="datePickerOptions"/>
         </template>
-      </el-menu-item>
+      </el-menu-item-->
 
       <!-- Sort -->
       <el-menu-item index="4">
