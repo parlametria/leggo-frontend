@@ -26,7 +26,7 @@
             :key="index"
             v-show="verificaSeEmenda(entry)">
             <a
-              v-if="key === 'titulo'"
+              v-if="key === 'titulo' && entry['inteiro_teor'] !== 'nan'"
               :href="entry['inteiro_teor']+'&disposition=inline'"
               target="_blank"
             >{{ entry[key] }}</a>
