@@ -79,7 +79,8 @@
         :top_important_atores="prop.top_important_atores"
         :top_atores="prop.top_atores"
         :id_leggo="prop.id_leggo"
-        :apelido="prop.lastEtapa.apelido"/>
+        :apelido="prop.lastEtapa.apelido"
+        :etapas="revChronSortedEtapas"/>
       <h3>Rede de Influência</h3>
       <peso-politico-graph :id_leggo="prop.id_leggo"/>
     </div>

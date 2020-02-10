@@ -15,7 +15,7 @@
       <p class="sem-atores">Não estamos capturando atores em Senado</p>
     </div>
     <div v-else>
-      <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
+      <p class="sem-atores">(Ainda) Não foram apresentados documentos nesse local referentes a essa proposição.</p>
     </div>
   </div>
 </template>
