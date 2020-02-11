@@ -14,6 +14,7 @@
           >
             Analisamos todas as <strong>emendas disponibilizadas como texto</strong> por meio do serviço de Dados Abertos da Câmara e do Senado.
             Não analisamos emendas disponibilizadas como imagem ou fotocópias.
+            Só detalhamos comparativamente as análises quando há 10 ou mais.
           </div>
           <span
             target="_blank"
