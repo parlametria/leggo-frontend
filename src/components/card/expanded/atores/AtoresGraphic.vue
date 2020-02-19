@@ -22,7 +22,7 @@
       v-if="filteredAutores.length > ATORES_VISIBLE_MAX"
       @click="isCollapsed = !isCollapsed"
     >
-      Veja {{isCollapsed? "menos": "mais"}}
+      Veja {{ isCollapsed? "menos": "mais" }}
     </el-button>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       ATORES_VISIBLE_MAX: 15,
-      isCollapsed: false,
+      isCollapsed: false
     }
   },
   computed: {
@@ -70,8 +70,8 @@ export default {
       })
       return atores
     },
-    contribuidoresVisiveis() {
-      return this.isCollapsed ? Object.keys(this.atoresAgregados).length :this.ATORES_VISIBLE_MAX
+    contribuidoresVisiveis () {
+      return this.isCollapsed ? Object.keys(this.atoresAgregados).length : this.ATORES_VISIBLE_MAX
     },
     maioresContribuidores () {
       const sortable = []
@@ -110,8 +110,8 @@ export default {
           .change("ator", vega.changeset().remove("ator", d => true))
           .insert('ator', this.filteredAutores)
           .run()
-        }
-    },
+      }
+    }
   },
   mounted () {
     this.$watch('filteredAutores', this.mountGraphic, { immediate: true, deep: true })
