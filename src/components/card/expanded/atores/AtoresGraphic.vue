@@ -17,6 +17,13 @@
     <div v-else>
       <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
     </div>
+    <el-button
+      class="btn"
+      v-if="filteredAutores.length > ATORES_VISIBLE_MAX"
+      @click="isCollapsed = !isCollapsed"
+    >
+      Veja {{isCollapsed? "menos": "mais"}}
+    </el-button>
   </div>
 </template>
 
@@ -42,8 +49,14 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      ATORES_VISIBLE_MAX: 15,
+      isCollapsed: false,
+    }
+  },
   computed: {
-    tamanhoGrafico () {
+    larguraGrafico () {
       return document.getElementById('grafico').offsetWidth
     },
     verificaSeMostraAtores () {
@@ -57,6 +70,9 @@ export default {
       })
       return atores
     },
+    contribuidoresVisiveis() {
+      return this.isCollapsed ? Object.keys(this.atoresAgregados).length :this.ATORES_VISIBLE_MAX
+    },
     maioresContribuidores () {
       const sortable = []
       const atoresAgregados = this.atoresAgregados
@@ -67,7 +83,7 @@ export default {
         sortable.sort((a, b) => {
           return b[1] - a[1]
         }),
-        15
+        this.contribuidoresVisiveis
       ).map(e => parseInt(e[0]))
 
       return top
@@ -87,18 +103,18 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico)
+        let model = new AtoresGraphicModel(this.larguraGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
           .change("ator", vega.changeset().remove("ator", d => true))
           .insert('ator', this.filteredAutores)
           .run()
-      }
-    }
+        }
+    },
   },
   mounted () {
-    this.$watch('atores', this.mountGraphic, { immediate: true, deep: true })
+    this.$watch('filteredAutores', this.mountGraphic, { immediate: true, deep: true })
   }
 }
 </script>
@@ -111,7 +127,8 @@ export default {
 }
 .graphic {
   text-align: left;
-  overflow-x: auto;
+  overflow: auto;
+  max-height: 472px;
   margin-bottom: 15px;
 }
 .title {

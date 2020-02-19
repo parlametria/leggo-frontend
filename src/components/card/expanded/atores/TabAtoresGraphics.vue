@@ -14,9 +14,6 @@
         <atores-graphic :atores="atores_comissoes" />
       </el-tab-pane>
     </el-tabs>
-    <router-link :to="linkAtores">
-      <el-button class="btn" >Veja mais</el-button>
-    </router-link>
   </div>
 </template>
 
@@ -69,15 +66,6 @@ export default {
     atores () {
       if (this.top_atores) {
         return this.top_atores
-      }
-    },
-    linkAtores () {
-      return {
-        name: 'atores',
-        params: {
-          id_leggo: this.id_leggo,
-          apelido: this.apelido
-        }
       }
     },
     atoresLocaisImportantes () {
