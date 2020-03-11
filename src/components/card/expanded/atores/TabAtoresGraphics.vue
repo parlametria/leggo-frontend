@@ -73,7 +73,7 @@ export default {
               atoresLocais[ator.sigla_local_formatada] = []
             }
             atoresLocais[ator.sigla_local_formatada].push(ator)
-          } 
+          }
         }
       }
       return atoresLocais
