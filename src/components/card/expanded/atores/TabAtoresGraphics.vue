@@ -23,11 +23,7 @@ import AtoresGraphic from './AtoresGraphic.vue'
 export default {
   name: 'TabAtoresGraphic',
   props: {
-    top_atores: {
-      type: Array,
-      default: undefined
-    },
-    top_important_atores: {
+    important_atores: {
       type: Array,
       default: undefined
     },
@@ -64,20 +60,20 @@ export default {
   },
   computed: {
     atores () {
-      if (this.top_atores) {
-        return this.top_atores
+      if (this.important_atores) {
+        return this.important_atores
       }
     },
     atoresLocaisImportantes () {
       let atoresLocais = {}
-      if (this.top_important_atores) {
-        for (let ator of this.top_important_atores) {
-          if (Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+      if (this.important_atores) {
+        for (let ator of this.important_atores) {
+          if (ator.is_important) {
+            if (!Object.keys(atoresLocais).includes(ator.sigla_local_formatada)) {
+              atoresLocais[ator.sigla_local_formatada] = []
+            }
             atoresLocais[ator.sigla_local_formatada].push(ator)
-          } else {
-            atoresLocais[ator.sigla_local_formatada] = []
-            atoresLocais[ator.sigla_local_formatada].push(ator)
-          }
+          } 
         }
       }
       return atoresLocais

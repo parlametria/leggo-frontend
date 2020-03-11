@@ -1,18 +1,11 @@
 <template>
   <div>
-    <div v-if="senadoOuMPV">
-      <p class="sem-atores">Nas MPVs, atualmente, temos dados de atores apenas para emendas</p>
-      <div ref="anchor" />
-    </div>
     <div
-      v-else-if="verificaSeMostraAtores"
+      v-if="verificaSeMostraAtores"
       class="graphic"
       id="grafico">
       <div ref="anchor" />
       <p style="font-size: 10pt">* Oposição</p>
-    </div>
-    <div v-else-if="casa === 'senado'">
-      <p class="sem-atores">Não estamos capturando atores em Senado</p>
     </div>
     <div v-else>
       <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
@@ -22,7 +15,7 @@
       v-if="filteredAutores.length > ATORES_VISIBLE_MAX"
       @click="isCollapsed = !isCollapsed"
     >
-      Veja {{ isCollapsed? "menos": "mais" }}
+      Veja {{ isCollapsed? "mais": "menos" }}
     </el-button>
   </div>
 </template>
@@ -52,7 +45,7 @@ export default {
   data () {
     return {
       ATORES_VISIBLE_MAX: 15,
-      isCollapsed: false
+      isCollapsed: true
     }
   },
   computed: {
@@ -71,7 +64,7 @@ export default {
       return atores
     },
     contribuidoresVisiveis () {
-      return this.isCollapsed ? Object.keys(this.atoresAgregados).length : this.ATORES_VISIBLE_MAX
+      return this.isCollapsed ? this.ATORES_VISIBLE_MAX : Object.keys(this.atoresAgregados).length
     },
     maioresContribuidores () {
       const sortable = []
@@ -93,11 +86,6 @@ export default {
       return this.atores.filter(e =>
         maioresContribuidores.includes(e.id_autor)
       )
-    },
-    senadoOuMPV () {
-      const sigla = this.sigla.substring(0, 3)
-      const casa = this.casa
-      return sigla === 'MPV' && casa !== 'senado'
     }
   },
   methods: {
