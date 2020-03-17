@@ -27,8 +27,11 @@
         :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link-->
       <router-link
         :to="{ name: 'ajuda' }"><span @click="closeMenu">Ajuda</span></router-link>
-      <!--router-link
-        :to="{ name: 'relatorios' }"><span @click="closeMenu">Relatórios</span></router-link-->
+      <a
+        href="https://parlametria.github.io/leggo-frontend/"
+        target="_blank"><span>Relatórios</span></a>
+      <!-- <router-link
+        :to="{ name: 'relatorios' }"><span @click="closeMenu">Relatórios</span></router-link> -->
       <router-link
         :to="{ name: 'sobre' }"><span @click="closeMenu">Sobre</span></router-link>
     </div>
@@ -157,7 +160,7 @@ input {
   .menuexpanded {
     display: block;
     width: 170px;
-    height: 120px;
+    height: 160px;
     border: $--color-primary-dark solid 1px;
   }
 
