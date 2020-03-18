@@ -76,8 +76,7 @@
       <tab-atores-graphics
         :casa="prop.lastEtapa.casa"
         :sigla="prop.lastEtapa.sigla"
-        :top_important_atores="prop.top_important_atores"
-        :top_atores="prop.top_atores"
+        :important_atores="prop.important_atores"
         :id_leggo="prop.id_leggo"
         :apelido="prop.lastEtapa.apelido"/>
       <h3>Rede de Influência</h3>
