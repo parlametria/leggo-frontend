@@ -9,11 +9,9 @@ stages:
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
   COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
   COMPOSE_BUILDER_CMD: docker-compose -f docker_extra/builder.yml
   FRONTEND_ADDR: "http://frontend:80"  # usada pelo compose de test
-  DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
