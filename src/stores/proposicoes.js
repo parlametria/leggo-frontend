@@ -14,7 +14,8 @@ const proposicoes = new Vapi({
     proposicoes: [],
     tramitacoes: new Set(),
     eventos_tramitacao: {},
-    metaInfo: {}
+    metaInfo: {},
+    interesse: ''
   }
 }).get({
   action: 'listProposicoes',
@@ -91,6 +92,9 @@ proposicoes.getters = {
   },
   getPropById (state) {
     return (idLeggo) => state.proposicoes.find(prop => prop.id_leggo === idLeggo)
+  },
+  getInteresse(state) {
+    return state.interesse
   }
 }
 

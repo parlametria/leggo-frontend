@@ -50,10 +50,11 @@ const router = new Router({
       component: Proposicoes,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
+        store.state.proposicoes.interesse = 'leggo'
         NProgress.start()
         const semanas = store.state.filter.semanas
         const date = store.getters.formattedDateRef
-        const interesse = 'rac'
+        const interesse = 'leggo'
         const proposicoes = store.state.proposicoes.proposicoes
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', {
@@ -115,6 +116,7 @@ const router = new Router({
       component: Proposicoes,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
+        store.state.proposicoes.interesse = params.slug_interesse
         NProgress.start()
         const semanas = store.state.filter.semanas
         const date = store.getters.formattedDateRef
@@ -131,20 +133,5 @@ const router = new Router({
     }
   ]
 })
-// router.beforeEach(async (to, from, next) => {
 
-//   NProgress.start()
-//   const semanas = store.state.filter.semanas
-//   const date = store.getters.formattedDateRef
-//   const proposicoes = store.state.proposicoes.proposicoes
-//   console.log(to);
-//   if (proposicoes.length === 0) {
-//     await store.dispatch('listProposicoes', {
-//       params: { semanas, date }
-//     })
-//   }
-
-//   NProgress.done()
-//   next()
-// })
 export default router
