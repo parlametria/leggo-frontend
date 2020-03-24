@@ -47,8 +47,21 @@ const router = new Router({
     {
       path: '/proposicoes',
       name: 'proposicoes',
-      components: {
-        default: Proposicoes
+      component: Proposicoes,
+      props: true,
+      beforeEnter: async ({ params }, from, next) => {
+        NProgress.start()
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        const interesse = 'rac'
+        const proposicoes = store.state.proposicoes.proposicoes
+        if (proposicoes.length === 0) {
+          await store.dispatch('listProposicoes', {
+            params: { semanas, date, interesse }
+          })
+        }
+        NProgress.done()
+        next()
       }
     },
     {
@@ -95,21 +108,43 @@ const router = new Router({
       name: 'atores',
       component: AtoresDetailed,
       props: true
+    },
+    {
+      path: '/:slug_interesse',
+      name: 'interesse',
+      component: Proposicoes,
+      props: true,
+      beforeEnter: async ({ params }, from, next) => {
+        NProgress.start()
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        const interesse = params.slug_interesse
+        const proposicoes = store.state.proposicoes.proposicoes
+        if (proposicoes.length === 0) {
+          await store.dispatch('listProposicoes', {
+            params: { semanas, date, interesse }
+          })
+        }
+        NProgress.done()
+        next()
+      }
     }
   ]
 })
-router.beforeEach(async (to, from, next) => {
-  NProgress.start()
-  const semanas = store.state.filter.semanas
-  const date = store.getters.formattedDateRef
-  const proposicoes = store.state.proposicoes.proposicoes
-  if (proposicoes.length === 0) {
-    await store.dispatch('listProposicoes', {
-      params: { semanas, date }
-    })
-  }
+// router.beforeEach(async (to, from, next) => {
 
-  NProgress.done()
-  next()
-})
+//   NProgress.start()
+//   const semanas = store.state.filter.semanas
+//   const date = store.getters.formattedDateRef
+//   const proposicoes = store.state.proposicoes.proposicoes
+//   console.log(to);
+//   if (proposicoes.length === 0) {
+//     await store.dispatch('listProposicoes', {
+//       params: { semanas, date }
+//     })
+//   }
+
+//   NProgress.done()
+//   next()
+// })
 export default router
