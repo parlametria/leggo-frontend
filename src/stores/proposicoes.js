@@ -14,13 +14,14 @@ const proposicoes = new Vapi({
     proposicoes: [],
     tramitacoes: new Set(),
     eventos_tramitacao: {},
-    metaInfo: {}
+    metaInfo: {},
+    interesse: ''
   }
 }).get({
   action: 'listProposicoes',
   property: 'proposicoes',
-  path: ({ semanas, date }) =>
-    `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}`,
+  path: ({ semanas, date, interesse }) =>
+    `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}&interesse=${interesse}`,
   onSuccess: (state, { data }) => {
     state.proposicoes = data
     let temperaturas = {}
@@ -91,6 +92,9 @@ proposicoes.getters = {
   },
   getPropById (state) {
     return (idLeggo) => state.proposicoes.find(prop => prop.id_leggo === idLeggo)
+  },
+  getInteresse (state) {
+    return state.interesse
   }
 }
 

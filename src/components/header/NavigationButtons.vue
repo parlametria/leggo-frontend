@@ -22,7 +22,11 @@
       class="menubar"
       :class="{ menuexpanded: openMenu }">
       <router-link
+        v-if="getInteresse === 'leggo'"
         :to="{ name: 'proposicoes' }"><span @click="closeMenu">Proposições</span></router-link>
+      <router-link
+        v-if="getInteresse !== 'leggo'"
+        :to="{ name: 'interesse', params: { slug_interesse: getInteresse } }"><span @click="closeMenu">Proposições</span></router-link>
       <!--router-link
         :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link-->
       <router-link
@@ -40,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'NavigationButtons',
   data () {
@@ -54,6 +60,9 @@ export default {
     closeMenu () {
       this.openMenu = false
     }
+  },
+  computed: {
+    ...mapGetters(['getInteresse'])
   }
 }
 </script>
