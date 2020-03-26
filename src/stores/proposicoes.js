@@ -93,7 +93,7 @@ proposicoes.getters = {
   getPropById (state) {
     return (idLeggo) => state.proposicoes.find(prop => prop.id_leggo === idLeggo)
   },
-  getInteresse(state) {
+  getInteresse (state) {
     return state.interesse
   }
 }
