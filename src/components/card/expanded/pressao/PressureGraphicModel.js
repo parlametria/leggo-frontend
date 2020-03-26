@@ -19,7 +19,7 @@ export default class PressureGraphicModel {
         fillOpacity: 0.5
       },
       transform: [
-        { 'calculate': 'datum.maximo_geral > 0 ? datum.maximo_geral/100 : 0', 'as': 'maximo_geral' }],
+        { 'calculate': 'datum.popularity > 0 ? datum.popularity : 0', 'as': 'popularity' }],
 
       encoding: {
         x: {
@@ -37,7 +37,7 @@ export default class PressureGraphicModel {
           }
         },
         y: {
-          field: 'maximo_geral',
+          field: 'popularity',
           type: 'quantitative',
           axis: {
             format: '%',
@@ -49,7 +49,7 @@ export default class PressureGraphicModel {
           scale: { domain: [0, 1] }
         },
         tooltip: [
-          { 'field': 'maximo_geral', 'type': 'quantitative', 'title': 'Pressão da Semana', axis: { format: '.0%' } },
+          { 'field': 'popularity', 'type': 'quantitative', 'title': 'Pressão da Semana', axis: { format: '.0%' } },
           { 'field': 'date', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
         ]
       },
