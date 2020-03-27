@@ -23,22 +23,29 @@ const proposicoes = new Vapi({
   path: ({ semanas, date, interesse }) =>
     `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}&interesse=${interesse}`,
   onSuccess: (state, { data }) => {
-    state.proposicoes = data
     let temperaturas = {}
     let coeficientes = {}
     let pautasTmp = {}
     let ultimasPressoes = {}
     data.forEach((prop) => {
+      prop.temas = prop.interesse[0].temas
+      prop.apelido = prop.interesse[0].apelido
+      prop.sigla = prop.etapas[0].sigla
+      prop.advocacy_link = prop.interesse[0].advocacy_link
+
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
       prop.firstEtapa = prop.etapas.slice(0, 1)[0]
       prop.lastEtapa = prop.etapas.slice(-1)[0]
+      
       prop.detailed = false
       temperaturas[prop.id_leggo] = prop.ultima_temperatura
       ultimasPressoes[prop.id_leggo] = prop.ultima_pressao
       coeficientes[prop.id_leggo] = prop.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
+    state.proposicoes = data
+    
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
@@ -46,10 +53,15 @@ const proposicoes = new Vapi({
   }
 }).get({
   action: 'detailProposicao',
-  path: ({ idLeggo }) =>
-    `proposicoes/${idLeggo}`,
+  path: ({ idLeggo, interesse }) =>
+    `proposicoes/${idLeggo}?interesse=${interesse}`,
   onSuccess: (state, { data }) => {
     const dataProp = data[0]
+    dataProp.temas = dataProp.interesse[0].temas
+    dataProp.apelido = dataProp.interesse[0].apelido
+    dataProp.sigla = dataProp.etapas[0].sigla
+    dataProp.advocacy_link = dataProp.interesse[0].advocacy_link
+
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     const last = dataProp.lastEtapa

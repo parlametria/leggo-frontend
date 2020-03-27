@@ -3,7 +3,7 @@
     <filter-button />
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
-    <p v-else-if="error.proposicoes">Falha no carregamento</p>
+    <p v-else-if="error.proposicoes">Falha no carregamento</p>    
     <transition
       v-else
       name="el-fade-in"
@@ -94,8 +94,7 @@ export default {
     },
     checkPropMatchesFilter (prop) {
       return this.checkCategoricalFilters(prop) &&
-        this.checkPautaFilter(prop) &&
-        this.checkApelidoFilter(prop)
+        this.checkPautaFilter(prop)
     },
     updateSticky (refHeader, refSession) {
       if (!refSession || !refHeader) return
@@ -127,7 +126,7 @@ export default {
       if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
           return this.checkPropMatchesFilter(prop.lastEtapa) &&
-          this.checkStatusFilter(prop)
+          this.checkStatusFilter(prop) && this.checkApelidoFilter(prop)
         }).sort((a, b) => {
           let idA = a.lastEtapa.id
           let idB = b.lastEtapa.id

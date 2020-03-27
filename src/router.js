@@ -95,9 +95,10 @@ const router = new Router({
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
+        const interesse = store.state.proposicoes.interesse
         let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         if (!prop.detailed) {
-          await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo } })
+          await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo, interesse } })
           prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         }
         params.prop = prop
