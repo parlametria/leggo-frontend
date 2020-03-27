@@ -3,7 +3,7 @@
     <filter-button />
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
-    <p v-else-if="error.proposicoes">Falha no carregamento</p>    
+    <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition
       v-else
       name="el-fade-in"

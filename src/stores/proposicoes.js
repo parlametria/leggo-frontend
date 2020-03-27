@@ -37,7 +37,7 @@ const proposicoes = new Vapi({
       prop.status = retornaProposicaoComStatusGeral(prop)
       prop.firstEtapa = prop.etapas.slice(0, 1)[0]
       prop.lastEtapa = prop.etapas.slice(-1)[0]
-      
+
       prop.detailed = false
       temperaturas[prop.id_leggo] = prop.ultima_temperatura
       ultimasPressoes[prop.id_leggo] = prop.ultima_pressao
@@ -45,7 +45,7 @@ const proposicoes = new Vapi({
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
     state.proposicoes = data
-    
+
     Vue.set(temps.state, 'temperaturas', temperaturas)
     Vue.set(temps.state, 'coeficiente', coeficientes)
     Vue.set(pautas.state, 'pautas', pautasTmp)
