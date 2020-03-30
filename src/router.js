@@ -90,13 +90,21 @@ const router = new Router({
       }
     },
     {
-      path: '/proposicao/:id_leggo',
+      path: '/proposicao/:id_leggo/:slug_interesse',
       name: 'proposicao',
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
-        const interesse = store.state.proposicoes.interesse
+        store.state.proposicoes.interesse = params.slug_interesse
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        const interesse = params.slug_interesse
+        const proposicoes = store.state.proposicoes.proposicoes
+        if (proposicoes.length === 0) {
+          await store.dispatch('listProposicoes', { params: { semanas, date, interesse } })
+        }
         let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
+
         if (!prop.detailed) {
           await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo, interesse } })
           prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
