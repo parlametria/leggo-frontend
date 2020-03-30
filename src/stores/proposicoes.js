@@ -32,6 +32,7 @@ const proposicoes = new Vapi({
       prop.apelido = prop.interesse[0].apelido
       prop.sigla = prop.etapas[0].sigla
       prop.advocacy_link = prop.interesse[0].advocacy_link
+      prop.tipo_agenda = prop.interesse[0].tipo_agenda
 
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
@@ -61,6 +62,7 @@ const proposicoes = new Vapi({
     dataProp.apelido = dataProp.interesse[0].apelido
     dataProp.sigla = dataProp.etapas[0].sigla
     dataProp.advocacy_link = dataProp.interesse[0].advocacy_link
+    dataProp.tipo_agenda = dataProp.interesse[0].tipo_agenda
 
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
@@ -94,7 +96,7 @@ proposicoes.getters = {
     options['temas'] = new Set()
     if (state.proposicoes.length !== 0) {
       for (let prop of state.proposicoes) {
-        for (let tema of prop.lastEtapa['temas']) {
+        for (let tema of prop['temas']) {
           options['temas'].add(tema)
         }
       }
