@@ -90,15 +90,16 @@ const router = new Router({
       }
     },
     {
-      path: '/proposicao/:id_leggo/:slug_interesse',
+      path: '/proposicao/:id_leggo/:slug_interesse?',
       name: 'proposicao',
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
-        store.state.proposicoes.interesse = params.slug_interesse
+        let interesse = params.slug_interesse || store.state.proposicoes.interesse || 'leggo'
+        store.state.proposicoes.interesse = interesse
+
         const semanas = store.state.filter.semanas
         const date = store.getters.formattedDateRef
-        const interesse = params.slug_interesse
         const proposicoes = store.state.proposicoes.proposicoes
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', { params: { semanas, date, interesse } })
