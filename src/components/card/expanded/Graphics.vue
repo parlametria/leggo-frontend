@@ -4,7 +4,8 @@
       :temp_historico="prop.temperatura_historico"
       :id="prop.id_leggo" />
     <pressure-graphic
-      :id="prop.id_leggo" />
+      :id="prop.id_leggo"
+      :interesse="prop.interesse[0].interesse" />
   </el-col>
 </template>
 

@@ -6,24 +6,20 @@ services:
 stages:
   - build
   - test
-  - deploy
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
   COMPOSE_CMD: docker-compose -f docker_extra/prod.yml
   COMPOSE_BUILDER_CMD: docker-compose -f docker_extra/builder.yml
   FRONTEND_ADDR: "http://frontend:80"  # usada pelo compose de test
-  DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - if [ "$CI_COMMIT_REF_NAME" = "production" ]; then export SUFIX="prod"; else export SUFIX="dev"; fi
-  - export CANDIDATE_IMAGE="$CI_REGISTRY_IMAGE:cadidate-$SUFIX"
+  - export CANDIDATE_IMAGE="$CI_REGISTRY_IMAGE:cadidate-$SUFIX"	
   - export FRONTEND_IMAGE_TAG="$CANDIDATE_IMAGE"  # usada pelo compose de prod
   - export FRONTEND_BUILDER_IMAGE_TAG="$CI_REGISTRY_IMAGE:builder-$SUFIX"
   - export FRONTEND_TEST_IMAGE_TAG="$CI_REGISTRY_IMAGE:test-$SUFIX"
-  - export RELEASE_IMAGE="$CI_REGISTRY_IMAGE:release-$SUFIX"
 
 build:
   stage: build
@@ -45,25 +41,3 @@ tests:
     - npm run docker_test
     - $COMPOSE_CMD down
     - docker push $FRONTEND_TEST_IMAGE_TAG
-
-.release_and_deploy: &rd
-  stage: deploy
-  script:
-    - docker pull $CANDIDATE_IMAGE
-    - docker tag $CANDIDATE_IMAGE $RELEASE_IMAGE
-    - docker push $RELEASE_IMAGE
-    - curl --fail -XPOST "$WEBHOOK"
-
-deploy_dev:
-  <<: *rd
-  variables:
-    WEBHOOK: $DEPLOY_WEBHOOK_DEVELOPMENT
-  only:
-    - master
-
-deploy_prod:
-  <<: *rd
-  variables:
-    WEBHOOK: $DEPLOY_WEBHOOK
-  only:
-    - production

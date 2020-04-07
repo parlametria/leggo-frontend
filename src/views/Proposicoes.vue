@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <filter-button />
-    <ultimos-eventos/>
+    <!-- <ultimos-eventos/> -->
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition
@@ -75,7 +75,12 @@ export default {
 
     checkCategoricalFilters (prop) {
       return this.filter.filters.every(
-        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].some(v => prop[filter].includes(v))
+        filter => this.getCurrent[filter].length === 0 || this.filter.current[filter].some(v => {
+          if (prop[filter]) {
+            return prop[filter].includes(v)
+          }
+          return prop.lastEtapa[filter].includes(v)
+        })
       )
     },
     checkPautaFilter (prop) {
@@ -85,7 +90,7 @@ export default {
       return (!this.filter.emPautaFilter.some(options => options.status) ? true : emPauta)
     },
     checkStatusFilter (prop) {
-      return this.filter.showFinalizadas.status || prop.status === ''
+      return this.filter.showFinalizadas.status || prop.status === 'Ativa'
     },
     checkApelidoFilter (prop) {
       const apelido = removeAcentos(prop.sigla.toLowerCase() + prop.apelido.toLowerCase())
@@ -94,8 +99,7 @@ export default {
     },
     checkPropMatchesFilter (prop) {
       return this.checkCategoricalFilters(prop) &&
-        this.checkPautaFilter(prop) &&
-        this.checkApelidoFilter(prop)
+        this.checkPautaFilter(prop.lastEtapa)
     },
     updateSticky (refHeader, refSession) {
       if (!refSession || !refHeader) return
@@ -126,8 +130,8 @@ export default {
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
         return this.proposicoes.filter(prop => {
-          return this.checkPropMatchesFilter(prop.lastEtapa) &&
-          this.checkStatusFilter(prop)
+          return this.checkPropMatchesFilter(prop) &&
+          this.checkStatusFilter(prop.lastEtapa) && this.checkApelidoFilter(prop)
         }).sort((a, b) => {
           let idA = a.lastEtapa.id
           let idB = b.lastEtapa.id
