@@ -45,6 +45,10 @@ export default {
     id: {
       type: Number,
       default: 0
+    },
+    interesse: {
+      type: String,
+      default: 'leggo'
     }
   },
   computed: {
@@ -89,7 +93,7 @@ export default {
   async mounted () {
     try {
       await this.getPressao({
-        params: { idLeggo: this.id }
+        params: { idLeggo: this.id, interesse: this.interesse }
       })
     } catch (exc) {
       this.composicao = undefined
