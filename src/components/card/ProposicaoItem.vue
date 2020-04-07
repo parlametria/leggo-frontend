@@ -34,7 +34,8 @@ export default {
       return {
         name: 'proposicao',
         params: {
-          id_leggo: this.prop.id_leggo
+          id_leggo: this.prop.id_leggo,
+          slug_interesse: this.prop.interesse[0].interesse
         }
       }
     }
