@@ -47,8 +47,22 @@ const router = new Router({
     {
       path: '/proposicoes',
       name: 'proposicoes',
-      components: {
-        default: Proposicoes
+      component: Proposicoes,
+      props: true,
+      beforeEnter: async ({ params }, from, next) => {
+        store.state.proposicoes.interesse = 'leggo'
+        NProgress.start()
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        const interesse = 'leggo'
+        const proposicoes = store.state.proposicoes.proposicoes
+        if (proposicoes.length === 0) {
+          await store.dispatch('listProposicoes', {
+            params: { semanas, date, interesse }
+          })
+        }
+        NProgress.done()
+        next()
       }
     },
     {
@@ -76,17 +90,21 @@ const router = new Router({
       }
     },
     {
-      path: '/proposicao/:id_leggo',
+      path: '/proposicao/:id_leggo/:slug_interesse',
       name: 'proposicao',
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
-        let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
-        if (!prop.detailed) {
-          await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo } })
-          prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
+        store.state.proposicoes.interesse = params.slug_interesse
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        const interesse = params.slug_interesse
+        const proposicoes = store.state.proposicoes.proposicoes
+        if (proposicoes.length === 0) {
+          await store.dispatch('listProposicoes', { params: { semanas, date, interesse } })
         }
-        params.prop = prop
+        await store.dispatch('detailProposicao', { params: { idLeggo: params.id_leggo } })
+        params.prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         next()
       }
     },
@@ -95,21 +113,29 @@ const router = new Router({
       name: 'atores',
       component: AtoresDetailed,
       props: true
+    },
+    {
+      path: '/:slug_interesse',
+      name: 'interesse',
+      component: Proposicoes,
+      props: true,
+      beforeEnter: async ({ params }, from, next) => {
+        store.state.proposicoes.interesse = params.slug_interesse
+        NProgress.start()
+        const semanas = store.state.filter.semanas
+        const date = store.getters.formattedDateRef
+        const interesse = params.slug_interesse
+        const proposicoes = store.state.proposicoes.proposicoes
+        if (proposicoes.length === 0) {
+          await store.dispatch('listProposicoes', {
+            params: { semanas, date, interesse }
+          })
+        }
+        NProgress.done()
+        next()
+      }
     }
   ]
 })
-router.beforeEach(async (to, from, next) => {
-  NProgress.start()
-  const semanas = store.state.filter.semanas
-  const date = store.getters.formattedDateRef
-  const proposicoes = store.state.proposicoes.proposicoes
-  if (proposicoes.length === 0) {
-    await store.dispatch('listProposicoes', {
-      params: { semanas, date }
-    })
-  }
 
-  NProgress.done()
-  next()
-})
 export default router
