@@ -6,7 +6,12 @@
         class="tema"
         :temas="prop.temas" />
       <a @click="$router.go(-1)">
-        <span class="titulo">{{ this.prop.apelido }}</span>
+        <span
+          v-if="prop.apelido !== 'nan'"
+          class="titulo">{{ this.prop.apelido }}</span>
+        <span
+          v-else
+          class="titulo">{{ prop.lastEtapa.sigla }}</span>
       </a>
       <proposicao-expanded :prop="this.prop" />
     </div>

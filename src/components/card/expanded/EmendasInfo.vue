@@ -14,6 +14,7 @@
           >
             Analisamos todas as <strong>emendas disponibilizadas como texto</strong> por meio do serviço de Dados Abertos da Câmara e do Senado.
             Não analisamos emendas disponibilizadas como imagem ou fotocópias.
+            Só detalhamos comparativamente as análises quando há 10 ou mais.
           </div>
           <span
             target="_blank"
@@ -49,15 +50,8 @@
       </el-tabs>
     </div>
     <div v-else-if="(propEmendas === undefined || propEmendas.length === 0)">
-      <div
-        v-if="getCasa === 'camara'"
-        class="title sem-emendas"
-      >Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}
-      </div>
-      <div
-        v-else
-        class="title sem-emendas">
-        As emendas {{ getCasa | toFormattedName }} estão temporariamente indisponíveis. Estamos trabalhando nisso.
+      <div class="title sem-emendas">
+        Não foram apresentadas emendas para esta proposição {{ getCasa | toFormattedName }}
       </div>
     </div>
     <div v-else>

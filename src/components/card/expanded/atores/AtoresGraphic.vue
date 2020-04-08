@@ -1,22 +1,22 @@
 <template>
   <div>
-    <div v-if="senadoOuMPV">
-      <p class="sem-atores">Nas MPVs, atualmente, temos dados de atores apenas para emendas</p>
-      <div ref="anchor" />
-    </div>
     <div
-      v-else-if="verificaSeMostraAtores"
+      v-if="verificaSeMostraAtores"
       class="graphic"
       id="grafico">
       <div ref="anchor" />
       <p style="font-size: 10pt">* Oposição</p>
     </div>
-    <div v-else-if="casa === 'senado'">
-      <p class="sem-atores">Não estamos capturando atores em Senado</p>
-    </div>
     <div v-else>
       <p class="sem-atores">Não foi possível analisar a atividade parlamentar para esta proposição</p>
     </div>
+    <el-button
+      class="btn"
+      v-if="filteredAutores.length > ATORES_VISIBLE_MAX"
+      @click="isCollapsed = !isCollapsed"
+    >
+      Veja {{ isCollapsed? "mais": "menos" }}
+    </el-button>
   </div>
 </template>
 
@@ -42,8 +42,14 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      ATORES_VISIBLE_MAX: 15,
+      isCollapsed: true
+    }
+  },
   computed: {
-    tamanhoGrafico () {
+    larguraGrafico () {
       return document.getElementById('grafico').offsetWidth
     },
     verificaSeMostraAtores () {
@@ -57,6 +63,9 @@ export default {
       })
       return atores
     },
+    contribuidoresVisiveis () {
+      return this.isCollapsed ? this.ATORES_VISIBLE_MAX : Object.keys(this.atoresAgregados).length
+    },
     maioresContribuidores () {
       const sortable = []
       const atoresAgregados = this.atoresAgregados
@@ -67,7 +76,7 @@ export default {
         sortable.sort((a, b) => {
           return b[1] - a[1]
         }),
-        15
+        this.contribuidoresVisiveis
       ).map(e => parseInt(e[0]))
 
       return top
@@ -77,17 +86,12 @@ export default {
       return this.atores.filter(e =>
         maioresContribuidores.includes(e.id_autor)
       )
-    },
-    senadoOuMPV () {
-      const sigla = this.sigla.substring(0, 3)
-      const casa = this.casa
-      return sigla === 'MPV' && casa !== 'senado'
     }
   },
   methods: {
     async mountGraphic () {
       if (this.filteredAutores && this.filteredAutores.length) {
-        let model = new AtoresGraphicModel(this.tamanhoGrafico)
+        let model = new AtoresGraphicModel(this.larguraGrafico)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           // eslint-disable-next-line
@@ -98,7 +102,7 @@ export default {
     }
   },
   mounted () {
-    this.$watch('atores', this.mountGraphic, { immediate: true, deep: true })
+    this.$watch('filteredAutores', this.mountGraphic, { immediate: true, deep: true })
   }
 }
 </script>
@@ -111,7 +115,8 @@ export default {
 }
 .graphic {
   text-align: left;
-  overflow-x: auto;
+  overflow: auto;
+  max-height: 472px;
   margin-bottom: 15px;
 }
 .title {

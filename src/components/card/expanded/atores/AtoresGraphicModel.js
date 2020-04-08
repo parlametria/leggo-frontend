@@ -67,7 +67,7 @@ export default class AtoresGraphicModel {
               'Parecer',
               'Voto em Separado',
               'Requerimento',
-              'Proposição Apensada',
+              'Prop. Original / Apensada',
               'Outros'
             ],
             range: [

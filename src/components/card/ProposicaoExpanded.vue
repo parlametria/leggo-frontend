@@ -42,6 +42,12 @@
       <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
       <p class="medium-text-field small-margin-top">{{ prop.lastEtapa.relator_nome }}</p>
       <p class="small-text-field small-margin-top">Relator(a)</p>
+      <p
+        v-if="temTipoAgenda"
+        class="medium-text-field small-margin-top">{{ tipoAgendaFormatado }}</p>
+      <p
+        v-if="temTipoAgenda"
+        class="small-text-field small-margin-top">Tipo da Agenda</p>
     </div>
 
     <h2>Temperatura e Pressão</h2>
@@ -76,10 +82,9 @@
       <tab-atores-graphics
         :casa="prop.lastEtapa.casa"
         :sigla="prop.lastEtapa.sigla"
-        :top_important_atores="prop.top_important_atores"
-        :top_atores="prop.top_atores"
+        :important_atores="prop.important_atores"
         :id_leggo="prop.id_leggo"
-        :apelido="prop.lastEtapa.apelido"/>
+        :apelido="prop.apelido"/>
       <h3>Rede de Influência</h3>
       <peso-politico-graph :id_leggo="prop.id_leggo"/>
     </div>
@@ -237,6 +242,20 @@ export default {
     },
     emPauta () {
       return this.etapa.emPauta
+    },
+    temTipoAgenda () {
+      const tipoAgenda = this.prop.tipo_agenda
+      return tipoAgenda !== 'nan' && tipoAgenda !== null
+    },
+    tipoAgendaFormatado () {
+      const tipoAgenda = this.prop.tipo_agenda
+      if (tipoAgenda === 'positiva') {
+        return 'Positiva'
+      } else if (tipoAgenda === 'negativa') {
+        return 'Negativa'
+      } else {
+        return 'Não avaliada'
+      }
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
