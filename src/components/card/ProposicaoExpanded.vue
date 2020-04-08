@@ -84,7 +84,7 @@
         :sigla="prop.lastEtapa.sigla"
         :important_atores="prop.important_atores"
         :id_leggo="prop.id_leggo"
-        :apelido="prop.lastEtapa.apelido"/>
+        :apelido="prop.apelido"/>
       <h3>Rede de Influência</h3>
       <peso-politico-graph :id_leggo="prop.id_leggo"/>
     </div>
