@@ -10,8 +10,8 @@ const pressao = new Vapi({
   } }).get({
   action: 'getPressao',
   property: 'pressao',
-  path: ({ idLeggo }) =>
-    `pressao/${idLeggo}`,
+  path: ({ idLeggo, interesse }) =>
+    `pressao/${idLeggo}?interesse=${interesse}`,
   onSuccess: (state, { data }, axios, { params }) => {
     Vue.set(state.pressao, params.idLeggo, data)
   }
