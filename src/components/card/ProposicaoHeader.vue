@@ -14,7 +14,12 @@
     <temas :temas="prop.temas"/>
 
     <div>
-      <span class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop .apelido }}</span>
+      <span
+        v-if="prop.apelido !== 'nan'"
+        class="prop-apelido">{{ prop.lastEtapa.sigla }} - {{ prop.apelido }}</span>
+      <span
+        v-else
+        class="prop-apelido">{{ prop.lastEtapa.sigla }}</span>
     </div>
     <fases
       class="fases"

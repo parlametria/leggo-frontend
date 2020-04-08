@@ -16,7 +16,7 @@
           <div ref="emPautaSession">
             <proposicao-item
               :id="prop.id_leggo"
-              :key="prop.apelido"
+              :key="prop.id_leggo"
               v-for="prop in emPauta"
               :prop="prop"/>
           </div>
@@ -30,7 +30,7 @@
             class="section">
             <proposicao-item
               :id="prop.id_leggo"
-              :key="prop.apelido"
+              :key="prop.id_leggo"
               v-for="prop in propPaged"
               :prop="prop"/>
             <pagination-bar
