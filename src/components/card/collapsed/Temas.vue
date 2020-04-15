@@ -1,9 +1,7 @@
 <template>
   <div class="tagTemas">
-    <div
-      v-for="(tema, i) in temas"
-      :key="i">
-      <span class="tag">{{ tema }}</span>
+    <div>
+      <span class="tag">{{ formataTemas() }}</span>
     </div>
   </div>
 </template>
@@ -15,6 +13,11 @@ export default {
     temas: {
       type: Array,
       default () { return [] }
+    }
+  },
+  methods: {
+    formataTemas: function () {
+      return this.temas.length > 1 ? this.temas[0] + ' e +' + this.temas.length : this.temas[0]
     }
   }
 }
