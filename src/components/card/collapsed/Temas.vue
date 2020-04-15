@@ -7,15 +7,16 @@
     >
       <div
         slot="content"
+        class="tooltip-temas"
         v-for="(tema, i) in temas"
         :key="i">
         <h5> {{ tema }} </h5>
       </div>
-      <span class="tag"> 
-          {{ formataTemas() }}
+      <span class="tag">
+        {{ formataTemas() }}
       </span>
-      
-  </el-tooltip>
+
+    </el-tooltip>
   </div>
 </template>
 
@@ -59,6 +60,10 @@ export default {
     font-size: 12pt;
   }
 
+}
+
+.tooltip-temas {
+  line-height: 0.2rem;
 }
 
 </style>
