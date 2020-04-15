@@ -1,8 +1,18 @@
 <template>
   <div class="tagTemas">
-    <div>
-      <span class="tag">{{ formataTemas() }}</span>
-    </div>
+    <el-popover
+      width="220"
+      placement="right-start"
+      trigger="hover"
+      :disabled="disabled"
+    >
+      <span slot="reference">{{ formataTemas() }}</span>
+      <span
+        v-for="(tema, i) in temas"
+        :key="i">
+        <h5> {{ tema }} </h5>
+      </span>
+  </el-popover>
   </div>
 </template>
 
@@ -13,6 +23,11 @@ export default {
     temas: {
       type: Array,
       default () { return [] }
+    }
+  },
+  computed: {
+    disabled () {
+      return this.temas.length === 1
     }
   },
   methods: {
