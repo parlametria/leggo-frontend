@@ -1,10 +1,22 @@
 <template>
   <div class="tagTemas">
-    <div
-      v-for="(tema, i) in temas"
-      :key="i">
-      <span class="tag">{{ tema }}</span>
-    </div>
+    <el-tooltip
+      placement="top"
+      effect="dark"
+      :disabled="disabled"
+    >
+      <div
+        slot="content"
+        class="tooltip-temas"
+        v-for="(tema, i) in temas"
+        :key="i">
+        <h5> {{ tema }} </h5>
+      </div>
+      <span class="tag">
+        {{ formataTemas() }}
+      </span>
+
+    </el-tooltip>
   </div>
 </template>
 
@@ -15,6 +27,16 @@ export default {
     temas: {
       type: Array,
       default () { return [] }
+    }
+  },
+  computed: {
+    disabled () {
+      return this.temas.length === 1
+    }
+  },
+  methods: {
+    formataTemas: function () {
+      return this.temas.length > 1 ? this.temas[0] + ' e +' + (this.temas.length - 1) : this.temas[0]
     }
   }
 }
@@ -38,6 +60,10 @@ export default {
     font-size: 12pt;
   }
 
+}
+
+.tooltip-temas {
+  line-height: 0.2rem;
 }
 
 </style>
