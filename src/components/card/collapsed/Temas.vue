@@ -1,18 +1,21 @@
 <template>
   <div class="tagTemas">
-    <el-popover
-      width="220"
-      placement="right-start"
-      trigger="hover"
+    <el-tooltip
+      placement="top"
+      effect="dark"
       :disabled="disabled"
     >
-      <span slot="reference">{{ formataTemas() }}</span>
-      <span
+      <div
+        slot="content"
         v-for="(tema, i) in temas"
         :key="i">
         <h5> {{ tema }} </h5>
+      </div>
+      <span class="tag"> 
+          {{ formataTemas() }}
       </span>
-  </el-popover>
+      
+  </el-tooltip>
   </div>
 </template>
 
@@ -32,7 +35,7 @@ export default {
   },
   methods: {
     formataTemas: function () {
-      return this.temas.length > 1 ? this.temas[0] + ' e +' + this.temas.length : this.temas[0]
+      return this.temas.length > 1 ? this.temas[0] + ' e +' + (this.temas.length - 1) : this.temas[0]
     }
   }
 }
