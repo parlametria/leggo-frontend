@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <filter-button />
-    <!-- <ultimos-eventos/> -->
+    <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition
