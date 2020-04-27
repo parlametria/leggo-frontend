@@ -96,14 +96,19 @@ proposicoes.getters = {
       ).values()]
     }
     options['temas'] = new Set()
+    options['tipo_agenda'] = new Set()
     if (state.proposicoes.length !== 0) {
       for (let prop of state.proposicoes) {
         for (let tema of prop['temas']) {
           options['temas'].add(tema)
         }
+        if (prop['tipo_agenda'] !== 'nan') {
+          options['tipo_agenda'].add(prop['tipo_agenda'])
+        }
       }
     }
     options['temas'] = [...options['temas']]
+    options['tipo_agenda'] = [...options['tipo_agenda']]
     return options
   },
   getPropById (state) {
