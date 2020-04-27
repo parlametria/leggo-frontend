@@ -138,7 +138,7 @@ export default {
       this.setFilter({ filter: filterName, value: this.models[filterName] })
     },
     getFilters () {
-      return this.filter.filters.filter(f => this.perFilterOptions[f][0] !== undefined);
+      return this.filter.filters.filter(f => this.perFilterOptions[f][0] !== undefined)
     }
   }
 }
