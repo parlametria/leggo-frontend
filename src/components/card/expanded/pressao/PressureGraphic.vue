@@ -68,6 +68,13 @@ export default {
     filteredPressoes () {
       return this.pressoes[this.id].filter(e =>
         moment(e.date).isAfter(moment(new Date()).subtract(3, 'months'))
+      ).map(
+        e => {
+          const dataInicial = moment(e.date).format('DD/MM/YYYY')
+          const dataFinal = moment(e.date).add(7, 'days').format('DD/MM/YYYY')
+          e.dateTooltip = dataInicial.toString() + ' - ' + dataFinal.toString()
+          return e
+        }
       )
     }
   },
