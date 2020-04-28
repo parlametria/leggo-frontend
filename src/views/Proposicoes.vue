@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <span class="interesse">{{ getNomeInteresse }}</span>
     <filter-button />
     <!-- <ultimos-eventos/> -->
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
@@ -125,7 +126,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent']),
+    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent', 'getNomeInteresse']),
     filteredProps () {
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
@@ -236,5 +237,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+}
+.interesse {
+  display: block;
+  font-weight: normal;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #656565;
 }
 </style>
