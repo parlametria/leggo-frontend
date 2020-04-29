@@ -142,15 +142,27 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.temperaturas) {
+
+          if (this.temperaturas && this.pressoes) {
             let tempA = this.temperaturas[a.id_leggo] === undefined ? 0 : this.temperaturas[a.id_leggo]
             let tempB = this.temperaturas[b.id_leggo] === undefined ? 0 : this.temperaturas[b.id_leggo]
             let pressaoA = this.pressoes[a.id_leggo] === undefined ? 0 : this.pressoes[a.id_leggo]
             let pressaoB = this.pressoes[b.id_leggo] === undefined ? 0 : this.pressoes[b.id_leggo]
+
             if (this.filter.temperatureOrder === 'desc') {
-              return Math.abs(tempB - tempA) > 5 ? tempB - tempA : pressaoB - pressaoA
+              let comp = tempB - tempA
+              if (comp !== 0) {
+                return comp
+              } else {
+                return pressaoB - pressaoA
+              }
             } else {
-              return Math.abs(tempA - tempB) > 5 ? tempA - tempB : pressaoA - pressaoB
+              let comp = tempA - tempB
+              if (comp !== 0) {
+                return comp
+              } else {
+                return pressaoA - pressaoB
+              }
             }
           } else {
             return 0
