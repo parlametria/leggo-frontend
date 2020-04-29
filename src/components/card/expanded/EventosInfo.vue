@@ -84,7 +84,7 @@ export default {
             dataDiff: this.formatDateDifference(eventoTram.data),
             sigla:
               eventoTram.sigla_local === 'nan' ? '' : eventoTram.sigla_local,
-            title: eventoTram.titulo_evento,
+            title: eventoTram.titulo_evento === 'nan' ? '' : eventoTram.titulo_evento,
             texto: this.formatTextoTramitacao(
               eventoTram.texto_tramitacao,
               index, this.MAX_TEXT_LENGTH, this.TEXT_TO_BE_SHOWED_LENGTH
@@ -123,7 +123,7 @@ export default {
           casa: this.casa,
           id: this.id,
           dataFim: moment(this.date).format('YYYY-MM-DD'),
-          nivel: 1,
+          nivel: 3,
           ultimosN: 3
         }
       }
