@@ -20,7 +20,7 @@ const eventosTramitacao = new Vapi({
 }).get({
   action: 'getUltimosEventos',
   property: 'ultimosEventos',
-  path: ({ nivel, ultimosN }) => `eventos_tramitacao/?nivel=${nivel}&ultimos_n=${ultimosN}`
+  path: ({ nivel, ultimosN, interesse }) => `eventos_tramitacao/?nivel=${nivel}&ultimos_n=${ultimosN}&interesse=${interesse}`
 }).getStore()
 
 export default eventosTramitacao
