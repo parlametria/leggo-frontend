@@ -40,6 +40,13 @@ export default {
               moment(new Date()).subtract(3, 'months')
             ) &&
             moment(e.periodo).isBefore(moment(new Date()).subtract(1, 'week'))
+        ).map(
+          e => {
+            const dataInicial = moment(e.periodo).format('DD/MM/YYYY')
+            const dataFinal = moment(e.periodo).add(7, 'days').format('DD/MM/YYYY')
+            e.periodoTooltip = dataInicial.toString() + ' - ' + dataFinal.toString()
+            return e
+          }
         )
       }
     },
