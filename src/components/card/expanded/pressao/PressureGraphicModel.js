@@ -50,7 +50,7 @@ export default class PressureGraphicModel {
         },
         tooltip: [
           { 'field': 'trends_max_popularity', 'type': 'quantitative', 'title': 'Pressão da Semana', axis: { format: '.0%' } },
-          { 'field': 'date', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
+          { 'field': 'dateTooltip', 'type': 'nominal', 'title': 'Semana' }
         ]
       },
       config: {

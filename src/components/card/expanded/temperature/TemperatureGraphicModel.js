@@ -46,7 +46,7 @@ export default class TemperatureGraphicModel {
         },
         tooltip: [
           { 'field': 'temperatura_recente', 'type': 'quantitative', 'title': 'Temperatura da Semana' },
-          { 'field': 'periodo', 'type': 'temporal', format: '%d/%m/%Y', scale: { type: 'band' }, 'title': 'Semana' }
+          { 'field': 'periodoTooltip', 'type': 'nominal', 'title': 'Semana' }
         ]
       },
       config: {
