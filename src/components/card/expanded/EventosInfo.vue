@@ -33,6 +33,9 @@
         </div>
       </table>
     </div>
+    <div v-else>
+      <span>Ainda não foram capturados eventos para esta proposição.</span>
+    </div>
   </div>
 </template>
 

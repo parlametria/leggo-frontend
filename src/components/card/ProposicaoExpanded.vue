@@ -248,7 +248,7 @@ export default {
       return tipoAgenda !== 'nan' && tipoAgenda !== null
     },
     tipoAgendaFormatado () {
-      const tipoAgenda = this.prop.tipo_agenda
+      const tipoAgenda = this.prop.tipo_agenda.toLowerCase()
       if (tipoAgenda === 'positiva') {
         return 'Positiva'
       } else if (tipoAgenda === 'negativa') {
