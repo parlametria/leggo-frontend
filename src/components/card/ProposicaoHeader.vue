@@ -28,6 +28,9 @@
     <div class="tags">
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
+      <tipo-agenda
+        class="tag"
+        :agenda="prop.tipo_agenda"/>
       <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         class="advocacy-box bx bx-box"/>
@@ -56,6 +59,7 @@ import Bar from './collapsed/Bar.vue'
 import PautaTag from './collapsed/PautaTag'
 import TextTag from './collapsed/TextTag'
 import Temas from './collapsed/Temas.vue'
+import TipoAgenda from './collapsed/TipoAgenda.vue'
 
 import { mapState, mapActions, mapGetters } from 'vuex'
 
@@ -78,7 +82,8 @@ export default {
     Bar,
     PautaTag,
     TextTag,
-    Temas
+    Temas,
+    TipoAgenda
   },
   methods: {
     ...mapActions(['getPautas'])

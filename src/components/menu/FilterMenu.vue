@@ -51,14 +51,14 @@
 
       <!-- Vários Filtros -->
       <el-submenu
-        v-for="(filterName, i) of filter.filters"
+        v-for="(filterName, i) of getFilters()"
         :key="i"
         :index="filterName">
         <template slot="title">
           <i class="el-icon-edit-outline"/>
           <span
             slot="title"
-            class="filter">{{ $t(filterName) }}</span>
+            class="filter">{{ $t(filterName).replace('_', ' ') }}</span>
         </template>
         <el-checkbox-group v-model="models[filterName]">
           <el-menu-item
@@ -136,6 +136,9 @@ export default {
     handleChangeSelect (filterName, option) {
       this.models[filterName][option] = !this.models[filterName][option]
       this.setFilter({ filter: filterName, value: this.models[filterName] })
+    },
+    getFilters () {
+      return this.filter.filters.filter(f => this.perFilterOptions[f][0] !== undefined)
     }
   }
 }
