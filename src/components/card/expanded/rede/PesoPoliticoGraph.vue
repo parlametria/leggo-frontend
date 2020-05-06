@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     id="container"
     v-if="nodes.length != 0">
     <p class="explicacao_feature">Parlamentares conectados pelos documentos autorados em conjunto</p>
@@ -16,10 +16,12 @@
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
-  </div>
-  <div v-else>
-    <p class="explicacao_feature"> Não foi possível exibir a rede de influência: não há dados existentes ou houveram problemas ao baixar estas informações.</p>
-  </div>
+  </div>  
+  <p 
+    v-else
+    class="explicacao_feature"> 
+      Não foi possível exibir a rede de influência: não há dados existentes ou houveram problemas ao baixar estas informações.
+  </p>
 </template>
 
 <script>
