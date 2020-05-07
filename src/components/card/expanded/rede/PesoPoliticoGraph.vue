@@ -16,11 +16,11 @@
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
-  </div>  
-  <p 
+  </div>
+  <p
     v-else
-    class="explicacao_feature"> 
-      Não foi possível exibir a rede de influência: não há dados existentes ou houveram problemas ao baixar estas informações.
+    class="explicacao_feature">
+    Não foi possível exibir a rede de influência: não há dados existentes ou houveram problemas ao baixar estas informações.
   </p>
 </template>
 
