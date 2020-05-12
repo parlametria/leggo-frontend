@@ -1,7 +1,8 @@
 <template>
   <div class="content">
+    <span class="interesse">{{ getNomeInteresse }}</span>
     <filter-button />
-    <!-- <ultimos-eventos/> -->
+    <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition
@@ -125,7 +126,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent']),
+    ...mapGetters(['perFilterOptions', 'formattedDateRef', 'getCurrent', 'getNomeInteresse']),
     filteredProps () {
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
@@ -141,15 +142,27 @@ export default {
           if (n !== 0) {
             return n
           }
-          if (this.temperaturas) {
+
+          if (this.temperaturas && this.pressoes) {
             let tempA = this.temperaturas[a.id_leggo] === undefined ? 0 : this.temperaturas[a.id_leggo]
             let tempB = this.temperaturas[b.id_leggo] === undefined ? 0 : this.temperaturas[b.id_leggo]
             let pressaoA = this.pressoes[a.id_leggo] === undefined ? 0 : this.pressoes[a.id_leggo]
             let pressaoB = this.pressoes[b.id_leggo] === undefined ? 0 : this.pressoes[b.id_leggo]
+
             if (this.filter.temperatureOrder === 'desc') {
-              return Math.abs(tempB - tempA) > 5 ? tempB - tempA : pressaoB - pressaoA
+              let comp = tempB - tempA
+              if (comp !== 0) {
+                return comp
+              } else {
+                return pressaoB - pressaoA
+              }
             } else {
-              return Math.abs(tempA - tempB) > 5 ? tempA - tempB : pressaoA - pressaoB
+              let comp = tempA - tempB
+              if (comp !== 0) {
+                return comp
+              } else {
+                return pressaoA - pressaoB
+              }
             }
           } else {
             return 0
@@ -236,5 +249,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+}
+.interesse {
+  display: block;
+  font-weight: normal;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #656565;
 }
 </style>

@@ -22,7 +22,7 @@
         </td>
         <td>
           <div class="evento-title">
-            <span>{{ evento.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: evento.propId }}">{{ evento.propName }}</router-link>
+            <span>{{ evento.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: evento.propId, slug_interesse: evento.interesse }}">{{ evento.propName }}</router-link>
           </div>
           <div>
             {{ evento.texto }}
@@ -50,19 +50,24 @@ export default {
       proposicoes: state => state.proposicoes.proposicoes
     }),
     ...mapGetters([
-      'getPropById'
+      'getPropById',
+      'getInteresse'
     ]),
     procEventos () {
       if (this.ultimosEventos) {
         return this.ultimosEventos.map(evento => {
           var prop = this.getPropById(evento.proposicao_id)
-          var propName = prop ? prop.apelido : ''
+          let propName = ''
+          if (prop) {
+            propName = prop.apelido !== 'nan' ? prop.apelido : prop.lastEtapa.sigla
+          }
           return {
             data: evento.data,
             propId: evento.proposicao_id,
             texto: evento.texto_tramitacao,
             local: evento.sigla_local,
             titulo: evento.titulo_evento,
+            interesse: prop.interesse[0].interesse,
             propName
           }
         })
@@ -76,7 +81,7 @@ export default {
   },
   mounted () {
     if (!this.ultimosEventos || !this.ultimosEventos.length) {
-      this.getUltimosEventos({ params: { nivel: 1, ultimosN: 10 } })
+      this.getUltimosEventos({ params: { nivel: 1, ultimosN: 10, interesse: this.getInteresse } })
     }
   }
 }

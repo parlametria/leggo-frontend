@@ -1,22 +1,27 @@
 <template>
-  <div id="container">
+  <div
+    id="container"
+    v-if="nodes.length != 0">
     <p class="explicacao_feature">Parlamentares conectados pelos documentos autorados em conjunto</p>
     <!--<select-filter @filterChange="(payload) => filter = payload"/>-->
     <svg
       id="graph"
-      v-if="nodes.length != 0"
       vi>
       <g class="everything"/>
       <tooltip
         :node="nodeHover"/>
     </svg>
-    <h5 v-else> Não houve documentos com coautoria de pelo menos de 10 autores nos últimos 3 meses!</h5>
     <p class="footnote">¹: A participação do parlamentar em um documento é inversamente proporcional à quantidade de parlamentares que assinaram o documento juntos: um documento feito por dois parlamentares terá valor de participação igual a 1/2 = 0.5.</p>
     <p class="footnote">²: O peso político do parlamentar é calculado levando em consideração os cargos que ele ocupa, como lideranças em partidos, bloco partidários, titularidades em comissões e cargos na Mesa Diretora; a verba do fundo partidário despendida a ele pelo partido e a quantidade de mandatos exercidos pelo parlamentar.</p>
     <autorias
       :node="activeNode"
       :id_leggo="id_leggo"/>
   </div>
+  <p
+    v-else
+    class="explicacao_feature">
+    Não foi possível exibir a rede de influência: não há dados existentes ou houveram problemas ao baixar estas informações.
+  </p>
 </template>
 
 <script>

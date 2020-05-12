@@ -15,7 +15,8 @@ const proposicoes = new Vapi({
     tramitacoes: new Set(),
     eventos_tramitacao: {},
     metaInfo: {},
-    interesse: ''
+    interesse: '',
+    nome_interesse: ''
   }
 }).get({
   action: 'listProposicoes',
@@ -27,6 +28,12 @@ const proposicoes = new Vapi({
     let coeficientes = {}
     let pautasTmp = {}
     let ultimasPressoes = {}
+
+    // Define nome do interesse das proposições
+    if (data && data.length > 0) {
+      state.nome_interesse = data[0].interesse[0].nome_interesse
+    }
+
     data.forEach((prop) => {
       prop.temas = prop.interesse[0].temas
       prop.apelido = prop.interesse[0].apelido
@@ -96,14 +103,19 @@ proposicoes.getters = {
       ).values()]
     }
     options['temas'] = new Set()
+    options['tipo_agenda'] = new Set()
     if (state.proposicoes.length !== 0) {
       for (let prop of state.proposicoes) {
         for (let tema of prop['temas']) {
           options['temas'].add(tema)
         }
+        if (prop['tipo_agenda'] !== 'nan') {
+          options['tipo_agenda'].add(prop['tipo_agenda'])
+        }
       }
     }
     options['temas'] = [...options['temas']]
+    options['tipo_agenda'] = [...options['tipo_agenda']]
     return options
   },
   getPropById (state) {
@@ -111,6 +123,9 @@ proposicoes.getters = {
   },
   getInteresse (state) {
     return state.interesse
+  },
+  getNomeInteresse (state) {
+    return state.nome_interesse
   }
 }
 
