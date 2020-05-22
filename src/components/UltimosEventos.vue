@@ -24,7 +24,10 @@
           <div class="evento-title">
             <span>{{ evento.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: evento.propId, slug_interesse: evento.interesse }}">{{ evento.propName }}</router-link>
           </div>
-          <div>
+          <div
+            :class="{clickable: evento.collapsible}"
+            @click="toggleCollapseDescription(index)"
+          >
             {{ evento.texto }}
           </div>
         </td>
