@@ -11,6 +11,7 @@ import Relatorios from '@/views/Relatorios'
 import Semanarios from '@/views/Semanarios'
 import store from '@/stores/store'
 import NProgress from 'nprogress'
+import moment from 'moment'
 
 Vue.use(Router)
 
@@ -54,11 +55,16 @@ const router = new Router({
         NProgress.start()
         const semanas = store.state.filter.semanas
         const date = store.getters.formattedDateRef
+        const dataInicio = moment(date).subtract(3, 'months').format('YYYY-MM-DD')
         const interesse = 'leggo'
         const proposicoes = store.state.proposicoes.proposicoes
+
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', {
             params: { semanas, date, interesse }
+          })
+          await store.dispatch('maxTemperatura', {
+            params: { interesse, dataInicio }
           })
         }
         NProgress.done()
@@ -130,11 +136,16 @@ const router = new Router({
         NProgress.start()
         const semanas = store.state.filter.semanas
         const date = store.getters.formattedDateRef
+        const dataInicio = moment(date).subtract(3, 'months').format('YYYY-MM-DD')
         const interesse = params.slug_interesse
         const proposicoes = store.state.proposicoes.proposicoes
+
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', {
             params: { semanas, date, interesse }
+          })
+          await store.dispatch('maxTemperatura', {
+            params: { interesse, dataInicio }
           })
         }
         NProgress.done()

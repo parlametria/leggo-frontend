@@ -16,7 +16,8 @@ const proposicoes = new Vapi({
     eventos_tramitacao: {},
     metaInfo: {},
     interesse: '',
-    nome_interesse: ''
+    nome_interesse: '',
+    maxTemperatura: 0
   }
 }).get({
   action: 'listProposicoes',
@@ -85,6 +86,14 @@ const proposicoes = new Vapi({
     state.proposicoes = props
   }
 }).get({
+  action: 'maxTemperatura',
+  property: 'maxTemperatura',
+  path: ({ interesse, dataInicio }) =>
+    `temperatura/max?interesse=${interesse}&data_inicio=${dataInicio}`,
+  onSuccess: (state, { data }) => {
+    state.maxTemperatura = data.max_temperatura_periodo
+  }
+}).get({
   action: 'getMetaInfo',
   path: '/info',
   property: 'metaInfo'
@@ -126,6 +135,9 @@ proposicoes.getters = {
   },
   getNomeInteresse (state) {
     return state.nome_interesse
+  },
+  maxTemperatura (state) {
+    return state.maxTemperatura
   }
 }
 

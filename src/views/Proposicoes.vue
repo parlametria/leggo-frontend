@@ -71,7 +71,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['listProposicoes']),
+    ...mapActions(['listProposicoes', 'maxTemperatura']),
     ...mapMutations(['setPageNumber']),
 
     checkCategoricalFilters (prop) {
