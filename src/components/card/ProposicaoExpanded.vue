@@ -101,6 +101,12 @@
           :date="dateRef"/>
       </div>
     </div>
+    <div class="sessao">
+      <h2>Anotações mais recentes</h2>
+      <anotacao-prop
+        :id="prop.id_leggo"
+        :date="dateRef" />
+    </div>
     <div>
       <pautas-info
         :id="prop.lastEtapa.id_ext"
@@ -124,6 +130,8 @@ import EventosInfo from './expanded/EventosInfo'
 import ComposicaoLink from './expanded/ComposicaoLink'
 import PautasInfo from './expanded/PautasInfo'
 import AuthorName from './expanded/AuthorName'
+import AnotacaoProp from './expanded/anotacao/AnotacaoPorProposicao'
+
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -152,7 +160,8 @@ export default {
     EventosInfo,
     ComposicaoLink,
     PautasInfo,
-    AuthorName
+    AuthorName,
+    AnotacaoProp
   },
   methods: {
     hasNumber (myString) {
