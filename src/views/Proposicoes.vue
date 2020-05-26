@@ -23,8 +23,13 @@
           </div>
         </div>
         <div class="session">
-          <header ref="notEmPautaHeader">
+          <header
+            ref="notEmPautaHeader"
+            class="temp">
             <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
+            <p :class="{disabled: notEmPauta.length === 0}">
+              <span> <temperature-button class="temp-box"/> </span>
+            </p>
           </header>
           <div
             ref="notEmPautaSession"
@@ -55,6 +60,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 import PaginationBar from '@/components/utils/PaginationBar'
 import FilterButton from '@/components/menu/FilterButton'
+import TemperatureButton from '@/components/menu/TemperatureButton'
 
 export default {
   name: 'Proposicoes',
@@ -62,7 +68,8 @@ export default {
     ProposicaoItem,
     UltimosEventos,
     FilterButton,
-    PaginationBar
+    PaginationBar,
+    TemperatureButton
   },
   data () {
     return {
@@ -256,5 +263,13 @@ export default {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: #656565;
+}
+.temp {
+  display: block ruby;
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: 1fr;
+}
+.temp-box {
+  width: 180px;
 }
 </style>
