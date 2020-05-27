@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="formattedAnotacoes.length">
+      <h2>Insights</h2>
       <table class="tabela-anotacoes-prop">
         <div
           v-for="(anotacao, key) in formattedAnotacoes"
@@ -33,9 +34,6 @@
           </td>
         </div>
       </table>
-    </div>
-    <div v-else>
-      <span>Ainda não foram adicionadas anotações à esta proposição.</span>
     </div>
   </div>
 </template>
