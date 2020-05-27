@@ -14,6 +14,9 @@
           <header ref="emPautaHeader">
             <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
           </header>
+          <div v-if="emPauta.length">
+            <temperature-button />
+          </div>
           <div ref="emPautaSession">
             <proposicao-item
               :id="prop.id_leggo"
@@ -27,10 +30,10 @@
             ref="notEmPautaHeader"
             class="temp">
             <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
-            <p :class="{disabled: notEmPauta.length === 0}">
-              <span> <temperature-button class="temp-box"/> </span>
-            </p>
           </header>
+          <div v-if="notEmPauta.length">
+            <temperature-button />
+          </div>
           <div
             ref="notEmPautaSession"
             class="section">
