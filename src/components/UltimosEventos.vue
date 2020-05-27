@@ -24,7 +24,10 @@
           <div class="evento-title">
             <span>{{ evento.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: evento.propId, slug_interesse: evento.interesse }}">{{ evento.propName }}</router-link>
           </div>
-          <div>
+          <div
+            :class="{clickable: evento.collapsible}"
+            @click="toggleCollapseDescription(index)"
+          >
             {{ evento.texto }}
           </div>
         </td>
@@ -35,15 +38,20 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
+import mixin from '@/mixins/ExpandedTexts.js'
+
 export default {
   name: 'UltimosEventos',
   components: {
   },
   data () {
     return {
-      show: false
+      show: false,
+      MAX_TEXT_LENGTH: 200,
+      TEXT_TO_BE_SHOWED_LENGTH: 50
     }
   },
+  mixins: [mixin],
   computed: {
     ...mapState({
       ultimosEventos: state => state.eventosTramitacao.ultimosEventos,
@@ -55,7 +63,7 @@ export default {
     ]),
     procEventos () {
       if (this.ultimosEventos) {
-        return this.ultimosEventos.map(evento => {
+        return this.ultimosEventos.map((evento, index) => {
           var prop = this.getPropById(evento.proposicao_id)
           let propName = ''
           if (prop) {
@@ -64,7 +72,11 @@ export default {
           return {
             data: evento.data,
             propId: evento.proposicao_id,
-            texto: evento.texto_tramitacao,
+            texto: this.formatTextoTramitacao(
+              evento.texto_tramitacao,
+              index, this.MAX_TEXT_LENGTH, this.TEXT_TO_BE_SHOWED_LENGTH
+            ),
+            collapsible: evento.texto_tramitacao.length > this.MAX_TEXT_LENGTH,
             local: evento.sigla_local,
             titulo: evento.titulo_evento,
             interesse: prop.interesse[0].interesse,
