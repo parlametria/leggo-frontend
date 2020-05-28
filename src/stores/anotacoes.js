@@ -12,8 +12,8 @@ const anotacoes = new Vapi({
 }).get({
   action: 'getAnotacoesByProp',
   property: 'anotacoesProp',
-  path: ({ id, peso, ultimasN, interesse }) =>
-    `anotacoes/${id}?peso=${peso}&ultimas_n=${ultimasN}&interesse=${interesse}`,
+  path: ({ id, ultimasN, interesse }) =>
+    `anotacoes/${id}?&ultimas_n=${ultimasN}&interesse=${interesse}`,
   onSuccess: (state, { data }, axios, { params }) => {
     Vue.set(state.anotacoesProp, params.id, data)
   }
