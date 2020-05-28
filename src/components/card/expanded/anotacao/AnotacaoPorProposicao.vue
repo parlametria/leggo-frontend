@@ -94,7 +94,6 @@ export default {
       let groups = {}
       let groupName
       this.formattedAnotacoes.forEach(anotacao => {
-        console.log(anotacao)
         groupName = anotacao.data
         if (!groups[groupName]) {
           groups[groupName] = []
@@ -105,7 +104,6 @@ export default {
       for (groupName in groups) {
         myArray.push({ group: groupName, anotacao: groups[groupName] })
       }
-      console.log(myArray)
       return myArray
     },
     ...mapState({
