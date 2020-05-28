@@ -106,6 +106,7 @@ const router = new Router({
 
         const semanas = store.state.filter.semanas
         const date = store.getters.formattedDateRef
+        const dataInicio = moment(date).subtract(3, 'months').format('YYYY-MM-DD')
         const proposicoes = store.state.proposicoes.proposicoes
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', { params: { semanas, date, interesse } })
@@ -116,6 +117,9 @@ const router = new Router({
           await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo, interesse } })
           prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
         }
+        await store.dispatch('maxTemperatura', {
+          params: { interesse, dataInicio }
+        })
         params.prop = prop
         next()
       }
