@@ -113,7 +113,6 @@ export default {
       return {
         params: {
           id: this.id,
-          peso: 3,
           ultimasN: 10,
           interesse: this.getInteresse
         }
