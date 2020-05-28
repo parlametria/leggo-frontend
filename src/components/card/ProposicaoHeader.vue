@@ -40,14 +40,14 @@
       :ultimo_valor="prop.ultima_temperatura"
       :cor="'#9b5498'"
       :max_valor="maxTemperatura"
-      :tooltip-texto="'Temperatura da Semana'"
+      :tooltip-texto="'Temperatura da semana: ' + prop.ultima_temperatura"
     />
     <bar
       class="pressao"
       :ultimo_valor="prop.ultima_pressao*100"
       :cor="'#FFAB0F'"
       :max_valor="100"
-      :tooltip-texto="'Pressão da Semana'"/>
+      :tooltip-texto="(prop.ultima_pressao < 0) ? 'Pressão da semana: --' : 'Pressão da semana: ' + prop.ultima_pressao*100"/>
   </div>
 </template>
 
