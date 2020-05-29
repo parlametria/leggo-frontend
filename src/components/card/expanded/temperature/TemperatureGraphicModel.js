@@ -1,5 +1,5 @@
 export default class TemperatureGraphicModel {
-  constructor (width) {
+  constructor (width, maxTemperatura) {
     this.vsSpec = {
       description: 'Últimos 30 dias',
       $schema: 'https://vega.github.io/schema/vega-lite/v3.3.0.json',
@@ -42,7 +42,7 @@ export default class TemperatureGraphicModel {
             labels: false,
             ticks: false
           },
-          scale: { domain: [0, 100] }
+          scale: { domain: [0, maxTemperatura] }
         },
         tooltip: [
           { 'field': 'temperatura_recente', 'type': 'quantitative', 'title': 'Temperatura' },
