@@ -27,7 +27,7 @@
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
       <span v-if="prop.anotacao_data_ultima_modificacao" 
-        class="tag">{{ formatData(prop.anotacao_data_ultima_modificacao) }}</span>
+        class="tag">{{ "Insight " + formatData(prop.anotacao_data_ultima_modificacao) }}</span>
       <tipo-agenda
         class="tag"
         :agenda="prop.tipo_agenda"/>
