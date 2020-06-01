@@ -33,7 +33,7 @@ export default {
       if (fase.pulou) {
         classe = 'pulou'
       }
-      if (fase.data_inicio !== null) {
+      if (fase.data_inicio !== null && !fase.pulou) {
         if (!fase.is_mpv && (fase.local_casa === 'camara' || fase.local_casa === 'senado')) {
           classe = fase.local_casa
         } else if (fase.is_mpv) {
