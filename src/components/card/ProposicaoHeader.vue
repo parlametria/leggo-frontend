@@ -26,11 +26,11 @@
     <div class="tags">
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
-      <span v-if="prop.anotacao_data_ultima_modificacao" 
-        class="tag">{{ "Insight " + formatData(prop.anotacao_data_ultima_modificacao) }}</span>
       <tipo-agenda
         class="tag"
         :agenda="prop.tipo_agenda"/>
+      <span v-if="prop.anotacao_data_ultima_modificacao" 
+        class="tag">{{ "Insight " + formatData(prop.anotacao_data_ultima_modificacao) }}</span>
       <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         class="advocacy-box bx bx-box"/>
