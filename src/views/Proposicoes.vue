@@ -73,7 +73,7 @@ export default {
     FilterButton,
     PaginationBar,
     TemperatureButton
-  },
+ },
   data () {
     return {
       activeNames: [],
