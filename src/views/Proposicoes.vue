@@ -2,6 +2,10 @@
   <div class="content">
     <span class="interesse">{{ getNomeInteresse }}</span>
     <filter-button />
+    <div class="sessao">
+      <lista-anotacoes
+        :date='dateRef'/>
+    </div>
     <ultimos-eventos/>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
@@ -55,6 +59,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 import PaginationBar from '@/components/utils/PaginationBar'
 import FilterButton from '@/components/menu/FilterButton'
+import ListaAnotacoes from '@/components/card/expanded/anotacao/ListaDeAnotacoes'
 
 export default {
   name: 'Proposicoes',
@@ -62,7 +67,8 @@ export default {
     ProposicaoItem,
     UltimosEventos,
     FilterButton,
-    PaginationBar
+    PaginationBar,
+    ListaAnotacoes
   },
   data () {
     return {
@@ -185,7 +191,8 @@ export default {
       pageNumber: state => state.filter.pageNumber,
       temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas,
-      pressoes: state => state.pressao.ultimasPressoes
+      pressoes: state => state.pressao.ultimasPressoes,
+      dateRef: state => state.filter.dateRef
     }),
     emPauta () {
       return this.filteredProps.filter(prop => {
@@ -256,5 +263,8 @@ export default {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: #656565;
+}
+.sessao {
+  margin-bottom: 3rem;
 }
 </style>
