@@ -29,8 +29,9 @@
       <tipo-agenda
         class="tag"
         :agenda="prop.tipo_agenda"/>
-      <span v-if="prop.anotacao_data_ultima_modificacao" 
-        class="tag">{{ "Insight " + formatData(prop.anotacao_data_ultima_modificacao) }}</span>
+      <span
+        v-if="prop.anotacao_data_ultima_modificacao"
+        class="tag">{{ "Insight em " + formatData(prop.anotacao_data_ultima_modificacao) }}</span>
       <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         class="advocacy-box bx bx-box"/>
@@ -88,8 +89,8 @@ export default {
   },
   methods: {
     ...mapActions(['getPautas']),
-    formatData(data){
-        return moment(data).format('DD/MM/YYYY')
+    formatData (data) {
+      return moment(data).format('DD/MM/YYYY')
     }
   },
   computed: {
