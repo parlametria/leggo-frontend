@@ -6,7 +6,9 @@
       <lista-anotacoes
         :date='dateRef'/>
     </div>
-    <ultimos-eventos/>
+    <div class="sessao">
+      <ultimos-eventos/>
+    </div>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition
@@ -14,9 +16,10 @@
       name="el-fade-in"
       mode="out-in">
       <div v-if="filteredProps.length">
+        <h2>Proposições</h2>
         <div class="session">
           <header ref="emPautaHeader">
-            <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
+            <h3 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h3>
           </header>
           <div ref="emPautaSession">
             <proposicao-item
@@ -28,7 +31,7 @@
         </div>
         <div class="session">
           <header ref="notEmPautaHeader">
-            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
+            <h3 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h3>
           </header>
           <div
             ref="notEmPautaSession"
@@ -225,10 +228,6 @@ export default {
   position: relative;
   &:first-child {
     padding-top: 0;
-  }
-  header {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
   h2 {
     font-weight: normal;
