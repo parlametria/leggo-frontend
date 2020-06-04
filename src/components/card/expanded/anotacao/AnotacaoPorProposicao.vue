@@ -29,7 +29,6 @@
             </tr>
             <span
               v-if="!isExpanded(key) && anotacao.collapsible"
-              class="el-icon-circle-plus-outline"
             />
           </td>
         </div>
@@ -192,8 +191,5 @@ td {
 }
 .autor-anotacao {
   color: #999;
-}
-.el-icon-circle-plus-outline {
-  color: $--color-primary;
 }
 </style>
