@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <div class="header-tags">
       <pauta-tag
         v-for="(pauta, i) in filteredPautas"
@@ -12,7 +11,6 @@
         :etapas="prop.etapas" />
     </div>
     <temas :temas="prop.temas"/>
-
     <div>
       <span
         v-if="prop.apelido !== 'nan'"
@@ -31,6 +29,9 @@
       <tipo-agenda
         class="tag"
         :agenda="prop.tipo_agenda"/>
+      <span
+        v-if="prop.anotacao_data_ultima_modificacao"
+        class="tag">{{ "Insight em " + formatData(prop.anotacao_data_ultima_modificacao) }}</span>
       <a
         v-if="prop.advocacy_link !== 'nan' && prop.advocacy_link !== null"
         class="advocacy-box bx bx-box"/>
@@ -62,6 +63,7 @@ import Temas from './collapsed/Temas.vue'
 import TipoAgenda from './collapsed/TipoAgenda.vue'
 
 import { mapState, mapActions, mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'Proposicaoheader',
@@ -86,7 +88,10 @@ export default {
     TipoAgenda
   },
   methods: {
-    ...mapActions(['getPautas'])
+    ...mapActions(['getPautas']),
+    formatData (data) {
+      return moment(data).format('DD/MM/YYYY')
+    }
   },
   computed: {
     ...mapState({
