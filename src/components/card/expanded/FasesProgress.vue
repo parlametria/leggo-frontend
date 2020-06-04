@@ -57,7 +57,8 @@ export default {
         'camara': fase.local_casa === 'camara' || ['Câmara dos Deputados', 'Câmara dos Deputados - Revisão'].includes(fase.fase_global),
         'planalto':
          ['presidência da república', 'congresso'].includes(fase.local_casa) ||
-         ['Comissão Mista', 'Sanção Presidencial/Promulgação'].includes(fase.fase_global)
+         ['Sanção Presidencial/Promulgação'].includes(fase.fase_global),
+        'comissao-mista': ['Comissão Mista'].includes(fase.fase_global)
       }
     },
     showHistoricoComissoes (fase) {
@@ -172,6 +173,10 @@ strong {
 
 .planalto:before {
     background-image: url('../../../assets/colored_planalto.png');
+}
+
+.comissao-mista:before {
+    background-image: url('../../../assets/colored_comissao_mista.png');
 }
 
 .jumped:before {
