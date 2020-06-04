@@ -20,7 +20,7 @@
           <td>
             <div
               class="titulo-anotacao"
-            > <span>{{ anotacao.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: anotacao.id_leggo, slug_interesse: anotacao.interesse }}">Ver proposição</router-link>
+            > <span>{{ anotacao.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: anotacao.id_leggo, slug_interesse: anotacao.interesse }}">{{ anotacao.propName }}</router-link>
             </div>
             <tr
               :class="{ clickable: anotacao.collapsible }"
@@ -71,26 +71,37 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getInteresse']),
+    ...mapGetters([
+      'getPropById',
+      'getInteresse'
+    ]),
     formattedAnotacoes () {
-      return (this.ultimasAnotacoes || []).map((anotacao, index) => {
-        return {
-          dataModificacao: this.formatDate(anotacao.data_ultima_modificacao),
-          dataModificacaoDiff: this.formatDateDifference(anotacao.data_ultima_modificacao),
-          dataCriacao: this.formatDate(anotacao.data_criacao),
-          dataCriacaoDiff: this.formatDateDifference(anotacao.data_criacao),
-          autor: anotacao.autor === 'nan' ? '' : anotacao.autor,
-          titulo: anotacao.titulo === 'nan' ? '' : anotacao.titulo,
-          id_leggo: anotacao.id_leggo === 'nan' ? '' : anotacao.id_leggo,
-          texto: this.formatTextoTramitacao(
-            anotacao.anotacao,
-            index,
-            this.MAX_TEXT_LENGTH,
-            this.TEXT_TO_BE_SHOWED_LENGTH
-          ),
-          collapsible: anotacao.anotacao.length > this.MAX_TEXT_LENGTH
-        }
-      })
+      if (this.ultimasAnotacoes) {
+        return (this.ultimasAnotacoes || []).map((anotacao, index) => {
+          var prop = this.getPropById(anotacao.id_leggo)
+          let propName = ''
+          if (prop) {
+            propName = prop.apelido !== 'nan' ? prop.apelido : prop.lastEtapa.sigla
+          }
+          return {
+            dataModificacao: this.formatDate(anotacao.data_ultima_modificacao),
+            dataModificacaoDiff: this.formatDateDifference(anotacao.data_ultima_modificacao),
+            dataCriacao: this.formatDate(anotacao.data_criacao),
+            dataCriacaoDiff: this.formatDateDifference(anotacao.data_criacao),
+            autor: anotacao.autor === 'nan' ? '' : anotacao.autor,
+            titulo: anotacao.titulo === 'nan' ? '' : anotacao.titulo,
+            id_leggo: anotacao.id_leggo === 'nan' ? '' : anotacao.id_leggo,
+            propName,
+            texto: this.formatTextoTramitacao(
+              anotacao.anotacao,
+              index,
+              this.MAX_TEXT_LENGTH,
+              this.TEXT_TO_BE_SHOWED_LENGTH
+            ),
+            collapsible: anotacao.anotacao.length > this.MAX_TEXT_LENGTH
+          }
+        })
+      }
     },
     groupAnotacoes () {
       let groups = {}
