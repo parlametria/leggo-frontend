@@ -1,8 +1,19 @@
 <template>
   <div>
     <div v-if="formattedAnotacoes.length">
-      <h2>Insights</h2>
-      <table class="tabela-anotacoes-prop">
+      <div
+        class="title"
+        @click="show = !show">Insights
+        <span
+          v-if="!show"
+          class="el-icon-circle-plus-outline"/>
+        <span
+          v-else
+          class="el-icon-remove-outline"/>
+      </div>
+      <table
+        v-if="show"
+        class="tabela-anotacoes-prop">
         <div
           v-for="(anotacao, key) in formattedAnotacoes"
           :key="key">
@@ -49,7 +60,8 @@ export default {
   data () {
     return {
       MAX_TEXT_LENGTH: 200,
-      TEXT_TO_BE_SHOWED_LENGTH: 50
+      TEXT_TO_BE_SHOWED_LENGTH: 50,
+      show: false
     }
   },
   mixins: [mixin],
@@ -208,5 +220,8 @@ td {
 }
 .el-icon-circle-plus-outline {
   color: $--color-primary;
+}
+.title {
+  cursor: pointer;
 }
 </style>
