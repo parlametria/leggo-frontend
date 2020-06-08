@@ -20,12 +20,12 @@
       </el-menu-item-->
 
       <!-- Sort -->
-      <el-menu-item index="4">
+      <!-- <el-menu-item index="4">
         <i class="el-icon-sort"/>
         <template slot="title">
           <temperature-sort/>
         </template>
-      </el-menu-item>
+      </el-menu-item> -->
 
       <!-- Pauta -->
       <el-menu-item

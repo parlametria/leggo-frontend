@@ -32,23 +32,26 @@ export default {
       let classe = ''
       if (fase.pulou) {
         classe = 'pulou'
-      }
-      if (fase.data_inicio !== null) {
-        if (!fase.is_mpv && (fase.local_casa === 'camara' || fase.local_casa === 'senado')) {
-          classe = fase.local_casa
-        } else if (fase.is_mpv) {
-          if (fase.fase_global === 'Câmara dos Deputados' || fase.fase_global === 'Câmara dos Deputados - Revisão') {
-            classe = 'camara'
-          } else if (fase.fase_global === 'Senado Federal') {
-            classe = 'senado'
+      } else {
+        if (fase.data_inicio !== null) {
+          if (!fase.is_mpv && (fase.local_casa === 'camara' || fase.local_casa === 'senado')) {
+            classe = fase.local_casa
+          } else if (fase.is_mpv) {
+            if (fase.fase_global === 'Câmara dos Deputados' || fase.fase_global === 'Câmara dos Deputados - Revisão') {
+              classe = 'camara'
+            } else if (fase.fase_global === 'Senado Federal') {
+              classe = 'senado'
+            } else if (fase.fase_global === 'Comissão Mista') {
+              classe = 'comissao-mista'
+            } else {
+              classe = 'sancao'
+            }
           } else {
-            classe = 'congresso'
+            classe = 'sancao'
           }
         } else {
-          classe = 'congresso'
+          classe = 'naoRealizada'
         }
-      } else {
-        classe = 'naoRealizada'
       }
       return classe
     },
@@ -87,9 +90,14 @@ export default {
   border-color: #4e8cb6;
 }
 
-.congresso {
+.sancao {
   background-color: #b6af4e;
   border-color: #b6af4e;
+}
+
+.comissao-mista {
+  background-color: #037A76;
+  border-color: #037A76;
 }
 
 .naoRealizada {

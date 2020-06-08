@@ -21,6 +21,9 @@
           <header ref="emPautaHeader">
             <h3 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h3>
           </header>
+          <div v-if="emPauta.length">
+            <temperature-button />
+          </div>
           <div ref="emPautaSession">
             <proposicao-item
               :id="prop.id_leggo"
@@ -33,6 +36,9 @@
           <header ref="notEmPautaHeader">
             <h3 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h3>
           </header>
+          <div v-if="notEmPauta.length">
+            <temperature-button />
+          </div>
           <div
             ref="notEmPautaSession"
             class="section">
@@ -63,6 +69,7 @@ import { removeAcentos } from '@/utils'
 import PaginationBar from '@/components/utils/PaginationBar'
 import FilterButton from '@/components/menu/FilterButton'
 import ListaAnotacoes from '@/components/card/expanded/anotacao/ListaDeAnotacoes'
+import TemperatureButton from '@/components/menu/TemperatureButton'
 
 export default {
   name: 'Proposicoes',
@@ -71,7 +78,8 @@ export default {
     UltimosEventos,
     FilterButton,
     PaginationBar,
-    ListaAnotacoes
+    ListaAnotacoes,
+    TemperatureButton
   },
   data () {
     return {
@@ -80,7 +88,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['listProposicoes']),
+    ...mapActions(['listProposicoes', 'maxTemperatura']),
     ...mapMutations(['setPageNumber']),
 
     checkCategoricalFilters (prop) {

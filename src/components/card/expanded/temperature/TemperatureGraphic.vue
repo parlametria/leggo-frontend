@@ -16,6 +16,7 @@
 import TemperatureGraphicModel from './TemperatureGraphicModel.js'
 import TemperatureInfo from './TemperatureInfo'
 import moment from 'moment'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TemperatureGraphic',
@@ -29,9 +30,14 @@ export default {
       default () {
         return []
       }
+    },
+    max_temperatura: {
+      type: Number,
+      default: 100
     }
   },
   computed: {
+    ...mapGetters(['maxTemperatura']),
     temperaturas () {
       if (this.temp_historico) {
         return this.temp_historico.filter(
@@ -65,7 +71,7 @@ export default {
   methods: {
     async mountGraphic () {
       if (this.verificaSeMostraTemperatura && this.temperaturas && this.temperaturas.length) {
-        let model = new TemperatureGraphicModel(this.tamanhoGrafico)
+        let model = new TemperatureGraphicModel(this.tamanhoGrafico, this.maxTemperatura)
         await // eslint-disable-next-line
         (await vegaEmbed(this.$refs.anchor, model.vsSpec)).view
           .change(
