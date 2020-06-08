@@ -2,7 +2,13 @@
   <div class="content">
     <span class="interesse">{{ getNomeInteresse }}</span>
     <filter-button />
-    <ultimos-eventos/>
+    <div class="sessao">
+      <lista-anotacoes
+        :date='dateRef'/>
+    </div>
+    <div class="sessao">
+      <ultimos-eventos/>
+    </div>
     <p v-if="pending.proposicoes">Carregando proposições <i class="el-icon-loading"/></p>
     <p v-else-if="error.proposicoes">Falha no carregamento</p>
     <transition
@@ -10,9 +16,10 @@
       name="el-fade-in"
       mode="out-in">
       <div v-if="filteredProps.length">
+        <h2>Proposições</h2>
         <div class="session">
           <header ref="emPautaHeader">
-            <h2 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h2>
+            <h3 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h3>
           </header>
           <div v-if="emPauta.length">
             <temperature-button />
@@ -26,10 +33,8 @@
           </div>
         </div>
         <div class="session">
-          <header
-            ref="notEmPautaHeader"
-            class="temp">
-            <h2 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h2>
+          <header ref="notEmPautaHeader">
+            <h3 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h3>
           </header>
           <div v-if="notEmPauta.length">
             <temperature-button />
@@ -63,6 +68,7 @@ import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 import { removeAcentos } from '@/utils'
 import PaginationBar from '@/components/utils/PaginationBar'
 import FilterButton from '@/components/menu/FilterButton'
+import ListaAnotacoes from '@/components/card/expanded/anotacao/ListaDeAnotacoes'
 import TemperatureButton from '@/components/menu/TemperatureButton'
 
 export default {
@@ -72,6 +78,7 @@ export default {
     UltimosEventos,
     FilterButton,
     PaginationBar,
+    ListaAnotacoes,
     TemperatureButton
   },
   data () {
@@ -195,7 +202,8 @@ export default {
       pageNumber: state => state.filter.pageNumber,
       temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas,
-      pressoes: state => state.pressao.ultimasPressoes
+      pressoes: state => state.pressao.ultimasPressoes,
+      dateRef: state => state.filter.dateRef
     }),
     emPauta () {
       return this.filteredProps.filter(prop => {
@@ -228,10 +236,6 @@ export default {
   position: relative;
   &:first-child {
     padding-top: 0;
-  }
-  header {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
   h2 {
     font-weight: normal;
@@ -267,12 +271,7 @@ export default {
   margin-bottom: 1.5rem;
   color: #656565;
 }
-.temp {
-  display: block ruby;
-  grid-template-columns: 1.5fr 1fr;
-  grid-template-rows: 1fr;
-}
-.temp-box {
-  width: 180px;
+.sessao {
+  margin-bottom: 3rem;
 }
 </style>
