@@ -1,52 +1,47 @@
 <template>
-  <div>
-    <div v-if="formattedAnotacoes.length">
-      <div
-        class="title"
-        @click="show = !show">Insights
+  <div v-if="formattedAnotacoes.length">
+    <div
+      class="title"
+      @click="show = !show">
+      <h2>Últimos Insights
         <span
           v-if="!show"
           class="el-icon-circle-plus-outline"/>
         <span
           v-else
           class="el-icon-remove-outline"/>
-      </div>
-      <table
-        v-if="show"
-        class="tabela-anotacoes-prop">
-        <div
-          v-for="(anotacao, key) in formattedAnotacoes"
-          :key="key">
-          <td class="date-field">
-            {{ anotacao.autor }}
-            <tr class="autor-anotacao">
-              <el-tooltip
-                :content="anotacao.dataModificacao"
-                placement="bottom">
-                <div>{{ anotacao.dataModificacaoDiff }}</div>
-              </el-tooltip>
-            </tr>
-          </td>
-
-          <td>
-            <div
-              class="titulo-anotacao"
-            > <span>{{ anotacao.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: anotacao.id_leggo, slug_interesse: anotacao.interesse }}">{{ anotacao.propName }}</router-link>
-            </div>
-            <tr
-              :class="{ clickable: anotacao.collapsible }"
-              @click="toggleCollapseDescription(key)"
-            >
-              {{ anotacao.texto }}
-            </tr>
-            <span
-              v-if="!isExpanded(key) && anotacao.collapsible"
-              class="el-icon-circle-plus-outline"
-            />
-          </td>
-        </div>
-      </table>
+      </h2>
     </div>
+    <table
+      v-if="show"
+      class="tabela-anotacoes-prop">
+      <tr
+        v-for="(anotacao, key) in formattedAnotacoes"
+        :key="key">
+        <td class="date-field">
+          {{ anotacao.autor }}
+          <tr class="autor-anotacao">
+            <el-tooltip
+              :content="anotacao.dataModificacao"
+              placement="bottom">
+              <div>{{ anotacao.dataModificacaoDiff }}</div>
+            </el-tooltip>
+          </tr>
+        </td>
+        <td>
+          <div
+            class="titulo-anotacao"
+          > <span>{{ anotacao.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: anotacao.id_leggo, slug_interesse: anotacao.interesse }}">{{ anotacao.propName }}</router-link>
+          </div>
+          <tr
+            :class="{ clickable: anotacao.collapsible }"
+            @click="toggleCollapseDescription(key)"
+          >
+            {{ anotacao.texto }}
+          </tr>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
