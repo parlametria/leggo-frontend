@@ -2,13 +2,15 @@
   <div v-if="procEventos.length">
     <div
       class="title"
-      @click="show = !show">Últimos Eventos
-      <span
-        v-if="!show"
-        class="el-icon-circle-plus-outline"/>
-      <span
-        v-else
-        class="el-icon-remove-outline"/>
+      @click="show = !show">
+      <h2>Últimos Eventos
+        <span
+          v-if="!show"
+          class="el-icon-circle-plus-outline"/>
+        <span
+          v-else
+          class="el-icon-remove-outline"/>
+      </h2>
     </div>
     <table
       v-if="show"

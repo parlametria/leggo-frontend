@@ -1,8 +1,19 @@
 <template>
   <div>
     <div v-if="formattedAnotacoes.length">
-      <h2>Insights</h2>
-      <table class="tabela-anotacoes-prop">
+      <div
+        class="title"
+        @click="show = !show">Insights
+        <span
+          v-if="!show"
+          class="el-icon-circle-plus-outline"/>
+        <span
+          v-else
+          class="el-icon-remove-outline"/>
+      </div>
+      <table
+        v-if="show"
+        class="tabela-anotacoes-prop">
         <div
           v-for="(anotacao, key) in formattedAnotacoes"
           :key="key">
@@ -18,9 +29,10 @@
           </td>
 
           <td>
-            <tr
+            <div
               class="titulo-anotacao"
-            > {{ anotacao.titulo }} </tr>
+            > <span>{{ anotacao.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: anotacao.id_leggo, slug_interesse: anotacao.interesse }}">{{ anotacao.propName }}</router-link>
+            </div>
             <tr
               :class="{ clickable: anotacao.collapsible }"
               @click="toggleCollapseDescription(key)"
@@ -29,6 +41,7 @@
             </tr>
             <span
               v-if="!isExpanded(key) && anotacao.collapsible"
+              class="el-icon-circle-plus-outline"
             />
           </td>
         </div>
@@ -43,18 +56,19 @@ import moment from 'moment'
 import mixin from '@/mixins/ExpandedTexts.js'
 
 export default {
-  name: 'AnotacaoProp',
+  name: 'ListaDeAnotacoes',
   data () {
     return {
       MAX_TEXT_LENGTH: 200,
-      TEXT_TO_BE_SHOWED_LENGTH: 50
+      TEXT_TO_BE_SHOWED_LENGTH: 50,
+      show: false
     }
   },
   mixins: [mixin],
   props: {
-    id: {
+    peso: {
       type: Number,
-      default: undefined
+      default: 1
     },
     date: {
       type: Date,
@@ -65,29 +79,41 @@ export default {
   },
   mounted () {
     if (!this.formattedAnotacoes.length) {
-      this.getAnotacoesByProp(this.query)
+      this.getUltimasAnotacoes(this.query)
     }
   },
   computed: {
-    ...mapGetters(['getInteresse']),
+    ...mapGetters([
+      'getPropById',
+      'getInteresse'
+    ]),
     formattedAnotacoes () {
-      return (this.anotacoesProp[this.id] || []).map((anotacao, index) => {
-        return {
-          dataModificacao: this.formatDate(anotacao.data_ultima_modificacao),
-          dataModificacaoDiff: this.formatDateDifference(anotacao.data_ultima_modificacao),
-          dataCriacao: this.formatDate(anotacao.data_criacao),
-          dataCriacaoDiff: this.formatDateDifference(anotacao.data_criacao),
-          autor: anotacao.autor === 'nan' ? '' : anotacao.autor,
-          titulo: anotacao.titulo === 'nan' ? '' : anotacao.titulo,
-          texto: this.formatTextoTramitacao(
-            anotacao.anotacao,
-            index,
-            this.MAX_TEXT_LENGTH,
-            this.TEXT_TO_BE_SHOWED_LENGTH
-          ),
-          collapsible: anotacao.anotacao.length > this.MAX_TEXT_LENGTH
-        }
-      })
+      if (this.ultimasAnotacoes) {
+        return (this.ultimasAnotacoes || []).map((anotacao, index) => {
+          var prop = this.getPropById(anotacao.id_leggo)
+          let propName = ''
+          if (prop) {
+            propName = prop.apelido !== 'nan' ? prop.apelido : prop.lastEtapa.sigla
+          }
+          return {
+            dataModificacao: this.formatDate(anotacao.data_ultima_modificacao),
+            dataModificacaoDiff: this.formatDateDifference(anotacao.data_ultima_modificacao),
+            dataCriacao: this.formatDate(anotacao.data_criacao),
+            dataCriacaoDiff: this.formatDateDifference(anotacao.data_criacao),
+            autor: anotacao.autor === 'nan' ? '' : anotacao.autor,
+            titulo: anotacao.titulo === 'nan' ? '' : anotacao.titulo,
+            id_leggo: anotacao.id_leggo === 'nan' ? '' : anotacao.id_leggo,
+            propName,
+            texto: this.formatTextoTramitacao(
+              anotacao.anotacao,
+              index,
+              this.MAX_TEXT_LENGTH,
+              this.TEXT_TO_BE_SHOWED_LENGTH
+            ),
+            collapsible: anotacao.anotacao.length > this.MAX_TEXT_LENGTH
+          }
+        })
+      }
     },
     groupAnotacoes () {
       let groups = {}
@@ -106,12 +132,12 @@ export default {
       return myArray
     },
     ...mapState({
-      anotacoesProp: state => state.anotacoes.anotacoesProp
+      ultimasAnotacoes: state => state.anotacoes.ultimasAnotacoes
     }),
     query () {
       return {
         params: {
-          id: this.id,
+          peso: 100,
           ultimasN: 10,
           interesse: this.getInteresse
         }
@@ -119,7 +145,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getAnotacoesByProp']),
+    ...mapActions(['getUltimasAnotacoes']),
     formatDateDifference (date) {
       const formattedDate = moment(this.formatDate(date), moment.ISO_8601)
       const differenceInDays = moment().diff(formattedDate, 'days')
@@ -155,7 +181,7 @@ export default {
   },
   watch: {
     date () {
-      this.getAnotacoesByProp(this.query)
+      this.getUltimasAnotacoes(this.query)
     }
   }
 }
@@ -191,5 +217,11 @@ td {
 }
 .autor-anotacao {
   color: #999;
+}
+.el-icon-circle-plus-outline {
+  color: $--color-primary;
+}
+.title {
+  cursor: pointer;
 }
 </style>
