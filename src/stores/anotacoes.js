@@ -7,7 +7,8 @@ const anotacoes = new Vapi({
   baseURL: process.env.VUE_APP_API_URL,
   state: {
     anotacoesProp: {},
-    ultimasAnotacoes: []
+    ultimasAnotacoes: [],
+    ultimasAnotacoesGerais: []
   }
 }).get({
   action: 'getAnotacoesByProp',
@@ -21,6 +22,10 @@ const anotacoes = new Vapi({
   action: 'getUltimasAnotacoes',
   property: 'ultimasAnotacoes',
   path: ({ peso, ultimasN, interesse }) => `anotacoes/?peso=${peso}&ultimas_n=${ultimasN}&interesse=${interesse}`
+}).get({
+  action: 'getUltimasAnotacoesGerais',
+  property: 'ultimasAnotacoesGerais',
+  path: ({ peso, ultimasN, interesse }) => `anotacoes-gerais/?peso=${peso}&ultimas_n=${ultimasN}&interesse=${interesse}`
 }).getStore()
 
 export default anotacoes
