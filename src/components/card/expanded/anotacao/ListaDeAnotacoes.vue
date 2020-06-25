@@ -3,7 +3,7 @@
     <div
       class="title"
       @click="show = !show">
-      <h2>Últimos Insights
+      <h2>Insights
         <span
           v-if="!show"
           class="el-icon-circle-plus-outline"/>
@@ -31,7 +31,7 @@
         <td>
           <div
             class="titulo-anotacao"
-          > <span>{{ anotacao.titulo }}</span> - <router-link :to="{ name: 'proposicao', params: { id_leggo: anotacao.id_leggo, slug_interesse: anotacao.interesse }}">{{ anotacao.propName }}</router-link>
+          > <span>{{ anotacao.titulo }}</span>
           </div>
           <tr
             :class="{ clickable: anotacao.collapsible }"
@@ -74,7 +74,7 @@ export default {
   },
   mounted () {
     if (!this.formattedAnotacoes.length) {
-      this.getUltimasAnotacoes(this.query)
+      this.getUltimasAnotacoesGerais(this.query)
     }
   },
   computed: {
@@ -85,11 +85,6 @@ export default {
     formattedAnotacoes () {
       if (this.ultimasAnotacoes) {
         return (this.ultimasAnotacoes || []).map((anotacao, index) => {
-          var prop = this.getPropById(anotacao.id_leggo)
-          let propName = ''
-          if (prop) {
-            propName = prop.apelido !== 'nan' ? prop.apelido : prop.lastEtapa.sigla
-          }
           return {
             dataModificacao: this.formatDate(anotacao.data_ultima_modificacao),
             dataModificacaoDiff: this.formatDateDifference(anotacao.data_ultima_modificacao),
@@ -97,8 +92,6 @@ export default {
             dataCriacaoDiff: this.formatDateDifference(anotacao.data_criacao),
             autor: anotacao.autor === 'nan' ? '' : anotacao.autor,
             titulo: anotacao.titulo === 'nan' ? '' : anotacao.titulo,
-            id_leggo: anotacao.id_leggo === 'nan' ? '' : anotacao.id_leggo,
-            propName,
             texto: this.formatTextoTramitacao(
               anotacao.anotacao,
               index,
@@ -127,7 +120,7 @@ export default {
       return myArray
     },
     ...mapState({
-      ultimasAnotacoes: state => state.anotacoes.ultimasAnotacoes
+      ultimasAnotacoes: state => state.anotacoes.ultimasAnotacoesGerais
     }),
     query () {
       return {
@@ -140,7 +133,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getUltimasAnotacoes']),
+    ...mapActions(['getUltimasAnotacoesGerais']),
     formatDateDifference (date) {
       const formattedDate = moment(this.formatDate(date), moment.ISO_8601)
       const differenceInDays = moment().diff(formattedDate, 'days')
@@ -176,7 +169,7 @@ export default {
   },
   watch: {
     date () {
-      this.getUltimasAnotacoes(this.query)
+      this.getUltimasAnotacoesGerais(this.query)
     }
   }
 }
