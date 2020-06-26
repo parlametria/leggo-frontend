@@ -27,6 +27,8 @@
       <router-link
         v-if="getInteresse !== 'leggo'"
         :to="{ name: 'interesse', params: { slug_interesse: getInteresse } }"><span @click="closeMenu">Proposições</span></router-link>
+      <a
+        :href="'https://leggo-painel.parlametria.org.br/' + getInteresse"><span>Painel</span></a>
       <!--router-link
         :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link-->
       <router-link
