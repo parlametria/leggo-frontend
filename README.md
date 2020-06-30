@@ -12,7 +12,7 @@ Produção:
 ```
 docker-compose -f docker_extra/prod.yml up
 ```
-
+ 
 ### Testes
 
 Para que os testes funcionem é preciso que o frontend e o backend já estejam rodando.
