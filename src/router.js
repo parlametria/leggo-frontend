@@ -4,6 +4,7 @@ import Proposicoes from '@/views/Proposicoes.vue'
 import Sobre from '@/views/Sobre.vue'
 import Cases from '@/views/Cases.vue'
 import Ajuda from '@/views/Ajuda.vue'
+import Analises from '@/views/Analises.vue'
 import Comissao from '@/views/Comissao.vue'
 import AtoresDetailed from '@/views/AtoresDetailed.vue'
 import ProposicaoDetailed from '@/views/ProposicaoDetailed.vue'
@@ -39,6 +40,11 @@ const router = new Router({
       path: '/relatorios',
       name: 'relatorios',
       component: Relatorios
+    },
+    {
+      path: '/analises',
+      name: 'analises',
+      component: Analises
     },
     {
       path: '/semanarios',
