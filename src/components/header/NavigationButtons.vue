@@ -33,7 +33,11 @@
         :to="{ name: 'semanarios' }"><span @click="closeMenu">Semanário</span></router-link-->
       <router-link
         :to="{ name: 'ajuda' }"><span @click="closeMenu">Ajuda</span></router-link>
+      <router-link
+        v-if="getInteresse === 'congresso-remoto'"
+        :to="{ name: 'analises' }"><span>Análises</span></router-link>
       <a
+        v-if="getInteresse !== 'congresso-remoto'"
         href="https://parlametria.github.io/leggo-frontend/"
         target="_blank"><span>Relatórios</span></a>
       <!-- <router-link
