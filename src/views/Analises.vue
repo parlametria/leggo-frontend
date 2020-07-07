@@ -9,6 +9,12 @@
           href="https://drive.google.com/file/d/1dC1nQgS9DFf1VOPZDYRHOhUV3h-aCSQp/view?usp=sharing"
           target="_blank">O processo legislativo na deliberação remota</a>
       </li>
+      <li>
+        <span class="links-item">Boletim 2</span>
+        <a
+          href="https://drive.google.com/file/d/1qMXY1Qfpxa_DkiwPdvLuApGZ7M2BxaA5/view?usp=sharing"
+          target="_blank">Conflito e governismo</a>
+      </li>
     </ul>
     <h3>Congresso Remoto em Notas</h3>
     <ul class="links">
