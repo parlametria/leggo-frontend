@@ -36,6 +36,12 @@
           href="https://drive.google.com/file/d/1T5q-SLCHu2SXTb1RkeY6_sM9cYIdX9D4/view?usp=sharing"
           target="_blank">Medidas provisórias durante a pandemia</a>
       </li>
+      <li>
+        <span class="links-item">Nota 4</span>
+        <a
+          href="https://drive.google.com/file/d/1FdPH9v2M1YR3BrjR19w-ttMO4dpoD6In/view?usp=sharing"
+          target="_blank">Como a pandemia afetou o apoio parlamentar ao governo?</a>
+      </li>
     </ul>
   </div>
 </template>
