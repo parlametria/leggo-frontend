@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="filter-button">
     <el-input
       placeholder="Pesquisar Projeto"
       v-model="searchField"
@@ -58,11 +58,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.filter-button {
   display: grid;
   grid-template-columns: 4fr 1fr;
   grid-template-rows: 1fr;
   grid-gap: 10px 20px;
-  padding: 0 0 5vh 0;
 }
 </style>

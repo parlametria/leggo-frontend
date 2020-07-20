@@ -1,7 +1,5 @@
 <template>
   <div class="content">
-    <span class="interesse">{{ getNomeInteresse }}</span>
-    <filter-button />
     <div class="sessao">
       <lista-anotacoes
         :date='dateRef'/>
@@ -17,6 +15,7 @@
       mode="out-in">
       <div v-if="filteredProps.length">
         <h2>Proposições</h2>
+        <filter-button />
         <div class="session">
           <header ref="emPautaHeader">
             <h3 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h3>
