@@ -1,24 +1,11 @@
 <template>
-  <el-row
-    type="flex"
-    justify="space-around"
-    class="logo-container">
-    <el-col
-      :xs="24"
-      :sm="18"
-      :md="12"
-      :lg="12"
-      :xl="8">
-      <div class="navbar">
-        <navigation-buttons class="navigation"/>
-      </div>
-      <p
-        v-if="metaInfo && metaInfo.last_update_trams"
-        class="last-update-date">
-        Atualizado em {{ formattedLastUpdateDate }}
-      </p>
-    </el-col>
-  </el-row>
+  <div>
+    <navigation-buttons class="navigation" />
+    <div
+      v-if="metaInfo && metaInfo.last_update_trams"
+      class="container last-update-date"
+    >Atualizado em {{ formattedLastUpdateDate }}</div>
+  </div>
 </template>
 
 <script>
@@ -54,34 +41,14 @@ a {
   all: unset;
   cursor: pointer;
 }
-.logo-container {
-    margin-bottom: 2rem;
-    h1 {
-        font-family: 'Rajdhani', sans-serif;
-        line-height: 36pt;
-        font-size: 50pt;
-        text-align: center;
-        font-weight: normal;
-        margin-bottom: 0;
-    }
-    .last-update-date {
-      color: grey;
-      text-align: right;
-      margin-right: 1rem;
-    }
-}
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: solid 2px $--color-primary;
-    padding-bottom: 7px;
-    flex-wrap: wrap;
-    padding-right: 0.5rem;
-    padding-left: 0.5rem;
+.last-update-date {
+  color: grey;
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 0.9rem;
 }
 .navigation {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 .dot {
   font-family: Arial, Helvetica, sans-serif;

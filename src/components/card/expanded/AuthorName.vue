@@ -1,23 +1,20 @@
 <template>
-
   <div>
     <el-popover
       width="200"
       placement="right-start"
       trigger="hover"
-      :disabled="disabled"
-    >
+      :disabled="disabled">
       <span
         slot="reference"
-        class="small-text-field small-margin-top">{{ formataAutor() }}</span>
+        class="small-text-field small-margin-top">{{ formataAutores() }}</span>
       <span
         class="author"
         v-for="(autor, i) in author"
         :key="i">
-        <h5> {{ autor }} </h5>
+        <h5>{{ formataNomeAutor(autor.autor) }}</h5>
       </span>
     </el-popover>
-
   </div>
 </template>
 
@@ -31,33 +28,41 @@ export default {
       validator: value => {
         return value != null
       }
-    },
-    casa: {
-      type: String,
-      default: ''
     }
   },
   computed: {
-    normalizedAuthor () {
-      return this.removeCasa(this.author)
-    },
     disabled () {
       return this.author.length === 1
     }
   },
   methods: {
-    removeCasa: function (author) {
-      return author
-    },
-    containsMoreThanOneAuthor: function () {
-      if (this.normalizedAuthor.includes(', ')) { return true }
-      return false
-    },
     formatTooltip: function (data) {
       return data.replace(/,/g, '\n')
     },
-    formataAutor: function () {
-      return this.author.length > 1 ? this.author[0] + ' e ' + this.author.length + ' outros ' : this.author[0]
+    formataAutores: function () {
+      if (this.author.length > 1) {
+        return this.formataNomeAutor(this.author[0].autor) + ' e ' + (this.author.length - 1) + ' outros'
+      } else {
+        return this.formataNomeAutor(this.author[0].autor)
+      }
+    },
+    formataNomeAutor: function (autor) {
+      if (autor) {
+        if (autor.is_parlamentar === 1) {
+          let prefix = ''
+          if (autor.casa === 'camara') {
+            prefix = 'Dep.'
+          } else if (autor.casa === 'senado') {
+            prefix = 'Sen.'
+          }
+
+          return `${prefix} ${autor.nome} (${autor.partido}/${autor.uf})`
+        } else {
+          return autor.nome
+        }
+      } else {
+        return 'Autor não identificado'
+      }
     }
   }
 }
@@ -69,15 +74,12 @@ export default {
   word-spacing: 1px;
   font-size: 12px;
 }
-.casa {
-  font-size: 10pt;
-  color: gray;
-  margin: 0;
-}
 .author {
-    font-size: 15px;
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-break: keep-all;
 }
 .tooltip:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 </style>
