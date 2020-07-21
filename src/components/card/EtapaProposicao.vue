@@ -49,9 +49,6 @@ export default {
   methods: {
     hasNumber (myString) {
       return /\d/.test(myString)
-    },
-    getNomeAutor () {
-      return this.etapa.autores.length > 1 ? 'Autores' : 'Autor'
     }
   },
   computed: {
