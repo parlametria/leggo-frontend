@@ -168,15 +168,15 @@ export default {
     getNomeAutor () {
       return this.prop.autoresProposicao.length > 1 ? 'Autores' : 'Autor'
     },
-    getRelator() {
+    getRelator () {
       const relatoria = this.prop.lastEtapa.relatoria
       let relator = 'Relator não encontrado'
       if (relatoria !== null) {
-        const cargo = relatoria.casa == "camara" ? "Dep." : "Sen."
-        relator = cargo + " " + relatoria.nome + " " + relatoria.partido + "/" + relatoria.uf
+        const cargo = relatoria.casa === 'camara' ? 'Dep.' : 'Sen.'
+        relator = cargo + ' ' + relatoria.nome + ' ' + relatoria.partido + '/' + relatoria.uf
       }
 
-      return  relator
+      return relator
     },
     capitalizeFirstLetter (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
