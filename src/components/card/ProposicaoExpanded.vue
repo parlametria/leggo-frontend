@@ -39,7 +39,7 @@
         class="small-margin-top"
         :author="prop.autoresProposicao" />
       <p class="small-text-field small-margin-top">{{ getNomeAutor() }}</p>
-      <p class="medium-text-field small-margin-top">{{ prop.lastEtapa.relator_nome }}</p>
+      <p class="medium-text-field small-margin-top">{{ getRelator() }}</p>
       <p class="small-text-field small-margin-top">Relator(a)</p>
       <p
         v-if="temTipoAgenda"
@@ -167,6 +167,16 @@ export default {
     },
     getNomeAutor () {
       return this.prop.autoresProposicao.length > 1 ? 'Autores' : 'Autor'
+    },
+    getRelator() {
+      const relatoria = this.prop.etapas[0].relatoria
+      let relator = 'Relator não encontrado'
+      if (relatoria !== null) {
+        const cargo = relatoria.casa == "camara" ? "Dep." : "Sen."
+        relator = cargo + " " + relatoria.nome + " " + relatoria.partido + "/" + relatoria.uf
+      }
+
+      return  relator
     },
     capitalizeFirstLetter (str) {
       return str.charAt(0).toUpperCase() + str.slice(1)
