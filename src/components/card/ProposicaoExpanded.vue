@@ -173,7 +173,7 @@ export default {
       let relator = 'Relator não encontrado'
       if (relatoria !== null) {
         const cargo = relatoria.casa === 'camara' ? 'Dep.' : 'Sen.'
-        relator = cargo + ' ' + relatoria.nome + ' ' + relatoria.partido + '/' + relatoria.uf
+        relator = cargo + ' ' + relatoria.nome + ' (' + relatoria.partido + '/' + relatoria.uf + ')'
       }
 
       return relator
