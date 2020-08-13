@@ -169,7 +169,7 @@ export default {
       return this.prop.autoresProposicao.length > 1 ? 'Autores' : 'Autor'
     },
     getRelator() {
-      const relatoria = this.prop.etapas[0].relatoria
+      const relatoria = this.prop.lastEtapa.relatoria
       let relator = 'Relator não encontrado'
       if (relatoria !== null) {
         const cargo = relatoria.casa == "camara" ? "Dep." : "Sen."
