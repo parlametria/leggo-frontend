@@ -24,7 +24,7 @@
             {{ emPauta.length + notEmPauta.length }} proposições
             <span
               v-if="getInteresse === 'congresso-remoto'">
-              que provavelmente tramitaram no período da pândemia
+              que provavelmente tramitaram no período da pandemia
             </span>
           </small>
         </h2>
