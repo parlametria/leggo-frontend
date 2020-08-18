@@ -16,10 +16,23 @@
       name="el-fade-in"
       mode="out-in">
       <div>
-        <h2>Proposições</h2>
+        <h2>
+          Proposições
+          <br>
+          <small
+            class="desc-titulo">
+            {{ emPauta.length + notEmPauta.length }} proposições
+            <span
+              v-if="getInteresse === 'congresso-remoto'">
+              que provavelmente tramitaram no período da pandemia
+            </span>
+          </small>
+        </h2>
         <filter-button />
         <div v-if="filteredProps.length">
-          <div class="session">
+          <div
+            v-if="emPauta.length"
+            class="session">
             <header ref="emPautaHeader">
               <h3 :class="{disabled: emPauta.length === 0}">Na pauta oficial</h3>
             </header>
@@ -35,7 +48,9 @@
               />
             </div>
           </div>
-          <div class="session">
+          <div
+            v-if="notEmPauta.length"
+            class="session">
             <header ref="notEmPautaHeader">
               <h3 :class="{disabled: notEmPauta.length === 0}">Fora da pauta oficial da semana</h3>
             </header>
@@ -168,6 +183,7 @@ export default {
       'perFilterOptions',
       'formattedDateRef',
       'getCurrent',
+      'getInteresse',
       'getNomeInteresse'
     ]),
     filteredProps () {
@@ -328,5 +344,9 @@ export default {
 }
 .sessao {
   margin-bottom: 3rem;
+}
+.desc-titulo {
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 </style>
