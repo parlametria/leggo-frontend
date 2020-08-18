@@ -43,7 +43,7 @@
           </li>
           <li class="nav-item">
             <a
-              :href="'https://leggo-painel.parlametria.org.br/' + getInteresse"><span>Painel</span></a>
+              :href="'https://leggo-painel.parlametria.org.br/' + getInteresse"><span>Atores-chave</span></a>
           </li>
           <li class="nav-item">
             <router-link
