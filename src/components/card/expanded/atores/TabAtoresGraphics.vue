@@ -69,9 +69,9 @@ export default {
       if (this.important_atores) {
         for (let ator of this.important_atores) {
           if (ator.is_important) {
-            const cargo = ator.casa_autor === "camara" ? "Dep." : "Sen."
-            const is_oposicao = ator.bancada === "oposição" ? "*" : ""
-            ator.nome_partido_uf = is_oposicao + " " + cargo + " " + ator.autor_nome + " (" + ator.autor_partido + "/" + ator.autor_uf + ")"
+            const cargo = ator.casa_autor === 'camara' ? 'Dep.' : 'Sen.'
+            const isOposicao = ator.bancada === 'oposição' ? '*' : ''
+            ator.nome_partido_uf = isOposicao + ' ' + cargo + ' ' + ator.autor_nome + ' (' + ator.autor_partido + '/' + ator.autor_uf + ')'
             if (!Object.keys(atoresLocais).includes(ator.sigla_local)) {
               atoresLocais[ator.sigla_local] = []
             }
