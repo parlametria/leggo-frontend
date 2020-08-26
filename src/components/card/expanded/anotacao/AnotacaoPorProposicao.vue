@@ -53,7 +53,7 @@ export default {
   mixins: [mixin],
   props: {
     id: {
-      type: Number,
+      type: String,
       default: undefined
     },
     date: {
