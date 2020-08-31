@@ -36,8 +36,8 @@ export default {
       default: ''
     },
     id_leggo: {
-      type: Number,
-      default: -1
+      type: String,
+      default: '-1'
     },
     apelido: {
       type: String,
