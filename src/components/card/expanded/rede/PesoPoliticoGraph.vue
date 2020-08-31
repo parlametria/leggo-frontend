@@ -46,8 +46,8 @@ export default {
   mixins: [legendas],
   props: {
     id_leggo: {
-      type: Number,
-      default: 0
+      type: String,
+      default: '0'
     }
   },
   data() {

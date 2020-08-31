@@ -22,7 +22,7 @@ export default {
   name: 'TemperatureGraphic',
   props: {
     id: {
-      type: Number,
+      type: String,
       default: undefined
     },
     temp_historico: {

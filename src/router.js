@@ -117,11 +117,11 @@ const router = new Router({
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', { params: { semanas, date, interesse } })
         }
-        let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
+        let prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === params.id_leggo)[0]
 
         if (!prop.detailed) {
           await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo, interesse } })
-          prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === parseInt(params.id_leggo))[0]
+          prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === params.id_leggo)[0]
         }
         await store.dispatch('maxTemperatura', {
           params: { interesse, dataInicio }

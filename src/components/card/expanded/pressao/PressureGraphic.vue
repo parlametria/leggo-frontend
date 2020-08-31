@@ -43,8 +43,8 @@ export default {
   name: 'PressureGraphic',
   props: {
     id: {
-      type: Number,
-      default: 0
+      type: String,
+      default: undefined
     },
     interesse: {
       type: String,
