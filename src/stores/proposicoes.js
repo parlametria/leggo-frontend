@@ -24,9 +24,7 @@ const proposicoes = new Vapi({
   property: 'proposicoes',
   path: ({ semanas, date, interesse }) =>
     `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}&interesse=${interesse}`,
-  onSuccess: (state, { data }) => {
-    let temperaturas = {}
-    let coeficientes = {}
+  onSuccess: (state, { data }, axios, { params }) => {
     let pautasTmp = {}
     let ultimasPressoes = {}
 
@@ -49,15 +47,23 @@ const proposicoes = new Vapi({
       prop.lastEtapa = prop.etapas.slice(-1)[0]
 
       prop.detailed = false
-      temperaturas[prop.id_leggo] = prop.ultima_temperatura
       ultimasPressoes[prop.id_leggo] = prop.ultima_pressao
-      coeficientes[prop.id_leggo] = prop.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
+
     state.proposicoes = data
 
-    Vue.set(temps.state, 'temperaturas', temperaturas)
-    Vue.set(temps.state, 'coeficiente', coeficientes)
+    const interesse = params.interesse
+    store.dispatch('getUltimasTemperaturas', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => ({
+        ...payload.data.find(p => a.id_leggo === p.id_leggo),
+        ...a
+      }))
+
+      state.proposicoes = data
+    })
     Vue.set(pautas.state, 'pautas', pautasTmp)
     Vue.set(pressoes.state, 'ultimasPressoes', ultimasPressoes)
   }
@@ -76,9 +82,7 @@ const proposicoes = new Vapi({
 
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
-    const last = dataProp.lastEtapa
-    store.commit('setTemperatura', { id_leggo: last['id_leggo'], temperatura: last['temperatura_historico'] })
-    store.commit('setCoeficiente', { id_leggo: last['id_leggo'], coeficiente: last['temperatura_coeficiente'] })
+    dataProp.coeficiente_temperatura = dataProp.temperatura_coeficiente
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
