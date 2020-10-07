@@ -61,6 +61,10 @@ export default {
       type: String,
       default: undefined
     },
+    coeficiente_temperatura: {
+      type: Number,
+      default: 0
+    },
     mostraTooltip: {
       type: Boolean,
       default: false
@@ -70,15 +74,12 @@ export default {
       default: false
     }
   },
-  computed: mapState({
-    coefficients: state => state.temperaturas.coeficiente,
-    coefficient () {
-      return this.coefficients[this.id] || 0
-    },
+  computed: {
     temperatureInfo () {
-      if (this.coefficient < 0) { return 'desceu' } else if (this.coefficient > 0) { return 'subiu' } else { return 'se manteve constante' }
+      if (this.coeficiente_temperatura < 0) { return 'desceu' } else if (this.coefficient > 0) { return 'subiu' } else { return 'se manteve constante' }
     }
-  })
+  }
+
 }
 </script>
 

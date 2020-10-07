@@ -2,7 +2,8 @@
   <el-col class="graphics-container">
     <temperature-graphic
       :temp_historico="prop.temperatura_historico"
-      :id="prop.id_leggo" />
+      :id="prop.id_leggo"
+      :coeficiente_temperatura="prop.coeficiente_temperatura" />
     <pressure-graphic
       :id="prop.id_leggo"
       :interesse="prop.interesse[0].interesse" />
