@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-import temps from './temperaturas'
 import pressoes from './pressao'
 import pautas from './pautas'
 import axios from './axios'
