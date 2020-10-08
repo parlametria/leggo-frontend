@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-import pressoes from './pressao'
 import pautas from './pautas'
 import axios from './axios'
 import store from './store'
@@ -25,7 +24,6 @@ const proposicoes = new Vapi({
     `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}&interesse=${interesse}`,
   onSuccess: (state, { data }, axios, { params }) => {
     let pautasTmp = {}
-    let ultimasPressoes = {}
 
     // Define nome do interesse das proposições
     if (data && data.length > 0) {
@@ -38,7 +36,6 @@ const proposicoes = new Vapi({
       prop.sigla = prop.etapas[0].sigla
       prop.advocacy_link = prop.interesse[0].advocacy_link
       prop.tipo_agenda = prop.interesse[0].tipo_agenda
-      prop.ultima_pressao = prop.interesse[0].ultima_pressao
 
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
@@ -46,13 +43,24 @@ const proposicoes = new Vapi({
       prop.lastEtapa = prop.etapas.slice(-1)[0]
 
       prop.detailed = false
-      ultimasPressoes[prop.id_leggo] = prop.ultima_pressao
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
 
     state.proposicoes = data
 
     const interesse = params.interesse
+
+    store.dispatch('getUltimaPressao', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => ({
+        ...payload.data.find(p => a.id_leggo === p.id_leggo),
+        ...a
+      }))
+
+      state.proposicoes = data
+    })
+
     store.dispatch('getUltimasTemperaturas', {
       params: { interesse }
     }).then((payload) => {
@@ -63,8 +71,8 @@ const proposicoes = new Vapi({
 
       state.proposicoes = data
     })
+
     Vue.set(pautas.state, 'pautas', pautasTmp)
-    Vue.set(pressoes.state, 'ultimasPressoes', ultimasPressoes)
   }
 }).get({
   action: 'detailProposicao',
@@ -77,7 +85,6 @@ const proposicoes = new Vapi({
     dataProp.sigla = dataProp.etapas[0].sigla
     dataProp.advocacy_link = dataProp.interesse[0].advocacy_link
     dataProp.tipo_agenda = dataProp.interesse[0].tipo_agenda
-    dataProp.ultima_pressao = dataProp.interesse[0].ultima_pressao
 
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
