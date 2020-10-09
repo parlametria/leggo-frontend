@@ -8,13 +8,35 @@
     <div class="portal">
       <p
         class="small-text-field"
-        v-for="(etapa,i) in prop.etapas"
-        :key="i">
+        v-if="prop.sigla_camara !== null && prop.sigla_senado !== null">
         <a
           class="sigla"
-          :href="etapa.url"
-          target="_blank">{{ etapa.sigla }}</a>
-        - {{ $t(etapa.casa) }}
+          :href="prop.url"
+          target="_blank">{{ prop.sigla_camara }}</a>
+        - Câmara
+        <a
+          class="sigla"
+          :href="prop.url"
+          target="_blank">{{ prop.sigla_senado }}</a>
+        - Senado
+      </p>
+      <p
+        class="small-text-field"
+        v-else-if="prop.sigla_camara !== null && prop.sigla_senado === null">
+        <a
+          class="sigla"
+          :href="prop.url"
+          target="_blank">{{ prop.sigla_camara }}</a>
+        - Câmara
+      </p>
+      <p
+        class="small-text-field"
+        v-else>
+        <a
+          class="sigla"
+          :href="prop.url"
+          target="_blank">{{ prop.sigla_senado }}</a>
+        - Senado
       </p>
     </div>
     <div class="container pl-actions">
