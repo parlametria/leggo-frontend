@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-import temps from './temperaturas'
 import pautas from './pautas'
 import axios from './axios'
 import store from './store'
@@ -24,8 +23,6 @@ const proposicoes = new Vapi({
   path: ({ semanas, date, interesse }) =>
     `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}&interesse=${interesse}`,
   onSuccess: (state, { data }, axios, { params }) => {
-    let temperaturas = {}
-    let coeficientes = {}
     let pautasTmp = {}
 
     // Define nome do interesse das proposições
@@ -46,14 +43,13 @@ const proposicoes = new Vapi({
       prop.lastEtapa = prop.etapas.slice(-1)[0]
 
       prop.detailed = false
-      temperaturas[prop.id_leggo] = prop.ultima_temperatura
-      coeficientes[prop.id_leggo] = prop.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
 
     state.proposicoes = data
 
     const interesse = params.interesse
+
     store.dispatch('getUltimaPressao', {
       params: { interesse }
     }).then((payload) => {
@@ -65,8 +61,17 @@ const proposicoes = new Vapi({
       state.proposicoes = data
     })
 
-    Vue.set(temps.state, 'temperaturas', temperaturas)
-    Vue.set(temps.state, 'coeficiente', coeficientes)
+    store.dispatch('getUltimasTemperaturas', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => ({
+        ...payload.data.find(p => a.id_leggo === p.id_leggo),
+        ...a
+      }))
+
+      state.proposicoes = data
+    })
+
     Vue.set(pautas.state, 'pautas', pautasTmp)
   }
 }).get({
@@ -83,9 +88,7 @@ const proposicoes = new Vapi({
 
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
-    const last = dataProp.lastEtapa
-    store.commit('setTemperatura', { id_leggo: last['id_leggo'], temperatura: last['temperatura_historico'] })
-    store.commit('setCoeficiente', { id_leggo: last['id_leggo'], coeficiente: last['temperatura_coeficiente'] })
+    dataProp.coeficiente_temperatura = dataProp.temperatura_coeficiente
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
