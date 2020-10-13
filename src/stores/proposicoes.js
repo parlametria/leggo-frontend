@@ -88,7 +88,7 @@ const proposicoes = new Vapi({
 
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
-    dataProp.coeficiente_temperatura = dataProp.temperatura_coeficiente
+    dataProp.url = dataProp.lastEtapa.url
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
