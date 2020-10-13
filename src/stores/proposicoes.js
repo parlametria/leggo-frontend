@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import filterStore from './filter'
-import temps from './temperaturas'
-import pressoes from './pressao'
 import pautas from './pautas'
 import axios from './axios'
 import store from './store'
@@ -24,11 +22,8 @@ const proposicoes = new Vapi({
   property: 'proposicoes',
   path: ({ semanas, date, interesse }) =>
     `proposicoes?semanas_anteriores=${semanas}&data_referencia=${date}&interesse=${interesse}`,
-  onSuccess: (state, { data }) => {
-    let temperaturas = {}
-    let coeficientes = {}
+  onSuccess: (state, { data }, axios, { params }) => {
     let pautasTmp = {}
-    let ultimasPressoes = {}
 
     // Define nome do interesse das proposições
     if (data && data.length > 0) {
@@ -41,7 +36,6 @@ const proposicoes = new Vapi({
       prop.sigla = prop.etapas[0].sigla
       prop.advocacy_link = prop.interesse[0].advocacy_link
       prop.tipo_agenda = prop.interesse[0].tipo_agenda
-      prop.ultima_pressao = prop.interesse[0].ultima_pressao
 
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
@@ -49,17 +43,36 @@ const proposicoes = new Vapi({
       prop.lastEtapa = prop.etapas.slice(-1)[0]
 
       prop.detailed = false
-      temperaturas[prop.id_leggo] = prop.ultima_temperatura
-      ultimasPressoes[prop.id_leggo] = prop.ultima_pressao
-      coeficientes[prop.id_leggo] = prop.temperatura_coeficiente
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
+
     state.proposicoes = data
 
-    Vue.set(temps.state, 'temperaturas', temperaturas)
-    Vue.set(temps.state, 'coeficiente', coeficientes)
+    const interesse = params.interesse
+
+    store.dispatch('getUltimaPressao', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => ({
+        ...payload.data.find(p => a.id_leggo === p.id_leggo),
+        ...a
+      }))
+
+      state.proposicoes = data
+    })
+
+    store.dispatch('getUltimasTemperaturas', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => ({
+        ...payload.data.find(p => a.id_leggo === p.id_leggo),
+        ...a
+      }))
+
+      state.proposicoes = data
+    })
+
     Vue.set(pautas.state, 'pautas', pautasTmp)
-    Vue.set(pressoes.state, 'ultimasPressoes', ultimasPressoes)
   }
 }).get({
   action: 'detailProposicao',
@@ -72,14 +85,10 @@ const proposicoes = new Vapi({
     dataProp.sigla = dataProp.etapas[0].sigla
     dataProp.advocacy_link = dataProp.interesse[0].advocacy_link
     dataProp.tipo_agenda = dataProp.interesse[0].tipo_agenda
-    dataProp.ultima_pressao = dataProp.interesse[0].ultima_pressao
 
     dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     dataProp.url = dataProp.lastEtapa.url
-    const last = dataProp.lastEtapa
-    store.commit('setTemperatura', { id_leggo: last['id_leggo'], temperatura: last['temperatura_historico'] })
-    store.commit('setCoeficiente', { id_leggo: last['id_leggo'], coeficiente: last['temperatura_coeficiente'] })
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
     const props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e

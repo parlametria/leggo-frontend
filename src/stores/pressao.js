@@ -7,13 +7,22 @@ const pressao = new Vapi({
   state: {
     pressao: {},
     ultimasPressoes: {}
-  } }).get({
+  }
+}).get({
   action: 'getPressao',
   property: 'pressao',
   path: ({ idLeggo, interesse }) =>
     `pressao/${idLeggo}?interesse=${interesse}`,
   onSuccess: (state, { data }, axios, { params }) => {
     Vue.set(state.pressao, params.idLeggo, data)
+  }
+}).get({
+  action: 'getUltimaPressao',
+  property: 'ultimaPressao',
+  path: ({ interesse }) =>
+    `pressao/ultima?interesse=${interesse}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    Vue.set(state.ultimasPressoes, data)
   }
 }).getStore()
 
