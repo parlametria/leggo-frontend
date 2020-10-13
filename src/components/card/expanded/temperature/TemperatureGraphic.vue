@@ -7,6 +7,7 @@
       :id="id"
       :mostra-tooltip="true"
       :tem-temperatura="verificaSeMostraTemperatura"
+      :coeficiente_temperatura="coeficiente_temperatura"
       class="graphic-info"
     />
   </div>
@@ -24,6 +25,10 @@ export default {
     id: {
       type: String,
       default: undefined
+    },
+    coeficiente_temperatura: {
+      type: Number,
+      default: 0
     },
     temp_historico: {
       type: Array,

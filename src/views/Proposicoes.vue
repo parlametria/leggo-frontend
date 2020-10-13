@@ -213,15 +213,15 @@ export default {
               return n
             }
 
-            if (this.temperaturas && this.pressoes) {
+            if (this.pressoes) {
               let tempA =
-                this.temperaturas[a.id_leggo] === undefined
+                a.ultima_temperatura === undefined
                   ? 0
-                  : this.temperaturas[a.id_leggo]
+                  : a.ultima_temperatura
               let tempB =
-                this.temperaturas[b.id_leggo] === undefined
+                b.ultima_temperatura === undefined
                   ? 0
-                  : this.temperaturas[b.id_leggo]
+                  : b.ultima_temperatura
               let pressaoA =
                 this.pressoes[a.id_leggo] === undefined
                   ? 0
@@ -265,7 +265,6 @@ export default {
       error: state => state.proposicoes.error,
       filter: state => state.filter,
       pageNumber: state => state.filter.pageNumber,
-      temperaturas: state => state.temperaturas.temperaturas,
       pautas: state => state.pautas.pautas,
       pressoes: state => state.pressao.ultimasPressoes,
       dateRef: state => state.filter.dateRef
