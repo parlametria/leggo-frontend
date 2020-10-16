@@ -47,7 +47,7 @@ const proposicoes = new Vapi({
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
 
-    // state.proposicoes = data
+    state.proposicoes = data
 
     const interesse = params.interesse
 
