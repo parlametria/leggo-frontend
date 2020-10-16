@@ -5,6 +5,7 @@ import pautas from './pautas'
 import axios from './axios'
 import store from './store'
 import retornaProposicaoComStatusGeral from '../utils'
+import { ordenaProgresso } from '../utils'
 
 const proposicoes = new Vapi({
   axios: axios,
@@ -46,9 +47,21 @@ const proposicoes = new Vapi({
       pautasTmp[prop.lastEtapa.id] = prop.lastEtapa.pauta_historico
     })
 
-    state.proposicoes = data
+    // state.proposicoes = data
 
     const interesse = params.interesse
+
+    store.dispatch('getProgressos', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => {
+        const progresso = payload.data.filter(p => a.id_leggo === p.id_leggo)
+        a.resumo_progresso = ordenaProgresso(progresso)
+        return a
+      })
+
+      state.proposicoes = data
+    })
 
     store.dispatch('getUltimaPressao', {
       params: { interesse }
@@ -78,7 +91,7 @@ const proposicoes = new Vapi({
   action: 'detailProposicao',
   path: ({ idLeggo, interesse }) =>
     `proposicoes/${idLeggo}?interesse=${interesse}`,
-  onSuccess: (state, { data }) => {
+  onSuccess: (state, { data }, axios, { params }) => {
     const dataProp = data[0]
     dataProp.temas = dataProp.interesse[0].temas
     dataProp.apelido = dataProp.interesse[0].apelido
@@ -94,6 +107,19 @@ const proposicoes = new Vapi({
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
     })
     state.proposicoes = props
+
+    const idLeggoParam = params.idLeggo
+
+    store.dispatch('getProgressosProp', {
+      params: { idLeggoParam }
+    }).then((payload) => {
+      data = data.map(a => {
+        a.resumo_progresso = ordenaProgresso(payload.data)
+        return a
+      })
+
+      state.proposicoes = data
+    })
   }
 }).get({
   action: 'maxTemperatura',

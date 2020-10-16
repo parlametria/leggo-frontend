@@ -36,3 +36,45 @@ export default function retornaProposicaoComStatusGeral (prop) {
   }
   return result
 }
+
+// Remove os acentos de uma palavra de entrada e retorna o resultado (palavra sem acentos)
+export function ordenaProgresso (resumoProgresso) {
+  let ORDER = [
+    "Comissão Mista",
+    "Câmara dos Deputados",
+    "Senado Federal",
+    "Câmara dos Deputados - Revisão",
+    "Sanção Presidencial/Promulgação"
+  ]
+
+  if (resumoProgresso.length && resumoProgresso[0].is_mpv === false) {
+    ORDER = [
+      'Construção-Comissões',
+      'Construção-Plenário',
+      'Revisão I-Comissões',
+      'Revisão I-Plenário',
+      'Revisão II-Comissões',
+      'Revisão II-Plenário',
+      'Promulgação/Veto-Presidência da República',
+      'Sanção/Veto-Presidência da República',
+      'Avaliação dos Vetos-Congresso'
+    ]
+
+    resumoProgresso = resumoProgresso.map(r => {
+      r.fase_global_local = r.fase_global + "-" + r.local
+      return r
+    })
+
+    resumoProgresso.sort(function(a, b){
+      return ORDER.indexOf(a.fase_global_local) - ORDER.indexOf(b.fase_global_local);
+    });
+
+  } else {
+    resumoProgresso.sort(function(a, b){
+      return ORDER.indexOf(a.fase_global) - ORDER.indexOf(b.fase_global);
+    });
+  }
+
+  return resumoProgresso
+
+}
