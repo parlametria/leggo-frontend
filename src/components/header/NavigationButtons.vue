@@ -6,12 +6,12 @@
         :class="'navbar-brand'">
         <img
           class="logo"
-          src="@/assets/logo.svg"
-          width="120"
+          src="@/assets/logotipo-parlametria.png"
+          width="200"
           @click="closeMenu"
         >
         <span>
-          • {{ getNomeInteresse }}
+          • Painel {{ getNomeInteresse }}
         </span>
       </router-link>
       <button
@@ -428,4 +428,10 @@ input {
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
+@media (max-width: 600px) {
+  .logo{
+    width: 160px;
+  }
+}
+
 </style>
