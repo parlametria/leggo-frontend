@@ -54,13 +54,12 @@ const proposicoes = new Vapi({
     store.dispatch('getProgressos', {
       params: { interesse }
     }).then((payload) => {
-      data = data.map(a => {
-        const progresso = payload.data.filter(p => a.id_leggo === p.id_leggo)
-        a.resumo_progresso = ordenaProgresso(progresso)
+      const progressos = data.map(a => {
+        a.resumo_progresso = payload.data.filter(p => a.id_leggo === p.id_leggo)
         return a
       })
 
-      state.proposicoes = data
+      state.proposicoes = JSON.parse(progressos)
     })
 
     store.dispatch('getUltimaPressao', {
@@ -103,22 +102,24 @@ const proposicoes = new Vapi({
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     dataProp.url = dataProp.lastEtapa.url
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
-    const props = state.proposicoes.map(e => {
+    let props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
     })
     state.proposicoes = props
 
-    const idLeggoParam = params.idLeggo
+    const idLeggo = params.idLeggo
 
     store.dispatch('getProgressosProp', {
-      params: { idLeggoParam }
+      params: { idLeggo }
     }).then((payload) => {
-      data = data.map(a => {
-        a.resumo_progresso = ordenaProgresso(payload.data)
-        return a
+      dataProp.resumo_progresso = ordenaProgresso(payload.data)
+      props = state.proposicoes.map(e => {
+        console.log("A", dataProp)
+        console.log("B", e.id_leggo === dataProp.id_leggo ? dataProp  : '')
+        return e.id_leggo === dataProp.id_leggo ? dataProp : e
       })
 
-      state.proposicoes = data
+      state.proposicoes = props
     })
   }
 }).get({

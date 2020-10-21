@@ -187,6 +187,7 @@ export default {
       'getNomeInteresse'
     ]),
     filteredProps () {
+      this.proposicoes = Object.assign({}, this.proposicoes );
       // Teste para ver se o obj com os filtros já foi inicializado
       if (Object.keys(this.getCurrent).length) {
         return this.proposicoes

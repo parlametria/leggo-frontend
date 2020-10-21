@@ -79,7 +79,7 @@
       <fases-progress
         class="fases-progress"
         :class="{'visible': true}"
-        :fases="prop.resumo_progresso"
+        :fases="prop"
         :etapas="prop.etapas"
       />
       <composicao-link

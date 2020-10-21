@@ -1,7 +1,7 @@
 <template>
   <div class="fasesBlock">
     <div
-      v-for="(fase,i) in fasesResumidas"
+      v-for="(fase,i) in copyFases"
       :key="i">
       <el-tooltip :content="getContent(fase)">
         <div
@@ -18,15 +18,16 @@ export default {
   name: 'Fases',
   props: {
     fases: {
-      type: Array,
-      default () { return [] }
+      type: Object
     }
   },
   computed: {
-    fasesResumidas () {
-      return resumirFases(this.fases)
+    copyFases() {
+      const obj = Object.assign(this.fases, {})
+      console.log(obj)
+      return resumirFases(obj.resumo_progresso)
     }
-  },
+},
   methods: {
     geraEstilo (fase) {
       let classe = ''
@@ -61,6 +62,9 @@ export default {
       } else {
         return fase.local + '-' + fase.fase_global
       }
+    },
+    async ai() {
+      await this.$nextTick()
     }
   }
 }

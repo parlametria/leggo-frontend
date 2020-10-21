@@ -122,6 +122,7 @@ const router = new Router({
         if (!prop.detailed) {
           await store.dispatch('detailProposicao', { params: { idLeggo: prop.id_leggo, interesse } })
           prop = store.state.proposicoes.proposicoes.filter(e => e.id_leggo === params.id_leggo)[0]
+          // console.log(prop)
         }
         await store.dispatch('maxTemperatura', {
           params: { interesse, dataInicio }

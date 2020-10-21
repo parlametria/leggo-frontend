@@ -33,8 +33,7 @@ export default {
   name: 'FasesProgress',
   props: {
     fases: {
-      type: Array,
-      default () { return [] }
+      type: Object
     },
     etapas: {
       type: Array,
@@ -43,7 +42,7 @@ export default {
   },
   computed: {
     fasesResumidas () {
-      return resumirFases(this.fases)
+      return resumirFases(this.fases.resumo_progresso)
     }
   },
   methods: {

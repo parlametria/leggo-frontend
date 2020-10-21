@@ -22,7 +22,7 @@
     <fases
       class="fases"
       :class="{'hidden': clicked, 'visible': !clicked}"
-      :fases="prop.resumo_progresso"/>
+      :fases="propCopy"/>
     <div class="tags">
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
@@ -106,6 +106,9 @@ export default {
         return result.reverse()
       }
       return []
+    },
+    propCopy() {
+      return Object.assign({}, this.prop)
     }
   }
 }
