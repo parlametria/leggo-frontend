@@ -3,7 +3,7 @@
     <temperature-graphic
       :temp_historico="prop.temperatura_historico"
       :id="prop.id_leggo"
-      :coeficiente_temperatura="prop.coeficiente_temperatura" />
+      :coeficiente_temperatura="prop.temperatura_coeficiente" />
     <pressure-graphic
       :id="prop.id_leggo"
       :interesse="prop.interesse[0].interesse" />

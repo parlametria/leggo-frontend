@@ -8,7 +8,8 @@ const anotacoes = new Vapi({
   state: {
     anotacoesProp: {},
     ultimasAnotacoes: [],
-    ultimasAnotacoesGerais: []
+    ultimasAnotacoesGerais: [],
+    dataUltimasAnotacoes: []
   }
 }).get({
   action: 'getAnotacoesByProp',
@@ -26,6 +27,14 @@ const anotacoes = new Vapi({
   action: 'getUltimasAnotacoesGerais',
   property: 'ultimasAnotacoesGerais',
   path: ({ peso, ultimasN, interesse }) => `anotacoes-gerais/?peso=${peso}&ultimas_n=${ultimasN}&interesse=${interesse}`
+}).get({
+  action: 'getUltimasDatasAnotacoes',
+  property: 'dataUltimasAnotacoes',
+  path: ({ interesse }) =>
+    `anotacoes/ultima?interesse=${interesse}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    Vue.set(state.dataUltimasAnotacoes, data)
+  }
 }).getStore()
 
 export default anotacoes
