@@ -1,4 +1,5 @@
 FROM cypress/base:10
+RUN apt-get update
 RUN apt-get --assume-yes install openbsd-inetd netcat
 WORKDIR /app
 RUN npm install cypress
