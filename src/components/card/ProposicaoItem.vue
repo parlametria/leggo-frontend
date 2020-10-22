@@ -4,7 +4,6 @@
       :to="linkProp"
       class="card-header">
       <proposicao-header
-        :prop="propCopy"
         :clicked="dropShow"
         :progresso="progresso" />
     </router-link>
@@ -43,9 +42,6 @@ export default {
           slug_interesse: this.prop.interesse[0].interesse
         }
       }
-    },
-    propCopy () {
-      return Object.assign({}, this.prop)
     }
   }
 }

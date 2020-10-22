@@ -89,7 +89,7 @@ const proposicoes = new Vapi({
   action: 'detailProposicao',
   path: ({ idLeggo, interesse }) =>
     `proposicoes/${idLeggo}?interesse=${interesse}`,
-  onSuccess: (state, { data }, axios, { params }) => {
+  onSuccess: (state, { data }) => {
     const dataProp = data[0]
     dataProp.temas = dataProp.interesse[0].temas
     dataProp.apelido = dataProp.interesse[0].apelido

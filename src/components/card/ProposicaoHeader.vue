@@ -110,9 +110,6 @@ export default {
         return result.reverse()
       }
       return []
-    },
-    propCopy () {
-      return Object.assign({}, this.prop)
     }
   }
 }
