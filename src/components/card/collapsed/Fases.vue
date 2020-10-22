@@ -61,9 +61,6 @@ export default {
       } else {
         return fase.local + '-' + fase.fase_global
       }
-    },
-    async ai() {
-      await this.$nextTick()
     }
   }
 }

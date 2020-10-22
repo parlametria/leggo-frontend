@@ -103,7 +103,7 @@ const proposicoes = new Vapi({
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     dataProp.url = dataProp.lastEtapa.url
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)
-    let props = state.proposicoes.map(e => {
+    const props = state.proposicoes.map(e => {
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
     })
     state.proposicoes = props
