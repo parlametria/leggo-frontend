@@ -84,6 +84,17 @@ const proposicoes = new Vapi({
       state.proposicoes = data
     })
 
+    store.dispatch('getUltimasDatasAnotacoes', {
+      params: { interesse }
+    }).then((payload) => {
+      data = data.map(a => ({
+        ...payload.data.find(p => a.id_leggo === p.id_leggo),
+        ...a
+      }))
+
+      state.proposicoes = data
+    })
+
     Vue.set(pautas.state, 'pautas', pautasTmp)
   }
 }).get({
