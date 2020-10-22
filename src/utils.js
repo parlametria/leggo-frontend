@@ -40,11 +40,11 @@ export default function retornaProposicaoComStatusGeral (prop) {
 // Remove os acentos de uma palavra de entrada e retorna o resultado (palavra sem acentos)
 export function ordenaProgresso (resumoProgresso) {
   let ORDER = [
-    "Comissão Mista",
-    "Câmara dos Deputados",
-    "Senado Federal",
-    "Câmara dos Deputados - Revisão",
-    "Sanção Presidencial/Promulgação"
+    'Comissão Mista',
+    'Câmara dos Deputados',
+    'Senado Federal',
+    'Câmara dos Deputados - Revisão',
+    'Sanção Presidencial/Promulgação'
   ]
 
   if (resumoProgresso.length && resumoProgresso[0].is_mpv === false) {
@@ -61,20 +61,18 @@ export function ordenaProgresso (resumoProgresso) {
     ]
 
     resumoProgresso = resumoProgresso.map(r => {
-      r.fase_global_local = r.fase_global + "-" + r.local
+      r.fase_global_local = r.fase_global + '-' + r.local
       return r
     })
 
-    resumoProgresso.sort(function(a, b){
-      return ORDER.indexOf(a.fase_global_local) - ORDER.indexOf(b.fase_global_local);
-    });
-
+    resumoProgresso.sort(function (a, b) {
+      return ORDER.indexOf(a.fase_global_local) - ORDER.indexOf(b.fase_global_local)
+    })
   } else {
-    resumoProgresso.sort(function(a, b){
-      return ORDER.indexOf(a.fase_global) - ORDER.indexOf(b.fase_global);
-    });
+    resumoProgresso.sort(function (a, b) {
+      return ORDER.indexOf(a.fase_global) - ORDER.indexOf(b.fase_global)
+    })
   }
 
   return resumoProgresso
-
 }

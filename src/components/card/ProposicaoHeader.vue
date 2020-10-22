@@ -77,7 +77,8 @@ export default {
       default: false
     },
     progresso: {
-      type: Array
+      type: Array,
+      default () { return [] }
     }
   },
   components: {
@@ -110,7 +111,7 @@ export default {
       }
       return []
     },
-    propCopy() {
+    propCopy () {
       return Object.assign({}, this.prop)
     }
   }

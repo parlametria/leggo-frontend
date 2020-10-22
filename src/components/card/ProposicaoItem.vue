@@ -30,7 +30,8 @@ export default {
       default: undefined
     },
     progresso: {
-      type: Array
+      type: Array,
+      default () { return [] }
     }
   },
   computed: {
@@ -43,8 +44,8 @@ export default {
         }
       }
     },
-    propCopy() {
-      return Object.assign({}, this.prop );
+    propCopy () {
+      return Object.assign({}, this.prop)
     }
   }
 }

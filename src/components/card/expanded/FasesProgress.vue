@@ -33,7 +33,8 @@ export default {
   name: 'FasesProgress',
   props: {
     fases: {
-      type: Array
+      type: Array,
+      default () { return [] }
     },
     etapas: {
       type: Array,

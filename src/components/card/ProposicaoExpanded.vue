@@ -285,7 +285,7 @@ export default {
     ...mapState({
       dateRef: state => state.filter.dateRef,
       pautas: state => state.pautas.pautas,
-      progressoProp: state=> state.progressos.progressoProp
+      progressoProp: state => state.progressos.progressoProp
     })
   }
 }

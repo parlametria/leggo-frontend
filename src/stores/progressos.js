@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vapi from 'vuex-rest-api'
 import axios from './axios'
 

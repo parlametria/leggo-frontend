@@ -5,7 +5,6 @@ import pautas from './pautas'
 import axios from './axios'
 import store from './store'
 import retornaProposicaoComStatusGeral from '../utils'
-import { ordenaProgresso } from '../utils'
 
 const proposicoes = new Vapi({
   axios: axios,
@@ -106,8 +105,6 @@ const proposicoes = new Vapi({
       return e.id_leggo === dataProp.id_leggo ? { ...dataProp, detailed: true } : e
     })
     state.proposicoes = props
-
-    const idLeggo = params.idLeggo
   }
 }).get({
   action: 'maxTemperatura',

@@ -74,7 +74,7 @@ const router = new Router({
             params: { interesse, dataInicio }
           })
         }
-        if (_.isEmpty(progressos)) {
+        if (Object.keys(progressos).length === 0) {
           await store.dispatch('progressos', {
             params: { interesse }
           })
@@ -134,7 +134,7 @@ const router = new Router({
           params: { interesse, dataInicio }
         })
         await store.dispatch('progressoProp', {
-          params: {idLeggo: prop.id_leggo, interesse }
+          params: { idLeggo: prop.id_leggo, interesse }
         })
         params.prop = prop
         next()

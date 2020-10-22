@@ -18,7 +18,8 @@ export default {
   name: 'Fases',
   props: {
     fases: {
-      type: Array
+      type: Array,
+      default () { return [] }
     }
   },
   computed: {
@@ -26,7 +27,7 @@ export default {
       const progresso = ordenaProgresso(this.fases)
       return resumirFases(progresso)
     }
-},
+  },
   methods: {
     geraEstilo (fase) {
       let classe = ''
