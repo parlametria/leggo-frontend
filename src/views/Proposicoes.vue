@@ -45,6 +45,7 @@
                 :key="prop.id_leggo"
                 v-for="prop in emPauta"
                 :prop="prop"
+                :progresso="progressos[prop.id_leggo]"
               />
             </div>
           </div>
@@ -65,6 +66,7 @@
                 :key="prop.id_leggo"
                 v-for="prop in propPaged"
                 :prop="prop"
+                :progresso="progressos[prop.id_leggo]"
               />
               <pagination-bar
                 :size="Math.ceil(notEmPauta.length / quantityProp)"
@@ -184,7 +186,8 @@ export default {
       'formattedDateRef',
       'getCurrent',
       'getInteresse',
-      'getNomeInteresse'
+      'getNomeInteresse',
+      'progressos'
     ]),
     filteredProps () {
       this.proposicoes = Object.assign({}, this.proposicoes );

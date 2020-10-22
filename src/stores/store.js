@@ -25,7 +25,6 @@ export default new Vuex.Store({
     comissoes: comissoesStore,
     auth: authStore,
     pressao: pressaoStore,
-    anotacoes: anotacaoStore,
-    progressos: progressoStore
+    anotacoes: anotacaoStore
   }
 })

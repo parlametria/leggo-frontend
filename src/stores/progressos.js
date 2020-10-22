@@ -5,16 +5,7 @@ import axios from './axios'
 const progressos = new Vapi({
   axios: axios,
   state: {
-    progressos: {},
     progressoProp: {}
-  }
-}).get({
-  action: 'getProgressos',
-  property: 'progressos',
-  path: ({ interesse }) =>
-    `progresso/?interesse=${interesse}`,
-  onSuccess: (state, { data }, axios, { params }) => {
-    Vue.set(state.progressos, data)
   }
 }).get({
   action: 'getProgressosProp',

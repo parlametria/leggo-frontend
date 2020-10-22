@@ -72,6 +72,9 @@ const router = new Router({
           await store.dispatch('maxTemperatura', {
             params: { interesse, dataInicio }
           })
+          await store.dispatch('progressos', {
+            params: { interesse }
+          })
         }
         NProgress.done()
         next()

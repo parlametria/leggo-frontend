@@ -1,7 +1,7 @@
 <template>
   <div class="fasesBlock">
     <div
-      v-for="(fase,i) in copyFases"
+      v-for="(fase,i) in resumirFases"
       :key="i">
       <el-tooltip :content="getContent(fase)">
         <div
@@ -13,19 +13,18 @@
 </template>
 
 <script>
-import { resumirFases } from '@/utils'
+import { resumirFases, ordenaProgresso } from '@/utils'
 export default {
   name: 'Fases',
   props: {
     fases: {
-      type: Object
+      type: Array
     }
   },
   computed: {
-    copyFases() {
-      const obj = Object.assign(this.fases, {})
-      console.log(obj)
-      return resumirFases(obj.resumo_progresso)
+    resumirFases() {
+      const progresso = ordenaProgresso(this.fases)
+      return resumirFases(progresso)
     }
 },
   methods: {

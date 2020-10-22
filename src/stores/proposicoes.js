@@ -16,7 +16,8 @@ const proposicoes = new Vapi({
     metaInfo: {},
     interesse: '',
     nome_interesse: '',
-    maxTemperatura: 0
+    maxTemperatura: 0,
+    progressos: {}
   }
 }).get({
   action: 'listProposicoes',
@@ -50,17 +51,6 @@ const proposicoes = new Vapi({
     state.proposicoes = data
 
     const interesse = params.interesse
-
-    store.dispatch('getProgressos', {
-      params: { interesse }
-    }).then((payload) => {
-      const progressos = data.map(a => {
-        a.resumo_progresso = payload.data.filter(p => a.id_leggo === p.id_leggo)
-        return a
-      })
-
-      state.proposicoes = JSON.parse(progressos)
-    })
 
     store.dispatch('getUltimaPressao', {
       params: { interesse }
@@ -120,18 +110,16 @@ const proposicoes = new Vapi({
 
     const idLeggo = params.idLeggo
 
-    store.dispatch('getProgressosProp', {
-      params: { idLeggo }
-    }).then((payload) => {
-      dataProp.resumo_progresso = ordenaProgresso(payload.data)
-      props = state.proposicoes.map(e => {
-        console.log("A", dataProp)
-        console.log("B", e.id_leggo === dataProp.id_leggo ? dataProp  : '')
-        return e.id_leggo === dataProp.id_leggo ? dataProp : e
-      })
+    // store.dispatch('getProgressosProp', {
+    //   params: { idLeggo }
+    // }).then((payload) => {
+    //   dataProp.resumo_progresso = ordenaProgresso(payload.data)
+    //   props = state.proposicoes.map(e => {
+    //     return e.id_leggo === dataProp.id_leggo ? dataProp : e
+    //   })
 
-      state.proposicoes = props
-    })
+    //   state.proposicoes = props
+    // })
   }
 }).get({
   action: 'maxTemperatura',
@@ -140,6 +128,22 @@ const proposicoes = new Vapi({
     `temperatura/max?interesse=${interesse}&data_inicio=${dataInicio}`,
   onSuccess: (state, { data }) => {
     state.maxTemperatura = data.max_temperatura_periodo
+  }
+}).get({
+  action: 'progressos',
+  property: 'progressos',
+  path: ({ interesse }) =>
+    `progresso/?interesse=${interesse}`,
+  onSuccess: (state, { data }, axios, { params }) => {
+    const progressos = data.reduce((acc, curr) => {
+      const k = curr.id_leggo
+      if (!acc[k]) {
+        acc[k] = []
+      }
+      acc[k].push(curr)
+      return acc
+    }, {})
+    state.progressos = progressos
   }
 }).get({
   action: 'getMetaInfo',
@@ -186,6 +190,9 @@ proposicoes.getters = {
   },
   maxTemperatura (state) {
     return state.maxTemperatura
+  },
+  progressos (state) {
+    return state.progressos
   }
 }
 

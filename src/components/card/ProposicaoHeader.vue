@@ -22,7 +22,7 @@
     <fases
       class="fases"
       :class="{'hidden': clicked, 'visible': !clicked}"
-      :fases="propCopy"/>
+      :fases="progresso"/>
     <div class="tags">
       <span class="tag">{{ prop.lastEtapa.regime_tramitacao }}</span>
       <span class="tag">{{ prop.lastEtapa.forma_apreciacao }}</span>
@@ -75,6 +75,9 @@ export default {
     clicked: {
       type: Boolean,
       default: false
+    },
+    progresso: {
+      type: Array
     }
   },
   components: {
