@@ -25,7 +25,7 @@ const progressos = new Vapi({
     state.progressos = progressos
   }
 }).get({
-  action: 'getProgressosProp',
+  action: 'progressoProp',
   property: 'progressoProp',
   path: ({ idLeggo }) =>
     `progresso/${idLeggo}`,

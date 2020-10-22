@@ -1,7 +1,7 @@
 <template>
   <div class="fasesBlock">
     <div
-      v-for="(fase,i) in resumirFases"
+      v-for="(fase,i) in fasesResumidas"
       :key="i">
       <el-tooltip :content="getContent(fase)">
         <div
@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    resumirFases() {
+    fasesResumidas () {
       const progresso = ordenaProgresso(this.fases)
       return resumirFases(progresso)
     }

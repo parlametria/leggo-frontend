@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import { resumirFases } from '@/utils'
+import { resumirFases, ordenaProgresso } from '@/utils'
 import moment from 'moment'
 
 export default {
   name: 'FasesProgress',
   props: {
     fases: {
-      type: Object
+      type: Array
     },
     etapas: {
       type: Array,
@@ -42,7 +42,8 @@ export default {
   },
   computed: {
     fasesResumidas () {
-      return resumirFases(this.fases.resumo_progresso)
+      const progresso = ordenaProgresso(this.fases)
+      return resumirFases(progresso)
     }
   },
   methods: {

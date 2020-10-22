@@ -79,7 +79,7 @@
       <fases-progress
         class="fases-progress"
         :class="{'visible': true}"
-        :fases="prop"
+        :fases="progressoProp"
         :etapas="prop.etapas"
       />
       <composicao-link
@@ -284,7 +284,8 @@ export default {
     },
     ...mapState({
       dateRef: state => state.filter.dateRef,
-      pautas: state => state.pautas.pautas
+      pautas: state => state.pautas.pautas,
+      progressoProp: state=> state.progressos.progressoProp
     })
   }
 }

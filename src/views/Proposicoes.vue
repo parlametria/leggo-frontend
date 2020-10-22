@@ -186,8 +186,7 @@ export default {
       'formattedDateRef',
       'getCurrent',
       'getInteresse',
-      'getNomeInteresse',
-      'progressos'
+      'getNomeInteresse'
     ]),
     filteredProps () {
       // Teste para ver se o obj com os filtros já foi inicializado
@@ -270,7 +269,8 @@ export default {
       pageNumber: state => state.filter.pageNumber,
       pautas: state => state.pautas.pautas,
       pressoes: state => state.pressao.ultimasPressoes,
-      dateRef: state => state.filter.dateRef
+      dateRef: state => state.filter.dateRef,
+      progressos: state => state.progressos.progressos
     }),
     emPauta () {
       return this.filteredProps.filter(prop => {
