@@ -4,6 +4,7 @@
       :to="linkProp"
       class="card-header">
       <proposicao-header
+        :prop="prop"
         :clicked="dropShow"
         :progresso="progresso" />
     </router-link>
