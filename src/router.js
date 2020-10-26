@@ -158,6 +158,7 @@ const router = new Router({
         const dataInicio = moment(date).subtract(3, 'months').format('YYYY-MM-DD')
         const interesse = params.slug_interesse
         const proposicoes = store.state.proposicoes.proposicoes
+        const progressos = store.state.progressos.progressos
 
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', {
