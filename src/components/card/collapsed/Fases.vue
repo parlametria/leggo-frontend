@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { resumirFases } from '@/utils'
+import { resumirFases, ordenaProgresso } from '@/utils'
 export default {
   name: 'Fases',
   props: {
@@ -24,7 +24,8 @@ export default {
   },
   computed: {
     fasesResumidas () {
-      return resumirFases(this.fases)
+      const progresso = ordenaProgresso(this.fases)
+      return resumirFases(progresso)
     }
   },
   methods: {

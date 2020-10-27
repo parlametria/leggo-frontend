@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { resumirFases } from '@/utils'
+import { resumirFases, ordenaProgresso } from '@/utils'
 import moment from 'moment'
 
 export default {
@@ -43,7 +43,8 @@ export default {
   },
   computed: {
     fasesResumidas () {
-      return resumirFases(this.fases)
+      const progresso = ordenaProgresso(this.fases)
+      return resumirFases(progresso)
     }
   },
   methods: {

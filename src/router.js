@@ -64,6 +64,7 @@ const router = new Router({
         const dataInicio = moment(date).subtract(3, 'months').format('YYYY-MM-DD')
         const interesse = 'leggo'
         const proposicoes = store.state.proposicoes.proposicoes
+        const progressos = store.state.progressos.progressos
 
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', {
@@ -71,6 +72,11 @@ const router = new Router({
           })
           await store.dispatch('maxTemperatura', {
             params: { interesse, dataInicio }
+          })
+        }
+        if (Object.keys(progressos).length === 0) {
+          await store.dispatch('progressos', {
+            params: { interesse }
           })
         }
         NProgress.done()
@@ -126,6 +132,9 @@ const router = new Router({
         await store.dispatch('maxTemperatura', {
           params: { interesse, dataInicio }
         })
+        await store.dispatch('progressoProp', {
+          params: { idLeggo: prop.id_leggo, interesse }
+        })
         params.prop = prop
         next()
       }
@@ -149,6 +158,7 @@ const router = new Router({
         const dataInicio = moment(date).subtract(3, 'months').format('YYYY-MM-DD')
         const interesse = params.slug_interesse
         const proposicoes = store.state.proposicoes.proposicoes
+        const progressos = store.state.progressos.progressos
 
         if (proposicoes.length === 0) {
           await store.dispatch('listProposicoes', {
@@ -156,6 +166,11 @@ const router = new Router({
           })
           await store.dispatch('maxTemperatura', {
             params: { interesse, dataInicio }
+          })
+        }
+        if (Object.keys(progressos).length === 0) {
+          await store.dispatch('progressos', {
+            params: { interesse }
           })
         }
         NProgress.done()
