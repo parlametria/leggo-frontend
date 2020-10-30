@@ -10,6 +10,7 @@ import comissoesStore from './comissoes'
 import authStore from './auth'
 import pressaoStore from './pressao'
 import anotacaoStore from './anotacoes'
+import progressoStore from './progressos'
 
 Vue.use(Vuex)
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     comissoes: comissoesStore,
     auth: authStore,
     pressao: pressaoStore,
-    anotacoes: anotacaoStore
+    anotacoes: anotacaoStore,
+    progressos: progressoStore
   }
 })

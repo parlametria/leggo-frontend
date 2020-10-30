@@ -45,6 +45,7 @@
                 :key="prop.id_leggo"
                 v-for="prop in emPauta"
                 :prop="prop"
+                :progresso="progressos[prop.id_leggo]"
               />
             </div>
           </div>
@@ -65,6 +66,7 @@
                 :key="prop.id_leggo"
                 v-for="prop in propPaged"
                 :prop="prop"
+                :progresso="progressos[prop.id_leggo]"
               />
               <pagination-bar
                 :size="Math.ceil(notEmPauta.length / quantityProp)"
@@ -267,7 +269,8 @@ export default {
       pageNumber: state => state.filter.pageNumber,
       pautas: state => state.pautas.pautas,
       pressoes: state => state.pressao.ultimasPressoes,
-      dateRef: state => state.filter.dateRef
+      dateRef: state => state.filter.dateRef,
+      progressos: state => state.progressos.progressos
     }),
     emPauta () {
       return this.filteredProps.filter(prop => {

@@ -5,7 +5,8 @@
       class="card-header">
       <proposicao-header
         :prop="prop"
-        :clicked="dropShow" />
+        :clicked="dropShow"
+        :progresso="progresso" />
     </router-link>
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
     prop: {
       type: Object,
       default: undefined
+    },
+    progresso: {
+      type: Array,
+      default () { return [] }
     }
   },
   computed: {
