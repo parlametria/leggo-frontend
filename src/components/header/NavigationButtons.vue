@@ -35,7 +35,7 @@
           </li>
           <li class="nav-item">
             <a
-              :href="'https://leggo-painel.parlametria.org.br/' + getInteresse + '/atores-chave'"><span>Parlamentares</span></a>
+              :href="'https://leggo-painel.parlametria.org.br/' + getInteresse + '/parlamentares'"><span>Parlamentares</span></a>
           </li>
           <li class="nav-item">
             <router-link

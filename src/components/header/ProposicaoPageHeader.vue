@@ -5,27 +5,16 @@
       v-if="metaInfo && metaInfo.last_update_trams"
       class="container last-update-date"
     >Atualizado em {{ formattedLastUpdateDate }}</div>
-    <h2
-      :class="'link-site'">
-      <a
-        :href="'https://leggo-painel.parlametria.org.br/' + getInteresse">
-        <span>
-          Acesso ao novo Parlametria
-        </span>
-      </a>
-    </h2>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import NavigationButtons from '@/components/header/NavigationButtons'
 import moment from 'moment'
-
 export default {
   name: 'ProposicaoPageHeader',
   computed: {
-    ...mapGetters(['getInteresse']),
     ...mapState({
       metaInfo: state => state.proposicoes.metaInfo
     }),
@@ -48,11 +37,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/base.scss";
 a {
-  cursor: pointer;
-}
-.link-site {
-  text-align: center;
-  text-decoration: underline;
+  all: unset;
   cursor: pointer;
 }
 .last-update-date {
