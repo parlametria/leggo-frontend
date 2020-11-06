@@ -39,7 +39,6 @@ const proposicoes = new Vapi({
 
       // TODO: por enquanto usa apenas a última etapa
       prop.status = retornaProposicaoComStatusGeral(prop)
-      prop.firstEtapa = prop.etapas.slice(0, 1)[0]
       prop.lastEtapa = prop.etapas.slice(-1)[0]
 
       prop.detailed = false
@@ -97,7 +96,6 @@ const proposicoes = new Vapi({
     dataProp.advocacy_link = dataProp.interesse[0].advocacy_link
     dataProp.tipo_agenda = dataProp.interesse[0].tipo_agenda
 
-    dataProp.firstEtapa = dataProp.etapas.slice(0, 1)[0]
     dataProp.lastEtapa = dataProp.etapas.slice(-1)[0]
     dataProp.url = dataProp.lastEtapa.url
     dataProp.status = retornaProposicaoComStatusGeral(dataProp)

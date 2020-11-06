@@ -5,7 +5,7 @@
       <temas
         class="tema"
         :temas="prop.temas" />
-      <a @click="$router.go(-1)">
+      <a>
         <span
           v-if="prop.apelido !== 'nan'"
           class="titulo">{{ this.prop.apelido }}</span>
@@ -42,25 +42,10 @@ export default {
 <style lang="scss" scoped>
 @import "@/base.scss";
 
-a {
-  cursor: pointer;
-}
 .titulo {
   color: #656565;
   font-size: 2rem;
-  padding: 0rem 0.5rem;
-}
-.titulo::before {
-  height: 12px;
-  width: 12px;
-
-  border: solid $--color-primary;;
-  border-width: 0px 3px 3px 0;
-  margin-bottom: 4px;
-  margin-right: 5px;
-  transform: rotate(130deg);
-  content: "";
-  display: inline-block;
+  padding: 0rem 2rem;
 }
 
 .tema {

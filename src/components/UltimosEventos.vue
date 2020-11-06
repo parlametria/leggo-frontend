@@ -1,5 +1,14 @@
 <template>
   <div v-if="procEventos.length">
+    <h2
+      :class="'link-site'">
+      <a
+        :href="'https://leggo-painel.parlametria.org.br/' + getInteresse">
+        <span>
+          Acesso ao novo Parlametria
+        </span>
+      </a>
+    </h2>
     <div
       class="title"
       @click="show = !show">
@@ -130,6 +139,11 @@ th, td {
   color: $--color-primary;
 }
 .title {
+  cursor: pointer;
+}
+.link-site {
+  text-align: center;
+  text-decoration: underline;
   cursor: pointer;
 }
 </style>
