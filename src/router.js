@@ -113,6 +113,7 @@ const router = new Router({
       component: ProposicaoDetailed,
       props: true,
       beforeEnter: async ({ params }, from, next) => {
+        NProgress.start()
         let interesse = params.slug_interesse || store.state.proposicoes.interesse || 'leggo'
         store.state.proposicoes.interesse = interesse
 
@@ -136,6 +137,7 @@ const router = new Router({
           params: { idLeggo: prop.id_leggo, interesse }
         })
         params.prop = prop
+        NProgress.done()
         next()
       }
     },

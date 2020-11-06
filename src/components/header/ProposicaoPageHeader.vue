@@ -12,7 +12,6 @@
 import { mapState, mapActions } from 'vuex'
 import NavigationButtons from '@/components/header/NavigationButtons'
 import moment from 'moment'
-
 export default {
   name: 'ProposicaoPageHeader',
   computed: {
