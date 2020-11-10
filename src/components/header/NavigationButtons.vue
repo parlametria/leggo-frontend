@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar navbar-light navbar-expand-md">
     <div class="container">
-      <a
-        :href="'https://leggo-painel.parlametria.org.br/' + getInteresse + '/proposicoes'"
+      <router-link
+        :to="{ name: 'proposicoes' }"
         :class="'navbar-brand'">
         <img
           class="logo"
@@ -13,7 +13,7 @@
         <span>
           • Painel {{ getNomeInteresse }}
         </span>
-      </a>
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -29,9 +29,17 @@
         class="collapse navbar-collapse"
         :class="{ show: openMenu }">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a
-              :href="'https://leggo-painel.parlametria.org.br/' + getInteresse + '/proposicoes'"><span>Proposições</span></a>
+          <li
+            class="nav-item"
+            v-if="getInteresse === 'leggo'">
+            <router-link
+              :to="{ name: 'proposicoes' }"><span @click="closeMenu">Proposições</span></router-link>
+          </li>
+          <li
+            class="nav-item"
+            v-if="getInteresse !== 'leggo'">
+            <router-link
+              :to="{ name: 'interesse', params: { slug_interesse: getInteresse } }"><span @click="closeMenu">Proposições</span></router-link>
           </li>
           <li class="nav-item">
             <a
